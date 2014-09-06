@@ -1,0 +1,29 @@
+#panels {
+    margin-top: 20px;
+    border-bottom: 1px solid #333;
+}
+.panel {
+    display: none;
+}
+#hack {
+    display: block;
+}
+.tab {
+    display: inline-block;
+    background: #333;
+    color: grey;
+    padding: 5px;
+    width: 100px;
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+    margin-right: 5px;
+    font-weight: 300;
+    cursor: pointer;
+}
+#initialtab {
+    color: white;
+    margin-left: 10px;
+}
+#past-semesters {
+    margin-top: 30px;
+}

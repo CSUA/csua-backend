@@ -1,0 +1,52 @@
+.politburo {
+    margin-top: 20px;
+}
+.pbphoto {
+    display: inline-block;
+    float: left;
+}
+@media (min-width: 1020px) {
+    .pbphoto {
+        width: 300px;
+    }
+    .info {
+        width: 600px;
+    }
+}
+@media (max-width: 1020px) {
+    .pbphoto {
+        width: 300px;
+    }
+    .info {
+        width: 470px;
+    }
+}
+@media (max-width: 880px) {
+    .pbphoto {
+        width: 250px;
+    }
+    .info {
+        width: 320px;
+    }
+}
+.info {
+    display: inline-block;
+    margin-left: 30px;
+}
+.name {
+    font-style: italic;
+    font-size: 15px;
+}
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 5px 0px;
+}
+.email {
+    font-weight: 300;
+    font-size: 14px;
+    margin: 5px 0 10px;
+}
+#past-politburo {
+    margin-top: 20px;
+}

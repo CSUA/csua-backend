@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Join{% endblock %}
+{% block css_file %}join.css{% endblock %}
+{% block content %}
+<div class="column columnleft">
+    <div id="signup" class="block">
+        <div class="header">Sign Up</div>
+        <div class="text">
+            Visit our office at 311 Soda and sign up for an account! All you have
+            to do is walk in, find an <a href="/officers/">
+            <div class="creditblue"><b>officer</b></div></a>, and provide some information
+            like your name and Berkeley email address. You'll have an account on
+            our computers, server space, and more in no time! </br>
+            Once you get an account with the CSUA, you'll be able to receive
+            period emails about events and job opportunities, use our office computers,
+            and even host your own website on the CSUA server. </br>
+            If you have any questions about the benefits of CSUA membership, please
+            contact our outreach officer at <img class="tex" src="{{ STATIC_URL }}/images/emails/outreach.svg">.</br>
+            If you have questions about CSUA accounts, please direct your questions
+            to the Tech VP at <img class="tex" src="{{ STATIC_URL }}/images/emails/vp.svg">.
+        </div>
+    </div>
+    <div class="blockseparation"></div>
+    <div id="joinpicture">
+        <img src="{{ STATIC_URL }}images/join.jpg">
+    </div>
+</div>
+<div class="responsivehidden blockseparation"></div>
+<div class="column columnright">
+    <div id="whytojoin" class="block">
+        <div class="header">Why You Should Join</div>
+        <div class="textseparation"></div>
+        <div class="reason">
+            <div class="reasontitle">
+                [0] Access to industry professionals and companies
+            </div>
+            <div class="text">
+                The CSUA holds many information sessions and talks, which bring
+                in notable technical entrepreneurs to talk about building great
+                companies. Jack Dorsey, CEO of Square and co-founder of Twitter,
+                spoke in Sibley Auditorium in Fall 2013. Drew Houston, CEO of
+                Dropbox, spoke in the Woz in Spring 2010. Richard Stallman, founder
+                of the GNU Project and the Free Software Foundation, spoke in the
+                Woz in Summer 2010.
+            </div>
+        </div>
+        <div class="textseparation"></div>
+        <div class="reason">
+            <div class="reasontitle">
+                [1] Informational and skill-building events
+            </div>
+            <div class="text">
+                We help all computer science students find jobs and internships.
+                We host info sessions with great companies and provide lots
+                of skill-building events like interview workshops and industry
+                sponsored hackathons. We also hold dinners with faculty (like
+                Professor Brian Harvey in Spring 2013) and alumni.
+            </div>
+        </div>
+        <div class="textseparation"></div>
+        <div class="reason">
+            <div class="reasontitle">
+                [2] Opportunities to build connections and meet students
+            </div>
+            <div class="text">
+                Come to CSUA events to meet your fellow CS students! Find study
+                partners for your classes, work with other students on projects
+                or hacks, and discuss topics like interview questions, CS research,
+                good upper-division classes, and more!
+            </div>
+        </div>
+        <div class="textseparation"></div>
+        <div class="reason">
+            <div class="reasontitle">
+                [3] Free food at fun events
+            </div>
+            <div class="text">
+                While we primarily serve as the entry point to the software
+                industry, we know how to have fun too. We host hackathons with
+                cool prizes, general meetings with free Chinese food, alumni
+                BBQs, ice cream socials, intersocietal events, and more.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

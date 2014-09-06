@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block css_file %}home.css{% endblock %}
+{% block content %}
+<div class="column columnleft">
+    <div class="block">
+        <div class="header">Welcome</div>
+        <div class="text">
+            Looking for a place to hang out? Want to learn more about Computer
+            Science at Cal? We're open to all students interested in computer science
+            and wanting to study with chill people.<br>
+            Come visit us in our social lounge at <b>311 Soda</b> (at entrance)
+            or use our study lounge in <b>343 Soda</b> (inside). <br>
+            We have many exciting events throughout the semester: hackathons,
+            info sessions, social parties, and gaming nights.
+        </div>
+    </div>
+    <div class="blockseparation"></div>
+    <div class="block">
+        <div class="header">Links</div>
+        <a href="http://www.cs.berkeley.edu/">
+            <div class="blueheaderlink">Computer Science</div>
+        </a>
+        <div class="text">
+            Learn more about the Computer Science at UC Berkeley.</br>
+            The L&S CS advisors are Christopher Hunn, whom you can contact at
+            <img class="tex" src="{{ STATIC_URL }}/images/emails/cthunn.svg"> or visit at 377 Soda,
+            and Lily Zhang, whom you can contact at <img class="tex" src="{{ STATIC_URL }}/images/emails/lilyz.svg">
+            or visit at 379 Soda.</br>
+            The undergraduate peer advisers are Hina Sakazaki and Patrick Killian,
+            whom you can reach at <img class="tex" src="{{ STATIC_URL }}/images/emails/peer.svg">.
+        </div>
+        <div class="textseparation"></div>
+        <a href="http://www.eecs.berkeley.edu/">
+            <div class="blueheaderlink">Electrical Engineering & Computer Science</div>
+        </a>
+        <div class="text">
+            Learn more about the Electrical Engineering & Computer Science
+            department in UC Berkeley's College of Engineering.<br>
+            The CoE EECS advisor is Sarah Van Nostrand, whom you can contact at
+            <img class="tex" src="{{ STATIC_URL }}/images/emails/svannostrand.svg">
+            or visit at 203 Cory.</br>
+            The undergraduate peer adviser is Paroma Varma, whom you can reach at
+            <img class="tex" src="{{ STATIC_URL }}/images/emails/eecs-peer.svg">.
+        </div>
+        <div class="textseparation"></div>
+        <a href="http://www.berkeley.edu/index.html">
+            <div class="blueheaderlink">UC Berkeley</div>
+        </a>
+        <div class="text">
+            Learn more about the University of California, Berkeley! Go Bears!
+        </div>
+    </div>
+</div>
+<div class="responsivehidden blockseparation"></div>
+<div class="column columnright">
+    <div class="block">
+        <div class="header">Upcoming Events</div>
+        <div class="event">
+            <div class="text">
+                There are no events scheduled for summer 2014 at this time. Check
+                back later.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

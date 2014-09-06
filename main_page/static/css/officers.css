@@ -1,0 +1,41 @@
+.officer {
+    height: 260px;
+}
+.photoone {
+    width: 250px;
+    display: inline-block;
+    float: left;
+    position: relative;
+    z-index: 2;
+}
+.phototwo {
+    width: 250px;
+    display: none;
+    float: left;
+    position: absolute;
+    z-index: 1;
+}
+.singlephoto {
+    width: 250px;
+    display: inline-block;
+    float: left;
+}
+.info {
+    margin: 5px 0px 0px 20px;
+    width: 189px;
+    display: inline-block;
+}
+.name {
+    font-weight: 600;
+}
+.officehours {
+    font-size: 14px;
+}
+.description {
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+#past-officers {
+    margin-top: 20px;
+}

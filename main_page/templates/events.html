@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block css_file %}events.css{% endblock %}
+{% block content %}
+<div id="upcoming-events">
+    <div class="header">Fall 2014 Events</div>
+    <div id="panels">
+        <a href="/#hack"><div id="initialtab" class="tab">Hack</div></a>
+        <a href="/#info"><div class="tab">Info</div></a>
+        <a href="/#social"><div class="tab">Social</div></a>
+        <a href="/#meeting"><div class="tab">Meeting</div></a>
+    </div>
+    <div id="hack" class="panel">
+        <div class="column columnleft">
+            <div class="event block">
+                <a href="/">
+                    <div class="event-name"></div>
+                </a>
+                <div class="event-photo">
+                </div>
+                <div class="event-timelocation"></div>
+                <div class="text">
+                    Nothing scheduled yet! Check back later!
+                </div>
+            </div>
+        </div>
+        <div class="column columnright">
+        </div>
+    </div>
+    <div id="info" class="panel">
+        <div class="column columnleft">
+        </div>
+        <div class="column columnright">
+        </div>
+    </div>
+    <div id="social" class="panel">
+        <div class="column columnleft">
+        </div>
+        <div class="column columnright">
+        </div>
+    </div>
+    <div id="meeting" class="panel">
+        <div class="column columnleft">
+        </div>
+        <div class="column columnright">
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div id="past-semesters">
+    <div class="header">Past Semesters</div>
+    <a href="/events/fall2013/">
+        <div class="greyheaderlink">Fall 2013</div>
+    </a>
+    <a href="/events/spring2014/">
+        <div class="greyheaderlink">Spring 2014</div>
+    </a>
+</div>
+{% endblock %}
