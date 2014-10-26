@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Industry{% endblock %}
+{% block css_file %}industry.css{% endblock %}
+{% block content %}
+        <div class="block">
+            <div class="header">Industry</div>
+            <div class="text">
+                The Berkeley CSUA works closely with companies, investors, entrepreneurs,
+                and active members of the software industry to bring both mentorship and
+                job opportunities to students.
+            </div>
+            <div class="text">
+                Interested in working with the CSUA to sponsor an event or to
+                speak at one of our events? Please send an email to politburo@csua.berkeley.edu.
+            </div>
+            <div class="blockseparation"></div>
+            <div class="header">Some of our Sponsors</div>
+            <div class="text">
+                We are very grateful to all our company sponsors who make much of what
+                we do possible. Thank you!
+            </div>
+        </div>
+        <table class="sponsors block">
+            <tr>
+                <td><img src="{{ STATIC_URL }}images/sponsors/meraki.jpg"></td>
+                <td><img src="{{ STATIC_URL }}images/sponsors/rackspace.png"></td>
+                <td><img src="{{ STATIC_URL }}images/sponsors/microsoft.png"></td>
+                <td><img src="{{ STATIC_URL }}images/sponsors/intel.png"></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="subheader"><a href="http://www.meraki.com/">Cisco Meraki</a></div>
+                    <div class="text">
+                        Fall 2012, Spring 2013, Fall 2013, Spring 2014 Hackathons,
+                        Multiple Coding for Grubs
+                    </div>
+                </td>
+                <td>
+                    <div class="subheader"><a href="http://www.rackspace.com/">Rackspace</a></div>
+                    <div class="text">
+                        Spring 2013 & Fall 2013 Hackathons, Fall 2013 Coding for Grub
+                    </div>
+                </td>
+                <td>
+                    <div class="subheader"><a href="http://www.microsoft.com/">Microsoft</a></div>
+                    <div class="text">
+                        Fall 2012 & Fall 2013 Hackathons
+                    </div>
+                </td>
+                <td>
+                    <div class="subheader"><a href="http://www.intel.com/">Intel</a></div>
+                    <div class="text">
+                        Spring 2014 Intel Hackathon
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><img src="{{ STATIC_URL }}images/sponsors/square.png"></td>
+                <td><img src="{{ STATIC_URL }}images/sponsors/dropbox.jpg"></td>
+                <td><img src="{{ STATIC_URL }}images/sponsors/heroku.png"></td>
+                <td><img src="{{ STATIC_URL }}images/sponsors/yelp.png"></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="subheader"><a href="https://squareup.com/">Square</a></div>
+                    <div class="text">
+                        Fall 2013 Interview Workshop, Fall 2013 View from the Top
+                    </div>
+                </td>
+                <td>
+                    <div class="subheader"><a href="https://www.dropbox.com/">Dropbox</a></div>
+                    <div class="text">
+                        Spring 2013 Hackathon
+                    </div>
+                </td>
+                <td>
+                    <div class="subheader"><a href="http://www.heroku.com/">Heroku</a></div>
+                    <div class="text">
+                        Spring 2012 Hackathon                    
+                    </div>
+                </td>
+                <td>
+                    <div class="subheader"><a href="http://www.yelp.com/">Yelp</a></div>
+                    <div class="text">
+                        Fall 2013 & Spring 2013 Coding for Grubs
+                    </div>
+                </td>
+            </tr>
+        </table>
+{% endblock %}

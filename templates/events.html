@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block css_file %}events.css{% endblock %}
+{% block content %}
+        <div id="upcoming-events">
+            <div class="header">Fall 2014 Events</div>
+            <div id="panels">
+                <a href="#hack"><div class="tab tabcurrent">Hack</div></a>
+                <a href="#info"><div class="tab">Info</div></a>
+                <a href="#social"><div class="tab">Social</div></a>
+                <a href="#meeting"><div class="tab">Meeting</div></a>
+            </div>
+            <div id="hack" class="panel">
+                <div class="column columnleft">
+                    <div class="event block">
+                        <a href="https://www.facebook.com/events/256886857768925/">
+                            <div class="event-name">UNIX/Vim Workshop</div>
+                        </a>
+                        <div class="event-photo">
+                            <img src="{{ STATIC_URL }}images/events/fall2014/unixvim.jpg">
+                        </div>
+                        <div class="event-timelocation">Monday, September 8, 2014. 7-10 PM. HP Auditorium.</div>
+                        <div class="text">
+                            Learn basic UNIX and Vim commands in a workshop geared towards 61A/B students.
+                        </div>
+                    </div>
+                </div>
+                <div class="column columnright">
+                </div>
+            </div>
+            <div id="info" class="panel">
+                <div class="column columnleft">
+                </div>
+                <div class="column columnright">
+                </div>
+            </div>
+            <div id="social" class="panel">
+                <div class="column columnleft">
+                    <div class="event block">
+                        <a href="https://www.facebook.com/events/1459003894373573/">
+                            <div class="event-name">CSUA Welcome Social</div>
+                        </a>
+                        <div class="event-photo">
+                            <img src="{{ STATIC_URL }}images/events/fall2014/welcomebbq.jpg">
+                        </div>
+                        <div class="event-timelocation">Friday, September 5, 2014. 6:30-10:00 PM. Woz.</div>
+                        <div class="text">
+                            Come hang out with the CSUA for an evening of hot dogs, drinks, and socializing!
+                            Meet your peers and make new friends as you learn about the oldest Computer
+                            Science group and the 2nd oldest ASUC sponsored club on campus.
+                        </div>
+                    </div>
+                </div>
+                <div class="column columnright">
+                </div>
+            </div>
+            <div id="meeting" class="panel">
+                <div class="column columnleft">
+                    <div class="event block">
+                        <a href="https://www.facebook.com/events/655099521263957/">
+                            <div class="event-name">General Meeting #1</div>
+                        </a>
+                        <div class="event-photo">
+                            <img src="{{ STATIC_URL }}images/events/fall2014/gm1.jpg">
+                        </div>
+                        <div class="event-timelocation">Friday, September 12, 2014. 5:30-9:30 PM. Woz.</div>
+                        <div class="text">
+                            Come eat delicious food, play board games, and hang out with peers!
+                        </div>
+                    </div>
+                </div>
+                <div class="column columnright">
+                </div>
+            </div>
+        </div>
+{% endblock %}
+

@@ -1,32 +1,33 @@
-.officer {
-    height: 260px;
+.block {
+    padding-bottom: 0;
 }
-.photoone {
-    width: 250px;
-    display: inline-block;
-    float: left;
-    position: relative;
-    z-index: 2;
+table {
+    margin-top: 20px;
+}
+table > tbody > tr > td {
+    width: 25%
+}
+table > tbody > tr:nth-child(2n) > td {
+    padding: 10px 10px 20px;
+    vertical-align: top;
+}
+.roster > tbody > tr:nth-child(2n) > td {
+    padding: 5px 0 20px 5px;
 }
 .phototwo {
-    width: 250px;
     display: none;
-    float: left;
-    position: absolute;
-    z-index: 1;
 }
-.singlephoto {
-    width: 250px;
-    display: inline-block;
-    float: left;
+table > tbody > tr > td:hover .photoone {
+    display: none;
 }
-.info {
-    margin: 5px 0px 0px 20px;
-    width: 189px;
-    display: inline-block;
+table > tbody > tr > td:hover .phototwo {
+    display: block;
 }
-.name {
+.descript .name {
     font-weight: 600;
+}
+.roster .name {
+    font-weight: 300;
 }
 .officehours {
     font-size: 14px;
@@ -38,4 +39,10 @@
 }
 #past-officers {
     margin-top: 20px;
+}
+.name > a {
+    color: rgba(20, 145, 232, 0.9);
+}
+.name > a:hover {
+    color: rgba(20, 145, 232, 0.65);
 }

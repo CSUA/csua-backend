@@ -1,28 +1,37 @@
 #panels {
     margin-top: 20px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #777;
 }
 .panel {
     display: none;
 }
-#hack {
-    display: block;
-}
 .tab {
     display: inline-block;
-    background: #333;
+    background: white;
     color: grey;
-    padding: 5px;
+    padding: 10px 5px;
     width: 100px;
     text-align: center;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
     margin-right: 5px;
     font-weight: 300;
     cursor: pointer;
+    border: 1px solid #777;
+    border-bottom: none;
 }
-#initialtab {
+.tab:nth-color(1) {
+    margin-left: 0;
+}
+.tabhover {
+    color: black;
+    background-color: #FAFAFA;
+}
+.tabcurrent {
+    background-color: #999;
     color: white;
-    margin-left: 10px;
+}
+#hack {
+    display: block;
 }
 #past-semesters {
     margin-top: 30px;

@@ -3,6 +3,7 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+PROJECT_HOME = '/home/alchu/CSUA-backend/'
 
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
@@ -13,7 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-'NAME': '/home/arctangent1759/apps/danrank/data/csua.sqlite3',                      # Or path to database file if using sqlite3.
+'NAME': PROJECT_HOME + "csua.sqlite3",                      # Or path to database file if using sqlite3.
 # The following settings are not used with sqlite3:
 'USER': '',
 'PASSWORD': '',
@@ -112,7 +113,7 @@ TEMPLATE_DIRS = (
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
-"/home/arctangent1759/apps/csua/csua_backend/main_page/templates",
+  PROJECT_HOME + "/templates",
 )
 
 INSTALLED_APPS = (
@@ -128,6 +129,7 @@ INSTALLED_APPS = (
 # 'django.contrib.admindocs',
 'django.contrib.staticfiles',
 'main_page',
+'newuser',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

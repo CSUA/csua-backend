@@ -1,11 +1,22 @@
-@media (min-width: 1020px) {
-    #block1 {
-        width: 530px;
-    }
-    #block2 {
-        width: 380px;
-    }
+.sponsors.block {
+    padding-left: 0;
+    padding-right: 0;
 }
-.sponsor {
-    margin-bottom: 10px;
+.sponsors {
+    margin: 20px 0 0;
+    width: 100%;
+}
+.sponsors > tbody > tr > td {
+    width: 25%;
+    padding: 0 20px;
+}
+.sponsors > tbody > tr:nth-child(2n) > td {
+    vertical-align: top;
+    padding-top: 10px;
+}
+.sponsors > tbody > tr:nth-child(2) > td {
+    padding-bottom: 20px;
+}
+.text {
+    line-height: 22px;
 }

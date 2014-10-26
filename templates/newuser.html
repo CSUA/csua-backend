@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Create Account{% endblock %}
+{% block css_file %}newuser.css{% endblock %}
+{% block content %}
+<div class="header">
+  Create Account
+</div>
+<br/>
+<div class="block">
+  Words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account!
+</div>
+<br/>
+<div class='block' id='errors'>
+</div>
+<br/>
+<form action="/newuser/create/" onsubmit="return validateForm()" method="post">
+  {% csrf_token %}
+  <div class='block'>
+    <table>
+      <tr><td width=50%>Full Name:</td><td align='center'><input name='full_name' type='text'/><br/></td></tr>
+      <tr><td width=50%>Student ID:</td><td align='center'><input name='student_id' type='number'/><br/></td></tr>
+      <tr><td width=50%>Email:</td><td align='center'><input name='email' type='text'/><br/></td></tr>
+      <tr><td width=50%>Username:</td><td align='center'><input name='username' type='text'/><br/></td></tr>
+      <tr><td width=50%>Password:</td><td align='center'><input name='password' type='password'/><br/></td></tr>
+      <tr><td width=50%>Confirm Password:</td><td align='center'><input name='password_confirm' type='password'/><br/></td></tr>
+      <tr><td width=50%>Would you like to be contacted about jobs and Internships?</td><td align='center'> <input name='enroll_jobs' type='checkbox'/><br/></td></tr>
+      <tr><td width=50%>Officer Username:</td><td align='center'><input name='officer_username' type='text'/><br/></td></tr>
+      <tr><td width=50%>Officer Password:</td><td align='center'><input name='officer_password' type='password'/><br/></td></tr>
+    </table>
+  </div>
+  <br/>
+  <div class='block'>
+    <table>
+      <tr>
+        <td width=50%>
+          The CSUA Office Rules are as follows:
+          <ol>
+            <li>Rules rules rules rules rules</li>
+            <li>Rules rules rules rules rules</li>
+            <li>Rules rules rules rules rules</li>
+            <li>Rules rules rules rules rules</li>
+          </ol>
+          Do you agree to abide by these rules while in the office or using your account?
+        </td>
+        <td align='center'> <input name='agree_rules' type='checkbox'/><br/></td>
+      </tr>
+    </table>
+  <br/>
+  <input type='submit' value='Submit'/>
+  </div>
+</form>
+
+<script type='text/javascript'>
+
+var email_regex = new RegExp('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$');
+
+function validateForm(){
+  var full_name = document.getElementsByName("full_name")[0].value;
+  var student_id = document.getElementsByName("student_id")[0].value;
+  var email = document.getElementsByName("email")[0].value;
+  var username = document.getElementsByName("username")[0].value;
+  var password = document.getElementsByName("password")[0].value;
+  var password_confirm = document.getElementsByName("password_confirm")[0].value;
+  var enroll_jobs = document.getElementsByName("enroll_jobs")[0].checked;
+  var officer_username = document.getElementsByName("officer_username")[0].value;
+  var officer_password = document.getElementsByName("officer_password")[0].value;
+  var agree_rules = document.getElementsByName("agree_rules")[0].checked;
+  errors = [];
+  if (full_name == "") {
+    errors.push("Field 'Full Name' is required.")
+  }
+  if (student_id == "") {
+      errors.push("Field 'Student ID' is required.")
+  }
+  if (email == "") {
+    errors.push("Field 'Email' is required.")
+  }
+  if (!email_regex.test(email)) {
+    errors.push("Email must be an actual email.")
+  }
+  if (username == "") {
+    errors.push("Field 'Username' is required.")
+  }
+  if (username.contains(" ")) {
+    errors.push("Username cannot contain spaces.")
+  }
+  if (password == "") {
+    errors.push("Field 'Password' is required.")
+  }
+  if (password != password_confirm) {
+    errors.push("Passwords do not match.")
+  }
+  if (officer_username == "") {
+    errors.push("Field 'Officer Username' is required.")
+  }
+  if (officer_password == "") {
+    errors.push("Field 'Officer Password' is required.")
+  }
+  if (agree_rules != true) {
+    errors.push("You must agree to the CSUA Office Rules.")
+  }
+  if (errors.length == 0) {
+    return true
+  }
+  var error_string = 'Errors:<ul>';
+  for (var i = 0; i < errors.length; i++) {
+    error_string += '<li>' + errors[i] + '</li>';
+  }
+  error_string += '</ul>';
+  document.getElementById("errors").innerHTML = error_string;
+  return false;
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block css_file %}index.css{% endblock %}
+{% block content %}
+<div class="column columnleft">
+  <div class="block">
+    <div class="header">Hello World!</div>
+    <div class="text">
+      The Computer Science Undergraduate Association supports the undergraduate
+      computer science student body at UC Berkeley and acts as an entry point
+      to industry.
+    </div>
+    <div class="text">
+      The CSUA hosts tech talks, hackathons, info sessions, CS workshops,
+      LAN parties, and the annual <a href="http://ucbstartupfair.com/">Startup Fair</a>.
+    </div>
+    <div class="text">
+      Looking for a place to learn more about computer science and meet other
+      students? Come visit us at our office (311 Soda) or use our study
+      lounge (343 Soda).
+    </div>
+  </div>
+  <div class="blockseparation"></div>
+  <div id="officerpicture">
+    <img src="{{ STATIC_URL }}images/officers.jpg">
+  </div>
+  <div class="blockseparation"></div>
+  <div class="block">
+    <div class="subheader"><a href="http://www.cs.berkeley.edu/">Computer Science</a></div>
+    <div class="text">
+      Learn more about the Computer Science department at UC Berkeley.</br>
+      The L&S CS advisors are <a href="http://www.eecs.berkeley.edu/Students/Staff/hunn.shtml">Christopher Hunn</a> (377 Soda)
+      and <a href="http://www.eecs.berkeley.edu/Students/Staff/zhang.shtml">Lily Zhang</a> (379 Soda).
+      The <a href="http://www.eecs.berkeley.edu/peer-advising/">undergraduate peer advisers</a> are Hina Sakazaki and Patrick Killian (377 Soda).
+    </div>
+    <div class="textseparation"></div>
+    <div class="subheader"><a href="http://www.eecs.berkeley.edu/">Electrical Engineering & Computer Science</a></div>
+    <div class="text">
+      Learn more about the Electrical Engineering & Computer Science
+      department in UC Berkeley's College of Engineering.<br>
+      The CoE EECS advisor is <a href="http://www.eecs.berkeley.edu/Students/Staff/vannostrand.shtml">Sarah Van Nostrand</a> (203 Cory).
+    </div>
+  </div>
+</div>
+<div class="responsivehidden blockseparation"></div>
+<div class="column columnright">
+  <div class="block">
+    <div class="header">Upcoming Events</div>
+    <div class="event">
+      <a href="https://www.facebook.com/events/655099521263957/">
+        <div class="event-name">General Meeting #1</div>
+      </a>
+      <div class="event-timelocation">Friday, September 12, 2014. 5:30-9:30 PM. Woz.</div>
+      <div class="text">
+        Come eat delicious food, play board games, and hang out with peers!
+      </div>
+    </div>
+  </div>
+  <div class="blockseparation"></div>
+  <div class="block">
+    <div class="subheader"><a href="politburo.html">The Politburo</div></a>
+    <div class="text">
+      The Politburo is composed of elected officers of the CSUA. You can
+      contact the Politburo at politburo@csua.berkeley.edu.
+    </div>
+    <div class="textseparation"></div>
+    <div class="subheader"><a href="officers.html">Officers</a></div>
+    <div class="text">
+      Officers are people you find frequently at the office. They're responsible
+      for keeping the place open and friendly. Many of them are experienced
+      with programming and can help you with your classes.
+    </div>
+    <div class="textseparation"></div>
+    <div class="subheader"><a href="constitution.html">The Constitution</a></div>
+    <div class="text">
+      Our constitution represents our vision and purpose in the campus
+      community.
+    </div>
+  </div>
+  <div class="blockseparation"></div>
+  <div class="block">
+    <div class="header">Our Office</div>
+    <div class="text">
+      The CSUA Office is located in 311 Soda Hall in front of the 3rd floor
+      entrance to Soda Hall, at the corner of Hearst &amp; LeRoy.
+      We also maintain a study lounge at 343 Soda Hall (within Soda).
+    </div>
+    <div class="text">
+      We work around the clock to provide computing resources, support, and
+      community to the computer science students at Berkeley.
+      In the rare case that you have an emergency and the office is vacant, you
+      may email us at politburo@csua.berkeley.edu.
+    </div>
+    <div id="officeaddress">
+      <div id="address" class="text">
+        <b>Address:</b></br>
+        Computer Science Undergraduate Association</br>
+        University of California, Berkeley</br>
+        311 Soda Hall</br>
+        Berkeley, CA 94720-1776
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
