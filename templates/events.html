@@ -2,9 +2,10 @@
 {% block title %}Events{% endblock %}
 {% block css_file %}events.css{% endblock %}
 {% block content %}
-        <div id="upcoming-events">
-            <div class="header">Fall 2014 Events</div>
-            <div class="column columnleft">
+    <div id="upcoming-events">
+        <div class="header">Fall 2014 Events</div>
+        <div class="column columnleft">
+            {% for event in events %}
                 <div class="event block">
                     <a href="https://www.facebook.com/events/256886857768925/">
                         <div class="event-name">UNIX/Vim Workshop</div>
@@ -16,6 +17,10 @@
                     <div class="text">
                     Learn basic UNIX and Vim commands in a workshop geared towards 61A/B students. </div>
                 </div>
+            {% endfor %}
+        </div>
+        <div class="column columnright">
+            {% for event in events %}
                 <div class="event block">
                     <a href="https://www.facebook.com/events/1459003894373573/">
                         <div class="event-name">CSUA Welcome Social</div>
@@ -30,9 +35,7 @@
                         Science group and the 2nd oldest ASUC sponsored club on campus.
                     </div>
                 </div>
-            </div>
-            <div class="column columnright">
-            </div>
+            {% endfor %}
         </div>
+    </div>
 {% endblock %}
-
