@@ -27,15 +27,16 @@ def create(request):
             template = loader.get_template("create_failure.html")
             context = RequestContext(request, {'error':'Officer validation failed.'})
             return HttpResponse(template.render(context))
-        if not ldap_bindings.NewUser(str(username), str(full_name), str(email), int(student_id), str(password)):
+	status, uid = ldap_bindings.NewUser(str(username), str(full_name), str(email), int(student_id), str(password))
+        if not status:
             template = loader.get_template("create_failure.html")
             context = RequestContext(request, {'error':'Your username is already taken.'})
             return HttpResponse(template.render(context))
         mkdir("/home/{0}".format(username))
-        chown("/home/{0}".format(username), pwd.getpwnam(username).pw_uid, -1)
+        chown("/home/{0}".format(username), uid, -1)
         with open("/home/{0}/.forward".format(username),"w") as fd:
             fd.write(email)
-        chown("/home/{0}/.forward".format(username), pwd.getpwnam(username).pw_uid, -1)
+        chown("/home/{0}/.forward".format(username), uid, -1)
         #TODO(alchu): If enroll_jobs, enroll user in jobs mailing list.
         template = loader.get_template("create_success.html")
         context = RequestContext(request, {})

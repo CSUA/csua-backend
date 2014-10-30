@@ -3,7 +3,7 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-PROJECT_HOME = '/home/alchu/CSUA-backend/'
+PROJECT_HOME = '/home/pnunez/csua-backend/'
 
 ADMINS = (
 # ('Your Name', 'your_email@example.com'),
@@ -130,6 +130,7 @@ INSTALLED_APPS = (
 'django.contrib.staticfiles',
 'main_page',
 'newuser',
+'tracker',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
