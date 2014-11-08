@@ -30,11 +30,12 @@ def NewUser(username, name, email, sid, password):
     try:
         l.simple_bind_s(LDAP_USER, LDAP_PASSWORD)
         dn="uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
+	uid = GetMaxUID()
         attrs = {
             'uid': username,
             'objectclass': ['account', 'posixaccount', 'top', 'shadowaccount'],
             'homedirectory': '/home/{0}'.format(username),
-            'uidnumber': str(GetMaxUID()),
+            'uidnumber': str(uid),
             'shadowmax': '99999',
             'gidnumber': '1000',
             'cn': username,
@@ -47,11 +48,11 @@ def NewUser(username, name, email, sid, password):
         ldif = modlist.addModlist(attrs)
         l.add_s(dn,ldif)
         l.unbind_s()
-        return True
+        return True, uid
     except Exception as e:
         print e
         l.unbind_s()
-        return False
+        return False, uid
 
 def DeleteUser(username):
     l = ldap.open(LDAP_SERVER)

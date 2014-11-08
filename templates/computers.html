@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Computers{% endblock %}
+{% block css_file %}computers.css{% endblock %}
+{% block content %}
+<div class='block'>
+<h1>CSUA NSA Backdoor</h1>
+<table>
+<th>
+  Computer
+</th>
+<th>
+  Status
+</th>
+<th>
+  User
+</th>
+<th>
+  Time Remaining
+</th>
+{% for computer in computers %}
+
+{% if computer.user == "N/A" %}
+<tr bgcolor='lightgreen'>
+{% elif computer.open %}
+<tr bgcolor='yellow'>
+{% else %}
+<tr bgcolor='red'>
+{% endif %}
+<td>
+  <strong>{{computer.host}}</strong>
+</td>
+<td>
+  {% if computer.user == "N/A" %}
+    Available
+  {% elif computer.open %}
+    Timeout
+  {% else %}
+    Occupied
+  {% endif %}
+</td>
+<td>
+  {{computer.user}}
+</td>
+<td>
+  {{computer.time}}
+</td>
+</tr>
+{% endfor%}
+</table>
+<br/>
+<table>
+<th>
+  User
+</th>
+<th>
+  Time Remaining
+</th>
+{% for user in users %}
+<tr>
+<td>
+  <strong>{{user.username}}</strong>
+</td>
+<td>
+  {{user.time}}
+</td>
+</tr>
+{% endfor%}
+</table>
+{% endblock %}
+</div>
