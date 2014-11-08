@@ -5,37 +5,11 @@
     <div id="upcoming-events">
         <div class="header">Fall 2014 Events</div>
         <div class="column columnleft">
-            {% for event in events %}
-                <div class="event block">
-                    <a href="https://www.facebook.com/events/256886857768925/">
-                        <div class="event-name">UNIX/Vim Workshop</div>
-                    </a>
-                    <div class="event-photo">
-                        <img src="{{ STATIC_URL }}images/events/fall2014/unixvim.jpg">
-                    </div>
-                    <div class="event-timelocation">Monday, September 8, 2014. 7-10 PM. HP Auditorium.</div>
-                    <div class="text">
-                    Learn basic UNIX and Vim commands in a workshop geared towards 61A/B students. </div>
-                </div>
-            {% endfor %}
+            <div class="subheader"> Upcoming Events </div>
         </div>
         <div class="column columnright">
-            {% for event in events %}
-                <div class="event block">
-                    <a href="https://www.facebook.com/events/1459003894373573/">
-                        <div class="event-name">CSUA Welcome Social</div>
-                    </a>
-                    <div class="event-photo">
-                        <img src="{{ STATIC_URL }}images/events/fall2014/welcomebbq.jpg">
-                    </div>
-                    <div class="event-timelocation">Friday, September 5, 2014. 6:30-10:00 PM. Woz.</div>
-                    <div class="text">
-                        Come hang out with the CSUA for an evening of hot dogs, drinks, and socializing!
-                        Meet your peers and make new friends as you learn about the oldest Computer
-                        Science group and the 2nd oldest ASUC sponsored club on campus.
-                    </div>
-                </div>
-            {% endfor %}
+            <div class="subheader"> Past Events </div>
         </div>
     </div>
+    <script src="{{ STATIC_URL }}js/fb.js"></script>
 {% endblock %}
