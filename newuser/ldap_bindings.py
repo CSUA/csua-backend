@@ -52,7 +52,7 @@ def NewUser(username, name, email, sid, password):
     except Exception as e:
         print e
         l.unbind_s()
-        return False
+        return False, uid
 
 def DeleteUser(username):
     l = ldap.open(LDAP_SERVER)
