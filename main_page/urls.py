@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^officers/$', views.officers),
     url(r'^politburo/$', views.politburo),
     url(r'^hackathon13/$', views.hackathon13),
+    url(r'^hackathon14/$', views.hackathon14),
     ]
