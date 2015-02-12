@@ -28,9 +28,10 @@ def NewUser(username, name, email, sid, password):
     assert(type(password) == str)
     l = ldap.initialize("ldaps://{0}/".format(LDAP_SERVER))
     try:
+        uid = -1
         l.simple_bind_s(LDAP_USER, LDAP_PASSWORD)
         dn="uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
-	uid = GetMaxUID()
+        uid = GetMaxUID()
         attrs = {
             'uid': username,
             'objectclass': ['account', 'posixaccount', 'top', 'shadowaccount'],

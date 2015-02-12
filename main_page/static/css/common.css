@@ -11,6 +11,9 @@ body {
 img {
     width: 100%;
 }
+#twitch img {
+    width: 24px;
+}
 a {
     text-decoration: none;
     cursor: pointer;
