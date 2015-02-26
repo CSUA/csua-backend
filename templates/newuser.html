@@ -6,7 +6,7 @@
   Create Account
 </div>
 <br/>
-<div class="block">
+<div class="block" id="top">
 Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our six computers and use of our servers.  In order to use our servers, ssh into soda.berkeley.edu and enter the username and password you are creating below.  
 </div>
 <br/>
@@ -19,7 +19,7 @@ Hello World!  Welcome to the CSUA.  By creating an account with us, you will be 
       <tr><td width=50%>Full Name:</td><td align='center'><input name='full_name' type='text'/><br/></td></tr>
       <tr><td width=50%>Student ID:</td><td align='center'><input name='student_id' type='number'/><br/></td></tr>
       <tr><td width=50%>Email:</td><td align='center'><input name='email' type='text'/><br/></td></tr>
-      <tr><td width=50%>Username:</td><td align='center'><input name='username' type='text'/><br/></td></tr>
+      <tr><td width=50%>Username (may not contain spaces):</td><td align='center'><input name='username' type='text'/><br/></td></tr>
       <tr><td width=50%>Password:</td><td align='center'><input name='password' type='password'/><br/></td></tr>
       <tr><td width=50%>Confirm Password:</td><td align='center'><input name='password_confirm' type='password'/><br/></td></tr>
       <tr><td width=50%>Would you like to be contacted about jobs and Internships?</td><td align='center'> <input name='enroll_jobs' type='checkbox'/><br/></td></tr>
@@ -86,7 +86,7 @@ function validateForm(){
   if (username == "") {
     errors.push("Field 'Username' is required.")
   }
-  if (username.contains(" ")) {
+  if (username.indexOf(" ") > -1) {
     errors.push("Username cannot contain spaces.")
   }
   if (password == "") {
@@ -114,6 +114,7 @@ function validateForm(){
   error_string += '</ul>';
   document.getElementById("errors").innerHTML = error_string;
   document.getElementById("errors").style.display = '';
+  window.location.href = "#top";
   return false;
 }
 </script>
