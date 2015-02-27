@@ -43,7 +43,7 @@ def create(request):
         if enroll_jobs:
             try:
                 with open("jobs_mailing_list", "a+") as f:
-                    f.write(username + " " + email)
+                    f.write(username + " " + email + "\n")
             except:
                 print "This should never happen (mailing list file does not exist)"
         template = loader.get_template("create_success.html")
