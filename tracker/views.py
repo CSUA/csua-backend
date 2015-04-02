@@ -17,6 +17,8 @@ hostdb={}
 DAILY_QUOTA=3600*2
 lastreset = datetime.today().day
 
+twitchUsers = {'jaze': 'alxjaze'}
+
 def currTimeMillis():
     return int(time()*1000)
 
@@ -28,15 +30,16 @@ def resetAccounts():
             userdb[user]["timeRemaining"] = DAILY_QUOTA
 
 class User():
-    def __init__(self, username, time, lastPing):
+    def __init__(self, username, time, lastPing, twitchUsername):
       self.username=username
       self.time=time
       self.lastPing=lastPing
+      self.twitch=twitchUsername
 
 def getUsers():
     out = []
     for username in userdb:
-        out.append(User(username, userdb[username]['timeRemaining'], userdb[username]['lastPing']))
+        out.append(User(username, userdb[username]['timeRemaining'], userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
     return out
 
 class Computer():
@@ -45,6 +48,10 @@ class Computer():
       self.open=open
       self.user=user
       self.time=time
+
+    @property
+    def twitchUser(self):
+      return (None if self.user not in twitchUsers else twitchUsers[self.user])
 
 def getComputers():
     resetAccounts()

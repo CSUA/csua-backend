@@ -1,0 +1,159 @@
+/*!
+ * Start Bootstrap - 3 Col Portfolio HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    padding-top: 100px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    background-color: #FFFEF6;
+    background-image:url(http://csua.berkeley.edu/static/images/pattern.png);
+    font-family: Futura, Helvetica, Arial, Sans-serif;
+}
+
+.portfolio-item {
+    margin-bottom: 25px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.navbar-inverse {
+	/*height:75px;*/
+	background-color: #C45E23;
+	border-bottom: 3px solid #F3EEE0;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+	padding-top: 25px;
+	padding-bottom: 25px;
+	color: #fff;
+}
+
+.navbar-inverse .navbar-brand {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: #fff;
+}
+
+
+.page-header{
+	border-bottom: 0px;
+	color: #C45E23;
+	margin-bottom: 15px;
+}
+
+/* shit */
+
+.boxy-thing {
+	background-color: #fff;
+	padding: 20px;
+	width: 100%;
+	border: 3px solid #F3EEE0;
+	border-radius: 5px;
+	color: #666;
+}
+
+.green {
+	color: #6C8574;
+}
+
+.red {
+	color: #C45E23;
+}
+
+.btn-success {
+	background-color: #7F9D89;
+	color: #fff;
+	border: 0px;
+	border-bottom: 3px solid #6D8574;
+}
+
+h3{
+	font-size: 17px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+/* schedule */
+#schedule{
+	width: 100%;
+	height: 200px;
+	background-color: #fff;
+	border-top: 3px solid #F3EEE0;
+	border-bottom: 3px solid #F3EEE0;
+	overflow-x: scroll;
+
+}
+
+.scrolls { 
+	width: 2300px;
+    }
+
+.times {
+	height: 50px;
+	    float: left;
+	border-bottom: 2px solid #F3EEE0;
+ }
+
+.times td{
+	color: #6D8574;
+	width: 100px;
+	height: 50px;
+	display:inline-block;
+    *display:inline;
+    *zoom:1;
+    vertical-align:top;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    border-left: 1px solid #F3EEE0;
+    border-right: 1ps solid #F3EEE0;
+}
+
+.schedule td{
+	width: 100px;
+	height: 144px;
+	display:inline-block;
+    *display:inline;
+    *zoom:1;
+    vertical-align:top;
+    border-left: 1px solid #F3EEE0;
+    border-right: 1ps solid #F3EEE0;
+}
+
+.time{
+	width: 103px;
+	height: 72px;
+	background-color: #7F9D89;
+	padding: 5px;
+	color: #fff;
+}
+
+.time-hack{
+	width: 103px;
+	height: 72px;
+	padding: 5px;
+}
+
+#cd {
+	background-color: #92461A;
+	border: 3px solid #833E17;
+	border-radius: 5px;
+	color: #E9DAD1;
+	font-size: 20pt;
+	height: 100px;
+}
+
+.countdownbox{
+	background-color: #C45E23;
+	border: 3px solid #A64F1D;
+	padding-bottom: 5px;
+}
+
+.countdownbox h3{
+	margin-top: 10px;
+	color: #E2AF91;
+}

@@ -6,12 +6,11 @@
   Create Account
 </div>
 <br/>
-<div class="block">
-  Words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account words describing the advantages of having an account!
+<div class="block" id="top">
+Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our six computers and use of our servers.  In order to use our servers, ssh into soda.berkeley.edu and enter the username and password you are creating below.  
 </div>
 <br/>
-<div class='block' id='errors'>
-</div>
+<div class='block' id='errors' style='display:none'></div>
 <br/>
 <form action="/newuser/create/" onsubmit="return validateForm()" method="post">
   {% csrf_token %}
@@ -20,7 +19,7 @@
       <tr><td width=50%>Full Name:</td><td align='center'><input name='full_name' type='text'/><br/></td></tr>
       <tr><td width=50%>Student ID:</td><td align='center'><input name='student_id' type='number'/><br/></td></tr>
       <tr><td width=50%>Email:</td><td align='center'><input name='email' type='text'/><br/></td></tr>
-      <tr><td width=50%>Username:</td><td align='center'><input name='username' type='text'/><br/></td></tr>
+      <tr><td width=50%>Username (may not contain spaces):</td><td align='center'><input name='username' type='text'/><br/></td></tr>
       <tr><td width=50%>Password:</td><td align='center'><input name='password' type='password'/><br/></td></tr>
       <tr><td width=50%>Confirm Password:</td><td align='center'><input name='password_confirm' type='password'/><br/></td></tr>
       <tr><td width=50%>Would you like to be contacted about jobs and Internships?</td><td align='center'> <input name='enroll_jobs' type='checkbox'/><br/></td></tr>
@@ -32,19 +31,25 @@
   <div class='block'>
     <table>
       <tr>
-        <td width=50%>
+        <td>
           The CSUA Office Rules are as follows:
           <ol>
-            <li>Rules rules rules rules rules</li>
-            <li>Rules rules rules rules rules</li>
-            <li>Rules rules rules rules rules</li>
-            <li>Rules rules rules rules rules</li>
+            <li>Don't do anything that violates the law or University policy. </li>
+            <li>Keep yourself, your surroundings, and the office clean. </li>
+            <li>Be courteous to your peers. </li>
+            <li>Sleeping in the office/lounge is not permitted.   </li>
+            <li>During business hours (weekdays 10AM-7PM), the office should be a productive, inclusive workspace. Video gaming is not permitted during these hours.  </li>
+            <li>Please keep noise pollution to a minimum (use headphones).</li>
           </ol>
-          Do you agree to abide by these rules while in the office or using your account?
-        </td>
-        <td align='center'> <input name='agree_rules' type='checkbox'/><br/></td>
-      </tr>
-    </table>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td width=80%>Do you agree to abide by these rules while in the office or using your account?</td>
+      <td align='center'> <input name='agree_rules' type='checkbox'/><br/></td>
+    </tr>
+  </table>
   <br/>
   <input type='submit' value='Submit'/>
   </div>
@@ -81,7 +86,7 @@ function validateForm(){
   if (username == "") {
     errors.push("Field 'Username' is required.")
   }
-  if (username.contains(" ")) {
+  if (username.indexOf(" ") > -1) {
     errors.push("Username cannot contain spaces.")
   }
   if (password == "") {
@@ -108,6 +113,8 @@ function validateForm(){
   }
   error_string += '</ul>';
   document.getElementById("errors").innerHTML = error_string;
+  document.getElementById("errors").style.display = '';
+  window.location.href = "#top";
   return false;
 }
 </script>

@@ -39,7 +39,43 @@
   {% endif %}
 </td>
 <td>
+  {% if computer.twitchUser != None %}
+  <a href="http://twitch.tv/{{ computer.twitchUser }}" id="twitch">
+  <!--April fools code-->
+  {% if computer.user != "N/A" %}
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+  {% endif %}
+  <!--End April fools code-->
+    {{ computer.user }}
+
+    <img src="/static/images/icons/twitch.png" width="24"></img>
+  </a>
+  <span id="{{user.username}}" class="twitch"></span>
+  {% else %}
+  <!--April fools code-->
+  {% if computer.user != "N/A" %}
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+    <img src='http://fc09.deviantart.net/fs70/f/2011/247/e/a/the_spinning_cow____by_azurine550-d48v0d6.gif' style='width:10%;'></img>
+  {% endif %}
+  <!--End April fools code-->
   {{computer.user}}
+
+  {% endif %}
 </td>
 <td>
   {{computer.time}}
@@ -58,7 +94,14 @@
 {% for user in users %}
 <tr>
 <td>
-  <strong>{{user.username}}</strong>
+  {% if user.twitch != None %}
+  <a href="http://twitch.tv/{{ user.twitch }}" id="twitch">
+    <strong>{{user.username}}</strong><img src="/static/images/icons/twitch.png" width="24"></img>
+  </a>
+  <span id="{{user.username}}" class="twitch"></span>
+  {% else %}
+    <strong>{{user.username}}</strong>
+  {% endif %}
 </td>
 <td>
   {{user.time}}
