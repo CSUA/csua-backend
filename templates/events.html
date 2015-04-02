@@ -2,76 +2,17 @@
 {% block title %}Events{% endblock %}
 {% block css_file %}events.css{% endblock %}
 {% block content %}
-        <div id="upcoming-events">
-            <div class="header">Fall 2014 Events</div>
-            <div id="panels">
-                <a href="#hack"><div class="tab tabcurrent">Hack</div></a>
-                <a href="#info"><div class="tab">Info</div></a>
-                <a href="#social"><div class="tab">Social</div></a>
-                <a href="#meeting"><div class="tab">Meeting</div></a>
-            </div>
-            <div id="hack" class="panel">
-                <div class="column columnleft">
-                    <div class="event block">
-                        <a href="https://www.facebook.com/events/256886857768925/">
-                            <div class="event-name">UNIX/Vim Workshop</div>
-                        </a>
-                        <div class="event-photo">
-                            <img src="{{ STATIC_URL }}images/events/fall2014/unixvim.jpg">
-                        </div>
-                        <div class="event-timelocation">Monday, September 8, 2014. 7-10 PM. HP Auditorium.</div>
-                        <div class="text">
-                            Learn basic UNIX and Vim commands in a workshop geared towards 61A/B students.
-                        </div>
-                    </div>
-                </div>
-                <div class="column columnright">
-                </div>
-            </div>
-            <div id="info" class="panel">
-                <div class="column columnleft">
-                </div>
-                <div class="column columnright">
-                </div>
-            </div>
-            <div id="social" class="panel">
-                <div class="column columnleft">
-                    <div class="event block">
-                        <a href="https://www.facebook.com/events/1459003894373573/">
-                            <div class="event-name">CSUA Welcome Social</div>
-                        </a>
-                        <div class="event-photo">
-                            <img src="{{ STATIC_URL }}images/events/fall2014/welcomebbq.jpg">
-                        </div>
-                        <div class="event-timelocation">Friday, September 5, 2014. 6:30-10:00 PM. Woz.</div>
-                        <div class="text">
-                            Come hang out with the CSUA for an evening of hot dogs, drinks, and socializing!
-                            Meet your peers and make new friends as you learn about the oldest Computer
-                            Science group and the 2nd oldest ASUC sponsored club on campus.
-                        </div>
-                    </div>
-                </div>
-                <div class="column columnright">
-                </div>
-            </div>
-            <div id="meeting" class="panel">
-                <div class="column columnleft">
-                    <div class="event block">
-                        <a href="https://www.facebook.com/events/655099521263957/">
-                            <div class="event-name">General Meeting #1</div>
-                        </a>
-                        <div class="event-photo">
-                            <img src="{{ STATIC_URL }}images/events/fall2014/gm1.jpg">
-                        </div>
-                        <div class="event-timelocation">Friday, September 12, 2014. 5:30-9:30 PM. Woz.</div>
-                        <div class="text">
-                            Come eat delicious food, play board games, and hang out with peers!
-                        </div>
-                    </div>
-                </div>
-                <div class="column columnright">
-                </div>
+    <div id="upcoming-events">
+        <div class="header">Fall 2014 Events</div>
+        <div class="column columnleft">
+            <div class="subheader"> Upcoming Events 
+        <div class="event block"><a href="https://www.facebook.com/events/324492587760279"><div class="event-name">CSUA Alumni BBQ</div></a><div class="event-timelocation">Sat Apr 25 2015 12:00:00 GMT-0700 (PDT), Wozniak Lounge</div></div><div class="event block"><a href="https://www.facebook.com/events/926289944071280"><div class="event-name">CSUA Hackathon</div></a><div class="event-timelocation">Sat Apr 11 2015 12:00:00 GMT-0700 (PDT), Wozniak Lounge</div></div><div class="event block"><a href="https://www.facebook.com/events/864469646945956"><div class="event-name">CSUA+Microsoft: Coding for Grub</div></a><div class="event-timelocation">Mon Apr 06 2015 18:30:00 GMT-0700 (PDT), Wozniak Lounge</div></div><div class="event block"><a href="https://www.facebook.com/events/1563484063923698"><div class="event-name">Aspera Tech Talk</div></a><div class="event-timelocation">Thu Apr 02 2015 17:30:00 GMT-0700 (PDT), Wozniak Lounge</div></div></div>
             </div>
         </div>
+        <div class="column columnright">
+            <div class="subheader"> Past Events 
+        <div class="event block"><a href="https://www.facebook.com/events/1635641699990221"><div class="event-name">Zynga Infosession</div></a><div class="event-timelocation">Thu Mar 19 2015 17:15:00 GMT-0700 (PDT), Wozniak Lounge</div></div><div class="event block"><a href="https://www.facebook.com/events/1032397810122506"><div class="event-name">CSUA GM #2</div></a><div class="event-timelocation">Fri Mar 06 2015 18:00:00 GMT-0800 (PST), Wozniak Lounge</div></div><div class="event block"><a href="https://www.facebook.com/events/393679840812603"><div class="event-name">Samsung Infosession + Tech Talk</div></a><div class="event-timelocation">Thu Feb 26 2015 17:30:00 GMT-0800 (PST), Wozniak Lounge</div></div></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
