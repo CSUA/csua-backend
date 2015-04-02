@@ -46,10 +46,10 @@ window.fbAsyncInit = function() {
                 if($.data(document, "index") === 0){
                     $(".columnleft").append("No new events for now! Check back soon.");
                 }
-                for(i = 0; i < $.data(document, "index"); i++){
+                for(i = $.data(document, "index") - 1; i >= 0 ; i--){
                     $(".columnleft").append(generateEvent(i, processEvent));
                 };
-                for(i = 0; i < 3; i++){
+                for(i = 2; i >= 0; i--){
                     var j = i + $.data(document, "index");
                     $(".columnright").append(generateEvent(j, processEvent));
                 }
