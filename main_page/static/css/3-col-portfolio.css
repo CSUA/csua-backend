@@ -5,7 +5,6 @@
  */
 
 body {
-    padding-top: 100px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     background-color: #FFFEF6;
     background-image:url(http://csua.berkeley.edu/static/images/pattern.png);
     font-family: Futura, Helvetica, Arial, Sans-serif;
