@@ -34,12 +34,19 @@
 
         <!-- Page Header -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header" style="text-align:center; font-size:3em"> CSUA Hackathon
+            <div class="col-md-3" ></div>
+            <div class="col-md-6">
+              <div class="boxy-thing">
+                <h1 class="page-header" style="text-align:center; font-size:40px"> CSUA Hackathon
                 </h1>
+                <h3 style="text-align:center; font-size:20px" class="green">with Microsoft and Meraki</h1>
+              </div>
             </div>
+            <div class="col-md-3" ></div>
         </div>
         <!-- /.row -->
+    <div class="container page-header">
+    </div>
 
         <!-- Projects Row -->
         <div class="row">
@@ -70,6 +77,13 @@ Github has excellent tutorials on how to use git and how to setup a repository o
                 <center><h3>
                 Countdown Until Hacking Ends
                 </h3></center>
+              </div><br>
+              <div class="boxy-thing">
+                <h3 class="green">
+                    Sponsors
+                </h3>
+              <img src="{{ STATIC_URL }}images/msft.jpg" style="width:320px" />
+              <img src="{{ STATIC_URL }}images/meraki.jpg" style="width:320px" />
               </div>
             </div>
             <div class="col-md-4 portfolio-item">
@@ -159,11 +173,6 @@ There are 3 large prize groups! 1st place winners get first pick at the prize gr
         <!-- /.row -->
     </div>
     <!-- /.container -->
-    <div class="container page-header">
-<!--
-    <h1>SCHEDULE</h1>
-    </div>
--->
     <footer>
         <div class="container">
             <div class="row">
@@ -176,55 +185,6 @@ There are 3 large prize groups! 1st place winners get first pick at the prize gr
             <!-- /.row -->
         </div><!-- /.container -->
     </footer>
-
-<div class="modal fade" id="python" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Python Resources</h4>
-      </div>
-      <div class="modal-body">
-        <a href="https://docs.python.org/3.4/reference/">Python Language Reference</a><br/>
-          <a href="http://cs61a.org/">CS61A.org by John DeNero</a><br/>
-          <a href="http://www.reddit.com/r/python">/r/Python SubReddit</a><br/>
-          <a href="http://flask.pocoo.org/docs/0.10/quickstart/">Flask QuickStart</a><br/>
-          <a href="http://flask.pocoo.org/docs/0.10/tutorial/">Flask Tutorial</a><br/>
-           <a href="https://github.com/sharadmv/beginner-hackjam">Cheeper: A Twitter Clone with Flask</a><br />
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="javascript" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Javascript</h4>
-      </div>
-      <div class="modal-body">
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide">Mozilla's Javascript Guide</a><br/>
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference">Mozilla's Javascript Reference</a><br/>
-          <a href="http://learn.jquery.com/about-jquery/how-jquery-works/">JQuery Documentation</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="misc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">  Misc Resources</h4>
-      </div>
-      <div class="modal-body">
-        None yet.
-      </div>
-    </div>
-  </div>
-</div>
 
     <!-- jQuery -->
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
