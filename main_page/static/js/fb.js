@@ -5,7 +5,7 @@ function timeIsPast(time){
 function processEvent(i){
 }
 function generateEvent(i, f){
-    d = $.data(document, "events").data[i];
+    d = $.data(document, "events")["data"][i];
     FB.api("/" + d.id, function(response){
         $.data(document, "description", response);
         //%TODO: Description
@@ -35,11 +35,18 @@ window.fbAsyncInit = function() {
             FB.login(function(response){}
         , {scope: 'user_groups'})
         }
+        /* Let's hope this never has to be used. To be deleted
         FB.api("/2200089855/events", function(response){
             if(response && !response.error){
                 $.data(document, "events", response);
+            }
+        }
+        */
+        FB.api("/166402186712773/events", function(response){
+            if(response && !response.error){
+                $.data(document, "events", response/* + $.data(document, "events")*/);
                 var i = 0;
-                while(!timeIsPast(new Date($.data(document, "events").data[i].start_time))){
+                while(i < $.data(document, "events")["data"].length && !timeIsPast(new Date($.data(document, "events")["data"][i].start_time))){
                     i++;
                 }
                 $.data(document, "index", i);
@@ -51,7 +58,9 @@ window.fbAsyncInit = function() {
                 };
                 for(i = 2; i >= 0; i--){
                     var j = i + $.data(document, "index");
-                    $(".columnright").append(generateEvent(j, processEvent));
+                    if(j < $.data(document, "events")["data"].length){
+                        $(".columnright").append(generateEvent(j, processEvent));
+                    }
                 }
             };
         });
