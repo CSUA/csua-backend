@@ -42,9 +42,9 @@ def create(request):
       #Temporary measure(austin): writing users to a temporary file ("jobs_mailing_list"), to be added manually
     if enroll_jobs:
       try:
-        system("ssh root@mail echo {0} | add_members -r - Jobs".format(email))  
-        #with open("jobs_mailing_list", "a+") as f:
-          #f.write(username + " " + email + "\n")
+        #system("ssh root@mail echo {0} | add_members -r - Jobs".format(email))  
+        with open("jobs_mailing_list", "a+") as f:
+          f.write(username + " " + email + "\n")
       except:
         print "This should never happen (mailing list file does not exist)"
     template = loader.get_template("create_success.html")
