@@ -28,6 +28,9 @@ body {
     margin-top: 12px;
     border-radius: 3px;
 }
+footer {
+    margin: 50px 0;
+}
 .nav-item {
     display: inline-block;
     font-weight: 300;
