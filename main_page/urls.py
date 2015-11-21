@@ -5,7 +5,7 @@ urlpatterns = [
     url(r'^$',views.index),
     url(r'^about/$', views.about),
     url(r'^constitution/$', views.constitution),
-    url(r'^sponsors/$', views.sponsors`),
+    url(r'^sponsors/$', views.sponsors),
     url(r'^events/$', views.events),
     url(r'^index/$', views.index),
     url(r'^industry/$', views.industry),
