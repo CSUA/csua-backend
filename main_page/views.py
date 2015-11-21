@@ -11,8 +11,8 @@ def constitution(request):
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
-def donate(request):
-    template = loader.get_template("donate.html")
+def sponsors(request):
+    template = loader.get_template("sponsors.html")
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
