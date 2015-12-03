@@ -16,4 +16,4 @@ urlpatterns = [
     url(r'^hackathon14/$', views.hackathon14),
     url(r'^hackathonsp15/$', views.hackathonsp15),
     url(r'^hackathonfa15/$', views.hackathonfa15),
-    ]
+]
