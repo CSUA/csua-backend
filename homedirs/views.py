@@ -10,7 +10,7 @@ from time import sleep, time
 from os import path
 
 def get_resource_uri(uri):
-  print(uri)
+  print uri
   if not path.exists(uri):
     return False
   if path.isdir(uri):

@@ -9,11 +9,11 @@ from random import randint
 from hashlib import sha512
 from time import time
 import base64
-
+ 
 CURL_STRING = "http://csua.berkeley.edu/computers/ping/{0}/{1}"
 DELTA = 5
 
-
+ 
 n=24758167959654528007156374531915464081839760935532218683689708649238085888673119L
 d=23033243203809603228118865178853745404793524490245401081883537446288476045877277L
 
@@ -38,7 +38,7 @@ while True:
     codeText = base64.b64encode(getEnv())
     request = CURL_STRING.format(codeText,signature(codeText))
     try:
-      print("Time Remaining: ", urlopen(request).read().strip())
+      print "Time Remaining: ", urlopen(request).read().strip()
     except:
-      print("Network Error")
+      print "Network Error"
   sleep(5)
