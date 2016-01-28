@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Verify Account{% endblock %}
+{% block css_file %}newuser.css{% endblock %}
+{% block content %}
+<div class="header">
+	Login
+</div>
+<br/>
+<div class="block" id="top">
+	Login 
+</div>
+<br/>
+<div class='block' id='errors' style='display:none'></div>
+<br/>
+<form action="/login/auth/" onsubmit="return validateForm()" method="post">
+  {% csrf_token %}
+  <div class='block'>
+    <table>
+      <tr><td width=50%>Username :</td><td align='center'><input name='username' type='text'/><br/></td></tr>
+      <tr><td width=50%>Password:</td><td align='center'><input name='password' type='password'/><br/></td></tr>
+    </table>
+  <input type='submit' value='Submit'/>
+  </div>
+</form>
+
+<script type='text/javascript'>
+
+function validateForm(){
+  var username = document.getElementsByName("username")[0].value;
+  var password = document.getElementsByName("password")[0].value;
+  if (username == "") {
+    errors.push("Field 'Username' is required.")
+  }
+  if (username.indexOf(" ") > -1) {
+    errors.push("Username cannot contain spaces.")
+  }
+  if (password == "") {
+    errors.push("Field 'Password' is required.")
+  }
+  if (errors.length == 0) {
+    return true
+  }
+  var error_string = 'Errors:<ul>';
+  for (var i = 0; i < errors.length; i++) {
+    error_string += '<li>' + errors[i] + '</li>';
+  }
+  error_string += '</ul>';
+  document.getElementById("errors").innerHTML = error_string;
+  document.getElementById("errors").style.display = '';
+  window.location.href = "#top";
+  return false;
+}
+</script>
+
+{% endblock %}
