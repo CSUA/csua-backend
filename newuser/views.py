@@ -38,15 +38,9 @@ def create(request):
       fd.write(email)
     system("ssh root@nfs chown {0} {1}".format(uid, "/nfs/homes/{0}".format(username)))
     system("ssh root@nfs chown {0} {1}".format(uid, "/nfs/homes/{0}/.forward".format(username))) 
-#TODO(alchu): If enroll_jobs, enroll user in jobs mailing list.
-#Temporary measure(austin): writing users to a temporary file ("jobs_mailing_list"), to be added manually
+    system("ssh root@mail \"echo {0} | add_members -r - Csua-newmembers\"".format(email))  
     if enroll_jobs:
-      try:
-        system("ssh root@mail \"echo {0} | add_members -r - Jobs\"".format(email))  
-        with open("jobs_mailing_list", "a+") as f:
-          f.write(username + " " + email + "\n")
-      except:
-        print "This should never happen (mailing list file does not exist)"
+      system("ssh root@mail \"echo {0} | add_members -r - Jobs\"".format(email))  
     template = loader.get_template("create_success.html")
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
