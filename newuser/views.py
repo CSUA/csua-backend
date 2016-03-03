@@ -33,7 +33,7 @@ def create(request):
       template = loader.get_template("create_failure.html")
       context = RequestContext(request, {'error':'Your username is already taken.'})
       return HttpResponse(template.render(context))
-    mkdir("/home/{0}".format(username))
+    system("mkdir -m 700 /home/{0}".format(username))
     with open("/home/{0}/.forward".format(username),"w") as fd:
       fd.write(email)
     system("ssh root@nfs chown {0} {1}".format(uid, "/nfs/homes/{0}".format(username)))
