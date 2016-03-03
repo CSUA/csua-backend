@@ -9,7 +9,7 @@ from random import choice
 
 LDAP_SERVER = "ldap.csua.berkeley.edu"
 LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
-LDAP_PASSWORD = "newuser"
+LDAP_PASSWORD = "pleaseneverdothisagain"
 
 def GetMaxUID():
     return int(popen("ldapvi --out  | grep uidNumber | awk '{print $2}' | sort -n | tail -n 1").read()) + 1
