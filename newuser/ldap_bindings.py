@@ -12,7 +12,7 @@ LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
 LDAP_PASSWORD = "pleaseneverdothisagain"
 
 def GetMaxUID():
-    return int(popen("ldapvi --out  | grep uidNumber | awk '{print $2}' | sort -n | tail -n 1").read()) + 1
+    return int(popen("ldapsearch -x 'UIDNumber' | grep uidNumber | awk '{print $2}' | sort -n | tail -n 1").read()) + 1
 
 def MakePassword(password):
     salt = ''.join(choice(string.letters + string.digits) for _ in range(4))
