@@ -9,7 +9,8 @@ from random import choice
 
 LDAP_SERVER = "ldap.csua.berkeley.edu"
 LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
-LDAP_PASSWORD = "pleaseneverdothisagain"
+with open('/etc/newuser.secret') as f:
+      LDAP_PASSWORD = f.read().strip()
 
 def GetMaxUID():
     return int(popen("ldapsearch -x 'UIDNumber' | grep uidNumber | awk '{print $2}' | sort -n | tail -n 1").read()) + 1

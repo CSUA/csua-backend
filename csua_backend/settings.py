@@ -6,7 +6,7 @@ TEMPLATE_DEBUG = DEBUG
 PROJECT_HOME = '/webserver/CSUA-backend/'
 
 ADMINS = (
-# ('Your Name', 'your_email@example.com'),
+  ('Caleb Wyllie', 'vp@csua.berkeley.edu'),
 )
 
 MANAGERS = ADMINS
@@ -84,8 +84,20 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+# Security
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
+#SECURE_HSTS_SECONDS = True
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+#SECURE_SSL_REDIRECT = True
+X_FRAME_OPTIONS = 'DENY'
+
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'o0@k_c17llp#1@y-u$g3(x$ls@0=6&_$5hzz#6f601&+fq&#q9'
+with open('/etc/secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -101,8 +113,9 @@ MIDDLEWARE_CLASSES = (
 'django.contrib.auth.middleware.AuthenticationMiddleware',
 'django.contrib.messages.middleware.MessageMiddleware',
 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+'django.middleware.security.SecurityMiddleware',
 # Uncomment the next line for simple clickjacking protection:
-# 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'csua_backend.urls'
