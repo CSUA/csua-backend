@@ -26,6 +26,5 @@ def serve(request, username = None, path = None):
   if resource_uri:
     return HttpResponse(open(resource_uri).read())
   else:
-    template = loader.get_template("404.html")
-    context = RequestContext(request, {})
-    return HttpResponseNotFound(template.render(context))
+    #raise Http404
+    return HttpResponse("404 Not Found. Sorry for the inconvenience, but private static websites are currently unavailable.")
