@@ -26,4 +26,6 @@ def serve(request, username = None, path = None):
   if resource_uri:
     return HttpResponse(open(resource_uri).read())
   else:
-    return HttpResponse("404 Not Found.")
+    template = loader.get_template("404.html")
+    context = RequestContext(request, {})
+    return HttpResponseNotFound(template.render(context))
