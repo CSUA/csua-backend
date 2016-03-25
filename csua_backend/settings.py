@@ -6,10 +6,14 @@ TEMPLATE_DEBUG = DEBUG
 PROJECT_HOME = '/webserver/CSUA-backend/'
 
 ADMINS = (
-  ('Caleb Wyllie', 'vp@csua.berkeley.edu'),
+  ('Caleb Wyllie', 'root@csua.berkeley.edu'),
 )
 
 MANAGERS = ADMINS
+
+DEFAULT_FROM_EMAIL = 'vp@csua.berkeley.edu'
+
+SERVER_EMAIL = DEFAULT_FROM_EMAIL 
 
 DATABASES = {
 'default': {
