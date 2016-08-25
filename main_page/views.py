@@ -65,3 +65,8 @@ def hackathonsp16(request):
     template = loader.get_template("hackathonsp16.html")
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
+
+def hackathonfa16(request):
+    template = loader.get_template("hackathonfa16.html")
+    context = RequestContext(request, {})
+    return HttpResponse(template.render(context))
