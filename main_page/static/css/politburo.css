@@ -29,6 +29,9 @@
 .politburo > tbody > tr > td > .text {
     font-size: 14px;
 }
+.politburo img {
+    width: initial;
+}
 
 /* Former Politburo Page */
 .pbroster {
