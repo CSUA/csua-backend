@@ -2,33 +2,33 @@
 {% block title %}Industry{% endblock %}
 {% block css_file %}industry.css{% endblock %}
 {% block content %}
-        <div class="block">
-            <div class="header">Industry</div>
-            <div class="text">
-                The Berkeley CSUA works closely with companies, investors, entrepreneurs,
-                and active members of the software industry to bring both mentorship and
-                job opportunities to students.
-            </div>
-            <div class="text">
-                Interested in working with the CSUA to sponsor an event or to
-                speak at one of our events? Please send an email to politburo@csua.berkeley.edu.
-            </div>
-            <div class="blockseparation"></div>
-            <div class="header">Some of our Sponsors</div>
-            <div class="text">
-                We are very grateful to all our company sponsors who make much of what
-                we do possible. Thank you!
-            </div>
-        </div>
+		<div class="block">
+			<div class="header">Industry</div>
+			<div class="text">
+				The Berkeley CSUA works closely with companies, investors, entrepreneurs,
+				and active members of the software industry to bring both mentorship and
+				job opportunities to students.
+			</div>
+			<div class="text">
+				Interested in working with the CSUA to sponsor an event or to
+				speak at one of our events? Please send an email to politburo@csua.berkeley.edu.
+			</div>
+			<div class="blockseparation"></div>
+			<div class="header">Some of our Sponsors</div>
+			<div class="text">
+				We are very grateful to all our company sponsors who make much of what
+				we do possible. Thank you!
+			</div>
+		</div>
 		<div class="blockseparation"></div>
 		<div class="block">
-            <div class="header">Current Sponsors</div>
+			<div class="header">Current Sponsors</div>
 			<table class="sponsors">
 				<tr>
-					<td><img src="{{ STATIC_URL }}images/sponsors/ooshirts.jpeg"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/ooshirts.jpg"></td>
 					<td><img src="{{ STATIC_URL }}images/sponsors/microsoft.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/emc.jpg"></td>
 					<td><img src="{{ STATIC_URL }}images/sponsors/riot.jpg"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/blizzard.png"></td>
 				</tr>
 				<tr>
 					<td>
@@ -44,25 +44,31 @@
 						</div>
 					</td>
 					<td>
-						<div class="subheader"><a href="http://www.emc.com/">EMC</a></div>
-						<div class="text">
-							Fall 2016 Tech Talk
-						</div>
-					</td>
-					<td>
 						<div class="subheader"><a href="http://www.riotgames.com/">Riot Games</a></div>
 						<div class="text">
 							Fall 2016 Infosession
 						</div>
 					</td>
+				    <td>
+						<div class="subheader"><a href="http://www.blizzard.com/">Blizzard</a></div>
+						<div class="text">
+							Fall 2016 Tech Talk
+						</div>
+				    </td>
 				</tr>
 				<tr>
+					<td><img src="{{ STATIC_URL }}images/sponsors/niantic.png"></td>
 					<td><img src="{{ STATIC_URL }}images/sponsors/dropbox.jpg"></td>
 					<td><img src="{{ STATIC_URL }}images/sponsors/pinterest.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/micron.jpg"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/voleon.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/nvidia.jpg"></td>
 				</tr>
 				<tr>
+					<td>
+						<div class="subheader"><a href="https://www.nianticlabs.com/">Niantic, Inc.</a></div>
+						<div class="text">
+							Fall 2016 GM #2
+						</div>
+					</td>
 					<td>
 						<div class="subheader"><a href="https://www.dropbox.com/">Dropbox</a></div>
 						<div class="text">
@@ -76,25 +82,31 @@
 						</div>
 					</td>
 					<td>
-						<div class="subheader"><a href="https://www.micron.com/">Micron</a></div>
+						<div class="subheader"><a href="http://www.nvidia.com/">Nvidia</a></div>
+						<div class="text">
+							Fall 2016 Infosession
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="{{ STATIC_URL }}images/sponsors/uber.jpg"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/coreos.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/workday.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/hackerrank.jpg"></td>
+				</tr>
+				<tr>
+					<td>
+						<div class="subheader"><a href="https://www.uber.com/">Uber</a></div>
 						<div class="text">
 							Fall 2016 Infosession
 						</div>
 					</td>
 					<td>
-						<div class="subheader"><a href="http://voleon.com/">Voleon</a></div>
+						<div class="subheader"><a href="http://www.coreos.com/">CoreOS</a></div>
 						<div class="text">
 							Fall 2016 Tech Talk
 						</div>
 					</td>
-				</tr>
-				<tr>
-					<td><img src="{{ STATIC_URL }}images/sponsors/workday.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/hackerrank.jpg"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/statefarm.jpg"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/xunanbuy.jpg"></td>
-				</tr>
-				<tr>
 					<td>
 						<div class="subheader"><a href="http://www.workday.com/">Workday</a></div>
 						<div class="text">
@@ -105,6 +117,52 @@
 						<div class="subheader"><a href="https://www.hackerrank.com/">HackerRank</a></div>
 						<div class="text">
 							Fall 2016 Code Sprint
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="{{ STATIC_URL }}images/sponsors/cisco.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/goldmansachs.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/healthtap.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/voleon.png"></td>
+				</tr>
+				<tr>
+					<td>
+						<div class="subheader"><a href="http://www.cisco.com/">Cisco</a></div>
+						<div class="text">
+							Fall 2016 Tech Talk
+						</div>
+					</td>
+					<td>
+						<div class="subheader"><a href="http://www.goldmansachs.com/">Goldman Sachs</a></div>
+						<div class="text">
+							Fall 2016 Code Challenge
+						</div>
+					</td>
+				    <td>
+						<div class="subheader"><a href="http://www.healthtap.com/">HealthTap</a></div>
+						<div class="text">
+						    Fall 2016 Tech Talk
+						</div>
+					</td>
+					<td>
+						<div class="subheader"><a href="http://voleon.com/">Voleon</a></div>
+						<div class="text">
+							Fall 2016 Tech Talk
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="{{ STATIC_URL }}images/sponsors/lattice.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/statefarm.jpg"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/xunanbuy.jpg"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/6sense.png"></td>
+				</tr>
+				<tr>
+					<td>
+						<div class="subheader"><a href="https://lattice.io/">Lattice</a></div>
+						<div class="text">
+							Fall 2016 Infosession
 						</div>
 					</td>
 					<td>
@@ -119,43 +177,67 @@
 							Fall 2016 Tech Talk
 						</div>
 					</td>
+					<td>
+						<div class="subheader"><a href="https://6sense.com/">6sense</a></div>
+						<div class="text">
+							Fall 2016 Infosession
+						</div>
+					</td>
 				</tr>
-                <tr>
-					<td><img src="{{ STATIC_URL }}images/sponsors/blizzard.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/healthtap.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/coreos.png"></td>
+				<tr>
+					<td><img src="{{ STATIC_URL }}images/sponsors/nerdwallet.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/emc.jpg"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/intel.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/qualcomm.png"></td>
 				</tr>
-                <tr>
-				  <td>
-					<div class="subheader"><a href="http://www.blizzard.com/">Blizzard</a></div>
-					<div class="text">
-					  Fall 2016 Tech Talk
-					</div>
-				  </td>
-				  <td>
-					<div class="subheader"><a href="http://www.healthtap.com/">HealthTap</a></div>
-					<div class="text">
-					  Fall 2016 Tech Talk
-					</div>
-				  </td>
-				  <td>
-					<div class="subheader"><a href="http://www.coreos.com/">CoreOS</a></div>
-					<div class="text">
-					  Fall 2016 Tech Talk
-					</div>
-				  </td>
-                </tr>
+				<tr>
+					<td>
+						<div class="subheader"><a href="https://www.nerdwallet.com/">NerdWallet</a></div>
+						<div class="text">
+							Fall 2016 Infosession
+						</div>
+					</td>
+					<td>
+						<div class="subheader"><a href="http://www.emc.com/">EMC</a></div>
+						<div class="text">
+							Fall 2016 Tech Talk
+						</div>
+					</td>
+					<td>
+						<div class="subheader"><a href="http://intel.com/">Intel</a></div>
+						<div class="text">
+							Fall 2016 Donor, Spring 2014 Intel Hackathon
+						</div>
+					</td>
+					<td>
+						<div class="subheader"><a href="https://www.qualcomm.com/">Qualcomm</a></div>
+						<div class="text">
+							Fall 2016 Tech Talk
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="{{ STATIC_URL }}images/sponsors/opentable.png"></td>
+				</tr>
+				<tr>
+					<td>
+						<div class="subheader"><a href="http://www.opentable.com/">OpenTable</a></div>
+						<div class="text">
+							Fall 2016 Tech Talk
+						</div>
+					</td>
+				</tr>
 			</table>
 		</div>
 		<div class="blockseparation"></div>
 		<div class="block">
-            <div class="header">Past Sponsors</div>
+			<div class="header">Past Sponsors</div>
 			<table class="sponsors">
 				<tr>
 					<td><img src="{{ STATIC_URL }}images/sponsors/meraki.jpg"></td>
 					<td><img src="{{ STATIC_URL }}images/sponsors/rackspace.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/intel.png"></td>
 					<td><img src="{{ STATIC_URL }}images/sponsors/square.png"></td>
+					<td><img src="{{ STATIC_URL }}images/sponsors/yelp.png"></td>
 				</tr>
 				<tr>
 					<td>
@@ -168,13 +250,7 @@
 					<td>
 						<div class="subheader"><a href="http://www.rackspace.com/">Rackspace</a></div>
 						<div class="text">
-							Spring 2013 & Fall 2013 Hackathons, Fall 2013 Coding for Grub
-						</div>
-					</td>
-					<td>
-						<div class="subheader"><a href="http://www.intel.com/">Intel</a></div>
-						<div class="text">
-							Spring 2014 Intel Hackathon
+							Spring 2013, Fall 2013 Hackathons, Fall 2013 Coding for Grub
 						</div>
 					</td>
 					<td>
@@ -183,22 +259,21 @@
 							Fall 2013 Interview Workshop, Fall 2013 View from the Top
 						</div>
 					</td>
+					<td>
+						<div class="subheader"><a href="http://www.yelp.com/">Yelp</a></div>
+						<div class="text">
+							Fall 2013, Spring 2013 Coding for Grubs
+						</div>
+					</td>
 				</tr>
 				<tr>
 					<td><img src="{{ STATIC_URL }}images/sponsors/heroku.png"></td>
-					<td><img src="{{ STATIC_URL }}images/sponsors/yelp.png"></td>
 				</tr>
 				<tr>
 					<td>
 						<div class="subheader"><a href="http://www.heroku.com/">Heroku</a></div>
 						<div class="text">
 							Spring 2012 Hackathon                    
-						</div>
-					</td>
-					<td>
-						<div class="subheader"><a href="http://www.yelp.com/">Yelp</a></div>
-						<div class="text">
-							Fall 2013 & Spring 2013 Coding for Grubs
 						</div>
 					</td>
 				</tr>
