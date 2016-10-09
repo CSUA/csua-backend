@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^index/$', views.index),
     url(r'^industry/$', views.industry),
     url(r'^join/$', views.join),
-    url(r'^officers/$', views.officers),
     url(r'^politburo/$', views.politburo),
     url(r'^hackathon13/$', views.hackathon13),
     url(r'^hackathon14/$', views.hackathon14),
