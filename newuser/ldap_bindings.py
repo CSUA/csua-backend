@@ -11,7 +11,7 @@ LDAP_SERVER = "ldap.csua.berkeley.edu"
 LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
 LDAP_PASSWORD = ""
 
-def LDAP_PASSWORD():
+def GetLdapPassword():
     global LDAP_PASSWORD
     if LDAP_PASSWORD:
         return LDAP_PASSWORD
@@ -37,7 +37,7 @@ def NewUser(username, name, email, sid, password):
     l = ldap.initialize("ldaps://{0}/".format(LDAP_SERVER))
     try:
         uid = -1
-        l.simple_bind_s(LDAP_USER, LDAP_PASSWORD())
+        l.simple_bind_s(LDAP_USER, GetLdapPassword())
         dn="uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
         uid = GetMaxUID()
         attrs = {
@@ -65,7 +65,7 @@ def NewUser(username, name, email, sid, password):
 
 def DeleteUser(username):
     l = ldap.open(LDAP_SERVER)
-    l.simple_bind(LDAP_USER, LDAP_PASSWORD())
+    l.simple_bind(LDAP_USER, GetLdapPassword())
     deleteDN = "uid={0},ou=People,dc=csua,dc=berkeley,dc=edu".format(username)
     l.delete_s(deleteDN)
 
@@ -88,7 +88,7 @@ def IsOfficer(username):
     l = ldap.open(LDAP_SERVER)
     search_filter = "cn=officers"
     try:
-        l.bind_s(LDAP_USER, LDAP_PASSWORD())
+        l.bind_s(LDAP_USER, GetLdapPassword())
         result = l.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter)
         l.unbind_s()
         officers = result[0][1]['memberUid']
