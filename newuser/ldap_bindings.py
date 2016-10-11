@@ -9,8 +9,15 @@ from random import choice
 
 LDAP_SERVER = "ldap.csua.berkeley.edu"
 LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
-with open('/etc/newuser.secret') as f:
-      LDAP_PASSWORD = f.read().strip()
+LDAP_PASSWORD = ""
+
+def LDAP_PASSWORD():
+    global LDAP_PASSWORD
+    if LDAP_PASSWORD:
+        return LDAP_PASSWORD
+    with open('/etc/newuser.secret') as f:
+        LDAP_PASSWORD = f.read().strip()
+    return LDAP_PASSWORD
 
 def GetMaxUID():
     return int(popen("ldapsearch -x 'UIDNumber' | grep uidNumber | awk '{print $2}' | sort -n | tail -n 1").read()) + 1
@@ -30,7 +37,7 @@ def NewUser(username, name, email, sid, password):
     l = ldap.initialize("ldaps://{0}/".format(LDAP_SERVER))
     try:
         uid = -1
-        l.simple_bind_s(LDAP_USER, LDAP_PASSWORD)
+        l.simple_bind_s(LDAP_USER, LDAP_PASSWORD())
         dn="uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
         uid = GetMaxUID()
         attrs = {
@@ -44,11 +51,11 @@ def NewUser(username, name, email, sid, password):
             'shadowwarning': '7',
             'sid': str(sid),
             'userpassword': MakePassword(password),
-            'gecos': '{0},{1}'.format(name,email),
+            'gecos': '{0},{1}'.format(name, email),
             'loginshell': '/bin/bash',
             }
         ldif = modlist.addModlist(attrs)
-        l.add_s(dn,ldif)
+        l.add_s(dn, ldif)
         l.unbind_s()
         return True, uid
     except Exception as e:
@@ -58,18 +65,18 @@ def NewUser(username, name, email, sid, password):
 
 def DeleteUser(username):
     l = ldap.open(LDAP_SERVER)
-    l.simple_bind(LDAP_USER, LDAP_PASSWORD)
+    l.simple_bind(LDAP_USER, LDAP_PASSWORD())
     deleteDN = "uid={0},ou=People,dc=csua,dc=berkeley,dc=edu".format(username)
     l.delete_s(deleteDN)
 
 def Authenticate(username, password):
-    user_dn="uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
+    user_dn = "uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
     base_dn = "dc=csua,dc=berkeley,dc=edu"
     l = ldap.open(LDAP_SERVER)
     search_filter = "uid="+username
     try:
-        l.bind_s(user_dn,password)
-        result = l.search_s(base_dn,ldap.SCOPE_SUBTREE,search_filter)
+        l.bind_s(user_dn, password)
+        result = l.search_s(base_dn,ldap.SCOPE_SUBTREE, search_filter)
         l.unbind_s()
         return True
     except ldap.LDAPError:
@@ -81,8 +88,8 @@ def IsOfficer(username):
     l = ldap.open(LDAP_SERVER)
     search_filter = "cn=officers"
     try:
-        l.bind_s(LDAP_USER,LDAP_PASSWORD)
-        result = l.search_s(base_dn,ldap.SCOPE_SUBTREE,search_filter)
+        l.bind_s(LDAP_USER, LDAP_PASSWORD())
+        result = l.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter)
         l.unbind_s()
         officers = result[0][1]['memberUid']
         return username in officers

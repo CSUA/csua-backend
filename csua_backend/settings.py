@@ -3,10 +3,10 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
-PROJECT_HOME = '/webserver/CSUA-backend/'
+PROJECT_HOME = './' if DEBUG else '/webserver/CSUA-backend/'
 
 ADMINS = (
-  ('Caleb Wyllie', 'root@csua.berkeley.edu'),
+    ('Caleb Wyllie', 'root@csua.berkeley.edu'),
 )
 
 MANAGERS = ADMINS
@@ -18,12 +18,12 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-'NAME': PROJECT_HOME + "data/csua.sqlite3",                      # Or path to database file if using sqlite3.
+'NAME': PROJECT_HOME + "data/csua.sqlite3", # Or path to database file if using sqlite3.
 # The following settings are not used with sqlite3:
 'USER': '',
 'PASSWORD': '',
-'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-'PORT': '1761',                      # Set to empty string for default.
+'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+'PORT': '1761', # Set to empty string for default.
 }
 }
 
@@ -83,9 +83,9 @@ STATICFILES_DIRS = (
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-'django.contrib.staticfiles.finders.FileSystemFinder',
-'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Security
@@ -100,26 +100,29 @@ STATICFILES_FINDERS = (
 X_FRAME_OPTIONS = 'DENY'
 
 # Make this unique, and don't share it with anybody.
-with open('/etc/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+if DEBUG:
+    SECRET_KEY = 'CSUA)@3zekni&mwis6s031xsru2v&h(y=l89oa4@^&i#lxfoa9p9'
+else:
+    with open('/etc/secret_key.txt') as f:
+        SECRET_KEY = f.read().strip()
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-'django.template.loaders.filesystem.Loader',
-'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
-'django.middleware.common.CommonMiddleware',
-'django.contrib.sessions.middleware.SessionMiddleware',
-#'django.middleware.csrf.CsrfViewMiddleware',
-'django.contrib.auth.middleware.AuthenticationMiddleware',
-'django.contrib.messages.middleware.MessageMiddleware',
-'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-'django.middleware.security.SecurityMiddleware',
-# Uncomment the next line for simple clickjacking protection:
-'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'csua_backend.urls'
@@ -131,26 +134,26 @@ TEMPLATE_DIRS = (
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
-  PROJECT_HOME + "/templates",
+    PROJECT_HOME + "templates",
 )
 
 INSTALLED_APPS = (
-'django.contrib.auth',
-'django.contrib.contenttypes',
-'django.contrib.sessions',
-'django.contrib.sites',
-'django.contrib.messages',
-'django.contrib.staticfiles',
-# Uncomment the next line to enable the admin:
-'django.contrib.admin',
-# Uncomment the next line to enable admin documentation:
-# 'django.contrib.admindocs',
-#'django.contrib.staticfiles',
-'main_page',
-'newuser',
-'db_data',
-'tracker',
-'homedirs',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
+    #'django.contrib.staticfiles',
+    'main_page',
+    'newuser',
+    'db_data',
+    'tracker',
+    'homedirs',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -161,25 +164,25 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
-'version': 1,
-'disable_existing_loggers': False,
-'filters': {
-'require_debug_false': {
-'()': 'django.utils.log.RequireDebugFalse'
-}
-},
-'handlers': {
-'mail_admins': {
-'level': 'ERROR',
-'filters': ['require_debug_false'],
-'class': 'django.utils.log.AdminEmailHandler'
-}
-},
-'loggers': {
-'django.request': {
-'handlers': ['mail_admins'],
-'level': 'ERROR',
-'propagate': True,
-},
-}
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
 }

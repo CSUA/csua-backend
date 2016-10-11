@@ -1,0 +1,2 @@
+Django==1.9.3
+python-ldap==2.4.25
