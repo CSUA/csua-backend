@@ -8,9 +8,9 @@ class Officer(models.Model):
     last_name = models.CharField(max_length = 70)
     office_hours = models.CharField(max_length = 70)
     photo1_url = models.CharField(max_length = 255)
-    photo2_url = models.CharField(max_length = 255)
+    photo2_url = models.CharField(max_length = 255, blank = True)
     blurb = models.CharField(max_length = 255)
-    pb_position = models.CharField(max_length = 255)
+    pb_position = models.CharField(max_length = 255, blank = True)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
