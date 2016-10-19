@@ -15,6 +15,10 @@ DEFAULT_FROM_EMAIL = 'vp@csua.berkeley.edu'
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL 
 
+EMAIL_HOST = 'mail.csua.berkeley.edu'
+
+EMAIL_PORT = 25
+
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
