@@ -181,23 +181,12 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'applogfile': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': PROJECT_HOME + 'csua_backend.log',
-            'maxBytes': 1024*1024*15, # 15MB
-            'backupCount': 10,
-        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-        'csua_backend': {
-            'handlers': ['applogfile',],
-            'level': 'DEBUG',
         },
     }
 }
