@@ -1,10 +1,12 @@
 from __future__ import unicode_literals
+import os
 
 from django.db import models
 
 def photo_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/images/officers/{first_name}_{last_name}.jpg
-    return 'images/officers/{0}_{1}.jpg'.format(instance.first_name, instance.last_name)
+    filename, file_extension = os.path.splitext(filename)
+    return 'images/officers/{0}_{1}{2}'.format(instance.first_name, instance.last_name, file_extension)
 
 # Create your models here.
 class Officer(models.Model):

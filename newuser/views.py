@@ -1,9 +1,8 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
-from os import mkdir, chown, system
+from os import mkdir, system
 import ldap_bindings
-import pwd
 
 def index(request):
   template = loader.get_template("newuser.html")
