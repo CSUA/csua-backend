@@ -18,16 +18,16 @@
           <tr>
             {% for officer in officer_row %}
             <td>
-              {% if officer.photo2_url == '' %}
+              {% if not officer.photo2 %}
               <div class="single">
-                <img src="{{ STATIC_URL }}images/officers/{{ officer.photo1_url }}">
+                <img src="{{ officer.photo1.url }}">
               </div>
               {% else %}
               <div class="photoone">
-                <img src="{{ STATIC_URL }}images/officers/{{ officer.photo1_url }}">
+                <img src="{{ officer.photo1.url }}">
               </div>
               <div class="phototwo">
-                <img src="{{ STATIC_URL }}images/officers/{{ officer.photo2_url }}">
+                <img src="{{ officer.photo2.url }}">
               </div>
               {% endif %}
             </td>

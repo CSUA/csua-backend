@@ -2,13 +2,17 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+def photo_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/images/officers/{first_name}_{last_name}.jpg
+    return 'images/officers/{0}_{1}.jpg'.format(instance.first_name, instance.last_name)
+
 # Create your models here.
 class Officer(models.Model):
     first_name = models.CharField(max_length = 70)
     last_name = models.CharField(max_length = 70)
     office_hours = models.CharField(max_length = 70)
-    photo1_url = models.CharField(max_length = 255)
-    photo2_url = models.CharField(max_length = 255, blank = True)
+    photo1 = models.ImageField(upload_to = photo_path, max_length = 255, default = 'images/officers/cardigan.jpg')
+    photo2 = models.ImageField(upload_to = photo_path, max_length = 255, blank = True)
     blurb = models.CharField(max_length = 255)
     pb_position = models.CharField(max_length = 255, blank = True)
 
