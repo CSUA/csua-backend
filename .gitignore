@@ -54,3 +54,4 @@ docs/_build/
 
 # Compile static files
 static_root
+media_root
