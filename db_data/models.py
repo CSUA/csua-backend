@@ -23,7 +23,7 @@ class Officer(models.Model):
 class Politburo(models.Model):
     position = models.CharField(max_length = 30)
     title = models.CharField(max_length = 30)
-    description = models.CharField(max_length = 255)
+    description = models.CharField(max_length = 355)
     contact = models.CharField(max_length = 255)
     officer = models.OneToOneField(Officer)
 
