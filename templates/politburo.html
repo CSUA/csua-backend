@@ -2,164 +2,38 @@
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
 {% block content %}
-        <div class="about block">
-            <div class="header">
-                The Politburo
-            </div>
-            <div class="text">
-                The Politburo consists of the seven elected officers of the CSUA. They are
-                the governing body of the CSUA and a unique group of people who are eager
-                to talk to you about the CSUA.<br>
-                You can contact the Politburo at politburo@csua.berkeley.edu.<br>
-            </div>
-			<div>
-				<img src="{{ STATIC_URL }}images/pb/pb.jpg">
-			</div>
+    <div class="about block">
+        <div class="header">
+            The Politburo
         </div>
-        <table class="politburo block">
+        <div class="text">
+            The Politburo consists of the seven elected officers of the CSUA. They are
+            the governing body of the CSUA and a unique group of people who are eager
+            to talk to you about the CSUA.<br>
+            You can contact the Politburo at politburo@csua.berkeley.edu.<br>
+        </div>
+        <div>
+            <img src="{{ STATIC_URL }}images/pb/pb.jpg">
+        </div>
+    </div>
+    <table class="politburo block">
+        {% for pb_member in pb %}
             <tr>
                 <td>
-                    <img src="{{ STATIC_URL }}images/officers/megan1.jpg">
+                    <img src="{{ pb_member.officer.photo1.url }}">
                 </td>
                 <td>
-                    <div class="title">President</div>
-                    <div class="name">Megan Zhu</div>
-                    <div class="email">president@csua.berkeley.edu</div>
+                    <div class="title">{{ pb_member.title }}</div>
+                    <div class="name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</div>
+                    <div class="email">{{ pb_member.position }}@csua.berkeley.edu</div>
                     <div class="text">
-                        The President leads meetings and represents the CSUA in its duties
-                        as the undergraduate computer science students' representative body.
-                        The President communicates with the University, faculty, staff, and other
-                        student organizations.
+                        {{ pb_member.description }}
                     </div>
                     <div class="text">
-                        Please contact Megan for general questions or concerns about the CSUA.
+                        {{ pb_member.contact }}
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <img src="{{ STATIC_URL }}images/officers/sid.jpg">
-                </td>
-                <td>
-                    <div class="title">VP/Industrial Relations</div>
-                    <div class="name">Sid Masih</div>
-                    <div class="email">indrel@csua.berkeley.edu</div>
-                    <div class="text">
-                        The VP of Industrial Relations is the CSUA liaison with companies
-                        and alumni. The VP attains sponsors for external events and
-                        generates industrial interest in the CSUA. The VP also coordinates
-                        speakers for events, manages info sessions and the job
-                        list-serve, and assists the President.
-                    </div>
-                    <div class="text">
-                        Please contact Sid for any questions regarding events, info sessions,
-                        speaking events, or sponsorships. Thank you for your support and
-                        interest in the CSUA.
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="{{ STATIC_URL }}images/officers/caleb.jpg">
-                </td>
-                <td>
-                    <div class="title">VP/Technology</div>
-                    <div class="name">Caleb Wyllie</div>
-                    <div class="email">vp@csua.berkeley.edu</div>
-                    <div class="text">
-                        The VP of Technology administers and maintains the technical resources
-                        of the CSUA, such as the computer equipment, servers, and list-serves.
-                        The VP is also the head of our root staff and a liaison with all
-                        campus IT and technical services. The VP solves or delegates the
-                        solving of any technical issues.
-                    </div>
-                    <div class="text">
-                        If you have any questions about your account or the CSUA servers or
-                        software, please contact Caleb.
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="{{ STATIC_URL }}images/officers/yitz.jpg">
-                </td>
-                <td>
-                    <div class="title">Secretary/Treasurer</div>
-                    <div class="name">Yitz Deng</div>
-                    <div class="email">treasurer@csua.berkeley.edu</div>
-                    <div class="text">
-                        The Secretary/Treasurer takes minutes at meetings, maintains the
-                        CSUA's monetary and physical resources (office, study lounge, library,
-                        etc.), and keeps all financial and non-financial records. The
-                        Secretary/Treasurer is also the liaison with any University funding
-                        programs or facility maintenance and the primary signatory power
-                        with the ASUC.
-                    </div>
-                    <div class="text">
-                        Please contact Yitz for questions about the CSUA's budget,
-                        resources, or records.
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="{{ STATIC_URL }}images/officers/barak.jpg">
-                </td>
-                <td>
-                    <div class="title">External Events</div>
-                    <div class="name">Barak Zhou</div>
-                    <div class="email">externalevents@csua.berkeley.edu</div>
-                    <div class="text">
-                        The External Events Coordinator plans all external CSUA events.
-                        An external event is defined as an event sponsored by a company.
-                        The External Events Coordinator works closely with the VP of Industrial
-                        Relations and the Internal Events Coordinator.
-                    </div>
-                    <div class="text">
-                        Please contact Barak for any questions regarding upcoming external
-                        events or with offers for potential future events.
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="{{ STATIC_URL }}images/officers/neillingarkar.jpg">
-                </td>
-                <td>
-                    <div class="title">Internal Events</div>
-                    <div class="name">Neil Lingarkar</div>
-                    <div class="email">internalevents@csua.berkeley.edu</div>
-                    <div class="text">
-                        The Internal Events Coordinator plans all internal CSUA events.
-                        An internal event is defined as an event that does not have a company
-                        sponsor. This includes general meetings, intersocial events, and alumni
-                        events. The Internal Events Coordinator works closely with the
-                        External Events Coordinator.
-                    </div>
-                    <div class="text">
-                        Please direct internal events questions to Neil.
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="{{ STATIC_URL }}images/officers/julie.jpg">
-                </td>
-                <td>
-                    <div class="title">Outreach</div>
-                    <div class="name">Julie Chen</div>
-                    <div class="email">outreach@csua.berkeley.edu</div>
-                    <div class="text">
-                        The Outreach chair maintains or delegates the maintenance of the
-                        website and various social media accounts. The Outreach chair also
-                        publicizes all CSUA events to the student body, promotes interaction
-                        between current students and alumni, and welcomes new members.
-                    </div>
-                    <div class="text">
-                        If you are a student interested in joining the CSUA, feel free to reach
-                        out to Julie.
-                    </div>
-                </td>
-            </tr>
-        </table>
+        {% endfor %}
+    </table>
 {% endblock %}

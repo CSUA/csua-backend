@@ -26,16 +26,6 @@ def industry(request):
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
-def officers(request):
-    template = loader.get_template("officers.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
-
-def politburo(request):
-    template = loader.get_template("politburo.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
-
 def join(request):
     template = loader.get_template("join.html")
     context = RequestContext(request, {})

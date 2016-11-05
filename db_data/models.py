@@ -16,8 +16,17 @@ class Officer(models.Model):
     photo1 = models.ImageField(upload_to = photo_path, max_length = 255, default = 'images/officers/cardigan.jpg')
     photo2 = models.ImageField(upload_to = photo_path, max_length = 255, blank = True)
     blurb = models.CharField(max_length = 255)
-    pb_position = models.CharField(max_length = 255, blank = True)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+class Politburo(models.Model):
+    position = models.CharField(max_length = 30)
+    title = models.CharField(max_length = 30)
+    description = models.CharField(max_length = 255)
+    contact = models.CharField(max_length = 255)
+    officer = models.OneToOneField(Officer)
+
+    def __str__(self):
+        return self.position
 

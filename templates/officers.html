@@ -2,46 +2,46 @@
 {% block title %}Officers{% endblock %}
 {% block css_file %}officers.css{% endblock %}
 {% block content %}
-		<div class="block">
-			<div class="header">
-				Officers
-			</div>
-			<div class="text">
-				Are you new to Berkeley? New to CS? Need help with class? Want people to
-				talk to? Come by the office in 311 Soda and meet some of our officers! They're here
-				to help you and keep the office tidy and fun. <br>
-				<a href="https://docs.google.com/spreadsheets/d/15TCpVikCxmRpqs5fPOUqyBP8Intayh3SAFZbHraXK1Y/edit#gid=0">Calendar of office hours</a>
-			</div>
-		</div>
-        <table class="block descript">
-          {% for officer_row in officers %}
-          <tr>
-            {% for officer in officer_row %}
-            <td>
-              {% if not officer.photo2 %}
-              <div class="single">
-                <img src="{{ officer.photo1.url }}">
-              </div>
-              {% else %}
-              <div class="photoone">
-                <img src="{{ officer.photo1.url }}">
-              </div>
-              <div class="phototwo">
-                <img src="{{ officer.photo2.url }}">
-              </div>
-              {% endif %}
-            </td>
-            {% endfor %}
-          </tr>
-          <tr>
-            {% for officer in officer_row %}
-            <td>
-              <div class="name">{{ officer.first_name }} {{ officer.last_name }}</div>
-              <div class="officehours">{{ officer.office_hours }}</div>
-              <div class="description">"{{ officer.blurb }}"</div>
-            </td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </table>
+    <div class="block">
+        <div class="header">
+            Officers
+        </div>
+        <div class="text">
+            Are you new to Berkeley? New to CS? Need help with class? Want people to
+            talk to? Come by the office in 311 Soda and meet some of our officers! They're here
+            to help you and keep the office tidy and fun. <br>
+            <a href="https://docs.google.com/spreadsheets/d/15TCpVikCxmRpqs5fPOUqyBP8Intayh3SAFZbHraXK1Y/edit#gid=0">Calendar of office hours</a>
+        </div>
+    </div>
+    <table class="block descript">
+        {% for officer_row in officers %}
+            <tr>
+                {% for officer in officer_row %}
+                    <td>
+                        {% if not officer.photo2 %}
+                            <div class="single">
+                                <img src="{{ officer.photo1.url }}">
+                            </div>
+                        {% else %}
+                            <div class="photoone">
+                                <img src="{{ officer.photo1.url }}">
+                            </div>
+                            <div class="phototwo">
+                                <img src="{{ officer.photo2.url }}">
+                            </div>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for officer in officer_row %}
+                    <td>
+                        <div class="name">{{ officer.first_name }} {{ officer.last_name }}</div>
+                        <div class="officehours">{{ officer.office_hours }}</div>
+                        <div class="description">"{{ officer.blurb }}"</div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
