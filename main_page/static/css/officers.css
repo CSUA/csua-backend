@@ -28,6 +28,7 @@ table > tbody > tr:nth-child(2n) > td {
 .root-staff-banner {
     background: #365d97;
     color: #decb4b;
+    font-family: Courier New, monospace;
     font-weight: bold;
     left: -5px;
     padding: 5px 0;
