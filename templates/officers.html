@@ -17,7 +17,7 @@
         {% for officer_row in officers %}
             <tr>
                 {% for officer in officer_row %}
-                    <td>
+                    <td class="picture">
                         {% if not officer.photo2 %}
                             <div class="single">
                                 <img src="{{ officer.photo1.url }}">
@@ -28,6 +28,11 @@
                             </div>
                             <div class="phototwo">
                                 <img src="{{ officer.photo2.url }}">
+                            </div>
+                        {% endif %}
+                        {% if officer.root_staff %}
+                            <div class="root-staff-banner-wrapper">
+                                <div class="root-staff-banner">Root</div>
                             </div>
                         {% endif %}
                     </td>

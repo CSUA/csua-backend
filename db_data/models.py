@@ -19,6 +19,7 @@ class Officer(models.Model):
     photo2 = models.ImageField(upload_to = photo_path, max_length = 255,
         blank = True)
     blurb = models.CharField(max_length = 255)
+    root_staff = models.BooleanField(default = False)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name

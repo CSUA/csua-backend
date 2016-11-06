@@ -14,6 +14,30 @@ table > tbody > tr:nth-child(2n) > td {
 .roster > tbody > tr:nth-child(2n) > td {
     padding: 5px 0 20px 5px;
 }
+.picture {
+    position: relative;
+}
+.root-staff-banner-wrapper {
+    overflow: hidden;
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    width: 85px;
+    height: 88px;
+}
+.root-staff-banner {
+    background: #365d97;
+    color: #decb4b;
+    font-weight: bold;
+    left: -5px;
+    padding: 5px 0;
+    position: relative;
+    text-align: center;
+    top: 44px;
+    width: 120px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    transform: rotate(-45deg);
+}
 .phototwo {
     display: none;
 }
