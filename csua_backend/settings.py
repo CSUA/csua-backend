@@ -18,17 +18,28 @@ EMAIL_HOST = 'mail.csua.berkeley.edu'
 
 EMAIL_PORT = 25
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECT_HOME + "data/csua.sqlite3", # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '1761', # Set to empty string for default.
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'data/csua.sqlite3',
+        }
     }
-}
+else:
+    with open('/etc/db_pass.secret') as f:
+        DB_PASS = f.read().strip()
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'csua_backend', # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': 'pnunez',
+            'PASSWORD': DB_PASS,
+            'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '', # Set to empty string for default.
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -106,7 +117,7 @@ X_FRAME_OPTIONS = 'DENY'
 if DEBUG:
     SECRET_KEY = 'CSUA)@3zekni&mwis6s031xsru2v&h(y=l89oa4@^&i#lxfoa9p9'
 else:
-    with open('/etc/secret_key.txt') as f:
+    with open('/etc/secret_key.secret') as f:
         SECRET_KEY = f.read().strip()
 
 TEMPLATES = [
