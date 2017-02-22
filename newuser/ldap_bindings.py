@@ -7,7 +7,7 @@ import string
 from base64 import b64encode
 from random import choice
 
-LDAP_SERVER = "ldap.csua.berkeley.edu"
+LDAP_SERVER = "ldaps://ldap.csua.berkeley.edu"
 LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
 LDAP_PASSWORD = ""
 
@@ -34,7 +34,7 @@ def NewUser(username, name, email, sid, password):
     assert(type(email) == str)
     assert(type(sid) == int)
     assert(type(password) == str)
-    l = ldap.initialize("ldaps://{0}/".format(LDAP_SERVER))
+    l = ldap.initialize(LDAP_SERVER)
     try:
         uid = -1
         l.simple_bind_s(LDAP_USER, GetLdapPassword())
@@ -64,7 +64,7 @@ def NewUser(username, name, email, sid, password):
         return False, uid
 
 def DeleteUser(username):
-    l = ldap.open(LDAP_SERVER)
+    l = ldap.initialize(LDAP_SERVER)
     l.simple_bind(LDAP_USER, GetLdapPassword())
     deleteDN = "uid={0},ou=People,dc=csua,dc=berkeley,dc=edu".format(username)
     l.delete_s(deleteDN)
@@ -72,7 +72,7 @@ def DeleteUser(username):
 def Authenticate(username, password):
     user_dn = "uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
     base_dn = "dc=csua,dc=berkeley,dc=edu"
-    l = ldap.open(LDAP_SERVER)
+    l = ldap.initialize(LDAP_SERVER)
     search_filter = "uid="+username
     try:
         l.bind_s(user_dn, password)
@@ -85,7 +85,7 @@ def Authenticate(username, password):
 
 def IsOfficer(username):
     base_dn = "dc=csua,dc=berkeley,dc=edu"
-    l = ldap.open(LDAP_SERVER)
+    l = ldap.initialize(LDAP_SERVER)
     search_filter = "cn=officers"
     try:
         l.bind_s(LDAP_USER, GetLdapPassword())
