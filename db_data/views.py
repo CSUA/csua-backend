@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
-from models import Officer, Politburo, Sponsor
+from .models import Officer, Politburo, Sponsor
 
 # Create your views here.
 def officers(request):

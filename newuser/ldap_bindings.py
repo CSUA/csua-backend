@@ -59,7 +59,7 @@ def NewUser(username, name, email, sid, password):
         l.unbind_s()
         return True, uid
     except Exception as e:
-        print e
+        print(e)
         l.unbind_s()
         return False, uid
 
