@@ -103,4 +103,6 @@ def ping(request, codeText = None, signature = None):
         if now - userdb[username]["lastPing"] <= 2*1000*delta:
             userdb[username]["timeRemaining"]-=int((now - userdb[username]["lastPing"])/1000)
             userdb[username]["lastPing"]=now
+        else:
+            userdb[username]["lastPing"]=now
     return HttpResponse(str(userdb[username]["timeRemaining"]))
