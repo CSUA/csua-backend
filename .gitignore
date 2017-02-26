@@ -52,6 +52,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# No dumb files allowed
+.DS_Store
+
 # Compile static files
 static_root
 media_root
