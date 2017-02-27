@@ -1,5 +1,4 @@
-import ldap
-import ldap.modlist as modlist
+from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
 from os import popen
 import sha
 import hashlib
@@ -23,7 +22,7 @@ def GetMaxUID():
     return int(popen("ldapsearch -x 'UIDNumber' | grep uidNumber | awk '{print $2}' | sort -n | tail -n 1").read()) + 1
 
 def MakePassword(password):
-    salt = ''.join(choice(string.letters + string.digits) for _ in range(4))
+    salt = ''.join(choice(string.ascii_letters + string.digits) for _ in range(4))
     ctx = sha.new(password)
     ctx.update(salt)
     return "{SSHA}" + b64encode( ctx.digest() + salt )
@@ -34,10 +33,10 @@ def NewUser(username, name, email, sid, password):
     assert(type(email) == str)
     assert(type(sid) == int)
     assert(type(password) == str)
-    l = ldap.initialize(LDAP_SERVER)
-    try:
-        uid = -1
-        l.simple_bind_s(LDAP_USER, GetLdapPassword())
+    s = Server(LDAP_SERVER, get_info=ALL)
+    uid = -1
+    c = Connection(s, user=LDAP_USER, password=GetLdapPassword())
+    if c.bind():
         dn="uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
         uid = GetMaxUID()
         attrs = {
@@ -54,48 +53,43 @@ def NewUser(username, name, email, sid, password):
             'gecos': '{0},{1}'.format(name, email),
             'loginshell': '/bin/bash',
             }
-        ldif = modlist.addModlist(attrs)
-        l.add_s(dn, ldif)
-        l.unbind_s()
+        c.add(dn, attrs)
+        c.unbind()
         return True, uid
-    except Exception as e:
-        print(e)
-        l.unbind_s()
-        return False, uid
+    c.unbind()
+    return False, uid
 
-def DeleteUser(username):
-    l = ldap.initialize(LDAP_SERVER)
-    l.simple_bind(LDAP_USER, GetLdapPassword())
+def DeleteUser(username):       #never used
+    s = Server(LDAP_SERVER, get_info=ALL)
+    c = Connection(s, user=LDAP_USER, password=GetLdapPassword())
     deleteDN = "uid={0},ou=People,dc=csua,dc=berkeley,dc=edu".format(username)
-    l.delete_s(deleteDN)
+    c.delete(deleteDN)
 
 def Authenticate(username, password):
     user_dn = "uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
     base_dn = "dc=csua,dc=berkeley,dc=edu"
-    l = ldap.initialize(LDAP_SERVER)
-    search_filter = "uid="+username
-    try:
-        l.bind_s(user_dn, password)
-        result = l.search_s(base_dn,ldap.SCOPE_SUBTREE, search_filter)
-        l.unbind_s()
+    s = Server(LDAP_SERVER, get_info=ALL)
+    search_filter = "(uid="+username + ")"
+    c = Connection(s, user=user_dn, password=password)
+    if c.bind():
+        c.search(base_dn, search_filter)
+        c.unbind()
         return True
-    except ldap.LDAPError:
-        l.unbind_s()
-        return False
+    c.unbind()
+    return False
 
 def IsOfficer(username):
     base_dn = "dc=csua,dc=berkeley,dc=edu"
-    l = ldap.initialize(LDAP_SERVER)
+    s = Server(LDAP_SERVER, get_info=ALL)
     search_filter = "cn=officers"
-    try:
-        l.bind_s(LDAP_USER, GetLdapPassword())
-        result = l.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter)
-        l.unbind_s()
-        officers = result[0][1]['memberUid']
+    c = Connection(s, user=LDAP_USER, password = GetLdapPassword())
+    if c.bind():
+        c.search(base_dn, search_filter, attributes=ALL_ATTRIBUTES)
+        result = c.response
+        c.unbind()
+        officers = result[0]['attributes']['memberUid']
         return username in officers
-    except ldap.LDAPError:
-        l.unbind_s()
-        return False
+    c.unbind()
 
 def ValidateOfficer(username, password):
     return IsOfficer(username) and Authenticate(username, password)
