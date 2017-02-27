@@ -89,7 +89,7 @@ def index(request):
 
 def ping(request, codeText = None, signature = None):
     #Validate signature
-    if not signature.isdigit() or pow(int(signature), e, n) != int(sha512(codeText).hexdigest(), 16) % n:
+    if not signature.isdigit() or pow(int(signature), e, n) != int(sha512(codeText.encode('utf-8')).hexdigest(), 16) % n:
         return HttpResponse("Bad Request.")
     codeText = base64.b64decode(codeText)
     resetAccounts()
