@@ -27,11 +27,11 @@ def MakePassword(password):
     return "{SSHA}" + b64encode( ctx.digest() + salt.encode('utf-8') ).decode('utf-8')
 
 def NewUser(username, name, email, sid, password):
-    assert(type(username) == str)
-    assert(type(name) == str)
-    assert(type(email) == str)
-    assert(type(sid) == int)
-    assert(type(password) == str)
+    assert(isinstance(username, str))
+    assert(isinstance(name, str))
+    assert(isinstance(email, str))
+    assert(isinstance(sid, int))
+    assert(isinstance(password, str))
     s = Server(LDAP_SERVER, get_info=ALL)
     uid = -1
     c = Connection(s, user=LDAP_USER, password=GetLdapPassword())

@@ -12,7 +12,7 @@ def officers(request):
     for officer in officers_all:
         if count % 4 == 0:
             officer_list.append([])
-        officer_list[count / 4].append(officer)
+        officer_list[count // 4].append(officer)
         count += 1
     context = RequestContext(request, {'officers' : officer_list})
     return HttpResponse(template.render(context))
@@ -37,12 +37,12 @@ def sponsors(request):
         if sponsor.current:
             if count_current % 4 == 0:
                 sponsors_current.append([])
-            sponsors_current[count_current / 4].append(sponsor)
+            sponsors_current[count_current // 4].append(sponsor)
             count_current += 1
         else:
             if count_old % 4 == 0:
                 sponsors_old.append([])
-            sponsors_old[count_old / 4].append(sponsor)
+            sponsors_old[count_old // 4].append(sponsor)
             count_old += 1
 
     context = RequestContext(request, {'sponsors_current': sponsors_current,

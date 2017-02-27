@@ -14,10 +14,10 @@ def get_resource_uri(uri):
   if not path.exists(uri):
     return False
   if path.isdir(uri):
-    if not path.exists(path.join(uri,"index.html")):
+    if not path.exists(path.join(uri, "index.html")):
       return False
     else:
-      return path.join(uri,"index.html")
+      return path.join(uri, "index.html")
   else:
     return uri
 

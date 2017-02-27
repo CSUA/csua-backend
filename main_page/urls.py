@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from main_page import views
 
 urlpatterns = [
-    url(r'^$',views.index),
+    url(r'^$', views.index),
     url(r'^constitution/$', views.constitution),
     url(r'^events/$', views.events),
     url(r'^index/$', views.index),

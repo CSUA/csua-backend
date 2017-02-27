@@ -71,20 +71,20 @@ def getComputers():
                                 str(hostdb[host]["user"]),
                                 secondsToTime(userdb[hostdb[host]["user"]]["timeSpent"])))
         else:
-            out.append(Computer(host,True,"N/A",-1))
+            out.append(Computer(host, True, "N/A", -1))
     return out
 
 def index(request):
     template = loader.get_template("computers.html")
     context = RequestContext(request, {
-        'computers':getComputers(),
-        'users':getUsers(),
+        'computers': getComputers(),
+        'users': getUsers(),
         })
     return HttpResponse(template.render(context))
 
 def ping(request, codeText = None, signature = None):
     #Validate signature
-    if not signature.isdigit() or pow(int(signature),e,n) != int(sha512(codeText).hexdigest(),16) % n:
+    if not signature.isdigit() or pow(int(signature), e, n) != int(sha512(codeText).hexdigest(), 16) % n:
         return HttpResponse("Bad Request.")
     codeText = base64.b64decode(codeText)
     resetAccounts()
@@ -102,8 +102,8 @@ def ping(request, codeText = None, signature = None):
         }
     if username not in userdb:
         userdb[username]={
-            "timeSpent":0,
-            "lastPing":currTimeMillis(),
+            "timeSpent": 0,
+            "lastPing": currTimeMillis(),
             }
     else:
         now = currTimeMillis()
