@@ -22,6 +22,13 @@ twitchUsers = {'jaze': 'alxjaze'}
 def currTimeMillis():
     return int(time()*1000)
 
+def secondsToTime(seconds):
+    sign = '' if seconds >= 0 else '-'
+    mag = abs(seconds)
+    m, s = divmod(mag, 60)
+    h, m = divmod(m, 60)
+    return "%s%d:%02d:%02d" % (sign, h, m, s)
+
 def resetAccounts():
     global lastreset
     if datetime.today().day != lastreset:
@@ -39,7 +46,7 @@ class User():
 def getUsers():
     out = []
     for username in userdb:
-        out.append(User(username, userdb[username]['timeRemaining'], userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
+        out.append(User(username, secondsToTime(userdb[username]['timeRemaining']), userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
     return out
 
 class Computer():
@@ -62,7 +69,7 @@ def getComputers():
             out.append(Computer(host,
                                 userdb[hostdb[host]["user"]]["timeRemaining"] <= 0,
                                 str(hostdb[host]["user"]),
-                                userdb[hostdb[host]["user"]]["timeRemaining"]))
+                                secondsToTime(userdb[hostdb[host]["user"]]["timeRemaining"])))
         else:
             out.append(Computer(host,True,"N/A",-1))
     return out
@@ -102,7 +109,5 @@ def ping(request, codeText = None, signature = None):
         now = currTimeMillis()
         if now - userdb[username]["lastPing"] <= 2*1000*delta:
             userdb[username]["timeRemaining"]-=int((now - userdb[username]["lastPing"])/1000)
-            userdb[username]["lastPing"]=now
-        else:
-            userdb[username]["lastPing"]=now
+        userdb[username]["lastPing"]=now
     return HttpResponse(str(userdb[username]["timeRemaining"]))
