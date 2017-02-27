@@ -52,7 +52,7 @@ def NewUser(username, name, email, sid, password):
             'gecos': '{0},{1}'.format(name, email),
             'loginshell': '/bin/bash',
             }
-        c.add(dn, attrs)
+        c.add(dn, attributes=attrs)
         c.unbind()
         return True, uid
     c.unbind()
@@ -62,7 +62,9 @@ def DeleteUser(username):       #never used
     s = Server(LDAP_SERVER, get_info=ALL)
     c = Connection(s, user=LDAP_USER, password=GetLdapPassword())
     deleteDN = "uid={0},ou=People,dc=csua,dc=berkeley,dc=edu".format(username)
-    c.delete(deleteDN)
+    if c.bind():
+        c.delete(deleteDN)
+    c.unbind()
 
 def Authenticate(username, password):
     user_dn = "uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
@@ -80,7 +82,7 @@ def Authenticate(username, password):
 def IsOfficer(username):
     base_dn = "dc=csua,dc=berkeley,dc=edu"
     s = Server(LDAP_SERVER, get_info=ALL)
-    search_filter = "cn=officers"
+    search_filter = "(cn=officers)"
     c = Connection(s, user=LDAP_USER, password = GetLdapPassword())
     if c.bind():
         c.search(base_dn, search_filter, attributes=ALL_ATTRIBUTES)
