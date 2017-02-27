@@ -34,7 +34,7 @@ def resetAccounts():
     if datetime.today().day != lastreset:
         lastreset = datetime.today().day
         for user in userdb:
-            userdb[user]["timeRemaining"] = DAILY_QUOTA
+            userdb[user]["timeSpent"] = 0
 
 class User():
     def __init__(self, username, time, lastPing, twitchUsername):
@@ -46,7 +46,7 @@ class User():
 def getUsers():
     out = []
     for username in userdb:
-        out.append(User(username, secondsToTime(userdb[username]['timeRemaining']), userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
+        out.append(User(username, secondsToTime(userdb[username]['timeSpent']), userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
     return out
 
 class Computer():
@@ -67,9 +67,9 @@ def getComputers():
         timestamp = hostdb[host]["local_timestamp"]
         if (currTimeMillis() - timestamp) < 10000:
             out.append(Computer(host,
-                                userdb[hostdb[host]["user"]]["timeRemaining"] <= 0,
+                                userdb[hostdb[host]["user"]]["timeSpent"] >= 7200,
                                 str(hostdb[host]["user"]),
-                                secondsToTime(userdb[hostdb[host]["user"]]["timeRemaining"])))
+                                secondsToTime(userdb[hostdb[host]["user"]]["timeSpent"])))
         else:
             out.append(Computer(host,True,"N/A",-1))
     return out
@@ -102,12 +102,12 @@ def ping(request, codeText = None, signature = None):
         }
     if username not in userdb:
         userdb[username]={
-            "timeRemaining":DAILY_QUOTA,
+            "timeSpent":0,
             "lastPing":currTimeMillis(),
             }
     else:
         now = currTimeMillis()
         if now - userdb[username]["lastPing"] <= 2*1000*delta:
-            userdb[username]["timeRemaining"]-=int((now - userdb[username]["lastPing"])/1000)
+            userdb[username]["timeSpent"]+=int((now - userdb[username]["lastPing"])/1000)
         userdb[username]["lastPing"]=now
-    return HttpResponse(str(userdb[username]["timeRemaining"]))
+    return HttpResponse(str(userdb[username]["timeSpent"]))
