@@ -1,6 +1,5 @@
 from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
 from os import popen
-import sha
 import hashlib
 import string
 from base64 import b64encode
@@ -23,9 +22,9 @@ def GetMaxUID():
 
 def MakePassword(password):
     salt = ''.join(choice(string.ascii_letters + string.digits) for _ in range(4))
-    ctx = sha.new(password)
-    ctx.update(salt)
-    return "{SSHA}" + b64encode( ctx.digest() + salt )
+    ctx = hashlib.sha1(password.encode('utf-8'))
+    ctx.update(salt.encode('utf-8'))
+    return "{SSHA}" + b64encode( ctx.digest() + salt.encode('utf-8') ).decode('utf-8')
 
 def NewUser(username, name, email, sid, password):
     assert(type(username) == str)
