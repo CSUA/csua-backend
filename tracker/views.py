@@ -17,17 +17,29 @@ hostdb={}
 DAILY_QUOTA=3600*2
 lastreset = datetime.today().day
 
-twitchUsers = {'jaze': 'alxjaze'}
+twitchUsers = {
+    'jaze': 'alxjaze',
+    'jonathanjtan': 'dragaanwawa',
+    'ericdahoe': 'ericdahoe',
+    'nlingarkar': 'sirnellington'
+}
 
 def currTimeMillis():
     return int(time()*1000)
+
+def secondsToTime(seconds):
+    sign = '' if seconds >= 0 else '-'
+    mag = abs(seconds)
+    m, s = divmod(mag, 60)
+    h, m = divmod(m, 60)
+    return "%s%d:%02d:%02d" % (sign, h, m, s)
 
 def resetAccounts():
     global lastreset
     if datetime.today().day != lastreset:
         lastreset = datetime.today().day
         for user in userdb:
-            userdb[user]["timeRemaining"] = DAILY_QUOTA
+            userdb[user]["timeSpent"] = 0
 
 class User():
     def __init__(self, username, time, lastPing, twitchUsername):
@@ -39,7 +51,7 @@ class User():
 def getUsers():
     out = []
     for username in userdb:
-        out.append(User(username, userdb[username]['timeRemaining'], userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
+        out.append(User(username, secondsToTime(userdb[username]['timeSpent']), userdb[username]['lastPing'], (None if username not in twitchUsers else twitchUsers[username]) ))
     return out
 
 class Computer():
@@ -60,24 +72,24 @@ def getComputers():
         timestamp = hostdb[host]["local_timestamp"]
         if (currTimeMillis() - timestamp) < 10000:
             out.append(Computer(host,
-                                userdb[hostdb[host]["user"]]["timeRemaining"] <= 0,
+                                userdb[hostdb[host]["user"]]["timeSpent"] >= 7200,
                                 str(hostdb[host]["user"]),
-                                userdb[hostdb[host]["user"]]["timeRemaining"]))
+                                secondsToTime(userdb[hostdb[host]["user"]]["timeSpent"])))
         else:
-            out.append(Computer(host,True,"N/A",-1))
+            out.append(Computer(host, True, "N/A", -1))
     return out
 
 def index(request):
     template = loader.get_template("computers.html")
     context = RequestContext(request, {
-        'computers':getComputers(),
-        'users':getUsers(),
+        'computers': getComputers(),
+        'users': getUsers(),
         })
     return HttpResponse(template.render(context))
 
 def ping(request, codeText = None, signature = None):
     #Validate signature
-    if not signature.isdigit() or pow(int(signature),e,n) != int(sha512(codeText).hexdigest(),16) % n:
+    if not signature.isdigit() or pow(int(signature), e, n) != int(sha512(codeText).hexdigest(), 16) % n:
         return HttpResponse("Bad Request.")
     codeText = base64.b64decode(codeText)
     resetAccounts()
@@ -95,14 +107,12 @@ def ping(request, codeText = None, signature = None):
         }
     if username not in userdb:
         userdb[username]={
-            "timeRemaining":DAILY_QUOTA,
-            "lastPing":currTimeMillis(),
+            "timeSpent": 0,
+            "lastPing": currTimeMillis(),
             }
     else:
         now = currTimeMillis()
         if now - userdb[username]["lastPing"] <= 2*1000*delta:
-            userdb[username]["timeRemaining"]-=int((now - userdb[username]["lastPing"])/1000)
-            userdb[username]["lastPing"]=now
-        else:
-            userdb[username]["lastPing"]=now
-    return HttpResponse(str(userdb[username]["timeRemaining"]))
+            userdb[username]["timeSpent"]+=int((now - userdb[username]["lastPing"])/1000)
+        userdb[username]["lastPing"]=now
+    return HttpResponse(str(userdb[username]["timeSpent"]))

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
 from os import mkdir, system
-import ldap_bindings
+from . import ldap_bindings
 
 def index(request):
   template = loader.get_template("newuser.html")
@@ -27,13 +27,13 @@ def create(request):
       context = RequestContext(request, {'error':'Officer validation failed.'})
       return HttpResponse(template.render(context))
     status, uid = ldap_bindings.NewUser(str(username), str(full_name), str(email), int(student_id), str(password))
-    print "UID:{0}".format(uid)
+    print("UID:{0}".format(uid))
     if not status:
       template = loader.get_template("create_failure.html")
       context = RequestContext(request, {'error':'Your username is already taken.'})
       return HttpResponse(template.render(context))
     system("mkdir -m 700 /home/{0}".format(username))
-    with open("/home/{0}/.forward".format(username),"w") as fd:
+    with open("/home/{0}/.forward".format(username), "w") as fd:
       fd.write(email)
     system("ssh root@nfs chown {0} {1}".format(uid, "/nfs/homes/{0}".format(username)))
     system("ssh root@nfs chown {0} {1}".format(uid, "/nfs/homes/{0}/.forward".format(username))) 
