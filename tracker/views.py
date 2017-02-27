@@ -17,7 +17,12 @@ hostdb={}
 DAILY_QUOTA=3600*2
 lastreset = datetime.today().day
 
-twitchUsers = {'jaze': 'alxjaze'}
+twitchUsers = {
+    'jaze': 'alxjaze',
+    'jonathanjtan': 'dragaanwawa',
+    'ericdahoe': 'ericdahoe',
+    'nlingarkar': 'sirnellington'
+}
 
 def currTimeMillis():
     return int(time()*1000)
