@@ -1,0 +1,8 @@
+#!/bin/bash
+#!/bin/rbash
+#arguments: config_newuser username email uid enroll_jobs
+mkdir -m 700 /nfs/homes/$1
+echo $2 > /nfs/homes/$1/.forward
+chown -R $3:1000 /nfs/homes/$1
+echo $2 | add_members -r - Csua-newmembers
+if ($4); then echo $2 | add_members -r - Jobs; fi
