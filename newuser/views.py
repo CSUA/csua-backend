@@ -61,7 +61,7 @@ def create(request):
       template = loader.get_template("create_failure.html")
       context = RequestContext(request, {'error':'Your username is already taken.'})
       return HttpResponse(template.render(context))
-    system("/webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(username, email, uid, enroll_jobs))
+    system("sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(username, email, uid, enroll_jobs))
     template = loader.get_template("create_success.html")
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
