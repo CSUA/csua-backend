@@ -33,3 +33,14 @@
 .subsubtext {
     margin-left: 50px;
 }
+#pagetitle {
+  text-align: center;
+  background: none;
+  border: none;
+}
+#headertitle {
+  font-size: 40px;
+}
+#texttitle {
+  font-size: 20px;
+}

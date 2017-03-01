@@ -167,6 +167,27 @@ a {
     line-height: 26px;
     font-weight: 300;
 }
+#half-text {
+  width: 50%;
+}
+.imbeddedpic {
+  text-align: right;
+}
+#showcase1img {
+  width: 100%;
+  object-fit: cover;
+}
+#pagetitle {
+  text-align: center;
+  background: none;
+  border: none;
+}
+#headertitle {
+  font-size: 40px;
+}
+#texttitle {
+  font-size: 20px;
+}
 
 /* Events */
 .event {
