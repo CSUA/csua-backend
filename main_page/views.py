@@ -16,6 +16,11 @@ def index(request):
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
 
+def showcase(request):
+    template = loader.get_template("showcase.html")
+    context = RequestContext(request, {})
+    return HttpResponse(template.render(context))
+
 def industry(request):
     template = loader.get_template("industry.html")
     context = RequestContext(request, {})
@@ -30,7 +35,7 @@ def hackathon13(request):
     template = loader.get_template("hackathonfa13.html")
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
-  
+
 def hackathon14(request):
     template = loader.get_template("hackathonfa14.html")
     context = RequestContext(request, {})
