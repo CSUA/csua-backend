@@ -91,7 +91,7 @@ def ping(request, codeText = None, signature = None):
     #Validate signature
     if not signature.isdigit() or pow(int(signature), e, n) != int(sha512(codeText.encode('utf-8')).hexdigest(), 16) % n:
         return HttpResponse("Bad Request.")
-    codeText = base64.b64decode(codeText)
+    codeText = base64.b64decode(codeText).decode('utf-8')
     resetAccounts()
     data = loads(codeText)
     delta = data['delta']
