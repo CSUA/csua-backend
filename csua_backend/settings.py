@@ -1,7 +1,7 @@
 # Django settings for csua_backend project.
 import django.conf.global_settings as DEFAULT_SETTINGS
 
-DEBUG = True
+DEBUG = False
 PROJECT_HOME = './' if DEBUG else '/webserver/CSUA-backend/'
 
 ADMINS = (
