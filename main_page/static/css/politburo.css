@@ -33,18 +33,6 @@
     width: initial;
 }
 
-#pagetitle {
-  text-align: center;
-  background: none;
-  border: none;
-}
-#headertitle {
-  font-size: 40px;
-}
-#texttitle {
-  font-size: 20px;
-}
-
 /* Former Politburo Page */
 .pbroster {
     background: white;
