@@ -71,7 +71,7 @@ a {
         display: none;
     }
 }
-.navitem:nth-child(6) {
+.navitem:last-child {
     margin-left: 0;
 }
 .navlink {
