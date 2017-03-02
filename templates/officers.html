@@ -2,17 +2,16 @@
 {% block title %}Officers{% endblock %}
 {% block css_file %}officers.css{% endblock %}
 {% block content %}
-    <div class="block">
-        <div class="header">
-            Officers
-        </div>
-        <div class="text">
-            Are you new to Berkeley? New to CS? Need help with class? Want people to
-            talk to? Come by the office in 311 Soda and meet some of our officers! They're here
-            to help you and keep the office tidy and fun. <br>
-            <a href="https://docs.google.com/spreadsheets/d/1NNv18ZajHoaH3oAtq8d-ENnAE7wCsseqKUXQwkvb1y0/edit#gid=0">Calendar of office hours</a>
-        </div>
+    <div class="block" id="pagetitle">
+      <div class="header" id="headertitle">Officers</div>
+      <div class="text" id="texttitle">
+        Are you new to Berkeley? New to CS? Need help with class? Want people to
+        talk to? Come by the office in 311 Soda and meet some of our officers! They're here
+        to help you and keep the office tidy and fun. <br><br>
+        <a href="https://docs.google.com/spreadsheets/d/1NNv18ZajHoaH3oAtq8d-ENnAE7wCsseqKUXQwkvb1y0/edit#gid=0">Calendar of office hours</a>
+      </div>
     </div>
+
     <table class="block descript">
         {% for officer_row in officers %}
             <tr>
