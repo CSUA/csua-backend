@@ -48,6 +48,11 @@ def create(request):
       context = RequestContext(request, {'error':'Invalid email address.'})
       return HttpResponse(template.render(context))
 
+    if not validPassword(password):
+      template = loader.get_template("create_failure.html")
+      context = RequestContext(request, {'error':'This password does not meet our security requirements.'})
+      return HttpResponse(template.render(context))      
+
     if not ldap_bindings.ValidateOfficer(officer_username, officer_password):
           template = loader.get_template("create_failure.html")
           context = RequestContext(request, {'error':'Officer validation failed.'})
@@ -85,3 +90,32 @@ def validEmail(email):
     if not character.isalnum() and character not in emailWhitelist:
       return False
   return True
+
+def validPassword(password):
+  """
+  The password must be at least nine characters long. Also, it must include characters from 
+  two of the three following categories:
+  -alphabetical
+  -numerical
+  -punctuation/other
+  """
+  def isNumber(character):
+    try:
+      int(character)
+      return True
+    except:
+      return False
+
+  punctuation = set("""!@#$%^&*()_+|~-=\`{}[]:";'<>?,./""")
+  alpha = False
+  num = False
+  punct = False
+  
+  for character in password:
+    if character.isalpha():
+      alpha = True
+    if isNumber(character):
+      num = True
+    if character in punctuation:
+      punct = True
+  return (alpha and num) or (alpha and punct) or (num and punct)
