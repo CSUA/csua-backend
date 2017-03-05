@@ -50,7 +50,7 @@ def create(request):
 
     if not validPassword(password):
       template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'This password does not meet our security requirements.'})
+      context = RequestContext(request, {'error':'This password does not meet our security requirements. Your password needs to have at least nine characters, and must include characters from two of the three following character classes: alphabetical, numerical, and punctuation/other characters.'})
       return HttpResponse(template.render(context))      
 
     if not ldap_bindings.ValidateOfficer(officer_username, officer_password):
