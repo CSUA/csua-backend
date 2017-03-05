@@ -99,23 +99,19 @@ def validPassword(password):
   -numerical
   -punctuation/other
   """
-  def isNumber(character):
-    try:
-      int(character)
-      return True
-    except:
-      return False
-
   punctuation = set("""!@#$%^&*()_+|~-=\`{}[]:";'<>?,./""")
   alpha = False
   num = False
   punct = False
+
+  if len(password) < 9:
+    return False
   
   for character in password:
     if character.isalpha():
       alpha = True
-    if isNumber(character):
+    if character.isdigit():
       num = True
     if character in punctuation:
       punct = True
-  return (alpha and num) or (alpha and punct) or (num and punct)
+  return (alpha + num + punct) >= 2
