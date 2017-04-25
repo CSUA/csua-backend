@@ -25,4 +25,4 @@ def serve(request, username = None, path = None):
   resource_uri = get_resource_uri("/home/{0}/public_html/{1}".format(username, path))
   if not resource_uri:
     raise Http404("Could not find the requested file")
-  return HttpResponse(open(resource_uri).read())
+  return HttpResponse(open(resource_uri,'rb').read())
