@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
+#from django.core import serializers
 from .models import Officer, Politburo, Sponsor
 
 # Create your views here.
@@ -48,3 +49,22 @@ def sponsors(request):
     context = RequestContext(request, {'sponsors_current': sponsors_current,
                                        'sponsors_old': sponsors_old})
     return HttpResponse(template.render(context))
+
+def json(request):
+    officers_all = Officer.objects.order_by('last_name')
+    #data = serializers.serialize('json', foo)
+    #JsonSerializer = serializers.get_serializer("json")
+    #xml_serializer = JsonSerializer()
+    #return JsonResponse(officers_all, (serializers.get_serializer('json'))(), safe=False)
+    #return JsonResponse("aasdfasdfaef",safe=False)
+    serialized_officers = [{
+        "name": o.first_name + " " + o.last_name,
+        "hours": o.office_hours,
+        "img": o.photo1.url,
+        "quote": o.blurb,
+        "tutorSubjects": "soon tm",
+    } for o in officers_all]
+    result = {
+        "officers": serialized_officers,
+    }
+    return JsonResponse(result)
