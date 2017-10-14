@@ -15,6 +15,7 @@ userdb={}
 hostdb={}
 DAILY_QUOTA=3600*2
 lastreset = datetime.today().day
+needsReset = True
 
 twitchUsers = {
     'jaze': 'alxjaze',
@@ -34,10 +35,14 @@ def secondsToTime(seconds):
 
 def resetAccounts():
     global lastreset
-    if datetime.today().day != lastreset:
+    global needsReset
+    if datetime.today().weekday() == 0 and needsReset:
+        needsReset = False
         lastreset = datetime.today().day
         for user in userdb:
             userdb[user]["timeSpent"] = 0
+    elif datetime.today().weekday() != 0:
+        needsReset = True
 
 class User():
     def __init__(self, username, time, lastPing, twitchUsername):
