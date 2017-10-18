@@ -20,6 +20,7 @@ class Officer(models.Model):
         blank = True)
     blurb = models.CharField(max_length = 255)
     root_staff = models.BooleanField(default = False)
+    tutor_subjects = models.CharField(max_length = 255)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name

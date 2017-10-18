@@ -52,17 +52,14 @@ def sponsors(request):
 
 def json(request):
     officers_all = Officer.objects.order_by('last_name')
-    #data = serializers.serialize('json', foo)
-    #JsonSerializer = serializers.get_serializer("json")
-    #xml_serializer = JsonSerializer()
-    #return JsonResponse(officers_all, (serializers.get_serializer('json'))(), safe=False)
-    #return JsonResponse("aasdfasdfaef",safe=False)
     serialized_officers = [{
         "name": o.first_name + " " + o.last_name,
         "hours": o.office_hours,
-        "img": o.photo1.url,
+        "img": o.photo1.url if o.photo1 else None,
+        "img2": o.photo2.url if o.photo2 else None,
         "quote": o.blurb,
-        "tutorSubjects": "soon tm",
+        "rootStaff": o.root_staff,
+        "tutorSubjects": o.tutor_subjects,
     } for o in officers_all]
     result = {
         "officers": serialized_officers,
