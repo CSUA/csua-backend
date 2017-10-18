@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext, loader
 from django.shortcuts import render
 #from django.core import serializers
-from .models import Officer, Politburo, Sponsor
+from .models import Officer, Politburo, Sponsor, Event
 
 # Create your views here.
 def officers(request):
@@ -61,7 +61,28 @@ def json(request):
         "rootStaff": o.root_staff,
         "tutorSubjects": o.tutor_subjects,
     } for o in officers_all]
+
+    pb_arr = Politburo.objects.all()
+    pb_dict = {}
+    for pb_member in pb_arr:
+        pb_dict[pb_member.position] = {
+            "name": pb_member.officer.first_name + " " + pb_member.officer.last_name,
+            "img": pb_member.officer.photo1.url if pb_member.officer.photo1 else None
+        }
+
+    events_all = Event.objects.order_by('date')
+    serialized_events = [{
+        "name": e.name,
+        "location": e.location,
+        "date": e.date.strftime('%A - %m/%d'),
+        "time": e.time,
+        "description": e.description,
+        "href": e.link,
+    } for e in events_all]
+
     result = {
         "officers": serialized_officers,
+        "pb": pb_dict,
+        "events": serialized_events
     }
     return JsonResponse(result)
