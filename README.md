@@ -32,6 +32,7 @@ If you want to visit the admin page at http://127.0.0.1:8000/admin/
 4. Commit and push your changes to `models.py` as well as generated `migrations/`
 5. Pull latest changes on remote machine
 6. `python manage.py migrate` on remote machine to update database with latest models
+7. Run 'sudo services apache2 reload' on the remote machine so the changes take effect
 
 ## Editing/Creating/Deleting Officers
 
