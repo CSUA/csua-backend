@@ -80,9 +80,19 @@ def json(request):
         "href": e.link,
     } for e in events_all]
 
+    sponsors_all = Sponsor.objects.order_by('name')
+    serialized_sponsors = [{
+        "name": s.name,
+        "href": s.url,
+        "type": s.description,
+        "img": s.photo.url if s.photo else None,
+        "current": s.current,
+    } for s in sponsors_all]
+
     result = {
         "officers": serialized_officers,
         "pb": pb_dict,
-        "events": serialized_events
+        "events": serialized_events,
+        "sponsors": serialized_sponsors
     }
     return JsonResponse(result)

@@ -44,7 +44,7 @@ def sponsor_photo_path(instance, filename):
 
 class Sponsor(models.Model):
     name = models.CharField(max_length = 70)
-    url = models.CharField(max_length = 70)
+    url = models.URLField()
     photo = models.ImageField(upload_to = sponsor_photo_path, max_length = 255,
         default = 'images/officers/cardigan.jpg')
     description = models.CharField(max_length = 255)
