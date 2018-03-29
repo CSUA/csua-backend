@@ -9,25 +9,31 @@ from json import loads, dumps
 from datetime import datetime
 from time import sleep, time
 from os import path
+import mimetypes
+mimetypes.init()
 
 import magic
 # Python wrapper for libmagic--gets filetype
 
 def get_resource_uri(uri):
-  print(uri)
-  if not path.exists(uri):
-    return False
-  if path.isdir(uri):
-    if not path.exists(path.join(uri, "index.html")):
-      return False
+    print(uri)
+    if not path.exists(uri):
+        return False
+    if path.isdir(uri):
+        if not path.exists(path.join(uri, "index.html")):
+            return False
+        else:
+            return path.join(uri, "index.html")
     else:
-      return path.join(uri, "index.html")
-  else:
-    return uri
+        return uri
 
 def serve(request, username = None, path = None):
-  resource_uri = get_resource_uri("/home/{0}/public_html/{1}".format(username, path))
-  if not resource_uri:
-    raise Http404("Could not find the requested file")
-  mime = magic.from_file(resource_uri, mime=True)
-  return HttpResponse(open(resource_uri,'rb').read(), content_type=mime)
+    resource_uri = get_resource_uri("/home/{0}/public_html/{1}".format(username, path))
+    if not resource_uri:
+        raise Http404("Could not find the requested file")
+    mime = magic.from_file(resource_uri, mime=True)
+    mime_2 = mimetypes.guess_type(resource_uri)[0]
+    if mime == 'text/plain':
+        # python-magic thinks js and css files are text/plain
+        mime = mime_2
+    return HttpResponse(open(resource_uri, 'rb').read(), content_type=mime)
