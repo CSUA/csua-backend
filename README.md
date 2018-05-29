@@ -19,7 +19,7 @@ If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 ## Deploy a new change to git
 
-1. `ssh` into `services.csua`
+1. `ssh` into `tap.csua.berkeley.edu`
 2. `git pull`
 3. `python manage.py collectstatic` to update static images
 4. If you're making changes to the db models, follow those instructions too
