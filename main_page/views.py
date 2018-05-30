@@ -1,62 +1,37 @@
-from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.shortcuts import render
 
 def constitution(request):
-    template = loader.get_template("constitution.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'constitution.html')
 
 def events(request):
-    template = loader.get_template("events.html")
-    context = RequestContext(request, {"events": []})
-    return HttpResponse(template.render(context))
+    return render(request, 'events.html', {"events": []})
 
 def index(request):
-    template = loader.get_template("index.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'index.html')
 
 def showcase(request):
-    template = loader.get_template("showcase.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'showcase.html')
 
 def industry(request):
-    template = loader.get_template("industry.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'industry.html')
 
 def join(request):
-    template = loader.get_template("join.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'join.html')
 
 def hackathon13(request):
-    template = loader.get_template("hackathonfa13.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'hackathonfa13.html')
 
 def hackathon14(request):
-    template = loader.get_template("hackathonfa14.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'hackathonfa14.html')
 
 def hackathonsp15(request):
-    template = loader.get_template("hackathonsp15.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'hackathonsp15.html')
 
 def hackathonfa15(request):
-    template = loader.get_template("hackathonfa15.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'index.html')
 
 def hackathonsp16(request):
-    template = loader.get_template("hackathonsp16.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'hackathonsp16.html')
 
 def hackathonfa16(request):
-    template = loader.get_template("hackathonfa16.html")
-    context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render(request, 'hackathonfa16.html')
