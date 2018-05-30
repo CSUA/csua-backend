@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from main_page import views
 
 urlpatterns = [
@@ -15,4 +15,4 @@ urlpatterns = [
     url(r'^hackathonfa15/$', views.hackathonfa15),
     url(r'^hackathonsp16/$', views.hackathonsp16),
     url(r'^hackathonfa16/$', views.hackathonfa16),
-    ]
+]
