@@ -20,7 +20,6 @@ lastreset = datetime.today().day
 twitchUsers = {
     'jaze': 'alxjaze',
     'jonathanjtan': 'dragaanwawa',
-    'ericdahoe': 'ericdahoe',
     'nlingarkar': 'sirnellington'
 }
 

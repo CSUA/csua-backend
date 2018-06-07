@@ -29,7 +29,7 @@ if DEBUG:
         }
     }
 else:
-    with open('/etc/db_pass.secret') as f:
+    with open('/etc/secrets/db_pass.secret') as f:
         DB_PASS = f.read().strip()
 
     DATABASES = {
@@ -133,7 +133,7 @@ X_FRAME_OPTIONS = 'DENY'
 if DEBUG:
     SECRET_KEY = 'CSUA)@3zekni&mwis6s031xsru2v&h(y=l89oa4@^&i#lxfoa9p9'
 else:
-    with open('/etc/secret_key.secret') as f:
+    with open('/etc/secrets/secret_key.secret') as f:
         SECRET_KEY = f.read().strip()
 
 

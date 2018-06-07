@@ -1,4 +1,4 @@
-Django==2.0.5
+Django==2.0.6
 ldap3
 Pillow
 python-magic

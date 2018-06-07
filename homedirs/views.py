@@ -34,5 +34,5 @@ def serve(request, username = None, path = None):
     if mime == 'text/plain':
         # python-magic thinks js and css files are text/plain
         mime = mime_2
-    with open(resource_uri, 'rb') as file:
-        return HttpResponse(file.read(), content_type=mime)
+    with open(resource_uri, 'rb') as f:
+        return HttpResponse(f.read(), content_type=mime)

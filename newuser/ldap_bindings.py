@@ -13,7 +13,7 @@ def GetLdapPassword():
     global LDAP_PASSWORD
     if LDAP_PASSWORD:
         return LDAP_PASSWORD
-    with open('/etc/newuser.secret') as f:
+    with open('/etc/secrets/newuser.secret') as f:
         LDAP_PASSWORD = f.read().strip()
     return LDAP_PASSWORD
 
