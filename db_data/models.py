@@ -31,7 +31,7 @@ class Politburo(models.Model):
     title = models.CharField(max_length = 30)
     description = models.CharField(max_length = 355)
     contact = models.CharField(max_length = 255)
-    officer = models.OneToOneField(Officer)
+    officer = models.OneToOneField(Officer, on_delete = models.PROTECT)
 
     def __str__(self):
         return self.title

@@ -20,7 +20,6 @@ lastreset = datetime.today().day
 twitchUsers = {
     'jaze': 'alxjaze',
     'jonathanjtan': 'dragaanwawa',
-    'ericdahoe': 'ericdahoe',
     'nlingarkar': 'sirnellington'
 }
 
@@ -80,12 +79,10 @@ def getComputers():
     return out
 
 def index(request):
-    template = loader.get_template("computers.html")
-    context = RequestContext(request, {
+    return render(request, 'computers.html', {
         'computers': getComputers(),
         'users': getUsers(),
-        })
-    return HttpResponse(template.render(context))
+    })
 
 def ping(request, codeText = None, signature = None):
     #Validate signature

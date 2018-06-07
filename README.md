@@ -8,10 +8,9 @@ A backend for the CSUA interblags.
 1. Install Python 3
 2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
 3. Change `DEBUG` to `True` at the top of `csua_backend/settings.py`
-4. Create database file with `mkdir data` and `touch data/csua.sqlite3`
-5. Set up local db with `python3 manage.py migrate`
-6. Run server with `python3 manage.py runserver`
-7. Navigate to http://127.0.0.1:8000/
+4. Set up local db with `python3 manage.py migrate`
+5. Run server with `python3 manage.py runserver`
+6. Navigate to http://127.0.0.1:8000/
 
 If you want to visit the admin page at http://127.0.0.1:8000/admin/
 

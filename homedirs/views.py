@@ -1,4 +1,3 @@
-# Create your views here.
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
 from django.shortcuts import render
@@ -11,9 +10,8 @@ from time import sleep, time
 from os import path
 import mimetypes
 mimetypes.init()
-
-import magic
 # Python wrapper for libmagic--gets filetype
+import magic
 
 def get_resource_uri(uri):
     print(uri)
@@ -36,4 +34,5 @@ def serve(request, username = None, path = None):
     if mime == 'text/plain':
         # python-magic thinks js and css files are text/plain
         mime = mime_2
-    return HttpResponse(open(resource_uri, 'rb').read(), content_type=mime)
+    with open(resource_uri, 'rb') as f:
+        return HttpResponse(f.read(), content_type=mime)
