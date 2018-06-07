@@ -2,3 +2,6 @@ Django==2.0.5
 ldap3
 Pillow
 python-magic
+
+# Production
+mysqlclient
