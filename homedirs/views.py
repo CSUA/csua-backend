@@ -26,10 +26,13 @@ def get_resource_uri(uri):
     else:
         return uri
 
+def check_sanity(username, path):
+    return '..' not in path
+
 def serve(request, username=None, path=None):
     uri = '/home/{0}/public_html/{1}'.format(username, path)
     resource_uri = get_resource_uri(uri)
-    if not resource_uri:
+    if not resource_uri or not check_sanity(username, path):
         raise Http404('Could not find the requested file: {0}'.format(uri))
     mime = magic.from_file(resource_uri, mime=True)
     mime_2 = mimetypes.guess_type(resource_uri)[0]
