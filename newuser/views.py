@@ -1,7 +1,9 @@
-from django.http import HttpResponse
-from django.template import RequestContext, loader
-from django.shortcuts import render
 from os import mkdir, system
+
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.template import RequestContext, loader
+
 from . import ldap_bindings
 
 usernameWhitelist = set('.-_')

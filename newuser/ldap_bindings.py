@@ -1,9 +1,10 @@
-from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
-from os import popen
 import hashlib
 import string
 from base64 import b64encode
+from os import popen
 from random import choice
+
+from ldap3 import ALL, ALL_ATTRIBUTES, Connection, Server
 
 LDAP_SERVER = "ldaps://ldap.csua.berkeley.edu"
 LDAP_USER = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"

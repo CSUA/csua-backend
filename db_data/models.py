@@ -3,6 +3,7 @@ import os
 
 from django.db import models
 
+
 def photo_path(instance, filename):
     # upload to MEDIA_ROOT/images/officers/{first_name}_{last_name}.{ext}
     filename, file_extension = os.path.splitext(filename)

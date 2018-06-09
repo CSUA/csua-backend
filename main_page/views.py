@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 def constitution(request):
     return render(request, 'constitution.html')
 

@@ -1,17 +1,18 @@
-from django.http import HttpResponse, Http404
-from django.template import RequestContext, loader
-from django.shortcuts import render
-
-from hashlib import sha512
 import base64
-from json import loads, dumps
-from datetime import datetime
-from time import sleep, time
-from os import path
 import mimetypes
-mimetypes.init()
+from datetime import datetime
+from hashlib import sha512
+from json import dumps, loads
+from os import path
+from time import sleep, time
+
 # Python wrapper for libmagic--gets filetype
 import magic
+from django.http import Http404, HttpResponse
+from django.shortcuts import render
+from django.template import RequestContext, loader
+
+mimetypes.init()
 
 def get_resource_uri(uri):
     print(uri)

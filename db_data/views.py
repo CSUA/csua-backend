@@ -1,8 +1,10 @@
 from django.http import HttpResponse, JsonResponse
-from django.template import RequestContext, loader
 from django.shortcuts import render
+from django.template import RequestContext, loader
+
 #from django.core import serializers
-from .models import Officer, Politburo, Sponsor, Event
+from .models import Event, Officer, Politburo, Sponsor
+
 
 # Create your views here.
 def officers(request):
