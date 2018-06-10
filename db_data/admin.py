@@ -9,8 +9,19 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(Officer)
 class OfficerAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'office_hours', 'root_staff', 'blurb')
-    ordering = ('first_name', 'last_name')
+    list_display = (
+        'first_name',
+        'last_name',
+        'office_hours',
+        'root_staff',
+        'blurb',
+        'enabled',
+    )
+    ordering = (
+        '-enabled',
+        'first_name',
+        'last_name',
+    )
 
 @admin.register(Politburo)
 class PolituburoAdmin(admin.ModelAdmin):

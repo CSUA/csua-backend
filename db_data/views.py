@@ -8,7 +8,7 @@ from .models import Event, Officer, Politburo, Sponsor
 
 # Create your views here.
 def officers(request):
-    officer_list = Officer.objects.all()
+    officer_list = Officer.objects.filter(enabled=True)
     return render(request, 'officers.html', {'officer_list' : officer_list})
 
 def politburo(request):
