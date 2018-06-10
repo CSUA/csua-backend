@@ -1,7 +1,8 @@
 Django==2.0.6
 ldap3
 Pillow
-python-magic
+python-magic-bin
+django-markdown-deux
 
 # Production
 mysqlclient

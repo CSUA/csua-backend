@@ -211,6 +211,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'markdown_deux',
     'main_page',
     'newuser',
     'db_data',

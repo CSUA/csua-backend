@@ -1,3 +1,4 @@
+{% load markdown_deux_tags %}
 <html>
 <head>
     <title>{% block title %}{% endblock %} | CSUA</title>
@@ -63,9 +64,12 @@
         <div class="clear"></div>
         <div id="footer">
             <div class="text">
-                Copyright &copy; 2017 CSUA. All rights reserved.
-                Design by <a href="http://www.sarahjikim.com/">
-                <span class="blue">Sarah Kim</span></a>.
+                {% markdown %}
+Copyright &copy; 2018 CSUA. All rights reserved.
+Design by [Sarah Kim](http://www.sarahjikim.com/).
+
+Made with love by CSUA root staff and special help from Phillip "Edward" Nunez.
+                {% endmarkdown %}
             </div>
         </div>
     </div>
