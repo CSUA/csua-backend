@@ -13,29 +13,29 @@
 </div>
 <div class="blockseparation"></div>
 
-    <div class="about block">
-        <div>
-            <img src="{{ STATIC_URL }}images/pb/pb.jpg">
-        </div>
-    </div>
-    <table class="politburo block">
-        {% for pb_member in pb %}
-            <tr>
-                <td>
-                    <img src="{{ pb_member.officer.photo1.url }}">
-                </td>
-                <td>
-                    <div class="title">{{ pb_member.title }}</div>
-                    <div class="name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</div>
-                    <div class="email">{{ pb_member.position }}@csua.berkeley.edu</div>
-                    <div class="text">
-                        {{ pb_member.description }}
-                    </div>
-                    <div class="text">
-                        {{ pb_member.contact }}
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+<div class="about block">
+  <div>
+    <img src="{{ STATIC_URL }}images/pb_fa18.jpg">
+  </div>
+</div>
+<table class="politburo block">
+  {% for pb_member in pb %}
+  <tr>
+    <td>
+      <img class="photo-frame" src="{{ pb_member.officer.photo1.url }}">
+    </td>
+    <td>
+      <div class="title">{{ pb_member.title }}</div>
+      <div class="name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</div>
+      <div class="email">{{ pb_member.position }}@csua.berkeley.edu</div>
+      <div class="text">
+        {{ pb_member.description }}
+      </div>
+      <div class="text">
+        {{ pb_member.contact }}
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

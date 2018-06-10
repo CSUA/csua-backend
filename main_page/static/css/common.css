@@ -138,6 +138,7 @@ a {
     border: 1px solid #CCC;
     padding: 15px;
     background-color: #FAFAFA;
+    margin-bottom: 20px;
 }
 .blockseparation {
     margin-bottom: 20px;
@@ -147,14 +148,14 @@ a {
 }
 
 /* Content Styling */
-.header {
+.header, h1 {
     margin-bottom: 5px;
     font-size: 22px;
     font-weight: 400;
 }
-.subheader {
+.subheader, h2 {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
 }
 .subheader > a {
     color: rgba(20, 145, 232, 0.9);
@@ -162,10 +163,9 @@ a {
 .subheader > a:hover {
     color: rgba(20, 145, 232, 0.65);
 }
-.text {
+.text, p {
     font-size: 14px;
     line-height: 26px;
-    font-weight: 300;
 }
 #half-text {
   width: 50%;

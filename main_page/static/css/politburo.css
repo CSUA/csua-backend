@@ -30,7 +30,9 @@
     font-size: 14px;
 }
 .politburo img {
-    width: initial;
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
 }
 
 /* Former Politburo Page */
