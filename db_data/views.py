@@ -8,16 +8,8 @@ from .models import Event, Officer, Politburo, Sponsor
 
 # Create your views here.
 def officers(request):
-    officers_all = Officer.objects.order_by('last_name')
-    officer_list = []
-    count = 0
-    for officer in officers_all:
-        if count % 4 == 0:
-            officer_list.append([])
-        officer_list[count // 4].append(officer)
-        count += 1
-
-    return render(request, 'officers.html', {'officers' : officer_list})
+    officer_list = Officer.objects.all()
+    return render(request, 'officers.html', {'officer_list' : officer_list})
 
 def politburo(request):
     pb = Politburo.objects.all()

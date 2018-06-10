@@ -1,73 +1,62 @@
-.block.descript{
-    padding-bottom: 0;
+.roster {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-table {
-    margin-top: 20px;
+.officer {
+  width: 200px;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: 0 2px 2px 0 rgba(38,50,56,.28), 0 3px 1px -2px rgba(38,50,56,.24), 0 1px 5px 0.5px rgba(38,50,56,.32);
 }
-table > tbody > tr > td {
-    width: 25%
+.photo-frame {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
 }
-table > tbody > tr:nth-child(2n) > td {
-    padding: 10px 10px 20px;
-    vertical-align: top;
+.photoone, .phototwo, .single {
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  /* HACK: I have no idea how this works, I just copied from the react site */
 }
-.roster > tbody > tr:nth-child(2n) > td {
-    padding: 5px 0 20px 5px;
-}
-.picture {
-    position: relative;
-}
-.root-staff-banner-wrapper {
-    overflow: hidden;
-    position: absolute;
-    right: -1px;
-    bottom: -1px;
-    width: 85px;
-    height: 88px;
-}
-.root-staff-banner {
-    background: #365d97;
-    color: #decb4b;
-    font-family: Courier New, monospace;
-    font-weight: bold;
-    left: -5px;
-    padding: 5px 0;
-    position: relative;
-    text-align: center;
-    top: 44px;
-    width: 120px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.3);
-    transform: rotate(-45deg);
-}
-.phototwo {
-    display: none;
-}
-table > tbody > tr > td:hover .photoone {
-    display: none;
-}
-table > tbody > tr > td:hover .phototwo {
-    display: block;
-}
-.descript .name {
-    font-weight: 600;
-}
-.roster .name {
-    font-weight: 300;
+.name {
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
 }
 .officehours {
-    font-size: 14px;
+  font-size: 14px;
 }
-.description {
-    font-size: 15px;
-    font-weight: 300;
-    margin-top: 10px;
+.blurb {
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: 10px;
 }
-#past-officers {
-    margin-top: 20px;
+/* Logic for showing alternative photo */
+.phototwo {
+  display: none;
 }
-.name > a {
-    color: rgba(20, 145, 232, 0.9);
+.photo-frame:hover .photoone {
+  display: none;
 }
-.name > a:hover {
-    color: rgba(20, 145, 232, 0.65);
+.photo-frame:hover .phototwo {
+  display: block;
+}
+.root-staff-banner {
+  background: #366d97;
+  color: #decb4b;
+  font-family: Courier New, monospace;
+  font-weight: bold;
+  padding: 5px 0;
+  position: relative;
+  text-align: center;
+  bottom: 40px;
+  left: 110;
+  width: 120px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  transform: rotate(-45deg);
 }
