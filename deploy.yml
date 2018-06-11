@@ -1,0 +1,33 @@
+---
+# This ansible playbook deploys this application to the site
+#
+# The python module installation is a little bit botched--there's a copy of
+# Django in both the system directory (/usr/local/lib/python3.5/dist-packages)
+# and in the www-data user directory
+# (/var/www/.local/lib/python3.5/site-packages).
+#
+# RUN USING:
+# ansible-playbook deploy.yml -i hosts -K
+- hosts: tap
+  become: www-data
+  tasks:
+  - name: checkout master
+    git:
+        repo: 'git@github.com:CSUA/CSUA-backend'
+        dest: /webserver/CSUA-backend/
+        version: master
+  - name: install python requirements
+    pip:
+        requirements: /webserver/CSUA-backend/requirements.txt
+        executable: pip3
+  - name: ensure mod_wsgi is enabled
+    # only root has access to the certificate files, won't run as www-data
+    become_user: root
+    become: true
+    apache2_module: name=wsgi state=present
+    # need to restart apache2 to reload wsgi
+  - name: restart apache2
+    become_user: root
+    become: true
+    service: name=apache2 state=restarted
+
