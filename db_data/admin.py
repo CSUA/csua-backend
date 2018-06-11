@@ -26,7 +26,7 @@ class OfficerAdminForm(forms.ModelForm):
                         "10-11 AM",
                         "11-12 PM",
                         "12-1 PM",
-                    ] + ["%s-%s PM"%(n, n+1) for n in range(1, 6)]
+                    ] + ["%s-%s PM"%(n, n+1) for n in range(1, 7)]
                 )] + ["N/A"]
             ]))
 
