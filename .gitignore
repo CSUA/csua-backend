@@ -63,3 +63,7 @@ media_root
 # database
 csua.sqlite3
 data/
+
+# Ansible playbook retries
+
+*.retry
