@@ -41,7 +41,7 @@ def sponsors(request):
         {'sponsors_current': sponsors_current, 'sponsors_old': sponsors_old})
 
 def json(request):
-    officers_all = Officer.objects.order_by('last_name')
+    officers_all = Officer.objects.filter(enabled=True).order_by('last_name')
     serialized_officers = [{
         "name": o.first_name + " " + o.last_name,
         "hours": o.office_hours,
