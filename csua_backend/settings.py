@@ -13,6 +13,8 @@ DEBUG = False
 
 import os
 
+import ldap
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,13 +23,25 @@ PROJECT_HOME = BASE_DIR if DEBUG else '/webserver/CSUA-backend/'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, 'ldap_csua_berkeley_edu_interm.cer')
+
 if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(PROJECT_HOME, 'csua.sqlite3'),
+        },
+        'ldap': {
+            'ENGINE': 'ldapdb.backends.ldap',
+            'NAME': 'ldaps://ldap.csua.berkeley.edu/',
+            'USER': 'uid=,ou=People,dc=csua,dc=berkeley,dc=edu',
+            'PASSWORD': '',
+            'CONNECTION_OPTIONS': {
+                ldap.OPT_X_TLS_DEMAND: True,
+            },
         }
     }
+    DATABASE_ROUTERS = ['ldapdb.router.Router']
 else:
     with open('/etc/secrets/db_pass.secret') as f:
         DB_PASS = f.read().strip()
@@ -211,10 +225,14 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    ### Third-party apps
+    'ldapdb',
     'markdown_deux',
+    ### Project sub-apps
+    'db_data',
+    'ldap_data',
     'main_page',
     'newuser',
-    'db_data',
     'tracker',
     'homedirs',
 ]
@@ -230,7 +248,7 @@ MANAGERS = ADMINS
 
 DEFAULT_FROM_EMAIL = 'django@csua.berkeley.edu'
 
-SERVER_EMAIL = 'django-errors@csua.berkeley.edu' 
+SERVER_EMAIL = 'django-errors@csua.berkeley.edu'
 
 EMAIL_HOST = 'mail.csua.berkeley.edu'
 
