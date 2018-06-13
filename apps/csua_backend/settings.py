@@ -13,6 +13,8 @@ from pathlib import Path
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
 
+import ldap
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent.parent
 
@@ -21,13 +23,25 @@ PROJECT_HOME = BASE_DIR if DEBUG else '/webserver/CSUA-backend/'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, 'ldap_csua_berkeley_edu_interm.cer')
+
 if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': str(PROJECT_HOME / 'csua.sqlite3'),
+        },
+        'ldap': {
+            'ENGINE': 'ldapdb.backends.ldap',
+            'NAME': 'ldaps://ldap.csua.berkeley.edu/',
+            'USER': 'uid=,ou=People,dc=csua,dc=berkeley,dc=edu',
+            'PASSWORD': '',
+            'CONNECTION_OPTIONS': {
+                ldap.OPT_X_TLS_DEMAND: True,
+            },
         }
     }
+    DATABASE_ROUTERS = ['ldapdb.router.Router']
 else:
     with open('/etc/secrets/db_pass.secret') as f:
         DB_PASS = f.read().strip()
@@ -211,12 +225,16 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    ### Third-party apps
+    'ldapdb',
     'markdown_deux',
+    ### Project sub-apps
+    'apps.db_data',
+    'apps.homedirs',
+    'apps.ldap_data',
     'apps.main_page',
     'apps.newuser',
-    'apps.db_data',
     'apps.tracker',
-    'apps.homedirs',
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

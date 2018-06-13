@@ -3,3 +3,4 @@ ldap3
 Pillow
 python-magic
 django-markdown-deux
+django-ldapdb
