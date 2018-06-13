@@ -31,15 +31,6 @@ if DEBUG:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': str(PROJECT_HOME / 'csua.sqlite3'),
         },
-        'ldap': {
-            'ENGINE': 'ldapdb.backends.ldap',
-            'NAME': 'ldaps://ldap.csua.berkeley.edu/',
-            'USER': 'uid=,ou=People,dc=csua,dc=berkeley,dc=edu',
-            'PASSWORD': '',
-            'CONNECTION_OPTIONS': {
-                ldap.OPT_X_TLS_DEMAND: True,
-            },
-        }
     }
     DATABASE_ROUTERS = ['ldapdb.router.Router']
 else:
@@ -57,6 +48,16 @@ else:
             'PORT': '', # Set to empty string for default.
         }
     }
+
+DATABASES['ldap'] = {
+    'ENGINE': 'ldapdb.backends.ldap',
+    'NAME': 'ldaps://ldap.csua.berkeley.edu/',
+    'USER': 'uid=,ou=People,dc=csua,dc=berkeley,dc=edu',
+    'PASSWORD': '',
+    'CONNECTION_OPTIONS': {
+        ldap.OPT_X_TLS_DEMAND: True,
+    },
+}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
