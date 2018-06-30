@@ -2,7 +2,7 @@ from os import mkdir, system
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import RequestContext, loader
+from django.views.decorators.http import require_POST
 
 from . import ldap_bindings
 
@@ -12,6 +12,7 @@ emailWhitelist = set('@+').union(usernameWhitelist)
 def index(request):
   return render(request, 'newuser.html')
 
+@require_POST
 def create(request):
   if request.method == 'POST':
     full_name = request.POST.get("full_name")
@@ -28,44 +29,30 @@ def create(request):
     try:
       int(student_id)
     except ValueError:
-      template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'Student ID is not a number!'})
-      return HttpResponse(template.render(context))
+      return render(request, 'create_failure.html', {'error':'Student ID is not a number!'})
 
     if (len(student_id) != 8 and len(student_id) != 10):
-      template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'Student ID has incorrect length.'})
-      return HttpResponse(template.render(context))
+      return render(request, 'create_failure.html', {'error':'Student ID has incorrect length.'})
 
     username = username.lower()
     if not validUsername(username):
-      template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'Invalid username.'})
-      return HttpResponse(template.render(context))
+      return render(request, 'create_failure.html', {'error':'Invalid username.'})
 
     if not validEmail(email):
-      template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'Invalid email address.'})
-      return HttpResponse(template.render(context))
+      return render(request, 'create_failure.html', {'error':'Invalid email address.'})
 
     if not validPassword(password):
-      template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'This password does not meet our security requirements. Your password needs to have at least nine characters, and must include characters from two of the three following character classes: alphabetical, numerical, and punctuation/other characters.'})
-      return HttpResponse(template.render(context))      
+      return render(request, 'create_failure.html', {'error':'This password does not meet our security requirements. Your password needs to have at least nine characters, and must include characters from two of the three following character classes: alphabetical, numerical, and punctuation/other characters.'})
 
     if not ldap_bindings.ValidateOfficer(officer_username, officer_password):
-          template = loader.get_template("create_failure.html")
-          context = RequestContext(request, {'error':'Officer validation failed.'})
-          return HttpResponse(template.render(context))
+      return render(request, 'create_failure.html', {'error':'Officer validation failed.'})
 
     enroll_jobs = 'true' if enroll_jobs else "false"
 
     status, uid = ldap_bindings.NewUser(str(username), str(full_name), str(email), int(student_id), str(password))
     print("UID:{0}".format(uid))
     if not status:
-      template = loader.get_template("create_failure.html")
-      context = RequestContext(request, {'error':'Your username is already taken.'})
-      return HttpResponse(template.render(context))
+      return render(request, 'create_failure.html', {'error':'Your username is already taken.'})
     system("sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(username, email, uid, enroll_jobs))
 
     return render(request, 'create_success.html')

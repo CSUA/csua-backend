@@ -10,7 +10,6 @@ from time import sleep, time
 import magic
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
-from django.template import RequestContext, loader
 
 mimetypes.init()
 
