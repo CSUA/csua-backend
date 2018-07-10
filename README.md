@@ -8,6 +8,7 @@ A backend for the CSUA interblags.
 1. Install Python 3
 2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
 3. Change `DEBUG` to `True` at the top of `csua_backend/settings.py`
+  - Alternatively, set the `DJANGO_DEBUG` variable to enable development mode
 4. Set up local db with `python3 manage.py migrate`
 5. Run server with `python3 manage.py runserver`
 6. Navigate web browser to http://127.0.0.1:8000/
@@ -62,3 +63,11 @@ Django's online documentation has more detail on a project's structure
 - `deploy.yml` is an ansible configuration for deploying the website
 - `manage.py` is a command-line script for performing actions on the project
 - `requirements.txt` lists the `pip` dependencies of this project
+
+## Misc
+
+### Dump db data
+
+`python3 manage.py dumpdata | jq 'map(select(.model | contains("db_data")))' > dump.json`
+
+N.b: The `jq` is optional, use it to omit the extraneous django info
