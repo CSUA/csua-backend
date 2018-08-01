@@ -8,12 +8,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 import os
+from pathlib import Path
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).parent.parent.parent
 
 PROJECT_HOME = BASE_DIR if DEBUG else '/webserver/CSUA-backend/'
 
@@ -194,10 +195,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'csua_backend.urls'
+ROOT_URLCONF = 'apps.csua_backend.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'csua_backend.wsgi.application'
+WSGI_APPLICATION = 'apps.csua_backend.wsgi.application'
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -211,11 +212,11 @@ INSTALLED_APPS = [
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'markdown_deux',
-    'main_page',
-    'newuser',
-    'db_data',
-    'tracker',
-    'homedirs',
+    'apps.main_page',
+    'apps.newuser',
+    'apps.db_data',
+    'apps.tracker',
+    'apps.homedirs',
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

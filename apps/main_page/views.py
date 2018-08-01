@@ -19,6 +19,9 @@ def industry(request):
 def join(request):
     return render(request, 'join.html')
 
+def resources(request):
+    return render(request, 'resources.html')
+
 def hackathon13(request):
     return render(request, 'hackathonfa13.html')
 

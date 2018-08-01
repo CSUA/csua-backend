@@ -3,6 +3,3 @@ ldap3
 Pillow
 python-magic
 django-markdown-deux
-
-# Production
-mysqlclient

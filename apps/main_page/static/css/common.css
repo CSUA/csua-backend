@@ -37,11 +37,12 @@ a {
     z-index: 100;
     height: 60px;
     border-bottom: 1px solid rgba(255,255,255, 0.1);
-}
-#navbarcontainer {
     max-width: 920px;
     margin: 0 auto;
     padding: 0 40px;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 #logo {
     display: inline-block;
