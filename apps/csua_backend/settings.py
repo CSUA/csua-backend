@@ -111,6 +111,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 ]
 
 # Security
@@ -126,7 +127,7 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_SSL_HOST = 'www.csua.berkeley.edu'
     SECURE_SSL_REDIRECT = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Make this unique, and don't share it with anybody.
@@ -171,7 +172,7 @@ TEMPLATES = [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
                 # list if you haven't customized them:
                 'django.template.context_processors.debug',
-                #'django.template.context_processors.request',
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
@@ -193,6 +194,8 @@ MIDDLEWARE = [
     #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'fiber.middleware.ObfuscateEmailAddressMiddleware',
+    'fiber.middleware.AdminPageMiddleware',
 ]
 
 ROOT_URLCONF = 'apps.csua_backend.urls'
@@ -211,12 +214,17 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'markdown_deux',
     'apps.main_page',
     'apps.newuser',
     'apps.db_data',
     'apps.tracker',
     'apps.homedirs',
+    # third-party
+    'markdown_deux',
+    'mptt',
+     'compressor',
+     'easy_thumbnails',
+     'fiber',
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

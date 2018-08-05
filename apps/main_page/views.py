@@ -16,9 +16,6 @@ def showcase(request):
 def industry(request):
     return render(request, 'industry.html')
 
-def join(request):
-    return render(request, 'join.html')
-
 def resources(request):
     return render(request, 'resources.html')
 

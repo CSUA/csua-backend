@@ -13,5 +13,3 @@
     args:
     - --django
     # exclude:
-
-  - id: flake8
