@@ -1,0 +1,13 @@
+Django==2.0.6
+ldap3
+Pillow
+python-magic
+
+python-magic-bin; platform_system == 'Windows'
+### OSX:
+# $ brew install libmagic
+# $ brew link libmagic
+### Debian/Ubuntu:
+# $ sudo apt install libmagic
+
+django-markdown-deux

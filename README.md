@@ -6,9 +6,9 @@ A backend for the CSUA interblags.
 ## Getting started
 
 1. Install Python 3
-2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
+2. Install Django and dependencies with `pip3 install --user -r requirements/dev.txt`
 3. Change `DEBUG` to `True` at the top of `csua_backend/settings.py`
-  - Alternatively, set the `DJANGO_DEBUG` variable to enable development mode
+  1. Alternatively, set the `DJANGO_DEBUG` variable to enable development mode
 4. Set up local db with `python3 manage.py migrate`
 5. Run server with `python3 manage.py runserver`
 6. Navigate web browser to http://127.0.0.1:8000/
@@ -46,23 +46,26 @@ Go to https://www.csua.berkeley.edu:8080/admin/ to edit officer data!
 
 Django's online documentation has more detail on a project's structure
 
-- `csua_backend/` holds the projects's configurations
-- This Django project is divided into "apps" (i.e. `main_page/`, `db_data/`, etc.)
-- Each app is divided into:
-	- `migrations/` lists the changes that have been made to the database models
-	- `__init__.py` just tells python the app is a python module
-	- `admin.py` details how db models should be viewed in the admin interface
-	- `apps.py` probably says that this directory is an app
-	- `models.py` contains the database models of the app
-	- `tests.py` has unit tests to test the apps functionality
-	- `urls.py` says what URLs route to which views
-	- `views.py` has functions that serve a "view" (webpage)
+- `apps/`
+  - This Django project is divided into "apps" (i.e. `main_page/`, `db_data/`, etc.)
+  - `csua_backend/` holds the projects's configurations
+  - Each app is divided into:
+  	- `migrations/` lists the changes that have been made to the database models
+  	- `__init__.py` just tells python the app is a python module
+  	- `admin.py` details how db models should be viewed in the admin interface
+  	- `apps.py` probably says that this directory is an app
+  	- `models.py` contains the database models of the app
+  	- `tests.py` has unit tests to test the apps functionality
+  	- `urls.py` says what URLs route to which views
+  	- `views.py` has functions that serve a "view" (webpage)
+- `deploy/`
+  - `deploy.yml` is an ansible configuration for deploying the website
 - `media_root/` is where user-uploaded files are served from
+- `requirements/`
+  - `requirements*.txt` lists the `pip` dependencies of this project
 - `static_root/` is where static files are served from (many of which come from `main_page/static/` and are moved here by `manage.py`'s `collectstatic`)
 - `templates/` holds the html templates that are populated and served by views
-- `deploy.yml` is an ansible configuration for deploying the website
 - `manage.py` is a command-line script for performing actions on the project
-- `requirements.txt` lists the `pip` dependencies of this project
 
 ## Misc
 
