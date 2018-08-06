@@ -1,67 +1,56 @@
 {% extends "base.html" %}
-{% block title %}Industry{% endblock %}
+{% load fiber_tags %}
 {% block css_file %}industry.css{% endblock %}
 {% block content %}
-    <div class="block" id="pagetitle">
-      <div class="header" id="headertitle">Sponsors</div>
-      <div class="text" id="texttitle">
-        We are very grateful to all our company sponsors who make much of what
-        we do possible. Thank you!
-      </div>
-    </div>
-    <div class="blockseparation"></div>
-    <div class="block">
-        <div class="header">Industry</div>
-        <div class="blockseparation"></div>
+<div class="block">
+  <div class="header">Industry</div>
+  <div class="blockseparation"></div>
+  {% show_page_content "info" %}
+</div>
+<div class="blockseparation"></div>
+<div class="block">
+  <div class="header">Current Sponsors</div>
+  <table id="sponsors">
+    {% for sponsor_row in sponsors_current %}
+    <tr>
+      {% for sponsor in sponsor_row %}
+      <td><img src="{{ sponsor.photo.url }}"></td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for sponsor in sponsor_row %}
+      <td>
+        <div class="subheader"><a href="{{ sponsor.url }}">{{ sponsor.name }}</a></div>
         <div class="text">
-            Interested in working with the CSUA to sponsor an event or to
-            speak at one of our events? Please send an email to indrel@csua.berkeley.edu.
+          {{ sponsor.description }}
         </div>
-    </div>
-    <div class="blockseparation"></div>
-    <div class="block">
-        <div class="header">Current Sponsors</div>
-        <table id="sponsors">
-            {% for sponsor_row in sponsors_current %}
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td><img src="{{ sponsor.photo.url }}"></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td>
-                            <div class="subheader"><a href="{{ sponsor.url }}">{{ sponsor.name }}</a></div>
-                            <div class="text">
-                                {{ sponsor.description }}
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <div class="blockseparation"></div>
-    <div class="block">
-        <div class="header">Past Sponsors</div>
-        <table class="sponsors">
-            {% for sponsor_row in sponsors_old %}
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td><img src="{{ sponsor.photo.url }}"></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td>
-                            <div class="subheader"><a href="{{ sponsor.url }}">{{ sponsor.name }}</a></div>
-                            <div class="text">
-                                {{ sponsor.description }}
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="blockseparation"></div>
+<div class="block">
+  <div class="header">Past Sponsors</div>
+  <table class="sponsors">
+    {% for sponsor_row in sponsors_old %}
+    <tr>
+      {% for sponsor in sponsor_row %}
+      <td><img src="{{ sponsor.photo.url }}"></td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for sponsor in sponsor_row %}
+      <td>
+        <div class="subheader"><a href="{{ sponsor.url }}">{{ sponsor.name }}</a></div>
+        <div class="text">
+          {{ sponsor.description }}
+        </div>
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 {% endblock %}

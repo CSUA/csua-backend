@@ -1,7 +1,7 @@
 {% load fiber_tags %}
 <html>
 <head>
-  <title>{% block title %}{% endblock %} | CSUA</title>
+  <title>{% block title %}{{ fiber_page.title }}{% endblock %} | CSUA</title>
   <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/common.css"/>
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{% block css_file %}{% endblock %}"/>
@@ -16,8 +16,11 @@
     {% show_menu "mainmenu" 1 100 "all" %}
   </nav>
   <div id="content">
-    {% show_page_content "content" %}
-    {% block content %}{% endblock %}
+    <div class="block" id="pagetitle">
+      <div class="header" id="headertitle">{% block headertitle %}{{ fiber_page.title }}{% endblock %}</div>
+      <div class="text" id="texttitle">{% block texttitle %}{% show_page_content "texttitle" %}{% endblock %}</div>
+    </div>
+    {% block content %}{% show_page_content "content" %}{% endblock %}
     <div style="clear: both;"/>
   </div>
   <footer>

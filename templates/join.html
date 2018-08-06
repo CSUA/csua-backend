@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load fiber_tags %}
+{% block headertitle %}
+  Join the CSUA
+{% endblock %}
 {% block content %}
-<div class="block" id="pagetitle">
-  {% show_page_content "pagetitle" %}
-</div>
-<div class="blockseparation"></div>
 <div class="column columnleft">
   <div id="signup" class="block">
     {% show_page_content "signup" %}
