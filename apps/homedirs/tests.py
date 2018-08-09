@@ -10,10 +10,12 @@ from django.test.client import Client, RequestFactory
 
 
 class SanitizePaths(TestCase):
+    fixtures = ["fiber-initial"]
+
     def setUp(self):
         self.client = Client()
         self.factory = RequestFactory()
 
     def test_details(self):
-        response = self.client.get('/~pnunez/%2E%2E')
+        response = self.client.get("/~pnunez/%2E%2E")
         print(response)

@@ -6,11 +6,28 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django.http import HttpRequest
+
+import apps.tracker.views as views
+import time
+import apps.tracker.client as client
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class SanityTest(TestCase):
+    fixtures = ["fiber-initial"]
+
+    def test_1_ping_sanity(self):
+        env = {
+            "delta": 5,
+            "username": "pnunez",
+            "host": "soda",
+            "salt": 123456789,
+            "timestamp": int(time.time() * 1000),
+        }
+        code_text = client.get_code_text(env)
+        signature = str(client.signature(code_text))
+        response = views.ping(HttpRequest(), code_text, signature)
+        assert response.status_code == 200
+
+    def test_2_index_sanity(self):
+        response = views.index(HttpRequest())

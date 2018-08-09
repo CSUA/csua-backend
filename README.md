@@ -7,20 +7,15 @@ A backend for the CSUA interblags.
 
 1. Install Python 3
 2. Install Django and dependencies with `pip3 install --user -r requirements/dev.txt`
-3. Change `DEBUG` to `True` at the top of `csua_backend/settings.py`
-  1. Alternatively, set the `DJANGO_DEBUG` variable to enable development mode
-4. Set up local db with `python3 manage.py migrate`
-5. Run server with `python3 manage.py runserver`
-6. Navigate web browser to http://127.0.0.1:8000/
+3. Set up local db with `python3 manage.py --debug migrate`
+4. Run server with `python3 manage.py --debug runserver`
+5. Navigate web browser to http://127.0.0.1:8000/
 
 If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 7. Create admin user with `python3 manage.py createsuperuser`
 
 ## Deploy a new change to git
-
-Beta feature: instead of doing steps 3-5, simply run
-`ansible-playbook deploy.yml -i hosts -K`
 
 1. `ssh` into `tap.csua.berkeley.edu`
 2. Change directory to the project directory
@@ -60,16 +55,17 @@ Django's online documentation has more detail on a project's structure
   	- `views.py` has functions that serve a "view" (webpage)
 - `deploy/`
   - `deploy.yml` is an ansible configuration for deploying the website
+- `fixtures/` contains database fixtures to record and bootstrap content and various database data
 - `media_root/` is where user-uploaded files are served from
 - `requirements/`
-  - `requirements*.txt` lists the `pip` dependencies of this project
+  - `[base,dev,prod].txt` lists the `pip` dependencies of this project
 - `static_root/` is where static files are served from (many of which come from `main_page/static/` and are moved here by `manage.py`'s `collectstatic`)
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
 
 ## Misc
 
-### Dump db data
+### Managing
 
 `python3 manage.py dumpdata | jq 'map(select(.model | contains("db_data")))' > dump.json`
 

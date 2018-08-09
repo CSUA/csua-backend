@@ -11,3 +11,5 @@ python-magic-bin; platform_system == 'Windows'
 # $ sudo apt install libmagic
 
 django-markdown-deux
+# django-fiber with patch to make dumpdata work
+git+git://github.com/robertquitt/django-fiber.git

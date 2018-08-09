@@ -3,83 +3,76 @@
 {% block css_file %}index.css{% endblock %}
 {% block content %}
 <div class='block'>
-<h1>CSUA NSA Backdoor</h1>
-<table>
-<th>
-  Computer
-</th>
-<th>
-  Status
-</th>
-<th>
-  User
-</th>
-<th>
-  Time Spent
-</th>
-{% for computer in computers %}
-
-{% if computer.user == "N/A" %}
-<tr bgcolor='lightgreen'>
-{% elif computer.open %}
-<tr bgcolor='yellow'>
-{% else %}
-<tr bgcolor='red'>
-{% endif %}
-<td>
-  <strong>{{computer.host}}</strong>
-</td>
-<td>
-  {% if computer.user == "N/A" %}
-    Available
-  {% elif computer.open %}
-    Timeout
-  {% else %}
-    Occupied
-  {% endif %}
-</td>
-<td>
-  {% if computer.twitchUser != None %}
-  <a href="http://twitch.tv/{{ computer.twitchUser }}" id="twitch">
-    {{ computer.user }}
-    <img src="/static/images/icons/twitch.png" width="24"></img>
-  </a>
-  <span id="{{user.username}}" class="twitch"></span>
-  {% else %}
-  {{computer.user}}
-  {% endif %}
-</td>
-<td>
-  {{computer.time}}
-</td>
-</tr>
-{% endfor%}
-</table>
-<br/>
-<table>
-<th>
-  User
-</th>
-<th>
-  Time Spent
-</th>
-{% for user in users %}
-<tr>
-<td>
-  {% if user.twitch != None %}
-  <a href="http://twitch.tv/{{ user.twitch }}" id="twitch">
-    <strong>{{user.username}}</strong><img src="/static/images/icons/twitch.png" width="24"></img>
-  </a>
-  <span id="{{user.username}}" class="twitch"></span>
-  {% else %}
-    <strong>{{user.username}}</strong>
-  {% endif %}
-</td>
-<td>
-  {{user.time}}
-</td>
-</tr>
-{% endfor%}
-</table>
-{% endblock %}
+  <h1>CSUA NSA Backdoor</h1>
+  <table>
+    <th>
+      Computer
+    </th>
+    <th>
+      Status
+    </th>
+    <th>
+      User
+    </th>
+    <th>
+      Time Spent
+    </th>
+    {% for computer in computers %}
+    <tr bgcolor='{% if computer.user == "" %}lightgreen{% elif computer.open %}yellow{% else %}red{% endif %}'>
+      <td>
+        <strong>{{computer.hostname}}</strong>
+      </td>
+      <td>
+        {% if computer.user == "N/A" %}
+        Available
+        {% elif computer.open %}
+        Timeout
+        {% else %}
+        Occupied
+        {% endif %}
+      </td>
+      <td>
+        {% if computer.twitchUser != None %}
+        <a href="http://twitch.tv/{{ computer.twitchUser }}" id="twitch">
+          {{ computer.user.username }}
+          <img src="/static/images/icons/twitch.png" width="24"></img>
+        </a>
+        <span id="{{user.username}}" class="twitch"></span>
+        {% else %}
+        {{computer.user.username}}
+        {% endif %}
+      </td>
+      <td>
+        {{computer.time}}
+      </td>
+    </tr>
+    {% endfor%}
+  </table>
+  <br/>
+  <table>
+    <th>
+      User
+    </th>
+    <th>
+      Time Spent
+    </th>
+    {% for user in users %}
+    <tr>
+      <td>
+        {% if user.twitch != None %}
+        <a href="http://twitch.tv/{{ user.twitch }}" id="twitch">
+          <strong>{{user.username}}</strong><img src="/static/images/icons/twitch.png" width="24"></img>
+        </a>
+        <span id="{{user.username}}" class="twitch"></span>
+        {% else %}
+        <strong>{{user.username}}</strong>
+        {% endif %}
+      </td>
+      <td>
+        {{user.time}}
+      </td>
+    </tr>
+    {% endfor%}
+  </table>
+  {% endblock %}
 </div>
