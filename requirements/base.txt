@@ -4,12 +4,19 @@ Pillow
 python-magic
 
 python-magic-bin; platform_system == 'Windows'
-### OSX:
+# OSX
 # $ brew install libmagic
 # $ brew link libmagic
-### Debian/Ubuntu:
+# Debian/Ubuntu:
 # $ sudo apt install libmagic
 
 django-markdown-deux
 # django-fiber with patch to make dumpdata work
 git+git://github.com/robertquitt/django-fiber.git
+
+# OpenLDAP libraries don't have a binary distribution so building and linking
+# against them is a big pain on windows. Here's a prebuilt wheel file instead!
+# TODO: confirm installation works for Linux and OSX
+requirements/python_ldap-3.1.0-cp36-cp36m-win_amd64.whl; platform_system == 'Windows'
+
+django-ldapdb
