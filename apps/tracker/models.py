@@ -14,10 +14,6 @@ def seconds_to_time(seconds: int) -> str:
     return "%s%d:%02d:%02d" % (sign, h, m, s)
 
 
-def currTimeMillis() -> int:
-    return int(time() * 1000)
-
-
 class User(models.Model):
     username = models.CharField(max_length=32, primary_key=True)
     last_ping = models.IntegerField(default=0)
@@ -29,13 +25,7 @@ class User(models.Model):
 
     @property
     def realname(self):
-        uname_to_realname(self.username)
-
-    def update(self, delta):
-        now = currTimeMillis()
-        if now - self.last_ping <= 2 * 1000 * delta:
-            self.time_spent += int((now - self.last_ping) / 1000)
-        self.last_ping = now
+        return uname_to_realname(self.username)
 
 
 class Computer(models.Model):
@@ -51,8 +41,3 @@ class Computer(models.Model):
     @property
     def time(self):
         return seconds_to_time(self.user.time_spent)
-
-    def update(self, user, foreign_timestamp):
-        self.local_timestamp = currTimeMillis()
-        self.foreign_timestamp = foreign_timestamp
-        self.user = user

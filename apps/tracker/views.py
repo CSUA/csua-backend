@@ -62,14 +62,6 @@ def verify_signature(code_text, signature):
     )
 
 
-def seconds_to_time(seconds: int) -> str:
-    sign = "" if seconds >= 0 else "-"
-    mag = abs(seconds)
-    m, s = divmod(mag, 60)
-    h, m = divmod(m, 60)
-    return "%s%d:%02d:%02d" % (sign, h, m, s)
-
-
 def currTimeMillis() -> int:
     return int(time() * 1000)
 
