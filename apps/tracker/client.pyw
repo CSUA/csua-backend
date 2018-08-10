@@ -53,7 +53,7 @@ def get_request_url(env):
 
 
 def ping(request_url):
-    return urlopen(request_url, timeout=5).read().strip()
+    return urlopen(request_url).read().strip()
 
 
 if __name__ == "__main__":

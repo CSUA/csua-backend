@@ -13,10 +13,10 @@ import time
 import apps.tracker.client as client
 
 
-class SanityTest(TestCase):
+class ViewsSanityTest(TestCase):
     fixtures = ["fiber-initial"]
 
-    def test_1_ping_sanity(self):
+    def test_1_ping(self):
         env = {
             "delta": 5,
             "username": "pnunez",
@@ -29,5 +29,5 @@ class SanityTest(TestCase):
         response = views.ping(HttpRequest(), code_text, signature)
         assert response.status_code == 200
 
-    def test_2_index_sanity(self):
+    def test_2_index(self):
         response = views.index(HttpRequest())

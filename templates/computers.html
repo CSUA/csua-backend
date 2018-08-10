@@ -15,6 +15,9 @@
       User
     </th>
     <th>
+      Realname
+    </th>
+    <th>
       Time Spent
     </th>
     {% for computer in computers %}
@@ -41,6 +44,9 @@
         {% else %}
         {{computer.user.username}}
         {% endif %}
+      </td>
+      <td>
+        {{user.realname}}
       </td>
       <td>
         {{computer.time}}
