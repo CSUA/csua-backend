@@ -1,6 +1,0 @@
-Django==2.0.6
-ldap3
-Pillow
-python-magic
-django-markdown-deux
-django-ldapdb

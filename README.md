@@ -6,21 +6,16 @@ A backend for the CSUA interblags.
 ## Getting started
 
 1. Install Python 3
-2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
-3. Change `DEBUG` to `True` at the top of `csua_backend/settings.py`
-  - Alternatively, set the `DJANGO_DEBUG` variable to enable development mode
-4. Set up local db with `python3 manage.py migrate`
-5. Run server with `python3 manage.py runserver`
-6. Navigate web browser to http://127.0.0.1:8000/
+2. Install Django and dependencies with `pip3 install --user -r requirements/dev.txt`
+3. Set up local db with `python3 manage.py --debug migrate`
+4. Run server with `python3 manage.py --debug runserver`
+5. Navigate web browser to http://127.0.0.1:8000/
 
 If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 7. Create admin user with `python3 manage.py createsuperuser`
 
 ## Deploy a new change to git
-
-Beta feature: instead of doing steps 3-5, simply run
-`ansible-playbook deploy.yml -i hosts -K`
 
 1. `ssh` into `tap.csua.berkeley.edu`
 2. Change directory to the project directory
@@ -46,27 +41,31 @@ Go to https://www.csua.berkeley.edu:8080/admin/ to edit officer data!
 
 Django's online documentation has more detail on a project's structure
 
-- `csua_backend/` holds the projects's configurations
-- This Django project is divided into "apps" (i.e. `main_page/`, `db_data/`, etc.)
-- Each app is divided into:
-	- `migrations/` lists the changes that have been made to the database models
-	- `__init__.py` just tells python the app is a python module
-	- `admin.py` details how db models should be viewed in the admin interface
-	- `apps.py` probably says that this directory is an app
-	- `models.py` contains the database models of the app
-	- `tests.py` has unit tests to test the apps functionality
-	- `urls.py` says what URLs route to which views
-	- `views.py` has functions that serve a "view" (webpage)
+- `apps/`
+  - This Django project is divided into "apps" (i.e. `main_page/`, `db_data/`, etc.)
+  - `csua_backend/` holds the projects's configurations
+  - Each app is divided into:
+  	- `migrations/` lists the changes that have been made to the database models
+  	- `__init__.py` just tells python the app is a python module
+  	- `admin.py` details how db models should be viewed in the admin interface
+  	- `apps.py` probably says that this directory is an app
+  	- `models.py` contains the database models of the app
+  	- `tests.py` has unit tests to test the apps functionality
+  	- `urls.py` says what URLs route to which views
+  	- `views.py` has functions that serve a "view" (webpage)
+- `deploy/`
+  - `deploy.yml` is an ansible configuration for deploying the website
+- `fixtures/` contains database fixtures to record and bootstrap content and various database data
 - `media_root/` is where user-uploaded files are served from
+- `requirements/`
+  - `[base,dev,prod].txt` lists the `pip` dependencies of this project
 - `static_root/` is where static files are served from (many of which come from `main_page/static/` and are moved here by `manage.py`'s `collectstatic`)
 - `templates/` holds the html templates that are populated and served by views
-- `deploy.yml` is an ansible configuration for deploying the website
 - `manage.py` is a command-line script for performing actions on the project
-- `requirements.txt` lists the `pip` dependencies of this project
 
 ## Misc
 
-### Dump db data
+### Managing
 
 `python3 manage.py dumpdata | jq 'map(select(.model | contains("db_data")))' > dump.json`
 

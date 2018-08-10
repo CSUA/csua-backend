@@ -1,7 +1,7 @@
-{% load markdown_deux_tags %}
+{% load fiber_tags %}
 <html>
 <head>
-  <title>{% block title %}{% endblock %} | CSUA</title>
+  <title>{% block title %}{{ fiber_page.title }}{% endblock %} | CSUA</title>
   <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/common.css"/>
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{% block css_file %}{% endblock %}"/>
@@ -13,62 +13,18 @@
         <img src="{{ STATIC_URL }}images/icons/logo.svg">
       </a>
     </div>
-    <div class="navitem">
-      <a href="/join/">
-        <div class="navlink">Join</div>
-      </a>
-    </div>
-    <div class="navitem">
-      <a href="/showcase/">
-        <div class="navlink">Showcase</div>
-      </a>
-    </div>
-    <div class="navitem">
-      <a href="/industry/">
-        <div class="navlink">Industry</div>
-      </a>
-      <div class="dropdown">
-        <a href="/sponsors/">
-          <div class="dropdownitem">Sponsors</div>
-        </a>
-      </div>
-    </div>
-    <div class="navitem">
-      <a href="/events/">
-        <div class="navlink">Events</div>
-      </a>
-    </div>
-    <div class="navitem">
-      <a href="/">
-        <div class="navlink">About</div>
-      </a>
-      <div class="dropdown">
-        <a href="/politburo/">
-          <div class="dropdownitem">Politburo</div>
-        </a>
-        <a href="/officers/">
-          <div class="dropdownitem">Officers</div>
-        </a>
-        <a href="/constitution/">
-          <div class="dropdownitem">Constitution</div>
-        </a>
-        <a href="/resources/">
-          <div class="dropdownitem">Resources</div>
-        </a>
-      </div>
-    </div>
-
+    {% show_menu "mainmenu" 1 100 "all" %}
   </nav>
   <div id="content">
-    {% block content %}{% endblock %}
-    <div class="clear"></div>
-    <footer>
-      {% markdown %}
-Copyright &copy; 2018 CSUA. All rights reserved. Initial design by [Sarah Kim](http://www.sarahjikim.com/).
-
-Made with love by CSUA root staff and special help from Phillip "Edward" Nunez.
-      {% endmarkdown %}
-    </footer>
+    <div class="block" id="pagetitle">
+      <div class="header" id="headertitle">{% block headertitle %}{{ fiber_page.title }}{% endblock %}</div>
+      <div class="text" id="texttitle">{% block texttitle %}{% show_page_content "texttitle" %}{% endblock %}</div>
+    </div>
+    {% block content %}{% show_page_content "content" %}{% endblock %}
+    <div style="clear: both;"/>
   </div>
+  <footer>
+    {% show_content "footer" %}
+  </footer>
 </body>
 </html>
