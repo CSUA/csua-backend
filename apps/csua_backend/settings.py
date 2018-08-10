@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 import os
 from pathlib import Path
+import ldap
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
 
-import ldap
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent.parent
@@ -25,7 +25,7 @@ FIXTURE_DIRS = [BASE_DIR / "fixtures"]
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, 'ldap_csua_berkeley_edu_interm.cer')
+ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
 
 if DEBUG:
     DATABASES = {
@@ -34,7 +34,7 @@ if DEBUG:
             "NAME": str(PROJECT_HOME / "csua.sqlite3"),
         }
     }
-    DATABASE_ROUTERS = ['ldapdb.router.Router']
+    DATABASE_ROUTERS = ["ldapdb.router.Router"]
 else:
     with open("/etc/secrets/db_pass.secret") as f:
         DB_PASS = f.read().strip()
@@ -51,15 +51,22 @@ else:
         }
     }
 
-DATABASES['ldap'] = {
-    'ENGINE': 'ldapdb.backends.ldap',
-    'NAME': 'ldaps://ldap.csua.berkeley.edu/',
-    'USER': 'uid=,ou=People,dc=csua,dc=berkeley,dc=edu',
-    'PASSWORD': '',
-    'CONNECTION_OPTIONS': {
-        ldap.OPT_X_TLS_DEMAND: True,
-    },
-}
+if DEBUG:
+    # Read-only LDAP connection for now (no auth)
+    DATABASES["ldap"] = {
+        "ENGINE": "ldapdb.backends.ldap",
+        "NAME": "ldaps://ldap.csua.berkeley.edu/",
+        "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
+    }
+else:
+    DATABASES["ldap"] = {
+        "ENGINE": "ldapdb.backends.ldap",
+        "NAME": "ldaps://ldap.csua.berkeley.edu/",
+        "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
+        # TODO: populate this with some ldap admin dummy user
+        # "USER": "uid=,ou=People,dc=csua,dc=berkeley,dc=edu",
+        # "PASSWORD": "",
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -236,8 +243,9 @@ INSTALLED_APPS = [
     "apps.db_data",
     "apps.tracker",
     "apps.homedirs",
+    "apps.ldap_data",
     # third-party
-    'ldapdb',
+    "ldapdb",
     "markdown_deux",
     "mptt",
     "compressor",
