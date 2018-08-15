@@ -1,47 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Showcase{% endblock %}
-{% block css_file %}common.css{% endblock %}
+{% load fiber_tags %}
 {% block content %}
-<div class="block" id="pagetitle">
-  <div class="header" id="headertitle">Showcase</div>
-  <div class="text" id="texttitle">
-    CSUA members have completed some amazing projects in the past and are always creating new things. Check out a few of them here!
+<div class="column columnleft">
+  <div id="showcase1" class="block">
+    {% show_page_content "showcase1" %}
   </div>
 </div>
-<div class="blockseparation"></div>
-
-<div class="column columnleft">
-<div id="showcase1" class="block">
-    <div class="header">Multiblox</div>
-    <div class="text">
-      Multiblox is a multiplayer tetris game created by Tianrui Chen and hosted on the CSUA server.
-      If you're looking for a some boxy fun, play
-      <a href="http://csua.berkeley.edu:3000/" target="_blank">here</a>!
-    </div>
-    <br>
-    <div class="imbeddedpic">
-      <a href="http://csua.berkeley.edu:3000/" target="_blank">
-        <img src="{{ STATIC_URL }}images/multiblox.png">
-      </a>
-    </div>
-</div>
-</div>
-
 <div class="column columnright">
-<div id="showcase2" class="block">
-    <div class="header">Benevolence</div>
-    <div class="text">
-      Benjamin Li took inspiration from Space Invaders to create this simplistic but intriguing game.
-      With three different endings to the game determined by the player's actions, Benevolence
-      never gets old. Learn more and play
-      <a href="https://benjili.itch.io/benevolence" target="_blank">here</a>!
-    </div>
-    <br>
-    <div class="imbeddedpic">
-      <a href="https://benjili.itch.io/benevolence" target="_blank">
-        <img src="{{ STATIC_URL }}images/benevolence.png">
-      </a>
-    </div>
-</div>
+  <div id="showcase2" class="block">
+    {% show_page_content "showcase2" %}
+  </div>
 </div>
 {% endblock %}

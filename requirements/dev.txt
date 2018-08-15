@@ -1,0 +1,4 @@
+-r base.txt
+pre-commit
+rcssmin --install-option="--without-c-extensions"
+rjsmin --install-option="--without-c-extensions"

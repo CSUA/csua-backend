@@ -1,9 +1,13 @@
 {% extends "base.html" %}
+{% load markdown_deux_tags %}
 {% block title %}404 Not Found{% endblock %}
 {% block css_file %}{% endblock %}
 {% block content %}
 <div class='block'>
-<h1>404 Not Found</h1>
-<p>Sorry, we couldn't find what you were looking for.</p>
+{% markdown %}
+# 404 Not Found
+
+Sorry, we couldn't find what you were looking for.
+{% endmarkdown %}
 {% endblock %}
 </div>

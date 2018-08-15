@@ -65,5 +65,6 @@ csua.sqlite3
 data/
 
 # Ansible playbook retries
-
 *.retry
+
+.mypy_cache

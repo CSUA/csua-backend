@@ -1,23 +1,9 @@
 {% extends "base.html" %}
+{% load fiber_tags %}
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
 {% block content %}
-<div class="block" id="pagetitle">
-  <div class="header" id="headertitle">The Politburo</div>
-  <div class="text" id="texttitle">
-    The Politburo consists of the seven elected officers of the CSUA. They are
-    the governing body of the CSUA and a unique group of people who are eager
-    to talk to you about the CSUA.<br>
-    You can contact the Politburo at politburo@csua.berkeley.edu.
-  </div>
-</div>
-<div class="blockseparation"></div>
-
-<div class="about block">
-  <div>
-    <img src="{{ STATIC_URL }}images/pb_fa18.jpg">
-  </div>
-</div>
+{% show_page_content "pb_img" %}
 <table class="politburo block">
   {% for pb_member in pb %}
   <tr>
