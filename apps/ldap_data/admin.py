@@ -6,18 +6,23 @@ from . import models
 
 
 class LdapGroupAdminForm(forms.ModelForm):
-    usernames = forms.ModelMultipleChoiceField(
-        queryset=models.LdapUser.objects.all(),
-        widget=FilteredSelectMultiple("Users", is_stacked=False),
-        required=False,
-    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["members"].initial = self.instance.members
 
     class Meta:
         exclude = []
         model = models.LdapGroup
 
-    def clean_usernames(self):
-        data = self.cleaned_data["usernames"]
+    members = forms.ModelMultipleChoiceField(
+        queryset=models.LdapUser.objects.all(),
+        widget=FilteredSelectMultiple("Users", is_stacked=False),
+        required=False,
+        initial=Meta.model.members,
+    )
+
+    def clean_members(self):
+        data = self.cleaned_data["members"]
         if not data:
             return []
         return list(data.values_list("username", flat=True))
@@ -30,6 +35,7 @@ class LdapGroupAdmin(admin.ModelAdmin):
     ordering = ("name",)
     form = LdapGroupAdminForm
     search_fields = ("name",)
+    readonly_fields = ("name", "gid")
 
 
 @admin.register(models.LdapUser)
