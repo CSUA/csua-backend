@@ -1,13 +1,8 @@
 {% extends "base.html" %}
-{% load markdown_deux_tags %}
+{% load fiber_tags %}
 {% block title %}404 Not Found{% endblock %}
-{% block css_file %}{% endblock %}
 {% block content %}
 <div class='block'>
-{% markdown %}
-# 404 Not Found
-
-Sorry, we couldn't find what you were looking for.
-{% endmarkdown %}
-{% endblock %}
+{% show_content "404" %}
 </div>
+{% endblock %}
