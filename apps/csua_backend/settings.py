@@ -220,6 +220,7 @@ INSTALLED_APPS = [
     "apps.db_data",
     "apps.tracker",
     "apps.homedirs",
+    "apps.fb_events",
     # third-party
     "markdown_deux",
     "mptt",
