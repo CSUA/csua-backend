@@ -24,6 +24,11 @@ def politburo(request):
     fiber_page = Page.objects.get(title__exact="Politburo")
     return render(request, "politburo.html", {"pb": pb, "fiber_page": fiber_page})
 
+def events(request):
+    events = Event.objects.all()
+    fiber_page = Page.objects.get(title__exact="Events")
+    return render(request, "events.html", {"events": events, "fiber_page": fiber_page})
+
 
 def sponsors(request):
     sponsors_all = Sponsor.objects.order_by("name")
