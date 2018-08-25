@@ -1,5 +1,6 @@
 
 import os
+import datetime
 
 from django.db import models
 
@@ -65,3 +66,7 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_passed(self):
+        return self.date < datetime.date.today()
