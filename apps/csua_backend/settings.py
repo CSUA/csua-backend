@@ -16,11 +16,11 @@ DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = Path(__file__).parent.parent.parent
+BASE_DIR = str(Path(__file__).parent.parent.parent)
 
 PROJECT_HOME = BASE_DIR if DEBUG else "/webserver/CSUA-backend/"
 
-FIXTURE_DIRS = [BASE_DIR / "fixtures"]
+FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -31,7 +31,7 @@ if DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": str(PROJECT_HOME / "csua.sqlite3"),
+            "NAME": os.path.join(PROJECT_HOME, "csua.sqlite3"),
         }
     }
     DATABASE_ROUTERS = ["ldapdb.router.Router"]
@@ -106,7 +106,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = PROJECT_HOME / "media_root/"
+MEDIA_ROOT = os.path.join(PROJECT_HOME, "media_root/")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -120,7 +120,7 @@ MEDIA_URL = "/media/"
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = PROJECT_HOME / "static_root/"
+STATIC_ROOT = os.path.join(PROJECT_HOME, "static_root/")
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -186,8 +186,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             # insert your TEMPLATE_DIRS here
-            PROJECT_HOME
-            / "templates"
+            os.path.join(PROJECT_HOME, "templates")
         ],
         "APP_DIRS": True,
         "OPTIONS": {
