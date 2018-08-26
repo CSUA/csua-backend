@@ -16,7 +16,7 @@ DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(Path(__file__).parent.parent.parent)
 
-PROJECT_HOME = BASE_DIR if DEBUG else "/webserver/CSUA-backend/"
+PROJECT_HOME = BASE_DIR
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 
@@ -52,6 +52,7 @@ ALLOWED_HOSTS = [
     "www.csua.berkeley.edu",
     "csua.berkeley.edu",
     "legacy.csua.berkeley.edu",
+    "dev.csua.berkeley.edu",
 ]
 if DEBUG:
     ALLOWED_HOSTS.extend(["localhost", "127.0.0.1"])
