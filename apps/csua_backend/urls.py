@@ -6,6 +6,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from fiber.views import page
+import apps.fb_events.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
