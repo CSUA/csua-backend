@@ -3,7 +3,7 @@ CSUA-backend
 
 A backend for the CSUA interblags.
 
-## Getting started
+## Installation
 
 1. Install Python 3
 2. Install Django and dependencies with `pip3 install --user -r requirements/dev.txt`
@@ -31,7 +31,7 @@ If you want to visit the admin page at http://127.0.0.1:8000/admin/
 4. Commit and push your changes to `models.py` as well as generated `migrations/`
 5. Pull latest changes on remote machine
 6. `python3 manage.py migrate` on remote machine to update database with latest models
-7. Run 'sudo systemctl reload apache2' on the remote machine so the changes take effect
+7. Run `sudo systemctl reload apache2` on the remote machine so the changes take effect
 
 ## Editing/Creating/Deleting Officers
 
@@ -63,10 +63,31 @@ Django's online documentation has more detail on a project's structure
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
 
-## Misc
+## Repo branch structure
 
-### Managing
+To facilitate forks and parallel development, this is the branching model we use.
 
-`python3 manage.py dumpdata | jq 'map(select(.model | contains("db_data")))' > dump.json`
+``` 
+      csua/master, fork/master
+     /
+A---B---C---E---G---I---K-csua/dev, fork/dev
+         \       \     / <- Accepted pull request
+          D---F---H---J-fork/feature(, possibly csua/feature)
+```
 
-N.b: The `jq` is optional, use it to omit the extraneous django info
+All work is done on the `dev` branch, and when it is ready to be deployed, the `master` will merge in `dev`. The `master` branch on `CSUA/CSUA-backend` is the version that is in production.
+
+### Your feature branch
+
+The recommended way is to develop on a feature branch in your fork, then make a pull request to `dev` or the feature branch if it exists. Use `git pull upstream dev` to make sure you are using the latest changes to `dev` and your pull request doesn't fail due to merge conflicts.
+
+### Your dev branch
+
+Some commits may not warrant a feature branch and may go directly to `dev`. If you are working directly on your fork of `dev`, it is a good idea to `git pull upstream dev` often to make sure nothing breaks.
+
+## Dumping database data into json:
+
+```shell
+python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
+python3 manage.py dumpdata fiber > fixtures/$(date +fiber-%m%d%y.json)
+```
