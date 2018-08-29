@@ -29,7 +29,7 @@ class EventAdmin(admin.ModelAdmin):
         query.update(params)
         url_parts[4] = urlencode(query)
         url = urlparse.urlunparse(url_parts)
-        events_raw = urlopen(url).read()
+        events_raw = urlopen(url).read().decode()
         events = json.loads(events_raw)
         for event in events["data"]:
             try:
