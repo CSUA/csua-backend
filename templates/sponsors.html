@@ -3,14 +3,14 @@
 {% block css_file %}industry.css{% endblock %}
 {% block content %}
 <div class="block">
-  <div class="header">Industry</div>
+  <h1>Industry</h1>
   <div class="blockseparation"></div>
   {% show_page_content "info" %}
 </div>
 <div class="blockseparation"></div>
 <div class="block">
-  <div class="header">Current Sponsors</div>
-  <table id="sponsors">
+  <h1>Current Sponsors</h1>
+  <table class="sponsors">
     {% for sponsor_row in sponsors_current %}
     <tr>
       {% for sponsor in sponsor_row %}
@@ -32,7 +32,7 @@
 </div>
 <div class="blockseparation"></div>
 <div class="block">
-  <div class="header">Past Sponsors</div>
+  <h1>Past Sponsors</h1>
   <table class="sponsors">
     {% for sponsor_row in sponsors_old %}
     <tr>
