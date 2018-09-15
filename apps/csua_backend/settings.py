@@ -55,7 +55,7 @@ ALLOWED_HOSTS = [
     "dev.csua.berkeley.edu",
 ]
 if DEBUG:
-    ALLOWED_HOSTS.extend(["localhost", "127.0.0.1"])
+    ALLOWED_HOSTS.append("*")
 
 SITE_ID = 1
 
@@ -221,12 +221,14 @@ INSTALLED_APPS = [
     "apps.tracker",
     "apps.homedirs",
     "apps.fb_events",
+    "apps.philbot",
     # third-party
     "markdown_deux",
     "mptt",
     "compressor",
     "easy_thumbnails",
     "fiber",
+    "rest_framework",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
@@ -268,3 +270,8 @@ LOGGING = {
         }
     },
 }
+
+SLACK_CLIENT_ID = "3311748471.437459179046"
+SLACK_CLIENT_SECRET = "36e96bbe21a30a8200a672fa4d911a07"
+SLACK_BOT_USER_TOKEN = "xoxb-3311748471-435480016208-A9WmSI2idPObkYpoOeQV2ZJG"
+SLACK_VERIFICATION_TOKEN = "UjNEsGqkwolX8BYNMRpfhKdX"
