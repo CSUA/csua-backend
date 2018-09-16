@@ -3,12 +3,16 @@ from sys import argv
 from platform import node
 from os import environ
 from time import sleep
-from ctypes import windll
 from json import dumps
 from random import randint
 from hashlib import sha512
 from time import time
 import base64
+
+try:
+    from ctypes import windll
+except ImportError:
+    pass
 
 DEBUG = True
 if DEBUG:
