@@ -72,15 +72,20 @@ def finger_1(slack_message):
 
     return ({"response_type": "in_channel", "text": text}, None)
 
+
 def man(slack_message):
     command_text = slack_message.get("text")
-    man_response = subprocess.check_output(
-        "ssh soda man".split(' ') + [command_text]
-    ).decode()
+    man_proc = subprocess.Popen(
+        "ssh soda man".split(" ") + [command_text],
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    man_response = man_proc.stdout.read()
     if man_response:
         text = "man {}\n{}".format(command_text, man_response)
     else:
-        text = "No man page exists for {}.".format(command_text)
+        text = "Couldn't find man page. Got: {}.".format(man_proc.stderr.read())
     return ({"response_type": "in_channel", "text": text}, None)
 
 
@@ -89,4 +94,9 @@ def computers(slack_message):
     return ({"response_type": "ephemeral", "text": text}, None)
 
 
-COMMANDS = {"/philhelp": help, "/philfinger": finger, "/philcomputers": computers}
+COMMANDS = {
+    "/philhelp": help,
+    "/philfinger": finger,
+    "/philcomputers": computers,
+    "/philman": man,
+}
