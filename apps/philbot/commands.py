@@ -72,6 +72,17 @@ def finger_1(slack_message):
 
     return ({"response_type": "in_channel", "text": text}, None)
 
+def man(slack_message):
+    command_text = slack_message.get("text")
+    man_response = subprocess.check_output(
+        "ssh soda man".split(' ') + [command_text]
+    ).decode()
+    if man_response:
+        text = "man {}\n{}".format(command_text, man_response)
+    else:
+        text = "No man page exists for {}.".format(command_text)
+    return ({"response_type": "in_channel", "text": text}, None)
+
 
 def computers(slack_message):
     text = "https://www.csua.berkeley.edu:8080/computers/"
