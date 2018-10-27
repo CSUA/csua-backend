@@ -21,19 +21,18 @@
       Time Spent
     </th>
     {% for computer in computers %}
-    <tr bgcolor='{% if computer.user == "" %}lightgreen{% elif computer.open %}yellow{% else %}red{% endif %}'>
+    <tr bgcolor='{% if computer.user is not None %}red{% else %}lightgreen{% endif %}'>
       <td>
         <strong>{{computer.hostname}}</strong>
       </td>
       <td>
-        {% if computer.user == "N/A" %}
-        Available
-        {% elif computer.open %}
-        Timeout
-        {% else %}
+	{% if computer.user is not None %}
         Occupied
+	{% else %}
+        Available
         {% endif %}
       </td>
+      {% if computer.user is not None %}
       <td>
         {% if computer.twitchUser != None %}
         <a href="http://twitch.tv/{{ computer.twitchUser }}" id="twitch">
@@ -51,6 +50,7 @@
       <td>
         {{computer.time}}
       </td>
+      {% endif %}
     </tr>
     {% endfor%}
   </table>

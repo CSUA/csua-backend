@@ -256,7 +256,7 @@ INSTALLED_APPS = [
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
 
 
-ADMINS = (("Caleb Wyllie", "root@csua.berkeley.edu"),)
+ADMINS = (("Robert Quitt", "robertq@csua.berkeley.edu"),)
 
 MANAGERS = ADMINS
 
@@ -278,20 +278,20 @@ LOGGING = {
         "disable_existing_loggers": False,
         "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
         "handlers": {
-            "mail_admins": {
-                "level": "ERROR",
-                "filters": ["require_debug_false"],
-                "class": "django.utils.log.AdminEmailHandler",
-                },
             "file": {
                 "level": "DEBUG",
                 "class": "logging.FileHandler",
                 "filename": "/webserver/CSUA-backend-dev/server.log",
-                },
             },
+            "errorfile": {
+                "level": "ERROR",
+                "class": "logging.FileHandler",
+                "filename": "/webserver/CSUA-backend-dev/error.log",
+            },
+        },
         "loggers": {
             "django.request": {
-                "handlers": ["mail_admins"],
+                "handlers": ["file"],
                 "level": "ERROR",
                 "propagate": True,
                 },
