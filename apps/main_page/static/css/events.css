@@ -1,3 +1,9 @@
+.event-old>.dateline::before {
+	content: "(passed) "
+}
+.event-old>.dateline {
+	text-decoration: line-through;
+}
 #panels {
     margin-top: 20px;
     border-bottom: 1px solid #777;
@@ -30,9 +36,4 @@
     background-color: #999;
     color: white;
 }
-#hack {
-    display: block;
-}
-#past-semesters {
-    margin-top: 30px;
-}
+/* vim: set noet ts=4 sw=4: */

@@ -18,7 +18,7 @@ DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(Path(__file__).parent.parent.parent)
 
-PROJECT_HOME = BASE_DIR if DEBUG else "/webserver/CSUA-backend/"
+PROJECT_HOME = BASE_DIR
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 
@@ -50,6 +50,7 @@ else:
             "PORT": "",  # Set to empty string for default.
         }
     }
+    DATABASE_ROUTERS = ["ldapdb.router.Router"]
 
 if DEBUG:
     # Read-only LDAP connection for now (no auth)
@@ -74,6 +75,7 @@ ALLOWED_HOSTS = [
     "www.csua.berkeley.edu",
     "csua.berkeley.edu",
     "legacy.csua.berkeley.edu",
+    "dev.csua.berkeley.edu",
 ]
 if DEBUG:
     ALLOWED_HOSTS.extend(["localhost", "127.0.0.1"])
@@ -153,8 +155,7 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_CONTENT_TYPE_NOSNIFF = True  # will this break homedirs
     SECURE_BROWSER_XSS_FILTER = True
-    SECURE_SSL_HOST = "www.csua.berkeley.edu"
-    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_Forwarded_Proto', 'https')
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -241,8 +242,8 @@ INSTALLED_APPS = [
     "apps.newuser",
     "apps.db_data",
     "apps.tracker",
-    "apps.homedirs",
     "apps.ldap_data",
+    "apps.fb_events",
     # third-party
     "ldapdb",
     "markdown_deux",
@@ -273,21 +274,31 @@ EMAIL_PORT = 25
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
-    "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler",
-        }
-    },
-    "loggers": {
-        "django.request": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-            "propagate": True,
-        }
-    },
+        "version": 1,
+        "disable_existing_loggers": False,
+        "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+        "handlers": {
+            "mail_admins": {
+                "level": "ERROR",
+                "filters": ["require_debug_false"],
+                "class": "django.utils.log.AdminEmailHandler",
+                },
+            "file": {
+                "level": "DEBUG",
+                "class": "logging.FileHandler",
+                "filename": "/webserver/CSUA-backend-dev/server.log",
+                },
+            },
+        "loggers": {
+            "django.request": {
+                "handlers": ["mail_admins"],
+                "level": "ERROR",
+                "propagate": True,
+                },
+            "django.security.csrf": {
+                "handlers": ["file"],
+                "level": "DEBUG",
+                "propagate": True,
+                },
+            },
 }

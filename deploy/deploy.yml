@@ -9,7 +9,9 @@
 # (/usr/local/lib/python3.5/dist-packages)
 
 # RUN USING:
-# ansible-playbook deploy.yml -i hosts -K
+# make deploy
+# OR
+# ansible-playbook deploy.yml -i hosts -K -u $CSUA_UNIXNAME
 
 - hosts: tap
   become: www-data
@@ -33,3 +35,4 @@
     become_user: root
     become: true
     service: name=apache2 state=restarted
+# vim: et ts=2 sw=2 sts=2

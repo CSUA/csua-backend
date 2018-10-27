@@ -1,0 +1,14 @@
+{# https://books.agiliq.com/projects/django-admin-cookbook/en/latest/action_buttons.html #}
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+<div>
+	<form action="fetch-events/" method="POST">
+		{% csrf_token %}
+		<button type="submit">Fetch events from fb.com/csua</button>
+	</form>
+</div>
+<br />
+{{ block.super }}
+{% endblock %}
+{# vim: set noet ts=4 sw=4: #}

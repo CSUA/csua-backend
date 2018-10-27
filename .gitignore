@@ -70,3 +70,4 @@ data/
 .mypy_cache
 .vagrant/
 
+deploy/remote_user.txt

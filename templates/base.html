@@ -11,10 +11,12 @@
 			<div id="navbarcontainer">
 				<div id="logo">
 					<a href="/">
-						<img src="{{ STATIC_URL }}images/icons/logo.svg">
+						<img src="{{ STATIC_URL }}images/pic.png">
 					</a>
 				</div>
-				{% show_menu "mainmenu" 1 100 "all" %}
+				<div id="mainmenu">
+					{% show_menu "mainmenu" 1 100 "all" %}
+				</div>
 			</div>
 		</nav>
 		<div id="content">
