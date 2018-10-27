@@ -5,7 +5,7 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-from fiber.views import page
+import fiber.views
 import apps.fb_events.views
 
 urlpatterns = [
@@ -16,6 +16,6 @@ urlpatterns = [
     url(r'^computers/', include('apps.tracker.urls')),
     url(r'^~', include('apps.homedirs.urls')),
     url(r'', include('apps.db_data.urls')),
-    url(r'^', include("apps.main_page.urls")),
-    url(r'', page),
+    url(r'', include("apps.main_page.urls")),
+    url(r'', fiber.views.page),
 ]

@@ -132,8 +132,7 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_CONTENT_TYPE_NOSNIFF = True  # will this break homedirs
     SECURE_BROWSER_XSS_FILTER = True
-    SECURE_SSL_HOST = "www.csua.berkeley.edu"
-    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_Forwarded_Proto', 'https')
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -250,21 +249,31 @@ EMAIL_PORT = 25
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
-    "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler",
-        }
-    },
-    "loggers": {
-        "django.request": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-            "propagate": True,
-        }
-    },
+        "version": 1,
+        "disable_existing_loggers": False,
+        "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+        "handlers": {
+            "mail_admins": {
+                "level": "ERROR",
+                "filters": ["require_debug_false"],
+                "class": "django.utils.log.AdminEmailHandler",
+                },
+            "file": {
+                "level": "DEBUG",
+                "class": "logging.FileHandler",
+                "filename": "/webserver/CSUA-backend-dev/server.log",
+                },
+            },
+        "loggers": {
+            "django.request": {
+                "handlers": ["mail_admins"],
+                "level": "ERROR",
+                "propagate": True,
+                },
+            "django.security.csrf": {
+                "handlers": ["file"],
+                "level": "DEBUG",
+                "propagate": True,
+                },
+            },
 }
