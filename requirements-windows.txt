@@ -1,3 +1,0 @@
-python-magic-bin; platform_system == 'Windows'
-rcssmin --install-option="--without-c-extensions"; platform_system == 'Windows'
-rjsmin --install-option="--without-c-extensions"; platform_system == 'Windows'
