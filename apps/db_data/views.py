@@ -3,59 +3,6 @@ from django.shortcuts import render
 
 from .models import Event, Officer, Politburo, Sponsor
 
-from fiber.models import Page
-
-
-# Create your views here.
-def officers(request):
-    officer_list = Officer.objects.filter(enabled=True)
-    fiber_page = Page.objects.get(title__exact="Officers")
-    return render(
-        request,
-        fiber_page.template_name,
-        {"officer_list": officer_list, "fiber_page": fiber_page},
-    )
-
-
-def politburo(request):
-    pb = Politburo.objects.all()
-    for member in pb:
-        member.contact = member.contact.replace("[name]", member.officer.first_name)
-    fiber_page = Page.objects.get(title__exact="Politburo")
-    return render(request, "politburo.html", {"pb": pb, "fiber_page": fiber_page})
-
-def events(request):
-    events = Event.objects.all()
-    fiber_page = Page.objects.get(title__exact="Events")
-    return render(request, "events.html", {"events": events, "fiber_page": fiber_page})
-
-
-def sponsors(request):
-    sponsors_all = Sponsor.objects.order_by("name")
-
-    sponsors_current = []
-    sponsors_old = []
-    count_current = 0
-    count_old = 0
-    for sponsor in sponsors_all:
-        if sponsor.current:
-            if count_current % 4 == 0:
-                sponsors_current.append([])
-            sponsors_current[count_current // 4].append(sponsor)
-            count_current += 1
-        else:
-            if count_old % 4 == 0:
-                sponsors_old.append([])
-            sponsors_old[count_old // 4].append(sponsor)
-            count_old += 1
-
-    fiber_page = Page.objects.get(title__exact="Sponsors")
-    return render(
-        request,
-        fiber_page.template_name,
-        {"sponsors_current": sponsors_current, "sponsors_old": sponsors_old, "fiber_page": fiber_page},
-    )
-
 
 def json(request):
     officers_all = Officer.objects.filter(enabled=True).order_by("last_name")

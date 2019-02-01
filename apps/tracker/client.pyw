@@ -10,11 +10,7 @@ from hashlib import sha512
 from time import time
 import base64
 
-DEBUG = True
-if DEBUG:
-    CURL_STRING = "http://localhost:8000/computers/ping/{0}/{1}"
-else:
-    CURL_STRING = "http://csua.berkeley.edu/computers/ping/{0}/{1}"
+CURL_STRING = "http://csua.berkeley.edu/computers/ping/{0}/{1}"
 DELTA = 5
 
 

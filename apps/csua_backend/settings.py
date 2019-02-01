@@ -12,8 +12,7 @@ from pathlib import Path
 import ldap
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
-
+DEBUG = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(Path(__file__).parent.parent.parent)
@@ -24,8 +23,6 @@ FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
 
 if DEBUG:
     DATABASES = {
@@ -41,8 +38,8 @@ else:
 
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.mysql",  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            "NAME": "csua_backend",  # Or path to database file if using sqlite3.
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": "csua_backend",
             # The following settings are not used with sqlite3:
             "USER": "pnunez",
             "PASSWORD": DB_PASS,
@@ -52,17 +49,20 @@ else:
     }
     DATABASE_ROUTERS = ["ldapdb.router.Router"]
 
+ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
+ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_ALLOW)
+
 if DEBUG:
     # Read-only LDAP connection for now (no auth)
     DATABASES["ldap"] = {
         "ENGINE": "ldapdb.backends.ldap",
-        "NAME": "ldaps://ldap.csua.berkeley.edu/",
+        "NAME": "ldaps://tap.csua.berkeley.edu/",
         "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
     }
 else:
     DATABASES["ldap"] = {
         "ENGINE": "ldapdb.backends.ldap",
-        "NAME": "ldaps://ldap.csua.berkeley.edu/",
+        "NAME": "ldaps://tap.csua.berkeley.edu/",
         "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
         # TODO: populate this with some ldap admin dummy user
         # "USER": "uid=,ou=People,dc=csua,dc=berkeley,dc=edu",
@@ -78,7 +78,7 @@ ALLOWED_HOSTS = [
     "dev.csua.berkeley.edu",
 ]
 if DEBUG:
-    ALLOWED_HOSTS.extend(["localhost", "127.0.0.1"])
+    ALLOWED_HOSTS.extend(["*"])
 
 SITE_ID = 1
 
@@ -141,7 +141,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    "compressor.finders.CompressorFinder",
 ]
 
 # Security
@@ -150,12 +149,12 @@ if not DEBUG:
     CSRF_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
-    SECURE_HSTS_SECONDS = 60  # Should this be an integer?
+    SECURE_HSTS_SECONDS = 60
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True  # will this break homedirs
+    SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_Forwarded_Proto', 'https')
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_Forwarded_Proto", "https")
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -217,8 +216,6 @@ MIDDLEWARE = [
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "fiber.middleware.ObfuscateEmailAddressMiddleware",
-    "fiber.middleware.AdminPageMiddleware",
 ]
 
 ROOT_URLCONF = "apps.csua_backend.urls"
@@ -247,10 +244,6 @@ INSTALLED_APPS = [
     # third-party
     "ldapdb",
     "markdown_deux",
-    "mptt",
-    "compressor",
-    "easy_thumbnails",
-    "fiber",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
@@ -274,31 +267,27 @@ EMAIL_PORT = 25
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
-        "handlers": {
-            "file": {
-                "level": "DEBUG",
-                "class": "logging.FileHandler",
-                "filename": "/webserver/CSUA-backend-dev/server.log",
-            },
-            "errorfile": {
-                "level": "ERROR",
-                "class": "logging.FileHandler",
-                "filename": "/webserver/CSUA-backend-dev/error.log",
-            },
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "server.log"),
         },
-        "loggers": {
-            "django.request": {
-                "handlers": ["file"],
-                "level": "ERROR",
-                "propagate": True,
-                },
-            "django.security.csrf": {
-                "handlers": ["file"],
-                "level": "DEBUG",
-                "propagate": True,
-                },
-            },
+        "errorfile": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "error.log"),
+        },
+    },
+    "loggers": {
+        "django.request": {"handlers": ["file"], "level": "ERROR", "propagate": True},
+        "django.security.csrf": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
 }

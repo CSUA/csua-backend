@@ -75,7 +75,8 @@ A---B---C---E---G---I---K-csua/dev, fork/dev
           D---F---H---J-fork/feature(, possibly csua/feature)
 ```
 
-All work is done on the `dev` branch, and when it is ready to be deployed, the `master` will merge in `dev`. The `master` branch on `CSUA/CSUA-backend` is the version that is in production.
+All work is done on the `dev` branch, and when it is ready to be deployed, the `master` will merge in `dev`.
+The `master` branch on `CSUA/CSUA-backend` is the version that is in production.
 
 ### Your feature branch
 
@@ -91,3 +92,12 @@ Some commits may not warrant a feature branch and may go directly to `dev`. If y
 python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
 python3 manage.py dumpdata fiber > fixtures/$(date +fiber-%m%d%y.json)
 ```
+
+## LDAP Details
+
+`tap` runs an OpenLDAP server. It is accessible from anywhere over TLS on port 636.
+
+For an LDAP client to connect, it must accept our self-signed certificate.
+Usually this is done by adding this line to `/etc/ldap/ldap.conf`:
+
+`TLS_REQCERT allow`

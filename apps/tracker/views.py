@@ -1,12 +1,13 @@
 # Create your views here.
 import base64
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from hashlib import sha512
 from json import loads
 from time import time
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.core import serializers
 
 from .models import User, Computer
 
@@ -21,26 +22,55 @@ twitchUsers = {
     "nlingarkar": "sirnellington",
 }
 
+
 def index(request):
     computers = Computer.objects.all()
     users = User.objects.all()
     for computer in computers:
-        if computer.user is not None and computer.local_timestamp and (datetime.now(timezone.utc) - computer.local_timestamp).seconds > 5 * 60:
+        if (
+            computer.user is not None
+            and computer.local_timestamp
+            and (datetime.now(timezone.utc) - computer.local_timestamp).seconds > 5 * 60
+        ):
             computer.user = None
             computer.save()
 
     return render(request, "computers.html", {"computers": computers, "users": users})
 
 
-def verify_signature(code_text, signature):
+def json(request):
+    computers = Computer.objects.all()
+    users = User.objects.all()
+    for computer in computers:
+        if (
+            computer.user is not None
+            and computer.local_timestamp
+            and (datetime.now(timezone.utc) - computer.local_timestamp).seconds > 5 * 60
+        ):
+            computer.user = None
+            computer.save()
+
+    return JsonResponse(
+        {
+            # "computers": list(computers.values("hostname", "user_id")),
+            # "users": list(users.values("username")),
+            "computers": list(computers.values()),
+            "users": list(users.values()),
+        }
+    )
+
+
+def _verify_signature(code_text, signature):
     return (
         signature.isdigit()
         and pow(int(signature), e, n)
         == int(sha512(code_text.encode("utf-8")).hexdigest(), 16) % n
     )
 
+
 def ping(request, code_text=None, signature=None):
-    if not verify_signature(code_text, signature):
+    if not _verify_signature(code_text, signature):
+        print("Bad ping request.")
         return HttpResponse("Bad Request.", status=403)
 
     code_text = base64.b64decode(code_text).decode("utf-8")
@@ -48,23 +78,31 @@ def ping(request, code_text=None, signature=None):
     delta = data["delta"]
     username = data["username"]
     hostname = data["host"].lower()
-    timestamp = datetime.fromtimestamp(int(data["timestamp"] / 1000))
+
+    # data["timestamp"] is in milliseconds since the epoch
+    timestamp = datetime.fromtimestamp(int(data["timestamp"] / 1000), tz=timezone.utc)
 
     user, _ = User.objects.get_or_create(username=username)
-    computer, _ = Computer.objects.get_or_create(hostname=hostname)
+    computer, computer_created = Computer.objects.get_or_create(hostname=hostname)
 
-    if computer.foreign_timestamp and computer.foreign_timestamp >= timestamp:
-        return HttpResponse("Bad Request, stupid hacker.", status=403)
+    # invariant: computer's foreign_timestamp is increasing each step
+    if (not computer_created) and computer.foreign_timestamp >= timestamp:
+        print(computer.foreign_timestamp)
+        print(timestamp)
+        return HttpResponse("Time went backwards!", status=403)
 
-    now = datetime.now(timezone.utc)
-    if user.last_ping and now - user.last_ping < 10 * delta:
-        user.time_spent += now - user.last_ping
+    now = datetime.now(tz=timezone.utc)
+    # invatiant: pings from a user should come at least once every two time
+    # DELTAs, but not more than once every half a DELTA. (default DELTA is 5).
+    if user.last_ping and (0.5 * delta) < (now - user.last_ping).seconds < (2 * delta):
+        user.time_spent += (now - user.last_ping).seconds
     user.last_ping = now
     user.save()
 
-    computer.local_timestamp = datetime.now(timezone.utc)
+    computer.local_timestamp = datetime.now(tz=timezone.utc)
     computer.foreign_timestamp = timestamp
-    computer.user = user
+    if computer.user is not user:
+        computer.user = user
     computer.save()
 
     return HttpResponse(str(user.time_spent))
