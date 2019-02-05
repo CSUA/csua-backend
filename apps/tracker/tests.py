@@ -34,10 +34,30 @@ class ViewsSanityTest(TestCase):
 
         response = c.get("/computers/json")
         self.assertEquals(response.status_code, 200)
-        # TODO: check JSON
-        # self.assertJSONEqual(response.content)
-        # self.assertInHTML("pnunez", response.content)
-        # self.assertInHTML("soda", response.conent)
 
-    def test_3_multiple_pings(self):
-        pass
+    def test_3_multiple_logins(self):
+        env = {
+            "delta": 5,
+            "username": "pnunez",
+            "host": "soda",
+            "salt": 123456789,
+            "timestamp": int(time.time() * 1000),
+        }
+        code_text = client.get_code_text(env)
+        signature = str(client.signature(code_text))
+        c = Client()
+        response = c.get("/computers/ping/{0}/{1}".format(code_text, signature))
+
+        env2 = {
+            "delta": 5,
+            "username": "pnunez",
+            "host": "tap",
+            "salt": 123456789,
+            "timestamp": int(time.time() * 1000),
+        }
+        code_text = client.get_code_text(env)
+        signature = str(client.signature(code_text))
+        c2 = Client()
+        response = c2.get("/computers/ping/{0}/{1}".format(code_text, signature))
+
+        self.assertEqual(response.status_code, 200)

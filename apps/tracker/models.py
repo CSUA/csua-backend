@@ -15,8 +15,10 @@ def seconds_to_time(seconds: int) -> str:
 
 
 class User(models.Model):
-    username = models.CharField(max_length=32, primary_key=True)
-    last_ping = models.DateTimeField(auto_now_add=True)
+    username = models.CharField(
+        max_length=32, primary_key=True, unique=True, editable=False
+    )
+    last_ping = models.DateTimeField(auto_now=True, editable=True)
     time_spent = models.IntegerField(default=0)
 
     @property
@@ -30,9 +32,8 @@ class User(models.Model):
 
 class Computer(models.Model):
     hostname = models.CharField(max_length=15, primary_key=True)
-    user = models.OneToOneField("User", on_delete=models.PROTECT, null=True)
-    foreign_timestamp = models.DateTimeField(auto_now_add=True)
-    local_timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey("User", on_delete=models.PROTECT, null=True)
+    local_timestamp = models.DateTimeField(auto_now=True)
 
     @property
     def open(self):

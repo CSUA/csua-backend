@@ -83,24 +83,19 @@ def ping(request, code_text=None, signature=None):
     timestamp = datetime.fromtimestamp(int(data["timestamp"] / 1000), tz=timezone.utc)
 
     user, _ = User.objects.get_or_create(username=username)
-    computer, computer_created = Computer.objects.get_or_create(hostname=hostname)
-
-    # invariant: computer's foreign_timestamp is increasing each step
-    if (not computer_created) and computer.foreign_timestamp >= timestamp:
-        print(computer.foreign_timestamp)
-        print(timestamp)
-        return HttpResponse("Time went backwards!", status=403)
+    computer, _ = Computer.objects.get_or_create(hostname=hostname)
 
     now = datetime.now(tz=timezone.utc)
     # invatiant: pings from a user should come at least once every two time
     # DELTAs, but not more than once every half a DELTA. (default DELTA is 5).
-    if user.last_ping and (0.5 * delta) < (now - user.last_ping).seconds < (2 * delta):
+    if user.last_ping and (0.5 * delta) < (now - user.last_ping).seconds < (
+        1.5 * delta
+    ):
         user.time_spent += (now - user.last_ping).seconds
     user.last_ping = now
     user.save()
 
     computer.local_timestamp = datetime.now(tz=timezone.utc)
-    computer.foreign_timestamp = timestamp
     if computer.user is not user:
         computer.user = user
     computer.save()
