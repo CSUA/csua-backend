@@ -9,6 +9,8 @@ import apps.fb_events.views
 import apps.tracker.views
 
 urlpatterns = [
+    url(r"^", include("apps.main_page.urls")),
+    url(r"^", include("apps.db_data.urls")),
     url(r"^admin/", admin.site.urls),
     url(r"^newuser/", include("apps.newuser.urls")),
     url(r"^computers/", include("apps.tracker.urls")),

@@ -2,138 +2,35 @@
 {% block title %}Create Account{% endblock %}
 {% block css_file %}newuser.css{% endblock %}
 {% block content %}
-<div class="header">
-  Create Account
-</div>
-<br/>
-<div class="block" id="top">
-    Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our computers and use of our servers.  In order to use our servers, ssh into soda.berkeley.edu and enter the username and password you are creating below. <br/><br/>Passwords must be at least nine characters long and contain characters from at least two of the following three categories: <ul>
-        <li>Alphabetical</li>
-        <li>Numerical</li>
-        <li>Punctuation/Other</li> </ul>
-</div>
-<br/>
-<div class='block' id='errors' style='display:none'></div>
-<br/>
-<form action="/newuser/create/" onsubmit="return validateForm()" method="post">
-  {% csrf_token %}
-  <div class='block'>
-    <table>
-      <tr><td width=50%>Full Name:</td><td align='center'><input name='full_name' type='text'/><br/></td></tr>
-      <tr><td width=50%>Student ID:</td><td align='center'><input name='student_id' type='number'/><br/></td></tr>
-      <tr><td width=50%>Email:</td><td align='center'><input name='email' type='text'/><br/></td></tr>
-      <tr><td width=50%>Username (may not contain spaces):</td><td align='center'><input name='username' type='text'/><br/></td></tr>
-      <tr><td width=50%>Password:</td><td align='center'><input name='password' type='password'/><br/></td></tr>
-      <tr><td width=50%>Confirm Password:</td><td align='center'><input name='password_confirm' type='password'/><br/></td></tr>
-      <tr><td width=50%>Would you like to be contacted about jobs and Internships?</td><td align='center'> <input name='enroll_jobs' type='checkbox'/><br/></td></tr>
-      <!-- <tr><td width=50%>Officer Username:</td><td align='center'><input name='officer_username' type='text'/><br/></td></tr>
-      <tr><td width=50%>Officer Password:</td><td align='center'><input name='officer_password' type='password'/><br/></td></tr> -->
-    </table>
-  </div>
-  <br/>
-  <div class='block'>
-    <table>
-      <tr>
-        <td>
-          <b>CSUA Office Rules are as follows:</b>
-          <ol>
-            <li>Do not violate the law or University policy</li>
-            <li>Be courteous to your peers</li>
-            <li><b>Keep yourself, your surroundings, and the office clean</b></li>
-            <li>Respect office equipment - put away equipment in designated bins</li>
-            <li>Business hours are from 10 AM to 7 PM
-              <br /><b>Video gaming and full screen videos are not permitted</b></li>
-            <li>Keep noise pollution to a minimum (use headphones, and other measures)</li>
-            <li>Sleeping in the office is not permitted</li>
-            <li>Be courteous to others who wish to use the computers
-              <br /><b>Limit usage to 2 hours during busy periods</b></li>
-            <!-- li>During business hours (weekdays 10AM-7PM), the office should be a productive, inclusive workspace. Video gaming is not permitted during these hours.  </li -->
-          </ol>
-      </td>
-    </tr>
-  </table>
-  <table>
-    <tr>
-      <td width=80%>Do you agree to abide by these rules while in the office or using your account?</td>
-      <td align='center'> <input name='agree_rules' type='checkbox'/><br/></td>
-    </tr>
-  </table>
-  </div>
-  <br/>
-  <div class='block'>
-    <table>
-      <tr><td width=50%>Officer Username:</td><td align='center'><input name='officer_username' type='text'/><br/></td></tr>
-      <tr><td width=50%>Officer Password:</td><td align='center'><input name='officer_password' type='password'/><br/></td></tr>
-    </table>
-  <br/>
-  <input type='submit' value='Submit'/>
-  </div>
+<div class="box content" id="top">
+	<h1>Create Account</h1>
 
-
+	Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our computers and use of our servers.  In order to use our servers, ssh into soda.berkeley.edu and enter the username and password you are creating below. <br/><br/>Passwords must be at least nine characters long and contain characters from at least two of the following three categories: <ul>
+		<li>Alphabetical</li>
+		<li>Numerical</li>
+		<li>Punctuation/Other</li> </ul>
+</div>
+<form class="box" action="/newuser/" method="post">
+	{% csrf_token %}
+	<table>
+		{{ form.as_table }}
+	</table>
+	<input type="submit" value="Submit" />
 </form>
-
-<script type='text/javascript'>
-
-var email_regex = new RegExp('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$');
-
-function validateForm(){
-  var full_name = document.getElementsByName("full_name")[0].value;
-  var student_id = document.getElementsByName("student_id")[0].value;
-  var email = document.getElementsByName("email")[0].value;
-  var username = document.getElementsByName("username")[0].value;
-  var password = document.getElementsByName("password")[0].value;
-  var password_confirm = document.getElementsByName("password_confirm")[0].value;
-  var enroll_jobs = document.getElementsByName("enroll_jobs")[0].checked;
-  var officer_username = document.getElementsByName("officer_username")[0].value;
-  var officer_password = document.getElementsByName("officer_password")[0].value;
-  var agree_rules = document.getElementsByName("agree_rules")[0].checked;
-  errors = [];
-  if (full_name == "") {
-    errors.push("Field 'Full Name' is required.")
-  }
-  if (student_id == "") {
-      errors.push("Field 'Student ID' is required.")
-  }
-  if (email == "") {
-    errors.push("Field 'Email' is required.")
-  }
-  if (!email_regex.test(email)) {
-    errors.push("Email must be an actual email.")
-  }
-  if (username == "") {
-    errors.push("Field 'Username' is required.")
-  }
-  if (username.indexOf(" ") > -1) {
-    errors.push("Username cannot contain spaces.")
-  }
-  if (password == "") {
-    errors.push("Field 'Password' is required.")
-  }
-  if (password != password_confirm) {
-    errors.push("Passwords do not match.")
-  }
-  if (officer_username == "") {
-    errors.push("Field 'Officer Username' is required.")
-  }
-  if (officer_password == "") {
-    errors.push("Field 'Officer Password' is required.")
-  }
-  if (agree_rules != true) {
-    errors.push("You must agree to the CSUA Office Rules.")
-  }
-  if (errors.length == 0) {
-    return true
-  }
-  var error_string = 'Errors:<ul>';
-  for (var i = 0; i < errors.length; i++) {
-    error_string += '<li>' + errors[i] + '</li>';
-  }
-  error_string += '</ul>';
-  document.getElementById("errors").innerHTML = error_string;
-  document.getElementById("errors").style.display = '';
-  window.location.href = "#top";
-  return false;
-}
-</script>
-
+<div class="box content">
+<b>CSUA Office Rules are as follows:</b>
+<ol>
+	<li>Do not violate the law or University policy</li>
+	<li>Be courteous to your peers</li>
+	<li><b>Keep yourself, your surroundings, and the office clean</b></li>
+	<li>Respect office equipment - put away equipment in designated bins</li>
+	<li>Business hours are from 10 AM to 7 PM
+		<br /><b>Video gaming and full screen videos are not permitted</b></li>
+	<li>Keep noise pollution to a minimum (use headphones, and other measures)</li>
+	<li>Sleeping in the office is not permitted</li>
+	<li>Be courteous to others who wish to use the computers
+		<br /><b>Limit usage to 2 hours during busy periods</b></li>
+	<!-- <li>During business hours (weekdays 10AM-7PM), the office should be a productive, inclusive workspace. Video gaming is not permitted during these hours.  </li> -->
+</ol>
+</div>
 {% endblock %}

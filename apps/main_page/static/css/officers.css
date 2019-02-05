@@ -1,60 +1,72 @@
 .roster {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 }
-.officer {
-  width: 200px;
-  margin: 5px;
-  padding: 10px;
-  background: white;
-  box-shadow: 0 2px 2px 0 rgba(38,50,56,.28), 0 3px 1px -2px rgba(38,50,56,.24), 0 1px 5px 0.5px rgba(38,50,56,.32);
+.roster .officer {
+	margin: 5px;
+	padding: 10px;
+	max-width: 200px;
 }
 .photo-frame {
-  height: 200px;
-  width: 200px;
-  overflow: hidden;
+	width: 180px;
+	height: 180px;
+	overflow: hidden;
+}
+@media only screen and (max-width: 800px) {
+	.photo-frame {
+		width: 155px;
+		height: 155px;
+	}
+	.roster .officer {
+		width: 165px;
+		margin: 2px;
+		padding: 5px;
+	}
 }
 .photoone, .phototwo, .single {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }
 .name {
-  font-weight: 600;
-  font-size: 20px;
-  text-align: center;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
 }
 .officehours {
-  font-size: 14px;
+	font-size: 14px;
 }
 .blurb {
-  font-size: 15px;
-  font-weight: 300;
-  margin-top: 10px;
+	font-size: 15px;
+	font-weight: 300;
+	margin-top: 10px;
 }
 /* Logic for showing alternative photo */
 .phototwo {
-  display: none;
+	display: none;
 }
 .photo-frame:hover .photoone {
-  display: none;
+	display: none;
 }
 .photo-frame:hover .phototwo {
-  display: block;
+	display: block;
 }
 .root-staff-banner {
-  background: #366d97;
-  color: #decb4b;
-  font-family: Courier New, monospace;
-  font-weight: bold;
-  padding: 5px 0;
-  position: relative;
-  text-align: center;
-  bottom: 40px;
-  left: 110;
-  width: 120px;
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
-  transform: rotate(-45deg);
+	background: #366d97;
+	color: #decb4b;
+	font-family: Courier New, monospace;
+	font-weight: bold;
+	padding: 5px 0;
+	position: relative;
+	text-align: center;
+	bottom: 40px;
+	left: 110px;
+	width: 120px;
+	box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	transform: rotate(-45deg);
+	@include media-query($on-palm) {
+		left: 35px;
+	}
 }

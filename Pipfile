@@ -11,10 +11,11 @@ python-ldap = "*"
 ldap3 = "*"
 pillow = "*"
 python-magic = "*"
-python-magic-bin = {version = "*", platform_system = " == 'Windows'"}
+python-magic-bin = {version = "*",platform_system = " == 'Windows'"}
 django-markdown-deux = "*"
 django-ldapdb = "*"
 mysqlclient = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.5"

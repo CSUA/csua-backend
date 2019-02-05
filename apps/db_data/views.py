@@ -4,6 +4,16 @@ from django.shortcuts import render
 from .models import Event, Officer, Politburo, Sponsor
 
 
+def officers(request):
+    return render(
+        request, "officers.html", {"officer_list": Officer.objects.filter(enabled=True)}
+    )
+
+
+def politburo(request):
+    return render(request, "politburo.html", {"pb": Politburo.objects.all()})
+
+
 def json(request):
     officers_all = Officer.objects.filter(enabled=True).order_by("last_name")
     serialized_officers = [

@@ -1,24 +1,11 @@
 {% extends "base.html" %}
-{% load fiber_tags %}
 {% block title %}Home{% endblock %}
-{% block css_file %}index.css{% endblock %}
 {% block headertitle %}
 Welcome to the CSUA
 {% endblock %}
 {% block content %}
-<div class="blockseparation"></div>
-<div class="column columnleft">
-	<div class="block">{% show_page_content "hello_world" %}</div>
-	<div class="blockseparation"></div>
-	<div id="officerpicture">{% show_page_content "officerpicture" %}</div>
-	<div class="blockseparation"></div>
-	<div class="block">{% show_page_content "department" %}</div>
-</div>
-<div class="responsivehidden blockseparation"></div>
-<div class="column columnright">
-	<div class="block">{% show_page_content "people" %}</div>
-	<div class="blockseparation"></div>
-	<div class="block">{% show_page_content "office" %}</div>
+<div class="hero">
+	Hello
 </div>
 {% endblock %}
 {# vim: set noet ts=4 sw=4: #}
