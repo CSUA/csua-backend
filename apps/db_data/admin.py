@@ -104,4 +104,12 @@ class PolituburoAdmin(admin.ModelAdmin):
 
 @admin.register(Sponsor)
 class SponsorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "url", "description", "current"]
+
+    actions = ["disable_sponsor", "enable_sponsor"]
+
+    def disable_sponsor(modeladmin, request, queryset):
+        queryset.update(current=False)
+
+    def enable_sponsor(modeladmin, request, queryset):
+        queryset.update(current=True)

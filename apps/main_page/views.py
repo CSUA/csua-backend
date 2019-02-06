@@ -5,6 +5,10 @@ def index(request):
     return render(request, "index.html")
 
 
+def workshops(request):
+    return render(request, "workshops.html")
+
+
 def hackathon13(request):
     return render(request, "hackathonfa13.html")
 

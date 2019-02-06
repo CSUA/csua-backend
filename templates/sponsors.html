@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Industry{% endblock %}
+{% block content %}
+<div class="content box" id="pagetitle">
+    <h1>Sponsors</h1>
+    <p>We are very grateful to all our company sponsors who make much of what
+    we do possible. Thank you!</p>
+</div>
+<div class="box content">
+    <h1>Industry</h1>
+    <p>Interested in working with the CSUA to sponsor an event or to speak at
+    one of our events? Please send an email to indrel@csua.berkeley.edu.</p>
+</div>
+<div class="">
+    <div class="box content">
+        <h1>Current Sponsors</h1>
+    </div>
+    <div class="columns is-multiline">
+        {% for sponsor in sponsors_current %}
+        <div class="column is-3">
+            <div class="box">
+                <a href="{{ sponsor.url }}"><h2 class="subtitle has-text-centered">{{ sponsor.name }}</h2></a>
+                <figure class="image container is-128x128">
+                    <img class="image is-128x128" src="https://csua.berkeley.edu/{{ sponsor.photo.url }}">
+                </figure>
+                <div class="content">
+                    <p>{{ sponsor.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="box">
+    <h1>Past Sponsors</h1>
+</div>
+{% endblock %}
+{# vim:set sw=4:et:ts=4 #}

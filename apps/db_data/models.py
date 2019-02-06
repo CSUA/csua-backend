@@ -37,6 +37,10 @@ class Politburo(models.Model):
     contact = models.TextField(max_length=255)
     officer = models.OneToOneField(Officer, on_delete=models.PROTECT)
 
+    @property
+    def contact_info(self):
+        return self.contact.replace("[name]", self.officer.first_name, 1)
+
     def __str__(self):
         return self.title
 

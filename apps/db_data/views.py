@@ -14,6 +14,16 @@ def politburo(request):
     return render(request, "politburo.html", {"pb": Politburo.objects.all()})
 
 
+def sponsors(request):
+    sponsors_current = Sponsor.objects.filter(current=True)
+    sponsors_past = Sponsor.objects.filter(current=False)
+    return render(
+        request,
+        "sponsors.html",
+        {"sponsors_current": sponsors_current, "sponsors_past": sponsors_past},
+    )
+
+
 def json(request):
     officers_all = Officer.objects.filter(enabled=True).order_by("last_name")
     serialized_officers = [

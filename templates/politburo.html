@@ -36,7 +36,7 @@
 	<div class="tile">
 		<div class="tile is-parent is-3">
 			<div class="tile is-child content box">
-				<p class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</p>
+				<h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
 				<p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
 				<div class="image">
 				<img class="pb-image image is-rounded" src="https://www.csua.berkeley.edu{{ pb_member.officer.photo1.url }}">
@@ -50,7 +50,7 @@
 				{{ pb_member.description }}
 				</p>
 				<p>
-				{{ pb_member.contact }}
+				{{ pb_member.contact_info }}
 				</p>
 			</article>
 		</div>

@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
     url(r"^$", views.index),
+    url(r"^workshops/$", views.workshops),
     url(r"^hackathon13/$", views.hackathon13),
     url(r"^hackathon14/$", views.hackathon14),
     url(r"^hackathonsp15/$", views.hackathonsp15),
