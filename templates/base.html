@@ -1,97 +1,98 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
-		<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/common.css"/>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{% block css_file %}{% endblock %}"/>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				// Get all "navbar-burger" elements
-				const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-				// Check if there are any navbar burgers
-				if ($navbarBurgers.length > 0) {
-					// Add a click event on each of them
-					$navbarBurgers.forEach( el => {
-						el.addEventListener('click', () => {
-							// Get the target from the "data-target" attribute
-							const target = el.dataset.target;
-							const $target = document.getElementById(target);
-							// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-							el.classList.toggle('is-active');
-							$target.classList.toggle('is-active');
-						});
-					});
-				}
-			});
-		</script>
-	</head>
-	<body>
-		<nav class="navbar is-link" role="navigation", aria-label="main navigation">
-			<div class="navbar-brand">
-				<a class="navbar-item" href="/">
-					<img src="/static/images/pic.png" width="36" height="28">
-				</a>
-				<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-				</a>
-			</div>
-			<div id="navMenu" class="navbar-menu">
-				<div class="navbar-start">
-					<div class="navbar-item has-dropdown is-hoverable">
-						<a class="navbar-link" href="/events/">
-							Events
-						</a>
-						<div class="navbar-dropdown">
-							<a class="navbar-item" href="/workshops/">
-								Workshops
-							</a>
-						</div>
-					</div>
+  <head>
+    <title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{% block css_file %}{% endblock %}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar is-link" role="navigation", aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/static/images/pic.png" width="36" height="28">
+        </a>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="/events/">
+              Events&nbsp;
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/events/workshops/">
+                Workshops
+              </a>
+            </div>
+          </div>
 
-					<a class="navbar-item" href="/sponsors/">
-						Sponsors
-					</a>
+          <a class="navbar-item" href="/sponsors/">
+            Sponsors
+          </a>
 
-					<div class="navbar-item has-dropdown is-hoverable">
-						<a class="navbar-link">
-							About Us
-						</a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              About Us
+            </a>
 
-						<div class="navbar-dropdown">
-							<a class="navbar-item" href="/politburo/">
-								Politburo
-							</a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/politburo/">
+                Politburo
+              </a>
 
-							<a class="navbar-item" href="/officers/">
-								Officers
-							</a>
+              <a class="navbar-item" href="/officers/">
+                Officers
+              </a>
 
-							<a class="navbar-item" href="/constitution/">
-								Constitution
-							</a>
+              <a class="navbar-item" href="/constitution/">
+                Constitution
+              </a>
 
-							<a class="navbar-item" href="/join/">
-								Join
-							</a>
+              <a class="navbar-item" href="/join/">
+                Join
+              </a>
 
-						</div>
-					</div>
-				</div>
-		</nav>
-		<section class="section">
-			<div class="container">
-				{% block content %}{% endblock %}
-			</div>
-		</section>
-		<footer>
-		</footer>
-	</body>
+            </div>
+          </div>
+        </div>
+    </nav>
+    <section class="section">
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </section>
+    <footer>
+    </footer>
+  </body>
 </html>
-{# vim: set noet ts=2 sw=2: #}
+{# vim: set et ts=2 sw=2: #}

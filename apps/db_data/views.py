@@ -1,7 +1,17 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
 from .models import Event, Officer, Politburo, Sponsor
+
+
+class EventsView(TemplateView):
+    template_name = "events.html"
+
+    def get_context_data(request):
+        context = {}
+        context["events"] = Event.objects.all()
+        return context
 
 
 def officers(request):

@@ -1,10 +1,13 @@
-from django.conf.urls import url
+from django.urls import path
+from django.views.generic.base import TemplateView
 
 from . import views
 
 urlpatterns = [
-    url(r"^politburo/$", views.politburo),
-    url(r"^officers/$", views.officers),
-    url(r"^sponsors/$", views.sponsors),
-    url(r"^api/db.json$", views.json),
+    path("politburo/", views.politburo),
+    path("officers/", views.officers),
+    path("sponsors/", views.sponsors),
+    path("events/", views.EventsView.as_view()),
+    path("events/workshops/", TemplateView.as_view(template_name="workshops.html")),
+    path("api/db.json/", views.json),
 ]

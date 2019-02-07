@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
 
@@ -9,9 +9,9 @@ import apps.fb_events.views
 import apps.tracker.views
 
 urlpatterns = [
-    url(r"^", include("apps.main_page.urls")),
-    url(r"^", include("apps.db_data.urls")),
-    url(r"^admin/", admin.site.urls),
-    url(r"^newuser/", include("apps.newuser.urls")),
-    url(r"^computers/", include("apps.tracker.urls")),
+    path("", include("apps.main_page.urls")),
+    path("", include("apps.db_data.urls")),
+    path("admin/", admin.site.urls),
+    path("newuser/", include("apps.newuser.urls")),
+    path("computers/", include("apps.tracker.urls")),
 ]

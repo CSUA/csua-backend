@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block css_file %}events.css{% endblock %}
+{% block content %}
+<div class="hero">
+    <div class="hero-body">
+        <h1 class="title">Events</h1>
+        <p>
+        The CSUA hosts a large variety of social events, tech talks, networking events, workshops,
+        and hackathons for the CS community.
+        </p>
+    </div>
+</div>
+
+<div class="box">
+    {% for event in events %}
+    {{ event.name }}
+    {% endfor %}
+</div>
+<div id="upcoming-events" class="box container has-text-centered">
+    <iframe src="https://calendar.google.com/calendar/embed?src=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com&ctz=America/Los_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+{% endblock %}
+{# vim:set et:sw=4 #}

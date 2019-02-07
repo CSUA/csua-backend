@@ -1,17 +1,18 @@
 from django.conf import settings
-from django.conf.urls import url, include
+from django.urls import path
 from django.conf.urls.static import static
+from django.views.generic.base import TemplateView
 
 from . import views
-
+from apps.db_data.views import EventsView
 
 urlpatterns = [
-    url(r"^$", views.index),
-    url(r"^workshops/$", views.workshops),
-    url(r"^hackathon13/$", views.hackathon13),
-    url(r"^hackathon14/$", views.hackathon14),
-    url(r"^hackathonsp15/$", views.hackathonsp15),
-    url(r"^hackathonfa15/$", views.hackathonfa15),
-    url(r"^hackathonsp16/$", views.hackathonsp16),
-    url(r"^hackathonfa16/$", views.hackathonfa16),
+    path("", EventsView.as_view(template_name="index.html")),
+    path("constitution/", TemplateView.as_view(template_name="constitution.html")),
+    path("join/", TemplateView.as_view(template_name="join.html")),
+    path("hackathon14/", views.hackathon14),
+    path("hackathonsp15/", views.hackathonsp15),
+    path("hackathonfa15/", views.hackathonfa15),
+    path("hackathonsp16/", views.hackathonsp16),
+    path("hackathonfa16/", views.hackathonfa16),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

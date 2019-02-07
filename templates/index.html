@@ -1,18 +1,15 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
-<section class="hero">
-	<div class="hero-body">
-		<h1 class="title">
-			Welcome to the CSUA
-		</h1>
-		<h2 class="subtitle">
-			UC Berkeley Computer Science Undergraduate Association
-		</h2>
-	</div>
+<section class="hero is-link">
+  <div class="hero-body">
+    <h1 class="title">
+      Welcome to the CSUA
+    </h1>
+    <h2 class="subtitle">
+      UC Berkeley Computer Science Undergraduate Association
+    </h2>
+  </div>
 </section>
-<div class="container box">
-  The Computer Science Undergraduate Association supports the undergraduate
-  computer science student body at UC Berkeley and acts as an entry point to
-  industry.
+<div class="container content">
 </div>
 <div class="tile is-vertical is-ancestor">
   <div class="tile">
@@ -20,49 +17,54 @@
       <article class="tile is-child content box">
         <h1>Hello World!</h1>
         <p>
-          The CSUA hosts tech talks, hackathons, info sessions, CS workshops,
-          LAN parties, and the biannual
-          <a href="http://ucbstartupfair.com/">Startup Fair</a>.
+        The Computer Science Undergraduate Association supports the undergraduate
+        computer science student body at UC Berkeley and acts as an entry point to
+        industry.
+        </p>
+        <p>
+        The CSUA hosts tech talks, hackathons, info sessions, CS workshops,
+        LAN parties, and the biannual
+        <a href="http://ucbstartupfair.com/">Startup Fair</a>.
         </p>
 
         <p>
-          Looking for a place to learn more about computer science and meet
-          other students? Come visit us at our office (311 Soda) or use the
-          study lounge (341* Soda).
+        Looking for a place to learn more about computer science and meet
+        other students? Come visit us at our office (311 Soda) or come to our
+        <a href="/events/">events.</a>
         </p>
       </article>
     </div>
     <div class="tile is-parent">
       <article class="tile is-child content box">
         <h1>Upcoming Events</h1>
-				{% include "upcoming_events.html" %}
+        {% include "upcoming_events.html" %}
       </article>
     </div>
   </div>
   <div class="tile">
     <div class="tile is-parent is-8">
-			<div class="tile is-child box">
-      <img class="image"
-      src="https://www.csua.berkeley.edu/assets/images/tushar_photoshoots/Officers_FA16.jpg"
-			alt="CSUA Officers at Hearst Mining Circle">
-			<p class="has-text-centered">
-			We <3 CS! (and EECS too!)
-			</p>
-			</div>
+      <div class="tile is-child box">
+        <img class="image"
+             src="https://www.csua.berkeley.edu/assets/images/tushar_photoshoots/Officers_FA16.jpg"
+             alt="CSUA Officers at Hearst Mining Circle">
+        <p class="has-text-centered">
+        We &lt;3 CS and welcome students of all majors!
+        </p>
+      </div>
     </div>
     <div class="tile is-parent">
       <article class="tile is-child content box">
         <h1>People</h1>
         <h2><a href="/poliburo/">The Poliburo</a></h2>
         <p>
-          The Politburo is composed of elected officers of the CSUA. You can
-          contact the Politburo at politburo@csua.berkeley.edu.
+        The Politburo is composed of elected officers of the CSUA. You can
+        contact the Politburo at politburo@csua.berkeley.edu.
         </p>
         <h2 id="officers"><a href="/officers/">Officers</a></h2>
         <p>
-          Officers are people you find frequently at the office. They’re
-          responsible for keeping the place open and friendly. Many of them are
-          experienced with programming and can help you with your classes.
+        Officers are people you find frequently at the office. They’re
+        responsible for keeping the place open and friendly. Many of them are
+        experienced with programming and can help you with your classes.
         </p>
       </article>
     </div>
@@ -77,45 +79,43 @@
         </h2>
 
         <p>
-          Learn more about the Computer Science department at UC Berkeley. The
-          L&amp;S CS advisors are
-          <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-						Leslie Mach
-					</a>
-          (379 Soda),
-          <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-						Lydia Raya
-					</a>
-          (379 Soda) and
-          <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-						Charlene Hughes
-					</a>
-          (315 Soda),
+        Learn more about the Computer Science department at UC Berkeley. The
+        L&amp;S CS advisors are
+        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+          Leslie Mach
+        </a>
+        (379 Soda),
+        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+          Lydia Raya
+        </a>
+        (379 Soda) and
+        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+          Charlene Hughes
+        </a>
+        (315 Soda),
         </p>
 
         <h2 id="electrical-engineering--computer-science">
           <a href="http://www.eecs.berkeley.edu/">
-						Electrical Engineering &amp; Computer Science
-					</a>
+            Electrical Engineering &amp; Computer Science
+          </a>
         </h2>
 
         <p>
-          Learn more about the Electrical Engineering &amp; Computer Science
-          department in UC Berkeley’s College of Engineering. The Director of
-          EECS Undergrad affairs is
-          <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising">
-						Audrey Sillers
-					</a>
-          (203 Cory) and the EECS undergrad advisors are
-          <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising">
-						Nicole McIntyre
-					</a>,
-          <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising"
-            >Mayra Rivera</a>
-					and
-          <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising"
-            >Andrea Mejia Valencia</a>
-          (all 205 Cory).
+        Learn more about the Electrical Engineering &amp; Computer Science
+        department in UC Berkeley’s College of Engineering. The Director of
+        EECS Undergrad affairs is
+        <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising">
+          Audrey Sillers</a>
+        (203 Cory) and the EECS undergrad advisors are
+        <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising">
+          Nicole McIntyre</a>,
+        <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising"
+           >Mayra Rivera</a>
+        and
+        <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising"
+           >Andrea Mejia Valencia</a>
+        (all 205 Cory).
         </p>
       </article>
     </div>
@@ -124,15 +124,15 @@
         <h1>Our Office</h1>
 
         <p>
-          The CSUA Office is located in 311 Soda Hall in front of the 3rd floor
-          entrance to Soda Hall, at the corner of Hearst &amp; LeRoy.
+        The CSUA Office is located in 311 Soda Hall in front of the 3rd floor
+        entrance to Soda Hall, at the corner of Hearst &amp; LeRoy.
         </p>
 
         <p>
-          We work around the clock to provide computing resources, support, and
-          community to the computer science students at Berkeley. In the rare
-          case that you have an emergency and the office is vacant, you may
-          email us at politburo@csua.berkeley.edu.
+        We work around the clock to provide computing resources, support, and
+        community to the computer science students at Berkeley. In the rare
+        case that you have an emergency and the office is vacant, you may
+        email us at politburo@csua.berkeley.edu.
         </p>
 
         <b>Address</b><br />
@@ -145,4 +145,5 @@
     </div>
   </div>
 </div>
-{% endblock %} {# vim: set noet ts=2 sw=2: #}
+{% endblock %}
+{# vim: set et ts=2 sw=2: #}

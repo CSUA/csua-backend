@@ -2,9 +2,9 @@
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
 {% block content %}
-<div class="tile is-ancestor">
-	<div class="tile is-parent is-3">
-		<article class="tile is-child box content">
+<div class="columns">
+	<div class="column is-3">
+		<div class="box content">
 			<h1>The Politburo</h1>
 			<p>
 			The Politburo consists of the seven elected officers of the CSUA.
@@ -12,49 +12,45 @@
 
 			You can contact the Politburo at politburo@csua.berkeley.edu.
 			</p>
-		</article>
-	</div>
-	<div class="tile is-parent is-6">
-		<div class="tile is-child">
-			<img src="{{ STATIC_URL }}images/pb_fa18.jpg">
 		</div>
 	</div>
-	<div class="tile is-parent">
-		<article class="tile is-child box content">
+	<div class="column">
+		<img src="{{ STATIC_URL }}images/pb_fa18.jpg">
+	</div>
+	<div class="column is-4">
+		<div class="box content">
 			<h1>Positions</h1>
 			<ul>
-			{% for pb_member in pb %}
-			<li><a href="#{{ pb_member.position }}">{{ pb_member.title }}</a></li>
-			{% endfor %}
+				{% for pb_member in pb %}
+				<li><a href="#{{ pb_member.position }}">{{ pb_member.title }}</a></li>
+				{% endfor %}
 			</ul>
-		</article>
+		</div>
 	</div>
 </div>
 
-<div class="tile is-ancestor is-vertical">
-	{% for pb_member in pb %}
-	<div class="tile">
-		<div class="tile is-parent is-3">
-			<div class="tile is-child content box">
-				<h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
-				<p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
-				<div class="image">
+{% for pb_member in pb %}
+<div class="columns is-vcentered">
+	<div class="column is-3">
+		<div class="content box">
+			<h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
+			<p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
+			<div class="image">
 				<img class="pb-image image is-rounded" src="https://www.csua.berkeley.edu{{ pb_member.officer.photo1.url }}">
-				</div>
 			</div>
 		</div>
-		<div class="tile is-parent">
-			<article class="tile is-child content box">
-				<h1 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
-				<p>
-				{{ pb_member.description }}
-				</p>
-				<p>
-				{{ pb_member.contact_info }}
-				</p>
-			</article>
-		</div>
 	</div>
-	{% endfor %}
+	<div class="column">
+		<article class="content">
+			<h1 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
+			<p>
+			{{ pb_member.description }}
+			</p>
+			<p>
+			{{ pb_member.contact_info }}
+			</p>
+		</article>
+	</div>
 </div>
+{% endfor %}
 {% endblock %}
