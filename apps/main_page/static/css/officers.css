@@ -1,13 +1,14 @@
+/* hardcoded because I can't seem to make a square div :( --robertquitt */
 .photo-frame {
 	overflow: hidden;
+	height: 132px;
+	width: 132px;
 }
-@media only screen and (max-width: 800px) {
-	.photo-frame {
-	}
+.officer-photo {
+	position: relative;
 }
 .photoone, .phototwo, .single {
 	object-fit: cover;
-	width: 100%;
 	height: 100%;
 }
 /* Logic for showing alternative photo */
@@ -29,8 +30,8 @@
 	position: relative;
 	text-align: center;
         z-index: 1;
-	bottom: 100%;
-	left: 50%;
+	bottom: 35%;
+	left: 35%;
 	width: 120px;
 	box-shadow: 0 0 3px rgba(0,0,0,0.3);
 	transform: rotate(-45deg);

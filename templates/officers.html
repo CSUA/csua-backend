@@ -2,45 +2,50 @@
 {% block title %}Officers{% endblock %}
 {% block css_file %}officers.css{% endblock %}
 {% block content %}
-<div class="" id="pagetitle">
-    <div class="header" id="headertitle">Officers</div>
-    <div class="text" id="texttitle">
-        Are you new to Berkeley? New to CS? Need help with class? Want people to
-        talk to? Come by the office in 311 Soda and meet some of our officers! They're here
-        to help you and keep the office tidy and fun. <br><br>
-        <a href="https://docs.google.com/spreadsheets/d/1NNv18ZajHoaH3oAtq8d-ENnAE7wCsseqKUXQwkvb1y0/edit#gid=0">Calendar of office hours</a>
+<div class="hero">
+  <div class="hero-body">
+    <div class="content box">
+      <h1 class="title">Officers</h1>
+      <p>
+      Are you new to Berkeley? New to CS? Need help with class? Want people to
+      talk to? Come by the office in 311 Soda and meet some of our officers! They're here
+      to help you and keep the office tidy and fun. <br><br>
+      <a href="https://docs.google.com/spreadsheets/d/1NNv18ZajHoaH3oAtq8d-ENnAE7wCsseqKUXQwkvb1y0/edit#gid=0">Calendar of office hours</a>
+      </p>
     </div>
+  </div>
 </div>
 
 <div class="roster columns is-multiline roster">
-    {% for officer in officer_list|dictsort:"first_name" %}
-    <article class="column is-2" id="{{ officer.first_name }}{{ officer.last_name }}">
-        <div class="box">
-            <div class="photo-frame">
-                {% if not officer.photo2 %}
-                <img class="single" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-                {% elif officer.video2%}
-                <video class="videotwo" loop nocontrols onmouseover="play()" onmouseoff="pause()">
-                    <source src="https://www.csua.berkeley.edu/{{ officer.video2 }}" type="video/mp4"></source>
-                </video>
-                {% else %}
-                <img class="photoone" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-                <img class="phototwo" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
-                {% endif %}
-                {% if officer.root_staff %}
-                <div class="root-staff-banner">Root</div>
-                {% endif %}
-            </div>
-            <div class="name">{{ officer.first_name }} {{ officer.last_name }}</div>
-            <div class="officehours">
-                <a href="#office-hours">{{ officer.office_hours }}</a>
-            </div>
-            <div class="blurb">"{{ officer.blurb }}"</div>
-            {% if officer.tutor_subjects %}
-            <div class="tutor-subjects">Tutors for: {{ officer.tutor_subjects | join:", " }}</div>
-            {% endif %}
-        </div>
-    </article>
-    {% endfor %}
-</div>
-{% endblock content %}
+  {% for officer in officer_list|dictsort:"first_name" %}
+  <article class="column is-2" id="{{ officer.first_name }}{{ officer.last_name }}">
+    <div class="box content">
+      <div class="photo-frame">
+        {% if not officer.photo2 %}
+        <img class="single" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+
+        {% elif officer.video2%}
+        <video class="videotwo" loop nocontrols onmouseover="play()" onmouseoff="pause()">
+          <source src="https://www.csua.berkeley.edu/{{ officer.video2 }}" type="video/mp4"></source>
+        </video>
+        {% else %}
+        <img class="photoone" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+        <img class="phototwo" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
+        {% endif %}
+      {% if officer.root_staff %}
+      <div class="root-staff-banner">Root</div>
+      {% endif %}
+      </div>
+      <h5>{{ officer.first_name }} {{ officer.last_name }}</h5>
+      <div>
+        <a href="#office-hours">{{ officer.office_hours }}</a>
+      </div>
+      <div>"{{ officer.blurb }}"</div>
+      {% if officer.tutor_subjects %}
+      <div>Tutors for: {{ officer.tutor_subjects | join:", " }}</div>
+      {% endif %}
+  </article>
+  {% endfor %}
+    </div>
+    {% endblock content %}
+    {# vim: set et sw=2 ts=2 #}
