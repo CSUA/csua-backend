@@ -5,13 +5,11 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-import apps.fb_events.views
-import apps.tracker.views
-
 urlpatterns = [
     path("", include("apps.main_page.urls")),
     path("", include("apps.db_data.urls")),
     path("admin/", admin.site.urls),
     path("newuser/", include("apps.newuser.urls")),
     path("computers/", include("apps.tracker.urls")),
+    path("slack/", include("apps.philbot.urls")),
 ]

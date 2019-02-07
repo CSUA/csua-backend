@@ -16,6 +16,9 @@ django-markdown-deux = "*"
 django-ldapdb = "*"
 mysqlclient = "*"
 pyyaml = "*"
+requests = "*"
+djangorestframework = "*"
+slackclient = "*"
 
 [requires]
 python_version = "3.5"

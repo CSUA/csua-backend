@@ -3,14 +3,22 @@ from sys import argv
 from platform import node
 from os import environ
 from time import sleep
-# from ctypes import windll
 from json import dumps
 from random import randint
 from hashlib import sha512
 from time import time
 import base64
 
-CURL_STRING = "http://csua.berkeley.edu/computers/ping/{0}/{1}"
+try:
+    from ctypes import windll
+except ImportError:
+    pass
+
+DEBUG = True
+if DEBUG:
+    CURL_STRING = "http://localhost:8000/computers/ping/{0}/{1}"
+else:
+    CURL_STRING = "http://csua.berkeley.edu/computers/ping/{0}/{1}"
 DELTA = 5
 
 

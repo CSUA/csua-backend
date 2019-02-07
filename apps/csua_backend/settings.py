@@ -247,6 +247,7 @@ INSTALLED_APPS = [
     "apps.tracker",
     "apps.ldap_data",
     "apps.fb_events",
+    "apps.philbot",
     # third-party
     "ldapdb",
     "markdown_deux",
@@ -297,3 +298,8 @@ LOGGING = {
         },
     },
 }
+
+SLACK_CLIENT_ID = "3311748471.437459179046"
+SLACK_CLIENT_SECRET = "36e96bbe21a30a8200a672fa4d911a07"
+SLACK_BOT_USER_TOKEN = "xoxb-3311748471-435480016208-A9WmSI2idPObkYpoOeQV2ZJG"
+SLACK_VERIFICATION_TOKEN = "UjNEsGqkwolX8BYNMRpfhKdX"
