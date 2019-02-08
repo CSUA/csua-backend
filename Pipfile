@@ -20,6 +20,7 @@ pyyaml = "*"
 requests = "*"
 djangorestframework = "*"
 slackclient = "*"
+django-auth-ldap = "*"
 
 [requires]
 python_version = "3.5"
