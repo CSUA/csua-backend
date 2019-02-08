@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 from pathlib import Path
 import ldap
+from django_auth_ldap.config import LDAPSearch, PosixGroupType, LDAPGroupQuery
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
@@ -75,7 +76,7 @@ else:
         # "PASSWORD": "",
     }
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
+    # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
     "www.csua.berkeley.edu",
@@ -186,6 +187,40 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
+AUTH_LDAP_SERVER_URI = "ldaps://ldap.csua.berkeley.edu"
+AUTH_LDAP_CONNECTION_OPTIONS = {
+    ldap.OPT_X_TLS_CACERTFILE: "ldap_csua_berkeley_edu_interm.cer",
+    ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_ALLOW,
+}
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "ou=People,dc=csua,dc=berkeley,dc=edu", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
+)
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+    "ou=Group,dc=csua,dc=berkeley,dc=edu",
+    ldap.SCOPE_SUBTREE,
+    "(objectClass=posixGroup)",
+)
+AUTH_LDAP_GROUP_TYPE = PosixGroupType()
+
+AUTH_LDAP_USER_ATTR_MAP = {"first_name": "gecos", "last_name": "gecos", "mail": "gecos"}
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+    "is_staff": (
+        LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu")
+        | LDAPGroupQuery("cn=excomm,ou=Group,dc=csua,dc=berkeley,dc=edu")
+    ),
+    "is_superuser": LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu"),
+    "is_active": LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu"),
+}
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
+AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
+AUTH_LDAP_MIRROR_GROUPS = True
+AUTHENTICATION_BACKENDS = [
+    "django_auth_ldap.backend.LDAPBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
 
 TEMPLATES = [
     {
@@ -303,3 +338,77 @@ SLACK_CLIENT_ID = "3311748471.437459179046"
 SLACK_CLIENT_SECRET = "36e96bbe21a30a8200a672fa4d911a07"
 SLACK_BOT_USER_TOKEN = "xoxb-3311748471-435480016208-A9WmSI2idPObkYpoOeQV2ZJG"
 SLACK_VERIFICATION_TOKEN = "UjNEsGqkwolX8BYNMRpfhKdX"
+
+## LDAP CONFIG ##
+DATABASE_ROUTERS = ["ldapdb.router.Router"]
+
+ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
+ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_ALLOW)
+
+DATABASES["ldap"] = {
+    "ENGINE": "ldapdb.backends.ldap",
+    "NAME": "ldaps://tap.csua.berkeley.edu/",
+    "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
+}
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 9},
+    },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+]
+
+AUTH_LDAP_SERVER_URI = "ldaps://ldap.csua.berkeley.edu"
+
+AUTH_LDAP_CONNECTION_OPTIONS = {
+    ldap.OPT_X_TLS_CACERTFILE: "ldap_csua_berkeley_edu_interm.cer",
+    ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_ALLOW,
+}
+
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
+
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "ou=People,dc=csua,dc=berkeley,dc=edu", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
+)
+
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+    "ou=Group,dc=csua,dc=berkeley,dc=edu",
+    ldap.SCOPE_SUBTREE,
+    "(objectClass=posixGroup)",
+)
+
+AUTH_LDAP_GROUP_TYPE = PosixGroupType()
+
+AUTH_LDAP_USER_ATTR_MAP = {
+    "first_name": "gecos.split(',')[0].split(' ')[0]",
+    "last_name": "gecos.split(',')[0].split(' ')[1]",
+    "mail": "gecos.split(',')[1]",
+}
+
+IS_ROOT = LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu")
+IS_PB = LDAPGroupQuery("cn=excomm,ou=Group,dc=csua,dc=berkeley,dc=edu")
+IS_OFFICER = LDAPGroupQuery("cn=officers,ou=Group,dc=csua,dc=berkeley,dc=edu")
+
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+    "is_staff": IS_ROOT | IS_PB,
+    "is_superuser": IS_ROOT,
+    "is_active": IS_ROOT | IS_PB | IS_OFFICER,
+}
+
+AUTH_LDAP_ALWAYS_UPDATE_USER = False
+
+AUTH_LDAP_MIRROR_GROUPS = True
+
+AUTHENTICATION_BACKENDS = [
+    "django_auth_ldap.backend.LDAPBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
