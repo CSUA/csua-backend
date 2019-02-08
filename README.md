@@ -15,6 +15,11 @@ If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 7. Create admin user with `python3 manage.py createsuperuser`
 
+## Debian install instructions
+
+- Install Python 3.5 in a venv
+- Install libldap and libsasl
+
 ## Deploy a new change to git
 
 1. `ssh` into `tap.csua.berkeley.edu`

@@ -2,7 +2,6 @@
 .photo-frame {
 	overflow: hidden;
 	height: 132px;
-	width: 132px;
 }
 .officer-photo {
 	position: relative;
@@ -30,8 +29,8 @@
 	position: relative;
 	text-align: center;
         z-index: 1;
-	bottom: 35%;
-	left: 35%;
+	bottom: 30%;
+	left: 50%;
 	width: 120px;
 	box-shadow: 0 0 3px rgba(0,0,0,0.3);
 	transform: rotate(-45deg);

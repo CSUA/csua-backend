@@ -19,33 +19,41 @@
 <div class="roster columns is-multiline roster">
   {% for officer in officer_list|dictsort:"first_name" %}
   <article class="column is-2" id="{{ officer.first_name }}{{ officer.last_name }}">
-    <div class="box content">
+    <div class="box">
       <div class="photo-frame">
         {% if not officer.photo2 %}
-        <img class="single" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-
+        <figure class="single has-text-centered">
+          <img class="single is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+        </figure>
         {% elif officer.video2%}
         <video class="videotwo" loop nocontrols onmouseover="play()" onmouseoff="pause()">
           <source src="https://www.csua.berkeley.edu/{{ officer.video2 }}" type="video/mp4"></source>
         </video>
         {% else %}
-        <img class="photoone" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-        <img class="phototwo" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
+        <figure class="photoone has-text-centered">
+          <img class="photoone is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+        </figure>
+        <figure class="phototwo has-text-centered">
+          <img class="phototwo is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
+        </figure>
         {% endif %}
-      {% if officer.root_staff %}
-      <div class="root-staff-banner">Root</div>
-      {% endif %}
+        {% if officer.root_staff %}
+        <div class="root-staff-banner">Root</div>
+        {% endif %}
       </div>
-      <h5>{{ officer.first_name }} {{ officer.last_name }}</h5>
-      <div>
-        <a href="#office-hours">{{ officer.office_hours }}</a>
+      <div class="content">
+        <h5>{{ officer.first_name }} {{ officer.last_name }}</h5>
+        <div>
+          <a href="#office-hours">{{ officer.office_hours }}</a>
+        </div>
+        <div>"{{ officer.blurb }}"</div>
+        {% if officer.tutor_subjects %}
+        <div>Tutors for: {{ officer.tutor_subjects | join:", " }}</div>
       </div>
-      <div>"{{ officer.blurb }}"</div>
-      {% if officer.tutor_subjects %}
-      <div>Tutors for: {{ officer.tutor_subjects | join:", " }}</div>
       {% endif %}
+    </div>
   </article>
   {% endfor %}
-    </div>
-    {% endblock content %}
-    {# vim: set et sw=2 ts=2 #}
+</div>
+{% endblock content %}
+{# vim: set et sw=2 ts=2: #}
