@@ -1,8 +1,10 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.decorators.cache import cache_page
 
 from .models import Event, Officer, Politburo, Sponsor
+from .constants import DAYS_OF_WEEK, OH_TIMES
 
 
 class EventsView(TemplateView):
@@ -14,9 +16,23 @@ class EventsView(TemplateView):
         return context
 
 
+# @cache_page(3 * 60)
 def officers(request):
+    officer_queryset = Officer.objects.filter(enabled=True)
+    calendar_contents = [
+        [hour]
+        + [
+            officer_queryset.filter(office_hours=day + " " + hour)
+            for day in DAYS_OF_WEEK
+        ]
+        for hour in OH_TIMES
+    ]
+
+    calendar = {"days": DAYS_OF_WEEK, "hours": OH_TIMES, "contents": calendar_contents}
     return render(
-        request, "officers.html", {"officer_list": Officer.objects.filter(enabled=True)}
+        request,
+        "officers.html",
+        {"officer_list": officer_queryset, "calendar": calendar},
     )
 
 

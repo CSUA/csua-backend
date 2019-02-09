@@ -1,5 +1,4 @@
 import json
-from itertools import product
 from urllib.request import urlopen
 from urllib.parse import urlencode
 import urllib.parse as urlparse
@@ -11,6 +10,7 @@ from django.urls import path
 from django.utils.dateparse import parse_datetime
 
 from .models import Event, Officer, Politburo, Sponsor
+from .constants import DAYS_OF_WEEK, OH_TIMES, OH_CHOICES
 
 GRAPH_URL = "https://graph.facebook.com/csua/events/"
 GRAPH_TOKEN = "EAAGqPTSuTvcBAPoE7n6PGnN1rvZAzw2MYlFXRZCsKWZB7VrPZCAi8R7AmUjAKHDDmSlgMgx55sJnhRBMBrytQ1m6ehuup6K7CEZAgG9g9aoghmE1FbodYWVeZA9jZAUZAFfN9JBtZCZAGWjZAQ5XU9q2V03hy2HuZBrOrq3qMQf1Lo8XvkZCLbUI7ehjQ"
@@ -59,24 +59,6 @@ class EventAdmin(admin.ModelAdmin):
         return my_urls + urls
 
 
-DAYS_OF_WEEK = ["Mon", "Tues", "Wed", "Thu", "Fri"]
-OH_TIMES = [
-    "10-11 AM",
-    "11-12 PM",
-    "12-1 PM",
-    "1-2 PM",
-    "2-3 PM",
-    "3-4 PM",
-    "4-5 PM",
-    "5-6 PM",
-    "6-7 PM",
-]
-OH_CHOICES = [
-    (choice, choice)
-    for choice in [" ".join(oh) for oh in product(DAYS_OF_WEEK, OH_TIMES)] + ["N/A"]
-]
-
-
 class OfficerAdminForm(forms.ModelForm):
     blurb = forms.CharField(widget=forms.Textarea)
     office_hours = forms.CharField(widget=forms.Select(choices=OH_CHOICES))
@@ -94,6 +76,14 @@ class OfficerAdmin(admin.ModelAdmin):
     ]
     ordering = ["-enabled", "first_name", "last_name"]
     form = OfficerAdminForm
+
+    actions = ["disable_officer", "enable_officer"]
+
+    def disable_officer(modeladmin, request, queryset):
+        queryset.update(enabled=False)
+
+    def enable_officer(modeladmin, request, queryset):
+        queryset.update(enabled=True)
 
 
 @admin.register(Politburo)

@@ -8,7 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         // Get all "navbar-burger" elements
@@ -46,8 +47,12 @@
         <div class="navbar-start">
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link" href="/events/">
-              Events&nbsp;
-              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <span class="icon">
+                <i class="fas fa-calendar-alt"></i>
+              </span>
+              <span>
+                Events
+              </span>
             </a>
             <div class="navbar-dropdown">
               <a class="navbar-item" href="/events/workshops/">
@@ -62,7 +67,12 @@
 
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
-              About Us
+              <span class="icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span>
+                About Us
+              </span>
             </a>
 
             <div class="navbar-dropdown">
