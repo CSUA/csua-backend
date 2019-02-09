@@ -58,7 +58,7 @@
                   {{ officer.first_name }}&nbsp;{{ officer.last_name }}
                 </span>
                 {% if officer.tutor_subjects %}
-                <span class="icon is-small">
+                <span class="icon">
                   <i class="fas fa-graduation-cap"></i>
                 </span>
                 {% endif %}
@@ -133,7 +133,8 @@
           </div>
           <div>"{{ officer.blurb }}"</div>
           {% if officer.tutor_subjects %}
-          <div>Tutors for: {{ officer.tutor_subjects | join:", " }}</div>
+          <hr>
+          <div>Tutors for: {{ officer.tutor_subjects }}</div>
           {% endif %}
         </div>
       </div>
