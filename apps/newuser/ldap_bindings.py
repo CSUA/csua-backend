@@ -15,9 +15,11 @@ def GetLdapPassword():
     global LDAP_PASSWORD
     if LDAP_PASSWORD:
         return LDAP_PASSWORD
-        # with open("/etc/secrets/newuser.secret") as f:
-        # LDAP_PASSWORD = f.read().strip()
-    LDAP_PASSWORD = "pleaseneverdothisagain"
+    try:
+        with open("/etc/secrets/newuser.secret") as f:
+            LDAP_PASSWORD = f.read().strip()
+    except FileNotFoundError:
+        LDAP_PASSWORD = ""
     return LDAP_PASSWORD
 
 

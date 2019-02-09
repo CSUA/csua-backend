@@ -35,14 +35,16 @@ def index(request):
                         "create_failure.html",
                         {"error": "Your username is already taken."},
                     )
-                system(
-                    "sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(
-                        form.cleaned_data["username"],
-                        form.cleaned_data["email"],
-                        uid,
-                        form.cleaned_data["enroll_jobs"],
+                else:
+                    system(
+                        "sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(
+                            form.cleaned_data["username"],
+                            form.cleaned_data["email"],
+                            uid,
+                            form.cleaned_data["enroll_jobs"],
+                        )
                     )
-                )
+                    return render(request, "create_success.html")
             else:
                 messages.error()
         else:
