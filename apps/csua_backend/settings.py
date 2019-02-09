@@ -275,7 +275,7 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    ### Third-party apps
+    ## Our apps
     "apps.main_page",
     "apps.newuser",
     "apps.db_data",
@@ -283,7 +283,7 @@ INSTALLED_APPS = [
     "apps.ldap_data",
     "apps.philbot",
     "apps.outreach",
-    # third-party
+    ## Third-party
     "ldapdb",
     "markdown_deux",
 ]
@@ -335,9 +335,17 @@ LOGGING = {
 }
 
 SLACK_CLIENT_ID = "3311748471.437459179046"
-SLACK_CLIENT_SECRET = "36e96bbe21a30a8200a672fa4d911a07"
-SLACK_BOT_USER_TOKEN = "xoxb-3311748471-435480016208-A9WmSI2idPObkYpoOeQV2ZJG"
-SLACK_VERIFICATION_TOKEN = "UjNEsGqkwolX8BYNMRpfhKdX"
+try:
+    with open("/etc/secrets/slack.txt") as f:
+        SLACK_CLIENT_SECRET = f.readline().strip()
+        SLACK_BOT_USER_TOKEN = f.readline().strip()
+        SLACK_SIGNING_SECRET = f.readline().strip()
+        SLACK_VERIFICATION_TOKEN = f.readline().strip()
+except FileNotFoundError:
+    SLACK_CLIENT_SECRET = ""
+    SLACK_BOT_USER_TOKEN = ""
+    SLACK_SIGNING_SECRET = ""
+    SLACK_VERIFICATION_TOKEN = ""
 
 ## LDAP CONFIG ##
 DATABASE_ROUTERS = ["ldapdb.router.Router"]
