@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Outreach Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="title">Outreach Dashboard</h1>
+
+    <a class="button is-link is-outlined" href="/outreach/preview">
+        <span class="icon">
+            <i class="fas fa-eye"></i>
+        </span>
+        <span>Preview Email</span>
+    </a>
+    <a class="button is-link is-outlined" href="/admin/db_data/event/">
+        <span class="icon">
+            <i class="fas fa-calendar"></i>
+        </span>
+        <span>Manage Events</span>
+    </a>
+</div>
+{% endblock %}
+{# vim: set et sw=4 ts=4: #}

@@ -283,6 +283,7 @@ INSTALLED_APPS = [
     "apps.ldap_data",
     "apps.fb_events",
     "apps.philbot",
+    "apps.outreach",
     # third-party
     "ldapdb",
     "markdown_deux",
