@@ -281,7 +281,6 @@ INSTALLED_APPS = [
     "apps.db_data",
     "apps.tracker",
     "apps.ldap_data",
-    "apps.fb_events",
     "apps.philbot",
     "apps.outreach",
     # third-party
