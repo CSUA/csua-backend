@@ -11,14 +11,18 @@
         </p>
     </div>
 </div>
+<div class="tabs">
+    <ul>
+        <li><a href="/events/workshops/">Workshops</a></li>
+        <li><a href="/events/socials/">Socials</a></li>
+    </ul>
+</div>
 
-<div class="box">
-    {% for event in events %}
-    {{ event.name }}
-    {% endfor %}
+<div class="box content">
+    {% include "upcoming_events.html" %}
 </div>
 <div id="upcoming-events" class="box container has-text-centered">
     <iframe src="https://calendar.google.com/calendar/embed?src=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com&ctz=America/Los_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 </div>
 {% endblock %}
-{# vim:set et:sw=4 #}
+{# vim:set et sw=4: #}

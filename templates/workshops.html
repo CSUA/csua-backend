@@ -1,56 +1,63 @@
 {% extends "base.html" %}
 {% block title %}Workshops{% endblock %}
 {% block content %}
-<div class="tabs">
-	<ul>
-		<li class="is-active">Workshops</li>
-		<li><a href="/events/socials/">Socials</a></li>
-	</ul>
-</div>
+<nav class="breadcrumb">
+    <ul>
+        <li><a href="/events">Events</a></li>
+        <li class="is-active"><a>Workshops</a></li>
+    </ul>
+</nav>
 <section class="hero">
-	<div class="hero-body">
-		<h1 class="title">
-			Workshops
-		</h1>
-		<h2 class="subtitle">
-			Putting the CS in CSUA
-		</h2>
-	</div>
+    <div class="hero-body">
+        <h1 class="title">
+            Workshops
+        </h1>
+        <h2 class="subtitle">
+            Putting the CS in CSUA
+        </h2>
+    </div>
 </section>
+<div class="tabs">
+    <ul>
+        <li class="is-active"><a>Workshops</a></li>
+        <li><a href="/events/socials/">Socials</a></li>
+    </ul>
+</div>
 <div class="container content">
-	<p>CSUA has hosted workshops to teach people important skills. Here
-	are some topics that have been taught.</p>
-	<ul>
-		<li>C</li>
-		<li>Git</li>
-		<li>LaTeX</li>
-		<li>Machine Learning / Deep Learning / Computer
-			Vision</li>
-		<li>Professional Development</li>
-		<li>Unix</li>
-		<li>Vim, Vim / Tmux</li>
-	</ul>
+    <p>CSUA has hosted workshops to teach people important skills. Here
+    are some topics that have been taught.</p>
+    <ul>
+        <li>C</li>
+        <li>Git</li>
+        <li>LaTeX</li>
+        <li>Machine Learning / Deep Learning / Computer
+            Vision</li>
+        <li>Professional Development</li>
+        <li>Unix</li>
+        <li>Vim, Vim / Tmux</li>
+    </ul>
 
-	<p>We have a folder on Google docs containing most of our workshops
-	<a href="https://drive.google.com/drive/folders/0B5KGS-gRqL4qVV8yNzNwY2tjNGc?usp=sharing">
-		here
-	</a>.</p>
+    <p>We have a folder on Google docs containing most of our workshops
+    <a href="https://drive.google.com/drive/folders/0B5KGS-gRqL4qVV8yNzNwY2tjNGc?usp=sharing">
+        here
+    </a>.</p>
 
-	<p>We take feedback seriously, and try to make our workshops as
-	best as they can be. We usually use Google Forms to get
-	feedback.</p>
+    <p>We take feedback seriously, and try to make our workshops as
+    best as they can be. We usually use Google Forms to get
+    feedback.</p>
 
-	<ul>
-		<li>
-			<a href="https://docs.google.com/forms/d/e/1FAIpQLSem14Cxkt6O-DBaxXU4Z7qvvD6u01sywPugOPdJ-iexTIsoHw/viewform?usp=sf_link">
-				General workshop feedback form
-			</a>
-		</li>
-		<li>
-			<a href="https://goo.gl/forms/jZ2scXEds53HrzfA3">
-				LaTeX workshop feedback form
-			</a>
-		</li>
-	</ul>
+    <ul>
+        <li>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSem14Cxkt6O-DBaxXU4Z7qvvD6u01sywPugOPdJ-iexTIsoHw/viewform?usp=sf_link">
+                General workshop feedback form
+            </a>
+        </li>
+        <li>
+            <a href="https://goo.gl/forms/jZ2scXEds53HrzfA3">
+                LaTeX workshop feedback form
+            </a>
+        </li>
+    </ul>
 </div>
 {% endblock %}
+{# vim:set et sw=4: #}
