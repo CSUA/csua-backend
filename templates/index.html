@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
-<section class="hero animated fadeInDown fast">
+<section class="hero animated fadeInDown">
   <div class="hero-body">
     <h1 class="title">
       Welcome to the CSUA
@@ -14,7 +14,7 @@
 <div class="tile is-vertical is-ancestor">
   <div class="tile">
     <div class="tile is-parent is-5">
-      <article class="animated fadeInLeft delay-1s tile is-child content box">
+      <article class="tile is-child content box">
         <h1>Hello World!</h1>
         <p>
         The Computer Science Undergraduate Association supports the undergraduate
@@ -34,14 +34,14 @@
         </p>
       </article>
     </div>
-    <div class="tile is-parent animated fadeIn delay-1s">
+    <div class="tile is-parent">
       <article class="tile is-child content box">
         <a href="/events/"><h1>Upcoming Events</h1></a>
         {% include "upcoming_events.html" %}
       </article>
     </div>
   </div>
-  <div class="tile animated fadeInUp delay-2s">
+  <div class="tile">
     <div class="tile is-parent is-8">
       <div class="tile is-child box">
         <img class="image"
@@ -69,7 +69,7 @@
       </article>
     </div>
   </div>
-  <div class="tile animated fadeInUp delay-3s">
+  <div class="tile">
     <div class="tile is-parent">
       <article class="tile is-child content box">
         <h1 id="the-department">The Department</h1>
@@ -145,5 +145,8 @@
     </div>
   </div>
 </div>
+<script>
+  ScrollReveal().reveal('.box', {'delay': 500});
+</script>
 {% endblock %}
 {# vim: set et ts=2 sw=2: #}
