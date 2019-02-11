@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
@@ -12,7 +14,9 @@ class EventsView(TemplateView):
 
     def get_context_data(request):
         context = {}
-        context["events"] = Event.objects.all()
+        context["events"] = Event.objects.filter(
+            enabled=True, date__gte=datetime.date.today()
+        )
         return context
 
 

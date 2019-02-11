@@ -69,10 +69,11 @@ class Sponsor(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=70)
     location = models.CharField(max_length=70)
-    date = models.DateField()
+    date = models.DateField(null=True)
     time = models.CharField(max_length=70)
     description = models.TextField()
     link = models.URLField()
+    enabled = models.BooleanField()
 
     def __str__(self):
         return self.name

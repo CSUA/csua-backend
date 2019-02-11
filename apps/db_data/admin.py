@@ -15,8 +15,20 @@ from .constants import DAYS_OF_WEEK, OH_TIMES, OH_CHOICES
 # Register your models here.
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    ordering = ["date"]
-    list_display = ["name", "date", "time", "link"]
+    ordering = ["enabled", "date"]
+    list_display = ["name", "date", "time", "link", "enabled"]
+    actions = ["duplicate_events", "enable_events", "disable_events"]
+
+    def disable_events(modeladmin, request, queryset):
+        queryset.update(enabled=False)
+
+    def enable_events(modeladmin, request, queryset):
+        queryset.update(enabled=True)
+
+    def duplicate_events(modeladmin, request, queryset):
+        for event in queryset:
+            event.pk = None
+            event.save()
 
 
 class OfficerAdminForm(forms.ModelForm):
