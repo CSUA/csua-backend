@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% block title %}Home{% endblock %}
+{% block content %}
 <section class="hero animated fadeInDown">
   <div class="hero-body">
     <h1 class="title">
@@ -45,7 +48,7 @@
     <div class="tile is-parent is-8">
       <div class="tile is-child box">
         <img class="image"
-             src="https://www.csua.berkeley.edu/assets/images/tushar_photoshoots/Officers_FA16.jpg"
+             src="{% static '/images/tushar_photoshoots/Officers_FA16.jpg' %}"
              alt="CSUA Officers at Hearst Mining Circle">
         <p class="has-text-centered">
         We &lt;3 CS and welcome students of all majors!
