@@ -283,6 +283,7 @@ INSTALLED_APPS = [
     "apps.ldap_data",
     "apps.philbot",
     "apps.outreach",
+    "apps.fridge",
     ## Third-party
     "ldapdb",
     "markdown_deux",

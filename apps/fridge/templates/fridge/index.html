@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% block title %}Fridge{% endblock %}
+{% block content %}
+<ul>
+  {% for item in items %}
+  <li>
+    {{ item.name }} - {{ item.quantity }}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+{# vim: set et ts=2 sw=2: #}
