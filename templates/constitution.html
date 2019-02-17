@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% load markdown_deux_tags %}
 {% block title %}Constitution{% endblock %}
-{% block css_file %}constitution.css{% endblock %}
 {% block content %}
 
-<div class="block" id="pagetitle">
-	<div class="header" id="headertitle">Constitution</div>
-	<br>
+<div class="hero">
+	<div class="hero-body">
+	    <div class="container">
+		<h1 class="title">Constitution</h1>
+		<h2 class="subtitle">Constitution of the Computer Science Undergraduate Association</h2>
+	    </div>
+	</div>
 </div>
 
+<div class="content">
 {% markdown %}
-Constitution of the Computer Science Undergraduate Association
---------------------------------------------------------------
 
 Article I. Name
 ---------------
@@ -61,7 +63,7 @@ service, or obligation for service in the uniformed services).
 
 ### D. Effective time of membership
 
-An applicant\'s membership is not effective until after the meeting at
+An applicant's membership is not effective until after the meeting at
 which the applicant joins.
 
 Article IV. Officers
@@ -471,4 +473,5 @@ be a nonprofit, then the unspent funds shall be donated to the ASUC.
 
 Last modified Feb 21, 2018
 {% endmarkdown %}
+</div>
 {% endblock %}

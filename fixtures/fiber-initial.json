@@ -1,0 +1,1107 @@
+[
+{
+  "model": "fiber.contentitem",
+  "pk": 2,
+  "fields": {
+    "created": "2018-08-05T02:35:47.578Z",
+    "updated": "2018-08-05T10:51:00.358Z",
+    "name": "footer",
+    "content_markup": "",
+    "content_html": "<p>Copyright &copy; 2018 CSUA. All rights reserved. Design by&nbsp;<a href=\"http://www.sarahjikim.com/\">Sarah Kim</a>.</p>\r\n\r\n<p>Made with love by CSUA root staff and special help from Phillip &quot;Edward&quot; Nunez.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Main Page\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 6,
+  "fields": {
+    "created": "2018-08-05T10:42:07.761Z",
+    "updated": "2018-08-06T01:48:04.048Z",
+    "name": "Google Calendar Events",
+    "content_markup": "",
+    "content_html": "<p><iframe frameborder=\"0\" height=\"600\" scrolling=\"no\" src=\"https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=600&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com&amp;color=%232F6309&amp;ctz=America%2FLos_Angeles\" width=\"900\"></iframe></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Events\", \"url\": \"/events/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 10,
+  "fields": {
+    "created": "2018-08-05T10:59:17.030Z",
+    "updated": "2018-08-05T10:59:43.300Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Join the CSUA</h2>\r\n\r\n<p>Become a part of a vast, welcoming community of students interested in CS!</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 11,
+  "fields": {
+    "created": "2018-08-05T11:00:59.036Z",
+    "updated": "2018-08-05T11:01:00.697Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h3>Sign Up</h3>\r\n\r\n<p>Visit our office at 311 Soda and sign up for an account! All you have to do is walk in, find an <a href=\"../officers\"> officer</a>, and provide some information, such as your name and Berkeley email address. You&#39;ll have an account on our computers, server space, and more in no time!</p>\r\n\r\n<p>Once you make an account with the CSUA, you&#39;ll be able to periodically receive emails about events and job opportunities, use our office computers, and even host your own website on the CSUA server.</p>\r\n\r\n<p>If you have any questions about the benefits of CSUA membership, please contact our Outreach Chair at outreach@csua.berkeley.edu.</p>\r\n\r\n<p>If you have problems with your CSUA account, please direct your questions to our Tech VP at vp@csua.berkeley.edu.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 12,
+  "fields": {
+    "created": "2018-08-05T11:02:03.425Z",
+    "updated": "2018-08-06T01:32:34.432Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<img src=\"/static/images/Woz.jpg\">",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 13,
+  "fields": {
+    "created": "2018-08-05T11:15:39.717Z",
+    "updated": "2018-08-05T23:40:36.509Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p><img src=\"/media/uploads/images/1530658504032.jpg\" title=\"image\" /></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 14,
+  "fields": {
+    "created": "2018-08-05T11:16:18.135Z",
+    "updated": "2018-08-05T11:16:19.807Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h3>Become An Officer</h3>\r\n\r\n<p>Interested in becoming more involved? Officers are active members of the CSUA who have shown that they want to contribute to the organization and to the computer science community. Officers are entrusted with appropriate privileges, such as office access, and have opportunities to participate in essential club duties. From networking with industry to learning how to maintain the servers to planning social events, officers are the core of the CSUA&#39;s membership.</p>\r\n\r\n<p>Come ask us in 311 Soda to learn more, or email the politburo at pb@csua.berkeley.edu.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 15,
+  "fields": {
+    "created": "2018-08-05T11:16:53.899Z",
+    "updated": "2018-08-05T11:16:55.610Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h3>Why You Should Join</h3>\r\n\r\n<h4>[0] Access to industry professionals and companies</h4>\r\n\r\n<p>The CSUA holds many information sessions and tech talks that bring in notable technical entrepreneurs to talk about building great companies. Jonathan Blow, independent video game programmer/designer and former CSUA President, spoke in the Wozniak Lounge in Spring 2016. Jack Dorsey, CEO of Square and co-founder of Twitter, spoke in Sibley Auditorium in Fall 2013. Drew Houston, CEO of Dropbox, spoke in the Woz in Spring 2010.</p>\r\n\r\n<h4>[1] Informational and skill-building events</h4>\r\n\r\n<p>We help provide resources for computer science students to find jobs and internships. We host info sessions with great companies and provide lots of skill-building events, such as interview workshops and industry sponsored hackathons. We also hold dinners with faculty (e.g. Brian Harvey in Spring 2013) and alumni.</p>\r\n\r\n<h4>[2] Opportunities to build connections and meet students</h4>\r\n\r\n<p>Come to CSUA events to meet your fellow CS students! Find study partners for your classes, work with other students on projects or hacks, and discuss topics like interview questions, CS research, good upper-division classes, and more!</p>\r\n\r\n<h4>[3] Free food at fun events</h4>\r\n\r\n<p>While we primarily serve as the entry point to the software industry, we know how to have fun too. We host hackathons with cool prizes, general meetings with free food, alumni BBQs, ice cream socials, intersocietal events, and more.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 17,
+  "fields": {
+    "created": "2018-08-05T23:27:37.041Z",
+    "updated": "2018-08-06T01:47:33.577Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>Are you new to Berkeley? New to CS? Need help with class? Want people to talk to? Come by the office in 311 Soda and meet some of our officers! They&#39;re here to help you and keep the office tidy and fun.<br />\r\n<br />\r\n<a href=\"https://docs.google.com/spreadsheets/d/1NNv18ZajHoaH3oAtq8d-ENnAE7wCsseqKUXQwkvb1y0/edit#gid=0\">Calendar of office hours</a></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 18,
+  "fields": {
+    "created": "2018-08-05T23:39:12.978Z",
+    "updated": "2018-08-05T23:39:14.146Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>Become a part of a vast, welcoming community of students interested in CS!</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Join\", \"url\": \"/join/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 19,
+  "fields": {
+    "created": "2018-08-05T23:54:00.947Z",
+    "updated": "2018-08-05T23:54:25.508Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>The Berkeley CSUA works closely with companies, investors, entrepreneurs, and active members of the software industry to bring both mentorship and job opportunities to students.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Industry\", \"url\": \"/industry/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 20,
+  "fields": {
+    "created": "2018-08-05T23:54:45.038Z",
+    "updated": "2018-08-05T23:54:46.448Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Cause</h2>\r\n\r\n<p>The CSUA is dedicated to improving the experience of computer science undergraduates at Berkeley. We host hackathons, where students hack on projects for 18-hour long coding periods, as well as other events, bringing industry speakers to campus. We also provide free UNIX logins and server hosting for students. Our study and social lounges are places for students to relax and study.</p>\r\n\r\n<p>Donate with the full confidence that your donation will be used to support a new generation of Berkeley engineers.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Industry\", \"url\": \"/industry/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 21,
+  "fields": {
+    "created": "2018-08-05T23:55:35.031Z",
+    "updated": "2018-08-05T23:55:36.322Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Cause</h2>\r\n\r\n<p>The CSUA is dedicated to improving the experience of computer science undergraduates at Berkeley. We host hackathons, where students hack on projects for 18-hour long coding periods, as well as other events, bringing industry speakers to campus. We also provide free UNIX logins and server hosting for students. Our study and social lounges are places for students to relax and study.</p>\r\n\r\n<p>Donate with the full confidence that your donation will be used to support a new generation of Berkeley engineers.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Industry\", \"url\": \"/industry/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 22,
+  "fields": {
+    "created": "2018-08-06T00:27:10.283Z",
+    "updated": "2018-08-06T00:27:11.717Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p><img src=\"/static/images/tushar_photoshoots/new_donate.jpg\" /></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Industry\", \"url\": \"/industry/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 23,
+  "fields": {
+    "created": "2018-08-06T00:27:29.713Z",
+    "updated": "2018-08-06T00:27:30.877Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<img src=\"/static/images/donate1.jpg\">",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Industry\", \"url\": \"/industry/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 24,
+  "fields": {
+    "created": "2018-08-06T00:28:06.447Z",
+    "updated": "2018-08-06T00:28:07.804Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Contributions</h2>\r\n\r\n<p>If you would like to contribute to the CSUA, please email the Politburo at politburo@csua.berkeley.edu. Thank you for your generosity!&nbsp;</p>\r\n\r\n<p>If you are a company representative and would like to sponsor a CSUA event or donate for a particular purpose, please contact our industrial relations VP at indrel@csua.berkeley.edu.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Industry\", \"url\": \"/industry/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 25,
+  "fields": {
+    "created": "2018-08-06T00:36:21.318Z",
+    "updated": "2018-08-06T00:36:22.512Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>Interested in working with the CSUA to sponsor an event or to speak at one of our events? Please send an email to indrel@csua.berkeley.edu.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Sponsors\", \"url\": \"/industry/sponsors/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 26,
+  "fields": {
+    "created": "2018-08-06T00:36:46.655Z",
+    "updated": "2018-08-06T00:36:48.028Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>We are very grateful to all our company sponsors who make much of what we do possible. Thank you!</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Sponsors\", \"url\": \"/industry/sponsors/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 27,
+  "fields": {
+    "created": "2018-08-06T00:41:39.642Z",
+    "updated": "2018-08-06T00:43:03.909Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Multiblox</h2>\r\n\r\n<p>Multiblox is a multiplayer tetris game created by Tianrui Chen and hosted on the CSUA server. If you&#39;re looking for a some boxy fun, play <a href=\"http://csua.berkeley.edu:3000/\" target=\"_blank\">here</a>!</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"http://csua.berkeley.edu:3000/\" target=\"_blank\"><img src=\"/static/images/multiblox.png\" /> </a></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Showcase\", \"url\": \"/showcase/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 28,
+  "fields": {
+    "created": "2018-08-06T00:42:47.902Z",
+    "updated": "2018-08-06T00:43:03.915Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Benevolence</h2>\r\n\r\n<p>Benjamin Li took inspiration from Space Invaders to create this simplistic but intriguing game. With three different endings to the game determined by the player&#39;s actions, Benevolence never gets old. Learn more and play <a href=\"https://benjili.itch.io/benevolence\" target=\"_blank\">here</a>!</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><a href=\"https://benjili.itch.io/benevolence\" target=\"_blank\"><img src=\"/static/images/benevolence.png\" /> </a></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Showcase\", \"url\": \"/showcase/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 29,
+  "fields": {
+    "created": "2018-08-06T00:43:34.853Z",
+    "updated": "2018-08-06T00:43:36.227Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>CSUA members have completed some amazing projects in the past and are always creating new things. Check out a few of them here!</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Showcase\", \"url\": \"/showcase/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 30,
+  "fields": {
+    "created": "2018-08-06T00:55:28.120Z",
+    "updated": "2018-08-06T00:55:29.591Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>Are you new to Berkeley? New to CS? Need help with class? Want people to talk to? Come by the office in 311 Soda and meet some of our officers! They&#39;re here to help you and keep the office tidy and fun.&nbsp;</p>\r\n\r\n<p><a href=\"https://docs.google.com/spreadsheets/d/1NNv18ZajHoaH3oAtq8d-ENnAE7wCsseqKUXQwkvb1y0/edit#gid=0\">Calendar of office hours</a></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Officers\", \"url\": \"/officers/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 31,
+  "fields": {
+    "created": "2018-08-06T00:57:47.187Z",
+    "updated": "2018-08-06T01:04:36.065Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h3>SSH access</h3>\r\n\r\n<p>soda.berkeley.edu</p>\r\n\r\n<h3>Web hosting</h3>\r\n\r\n<p>Place .html files in your ~/public_html folder and they will be public at soda.berkeley.edu/~$USER</p>\r\n\r\n<h3>Desktop Machines</h3>\r\n\r\n<p>We have high-quality desktop machines for you to use. Please note that the office rules remain: please respect office and office equipment. Please do not eat or drink over the computing equipment.</p>\r\n\r\n<ul>\r\n\t<li>Boba</li>\r\n\t<li>Mead</li>\r\n\t<li>Sake</li>\r\n\t<li>Scotch</li>\r\n\t<li>Soju</li>\r\n\t<li>Vodka</li>\r\n</ul>\r\n\r\n<h3>GPU Computing on Latte</h3>\r\n\r\n<p>Thanks to donations from NVIDIA, CSUA has a GPU server available for public use. It features 8 NVIDIA Tesla P100 datacenter-class GPUs.</p>\r\n\r\n<p><a href=\"{\">Read more about how to access Latte.</a></p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Computing Resources\", \"url\": \"/resources/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 32,
+  "fields": {
+    "created": "2018-08-06T01:01:44.753Z",
+    "updated": "2018-08-06T01:02:36.945Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>As part of our commitment to serving the CS undergrad community, CSUA provides computing resources to our members.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Computing Resources\", \"url\": \"/resources/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 33,
+  "fields": {
+    "created": "2018-08-06T01:05:13.979Z",
+    "updated": "2018-08-06T01:05:15.330Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>The CSUA hosts a large variety of social events, tech talks, networking events, workshops, and hackathons for the CS community.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Events\", \"url\": \"/events/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 34,
+  "fields": {
+    "created": "2018-08-06T01:18:08.647Z",
+    "updated": "2018-08-06T01:21:00.187Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Hello World!</h2>\r\n\r\n<p>The CSUA hosts tech talks, hackathons, info sessions, CS workshops, LAN parties, and the biannual&nbsp;<a href=\"http://ucbstartupfair.com/\" target=\"_blank\">Startup Fair</a>.</p>\r\n\r\n<p>Looking for a place to learn more about computer science and meet other students? Come visit us at our office (311 Soda) or use our study lounge (341* Soda).</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"About\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 35,
+  "fields": {
+    "created": "2018-08-06T01:18:24.443Z",
+    "updated": "2018-08-06T01:18:25.866Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<img src=\"/static/images/tushar_photoshoots/Officers_FA16.jpg\">",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"About\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 36,
+  "fields": {
+    "created": "2018-08-06T01:18:39.674Z",
+    "updated": "2018-08-06T01:20:45.582Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>The Department</h2>\r\n\r\n<h3><a href=\"http://www.cs.berkeley.edu/\">Computer Science</a></h3>\r\n\r\n<p>Learn more about the Computer Science department at UC Berkeley.<br />\r\nThe L&amp;S CS advisors are&nbsp;<a href=\"https://lilyzhang.youcanbook.me/\">Lily Zhang</a>&nbsp;(379 Soda),&nbsp;<a href=\"https://cdhughes.youcanbook.me/\">Charlene Hughes</a>(203 Cory), and&nbsp;<a href=\"https://emeraldtempleton.youcanbook.me/\">Emerald Templeton</a>&nbsp;(377 Soda).</p>\r\n\r\n<h3><a href=\"http://www.eecs.berkeley.edu/\">Electrical Engineering &amp; Computer Science</a></h3>\r\n\r\n<p>Learn more about the Electrical Engineering &amp; Computer Science department in UC Berkeley&#39;s College of Engineering.<br />\r\nThe CoE EECS advisor is&nbsp;<a href=\"http://www.eecs.berkeley.edu/Students/Staff/vannostrand.shtml\">Sarah Van Nostrand</a>&nbsp;(203 Cory).</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"About\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 38,
+  "fields": {
+    "created": "2018-08-06T01:19:43.778Z",
+    "updated": "2018-08-06T01:19:44.992Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>People</h2>\r\n\r\n<h3><a href=\"https://www.csua.berkeley.edu:8080/politburo\">The Politburo</a></h3>\r\n\r\n<p>The Politburo is composed of elected officers of the CSUA. You can contact the Politburo at politburo@csua.berkeley.edu.</p>\r\n\r\n<h3><a href=\"https://www.csua.berkeley.edu:8080/officers\">Officers</a></h3>\r\n\r\n<p>Officers are people you find frequently at the office. They&#39;re responsible for keeping the place open and friendly. Many of them are experienced with programming and can help you with your classes.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"About\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 39,
+  "fields": {
+    "created": "2018-08-06T01:20:02.336Z",
+    "updated": "2018-08-06T01:20:03.787Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Our Office</h2>\r\n\r\n<p>The CSUA Office is located in 311 Soda Hall in front of the 3rd floor entrance to Soda Hall, at the corner of Hearst &amp; LeRoy. We also maintain a study lounge at 341 Soda Hall (within Soda).</p>\r\n\r\n<p>We work around the clock to provide computing resources, support, and community to the computer science students at Berkeley. In the rare case that you have an emergency and the office is vacant, you may email us at politburo@csua.berkeley.edu.</p>\r\n\r\n<p><strong>Address:</strong><br />\r\nComputer Science Undergraduate Association<br />\r\nUniversity of California, Berkeley<br />\r\n311 Soda Hall<br />\r\nBerkeley, CA 94720-1776</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"About\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 40,
+  "fields": {
+    "created": "2018-08-06T01:20:19.912Z",
+    "updated": "2018-08-06T01:20:21.113Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>The Computer Science Undergraduate Association supports the undergraduate computer science student body at UC Berkeley and acts as an entry point to industry.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"About\", \"url\": \"/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 41,
+  "fields": {
+    "created": "2018-08-06T01:22:41.473Z",
+    "updated": "2018-08-06T01:22:55.812Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>The Politburo consists of the seven elected officers of the CSUA. They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br />\r\nYou can contact the Politburo at politburo@csua.berkeley.edu.</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Politburo\", \"url\": \"/politburo/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 42,
+  "fields": {
+    "created": "2018-08-06T01:30:18.658Z",
+    "updated": "2018-08-06T01:30:38.726Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<h2>Article I. Name</h2>\r\n\r\n<p>This organization shall be hereinafter referred to as the Computer Science Undergraduate Association, also known as the CSUA.</p>\r\n\r\n<h2>Article II. Purpose</h2>\r\n\r\n<p>The purposes of this organization are: to represent the undergraduate computer science student body in dealings with the University of California at Berkeley, its representatives, and any other appropriate organization; to provide a forum for the personal interaction of persons involved in the computer sciences; to promote knowledge of and interest in the computer sciences; and to raise funds to accomplish these goals.</p>\r\n\r\n<h2>Article III. Membership</h2>\r\n\r\n<h3>A. Active Membership</h3>\r\n\r\n<p>Any currently registered undergraduate student of the University of California at Berkeley is eligible for active membership in the CSUA.</p>\r\n\r\n<h3>B. Associate Membership</h3>\r\n\r\n<p>Any student, staff, faculty member of the University of California at Berkeley or former active member may hold associate membership in the CSUA.</p>\r\n\r\n<h3>C. Criteria</h3>\r\n\r\n<p>Only currently registered students, faculty and staff may be active members in a registered student organization. Only active members may vote or hold office.</p>\r\n\r\n<p>We will not haze according to California State Law. We will not restrict membership based upon race, color, national origin, religion, sex, gender identity, pregnancy (including pregnancy, childbirth, and medical conditions related to pregnancy or childbirth), physical or mental disability, medical condition (cancer related or genetic characteristics), ancestry, marital status, age, sexual orientation, citizenship, or service in the uniformed services (including membership, application for membership, performance of service, application for service, or obligation for service in the uniformed services).</p>\r\n\r\n<h3>D. Effective time of membership</h3>\r\n\r\n<p>An applicant\\&#39;s membership is not effective until after the meeting at which the applicant joins.</p>\r\n\r\n<h2>Article IV. Officers</h2>\r\n\r\n<h3>A. Types</h3>\r\n\r\n<p>The organization shall have seven elected offices, named President, Vice President of Technology, Vice President of Industry Relations, Secretary/Treasurer, External Events Coordinator, Internal Events Coordinator, and Outreach Chair.</p>\r\n\r\n<h3>B. Qualifications</h3>\r\n\r\n<p>Only active members of the Computer Science Undergraduate Association as defined in Article III, Section A shall be allowed to run for and hold any of the aforementioned offices in the Computer Science Undergraduate Association.</p>\r\n\r\n<h3>C. Term of Office</h3>\r\n\r\n<h4><strong>1. Assumption of Office</strong></h4>\r\n\r\n<p>After their election, the entering officers shall assume office after the last day of the semester, at which point the existing officers shall vacate their respective offices.</p>\r\n\r\n<h4><strong>2. Winter and Summer Breaks</strong></h4>\r\n\r\n<p>If any officer is unable to perform the duties of his or her respective office during the semester break immediately following elections, then that officer shall appoint an interim replacement.</p>\r\n\r\n<h4><strong>3. Resignation or Removal from Office</strong></h4>\r\n\r\n<p>Officers who resign from office, no longer meet the qualifications set above, or are deemed unfit to serve in their respective offices shall vacate office immediately upon notice of resignation, loss of qualification, or removal from office.</p>\r\n\r\n<h3>D. Duties</h3>\r\n\r\n<h4><strong>President</strong></h4>\r\n\r\n<p>The President shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>chair, or appoint the chair for, the meetings of the CSUA</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be responsible for the execution of mandates reflecting organization policy as determined by the organization&#39;s active members and its officers in General and Politburo Executive Meetings</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be primarily responsible for representing the CSUA in its duties as the undergraduate computer science students&#39; representative body</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>maintain contact and communication with the University, its faculty members responsible for teaching computer science, and any other relevant organization</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>appoint chairs for the various committees, subject to confirmation by the Politburo</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>organize and orchestrate the passing on of knowledge from one generation of Politburo to the next</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>establish contact with other student organizations for the purpose of coordinating interclub events</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>have any other duties and/or responsibilities set forth in this Constitution.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h4><strong>Vice President of Technology</strong></h4>\r\n\r\n<p>The VP Tech shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>administer and maintain the technical resources of the CSUA, including but not limited to our list-servs</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be the chief administrator of computer equipment maintained by the CSUA</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be head of our root staff</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be our liaison with all campus IT and technical services</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>solve or delegate the solving of technical issues should any arise</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>have any other duties and/or responsibilities set forth in this Constitution.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h4><strong>Vice President of Industry Relations</strong></h4>\r\n\r\n<p>The VP of Industry Relations shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>liaise with companies and attain sponsors for CSUA&#39;s external events</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>generate industry interest in the CSUA</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>liaise with CSUA alumni</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>coordinate speakers from alumni or industry; manage infosessions for CSUA</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>manage the jobs board/list-serv; manage and administer the resume booklet</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>assist the President in execution of duties</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>handle requests by Internal Events Coordinator for a speaker for an internal even</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>have any other duties and/or responsibilities set forth in this Constitution.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h4><strong>Secretary/Treasurer</strong></h4>\r\n\r\n<p>The Secretary/Treasurer shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>take minutes at Politburo and General meetings</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>manage our library of computer science books</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>maintain all necessary financial and non-financial records of the organization</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>administer the CSUA&#39;s physical resources</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>maintain or delegate the maintenance of the CSUA&#39;s facility resources</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>maintain the CSUA&#39;s monetary resources</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>maintain a publicly available record of all financial transactions, liabilities, and credits relating to the CSUA</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>report on the financial status of the CSUA to its members and officers</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>obtain financial agency power with the ASUC as soon as possible after election</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>obtain primary signatory power with the ASUC as soon as possible after election have any other duties and/or responsibilities set forth in this Constitution.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h4><strong>External Events Coordinator</strong></h4>\r\n\r\n<p>The External Events Coordinator shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>plan and prepare all logistics for each external event</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be or appoint the day-of event coordinator to execute the event and handle any issues that might arise</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>have any other duties and/or responsibilities set forth in this Constitution. An external event is defined as an event sponsored by a company.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h4><strong>Internal Events Officer</strong></h4>\r\n\r\n<p>The Internal Events Officer shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>create fun internal events</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>plan and prepare all logistics for each internal event</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be or appoint the day-of event coordinator to execute the event and handle any issues that might arise</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>submit a request to VP Indrel to obtain a speaker for an internal event should a speaker be required</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>have any other duties and/or responsibilities set forth in this Constitution.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<p>An internal event is defined as an event that does not have a company sponsor. This includes interclub events, intraclub events, alumni events, and recruitment events.</p>\r\n\r\n<h4><strong>Outreach Chair</strong></h4>\r\n\r\n<p>The Outreach Chair shall:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>maintain or delegate the maintenance of the CSUA&#39;s website</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>maintain the content of the CSUA&#39;s website</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>publicize our services to the general student body</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>be responsible for publicizing all internal and external events to the club membership and the general student body, respectively</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>promote interaction between current students and alumni</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>recruit new members</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>design and distribute (or delegate) all publication materials for the CSUA</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>have any other duties and/or responsibilities set forth in this Constitution.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h2>Article V. Committees</h2>\r\n\r\n<h3>The Politburo</h3>\r\n\r\n<p>The Politburo shall consist of all elected officers of the CSUA. It shall hold at least three open meetings a semester while school is in regular session. The Politburo shall determine temporary policies of the CSUA. Politburo decisions may be overturned by a two-thirds vote of the general membership at a general meeting.</p>\r\n\r\n<h3>Other Committees</h3>\r\n\r\n<p>Other committees may be created or dissolved at the direction of either the Politburo, or by a majority vote of the general membership at a General Meeting. Directorships or other non-politburo positions shall be appointed by the president and confirmed by the majority of the politburo.</p>\r\n\r\n<h2>Article VI. Election of Officers</h2>\r\n\r\n<h3>A. Time and Place of Elections</h3>\r\n\r\n<p>Officers shall be selected each semester by a majority vote of the attending General Membership at a General Meeting held no less than two weeks before the last day of instruction, announced no less than one week in advance, and held at a time and place that is considered generally accessible as well in compliance with ASUC regulations concerning accessibility of ASUC sponsored activities.</p>\r\n\r\n<h3>B. Procedure</h3>\r\n\r\n<p>The chair shall appoint an election officer, who shall not vote or run for office. The election officer must be a member. Members shall be nominated until no more are willing and eligible. No person shall be nominated who is not willing to serve upon their election, and no person not present can be nominated for an office without his or her written consent being presented at the meeting. If only one candidate is in nomination voting may be done by acclamation. Otherwise voting shall be done by secret ballot of active members. A ballot that is blank or otherwise does not uniquely identify a nominated candidate shall not be counted.</p>\r\n\r\n<p>If there is at any time a majority for a candidate, that candidate wins. If there is no majority and there are two candidates the election officer shall cast the deciding vote. If there is no majority and there are three candidates, the one with the fewest votes shall be eliminated. If there is a tie among those with the fewest votes the election officer shall select one to be eliminated.</p>\r\n\r\n<p>If there are more than three candidates, three shall be selected to proceed to a runoff round as follows. Select as many candidates as possible for the runoff, starting from those with the highest vote totals, until it is impossible to proceed without selecting more than three or discriminating between candidates who received the same number of votes. If it is not possible to select any candidates in this way because there is a tie for first, the election officer shall cast a vote for one of the tied first-place candidates. If there are then fewer than three candidates selected for the runoff round, a new vote shall be held among those candidates not already chosen to select the remaining candidates.</p>\r\n\r\n<h2>Article VII. Removal and Replacement of Officers</h2>\r\n\r\n<h3>A. Removal</h3>\r\n\r\n<p>An officer may be removed from office in one of the following ways:</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>In the event of extended unexplained absence of an officer, the office may be declared vacant by a majority of the remaining officers.</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>Any officer no longer qualified to hold office shall be removed.</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>A unanimous vote of the other officers in office may remove an officer from office.</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>In the event of a vacancy of an office the President will be responsible for ensuring that the obligations of that office are fulfilled until a replacement has been made.</p>\r\n\t</li>\r\n</ul>\r\n\r\n<h3>B. Replacement</h3>\r\n\r\n<p>In case of removal or resignation from office of one of the elected officers except the President, the President shall appoint a successor. All such appointments to office must be confirmed by a majority vote of the Politburo at the next announced Politburo meeting. As stated in Article IV, in the event the office of President is vacated for whatever reason, the Vice President of Technology shall either assume the office of President without need for confirmation and appoint a successor to be approved by a majority vote of a quorum of the Politburo, or, with the approval of a majority vote of the Politburo at the next announced Politburo meeting, appoint an eligible member to assume the office of President.</p>\r\n\r\n<p>If both the offices of President and Vice President of Technology are vacated in such a way to obstruct the aforementioned order of succession, then the remaining officers, in the order of Vice President of Industry Relations, Secretary/Treasurer, External Events Coordinator, Internal Events Coordinator, and Outreach Chair, may either assume the office of President or, with the approval of the general membership, appoint a new President who will then fill any remaining open offices.</p>\r\n\r\n<p>If all offices are made vacant, then the Faculty Advisor shall call and chair a general meeting to elect new officers.</p>\r\n\r\n<h2>Article VIII. Meetings</h2>\r\n\r\n<h3>A. Procedure</h3>\r\n\r\n<p>All meetings will run under Parliamentary procedure or some subset of the same. All questions, unless otherwise noted by this Constitution, shall require a majority vote. Only active members of the organization are eligible to vote. All meetings shall be held at reasonable places and times.</p>\r\n\r\n<p>Members may vote and run by proxy.</p>\r\n\r\n<h3>B. General Meetings</h3>\r\n\r\n<p>General Meetings shall be held three times a semester while school is in regular session, and shall be publicly announced no less than a week in advance.</p>\r\n\r\n<h3>C. Politburo Meetings</h3>\r\n\r\n<p>Politburo Meetings may be called by the President or by one-third of the Politburo. At least three meetings a semester while school is in regular session must be held open to the membership of the CSUA. Other meetings may be closed at the request of one-third of those members attending or in the event of disciplinary actions. In such a case, a listing of general topics discussed will be made available within one week after the meeting.</p>\r\n\r\n<h3>D. Committee Meetings</h3>\r\n\r\n<p>Committee meetings will be run under the same rules as the General Meetings. Meetings will be open to attendance by all members.</p>\r\n\r\n<h2>Article IX. Bylaws and Policies</h2>\r\n\r\n<h3>A. Bylaws</h3>\r\n\r\n<p>Further guidelines pertaining to the operation of the CSUA not specifically set forth in the Constitution shall be contained in a set of publicly-available bylaws. Bylaws may be proposed by any active member of the CSUA, and must be approved by a majority vote of the Politburo.</p>\r\n\r\n<h3>B. Policies</h3>\r\n\r\n<p>Regulations pertaining to conduct of CSUA members in CSUA activities and in use of CSUA resources shall be contained in a set of publicly-available policies. Politburo members may formulate and implement interim policies in the execution of their duties, subject to later approval of a majority of the Politburo at the next Politburo meeting.</p>\r\n\r\n<h3>C. Amendments to Bylaws and Policies</h3>\r\n\r\n<p>Amendments to bylaws and policies may be proposed by any active member, and must be approved by a majority vote of the Politburo. Such amendments may be overturned by a two-thirds vote of the general membership at a general meeting.</p>\r\n\r\n<h2>Article X. Amendment</h2>\r\n\r\n<p>Any amendment to this constitution must be approved by a two-thirds majority of a general meeting convened with at least one week prior prominent public notice of the intent to amend the constitution. All amendments, unless otherwise noted therein, become effective immediately upon adoption.</p>\r\n\r\n<p>As a special exception, the officers of the CSUA may, for the sole purpose of bringing the constitution into compliance with ASUC and OSL requirements, amend the constitution by changing emphasized text. All such changes must be publicly announced within one week.</p>\r\n\r\n<p>All amendments, additions or deletions to this document must be filed with the LEAD Center in 432 Eshleman Hall.</p>\r\n\r\n<h2>Article XI. Dissolution</h2>\r\n\r\n<p>Dissolution of the Computer Science Undergraduate Association may be approved by a two-thirds majority of general meeting convened during instruction with at least two weeks notice of the intent to dissolve the CSUA. In the event of dissolution, to the extent permitted by campus and ASUC regulations, all remaining assets shall be donated to a campus computing organization which allows free access to all University of California at Berkeley students.</p>\r\n\r\n<p>If the organization is ASUC or GA Sponsored, all unspent ASUC funds shall return to the ASUC; all Graduate Assembly funds shall return to the Graduate Assembly. If the organization is defunct for five (5) or more years, any privately obtained funds (including any funds left in miscellaneous accounts) shall be donated to the ASUC. In the event that the designated nonprofit organization no longer exists or has ceased to be a nonprofit, then the unspent funds shall be donated to the ASUC.</p>\r\n\r\n<p>Last modified Feb 21, 2018</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Constitution\", \"url\": \"/constitution/\"}]"
+  }
+},
+{
+  "model": "fiber.contentitem",
+  "pk": 43,
+  "fields": {
+    "created": "2018-08-06T01:30:43.397Z",
+    "updated": "2018-08-06T01:30:57.545Z",
+    "name": "",
+    "content_markup": "",
+    "content_html": "<p>Constitution of the Computer Science Undergraduate Association</p>",
+    "protected": false,
+    "metadata": null,
+    "template_name": "",
+    "used_on_pages_data": "[{\"title\": \"Constitution\", \"url\": \"/constitution/\"}]"
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 2,
+  "fields": {
+    "created": "2018-08-05T01:50:04.503Z",
+    "updated": "2018-08-05T02:38:51.722Z",
+    "parent": null,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "mainmenu",
+    "doc_title": "",
+    "url": "",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "base.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 1,
+    "rght": 22,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 4,
+  "fields": {
+    "created": "2018-08-05T03:15:02.925Z",
+    "updated": "2018-08-05T03:17:02.513Z",
+    "parent": 5,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Politburo",
+    "doc_title": "",
+    "url": "politburo",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 5,
+  "fields": {
+    "created": "2018-08-05T03:16:37.913Z",
+    "updated": "2018-08-06T01:47:08.317Z",
+    "parent": 2,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "About",
+    "doc_title": "",
+    "url": "/",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "index.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 2,
+    "rght": 11,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 6,
+  "fields": {
+    "created": "2018-08-05T03:18:12.372Z",
+    "updated": "2018-08-06T01:29:14.618Z",
+    "parent": 5,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Constitution",
+    "doc_title": "",
+    "url": "constitution",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "constitution.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 5,
+    "rght": 6,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 7,
+  "fields": {
+    "created": "2018-08-05T03:20:39.461Z",
+    "updated": "2018-08-06T01:47:33.573Z",
+    "parent": 5,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Officers",
+    "doc_title": "",
+    "url": "officers",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "officers.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 7,
+    "rght": 8,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 8,
+  "fields": {
+    "created": "2018-08-05T03:26:54.764Z",
+    "updated": "2018-08-06T01:48:06.328Z",
+    "parent": 2,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Events",
+    "doc_title": "",
+    "url": "events",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 12,
+    "rght": 13,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 9,
+  "fields": {
+    "created": "2018-08-05T03:27:19.543Z",
+    "updated": "2018-08-06T01:48:21.924Z",
+    "parent": 2,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Industry",
+    "doc_title": "",
+    "url": "industry",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "industry.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 14,
+    "rght": 17,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 10,
+  "fields": {
+    "created": "2018-08-05T03:27:41.261Z",
+    "updated": "2018-08-06T01:48:27.430Z",
+    "parent": 9,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Sponsors",
+    "doc_title": "",
+    "url": "sponsors",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "sponsors.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 15,
+    "rght": 16,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 11,
+  "fields": {
+    "created": "2018-08-05T03:28:05.564Z",
+    "updated": "2018-08-06T00:43:03.901Z",
+    "parent": 2,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Showcase",
+    "doc_title": "",
+    "url": "showcase",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "showcase.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 18,
+    "rght": 19,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 12,
+  "fields": {
+    "created": "2018-08-05T03:28:16.431Z",
+    "updated": "2018-08-06T01:48:37.245Z",
+    "parent": 2,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Join",
+    "doc_title": "",
+    "url": "join",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "join.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 20,
+    "rght": 21,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "fiber.page",
+  "pk": 13,
+  "fields": {
+    "created": "2018-08-06T00:57:32.604Z",
+    "updated": "2018-08-06T01:47:39.816Z",
+    "parent": 5,
+    "meta_description": "",
+    "meta_keywords": "",
+    "title": "Computing Resources",
+    "doc_title": "",
+    "url": "resources",
+    "redirect_page": null,
+    "mark_current_regexes": "",
+    "template_name": "resources.html",
+    "show_in_menu": true,
+    "is_public": true,
+    "protected": false,
+    "metadata": null,
+    "lft": 9,
+    "rght": 10,
+    "tree_id": 2,
+    "level": 2
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 6,
+  "fields": {
+    "content_item": 6,
+    "page": 8,
+    "block_name": "content",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 11,
+  "fields": {
+    "content_item": 10,
+    "page": 12,
+    "block_name": "pagetitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 12,
+  "fields": {
+    "content_item": 11,
+    "page": 12,
+    "block_name": "signup",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 13,
+  "fields": {
+    "content_item": 12,
+    "page": 12,
+    "block_name": "joinpicture",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 14,
+  "fields": {
+    "content_item": 13,
+    "page": 12,
+    "block_name": "wozpic",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 15,
+  "fields": {
+    "content_item": 14,
+    "page": 12,
+    "block_name": "officer",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 16,
+  "fields": {
+    "content_item": 15,
+    "page": 12,
+    "block_name": "whytojoin",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 19,
+  "fields": {
+    "content_item": 18,
+    "page": 12,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 20,
+  "fields": {
+    "content_item": 19,
+    "page": 9,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 21,
+  "fields": {
+    "content_item": 20,
+    "page": 9,
+    "block_name": "content",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 22,
+  "fields": {
+    "content_item": 21,
+    "page": 9,
+    "block_name": "cause",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 23,
+  "fields": {
+    "content_item": 22,
+    "page": 9,
+    "block_name": "donatepicturetwo",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 24,
+  "fields": {
+    "content_item": 23,
+    "page": 9,
+    "block_name": "donatepictureone",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 25,
+  "fields": {
+    "content_item": 24,
+    "page": 9,
+    "block_name": "contributions",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 26,
+  "fields": {
+    "content_item": 25,
+    "page": 10,
+    "block_name": "info",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 27,
+  "fields": {
+    "content_item": 26,
+    "page": 10,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 28,
+  "fields": {
+    "content_item": 27,
+    "page": 11,
+    "block_name": "showcase1",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 29,
+  "fields": {
+    "content_item": 28,
+    "page": 11,
+    "block_name": "showcase2",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 30,
+  "fields": {
+    "content_item": 29,
+    "page": 11,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 31,
+  "fields": {
+    "content_item": 30,
+    "page": 7,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 32,
+  "fields": {
+    "content_item": 31,
+    "page": 13,
+    "block_name": "content",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 33,
+  "fields": {
+    "content_item": 32,
+    "page": 13,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 34,
+  "fields": {
+    "content_item": 33,
+    "page": 8,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 35,
+  "fields": {
+    "content_item": 34,
+    "page": 5,
+    "block_name": "hello_world",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 36,
+  "fields": {
+    "content_item": 35,
+    "page": 5,
+    "block_name": "officerpicture",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 37,
+  "fields": {
+    "content_item": 36,
+    "page": 5,
+    "block_name": "department",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 39,
+  "fields": {
+    "content_item": 38,
+    "page": 5,
+    "block_name": "people",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 40,
+  "fields": {
+    "content_item": 39,
+    "page": 5,
+    "block_name": "office",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 41,
+  "fields": {
+    "content_item": 40,
+    "page": 5,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 42,
+  "fields": {
+    "content_item": 41,
+    "page": 4,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 43,
+  "fields": {
+    "content_item": 42,
+    "page": 6,
+    "block_name": "constitution",
+    "sort": 0
+  }
+},
+{
+  "model": "fiber.pagecontentitem",
+  "pk": 44,
+  "fields": {
+    "content_item": 43,
+    "page": 6,
+    "block_name": "texttitle",
+    "sort": 0
+  }
+}
+]

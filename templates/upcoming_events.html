@@ -1,0 +1,14 @@
+	<ol start=0>
+	{% for event in events %}
+	<li>
+		<strong>{{ event.name }}</strong><br>
+		{{ event.date|date:"l, N j, Y" }} {{ event.time }}
+		<span class="icon is-small">
+			<a href="{{ event.link }}">
+				<i class="fas fa-link"></i>
+			</a>
+		</span><br>
+		{{ event.location }}
+	</li>
+	{% endfor %}
+	</ol>

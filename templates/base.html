@@ -1,77 +1,146 @@
-{% load markdown_deux_tags %}
+<!DOCTYPE html>
 <html>
-<head>
-    <title>{% block title %}{% endblock %} | CSUA</title>
+  <head>
+    <title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/common.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/{% block css_file %}{% endblock %}"/>
-</head>
-<body>
-    <div id="navbar">
-        <div id="navbarcontainer">
-            <div id="logo">
-                <a href="/">
-                    <img src="{{ STATIC_URL }}images/header.png">
-                </a>
-            </div>
-            <div class="navitem">
-            </div>
-            <div class="navitem">
-                <a href="/join/">
-                    <div class="navlink">Join</div>
-                </a>
-            </div>
-            <div class="navitem">
-                <a href="/showcase/">
-                    <div class="navlink">Showcase</div>
-                </a>
-            </div>
-            <div class="navitem">
-                <a href="/industry/">
-                    <div class="navlink">Industry</div>
-                </a>
-                <div class="dropdown">
-                    <a href="/sponsors/">
-                        <div class="dropdownitem">Sponsors</div>
-                    </a>
-                </div>
-            </div>
-            <div class="navitem">
-                <a href="/events/">
-                    <div class="navlink">Events</div>
-                </a>
-            </div>
-            <div class="navitem">
-                <a href="/">
-                    <div class="navlink">About</div>
-                </a>
-                <div class="dropdown">
-                    <a href="/politburo/">
-                        <div class="dropdownitem">Politburo</div>
-                    </a>
-                    <a href="/officers/">
-                        <div class="dropdownitem">Officers</div>
-                    </a>
-                    <a href="/constitution/">
-                        <div class="dropdownitem">Constitution</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="content">
-        {% block content %}{% endblock %}
-        <div class="clear"></div>
-        <div id="footer">
-            <div class="text">
-                {% markdown %}
-Copyright &copy; 2018 CSUA. All rights reserved.
-Design by [Sarah Kim](http://www.sarahjikim.com/).
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
-Made with love by CSUA root staff and special help from Phillip "Edward" Nunez.
-                {% endmarkdown %}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar is-link" role="navigation", aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/static/images/pic.png" width="36" height="28">
+        </a>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="/events/">
+              <span class="icon">
+                <i class="fas fa-calendar-alt"></i>
+              </span>
+              <span>
+                Events
+              </span>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/events/workshops/">
+                Workshops
+              </a>
             </div>
+          </div>
+
+          <a class="navbar-item" href="/sponsors/">
+            Sponsors
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <span class="icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span>
+                About Us
+              </span>
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/politburo/">
+                Politburo
+              </a>
+
+              <a class="navbar-item" href="/officers/">
+                Officers
+              </a>
+
+              <a class="navbar-item" href="/constitution/">
+                Constitution
+              </a>
+
+              <a class="navbar-item" href="/join/">
+                Join
+              </a>
+
+            </div>
+          </div>
         </div>
-    </div>
-</body>
+    </nav>
+    <section class="section">
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </section>
+    <footer class="footer has-text-left">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="content">
+              <a href="https://www.facebook.com/csua/">
+                <i class="fab fa-facebook-square"></i>
+                Like us on Facebook
+              </a>
+            </div>
+          </div>
+          <div class="column">
+            <p>
+            &copy; CSUA {% now "Y" %}
+            </p>
+          </div>
+          <div class="column">
+            <p>
+            Lovingly made by CSUA root staff with special help from Phillip
+            "Edward" Nunez.
+            <a href="https://github.com/CSUA/csua-backend/graphs/contributors">
+              Contributors
+            </a>
+            </p>
+            <p>
+            Website feedback? Make an issue or pull request for this page on
+            <a href="https://github.com/CSUA/csua-backend">
+              <i class="fab fa-github"></i>
+              GitHub.
+            </a>
+            </p>
+            <a href="https://bulma.io">
+              <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with
+              Bulma" width="128" height="24">
+            </a>
+          </div>
+        </div>
+    </footer>
+  </body>
 </html>
+{# vim: set et ts=2 sw=2: #}

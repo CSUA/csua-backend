@@ -2,40 +2,55 @@
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
 {% block content %}
-<div class="block" id="pagetitle">
-  <div class="header" id="headertitle">The Politburo</div>
-  <div class="text" id="texttitle">
-    The Politburo consists of the seven elected officers of the CSUA. They are
-    the governing body of the CSUA and a unique group of people who are eager
-    to talk to you about the CSUA.<br>
-    You can contact the Politburo at politburo@csua.berkeley.edu.
-  </div>
-</div>
-<div class="blockseparation"></div>
+<div class="columns">
+	<div class="column is-3">
+		<div class="box content">
+			<h1>The Politburo</h1>
+			<p>
+			The Politburo consists of the seven elected officers of the CSUA.
+			They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br>
 
-<div class="about block">
-  <div>
-    <img src="{{ STATIC_URL }}images/pb_fa18.jpg">
-  </div>
+			You can contact the Politburo at politburo@csua.berkeley.edu.
+			</p>
+		</div>
+	</div>
+	<div class="column">
+		<img src="{{ STATIC_URL }}images/pb_fa18.jpg">
+	</div>
+	<div class="column is-4">
+		<div class="box content">
+			<h1>Positions</h1>
+			<ul>
+				{% for pb_member in pb %}
+				<li><a href="#{{ pb_member.position }}">{{ pb_member.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
 </div>
-<table class="politburo block">
-  {% for pb_member in pb %}
-  <tr>
-    <td>
-      <img class="photo-frame" src="{{ pb_member.officer.photo1.url }}">
-    </td>
-    <td>
-      <div class="title">{{ pb_member.title }}</div>
-      <div class="name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</div>
-      <div class="email">{{ pb_member.position }}@csua.berkeley.edu</div>
-      <div class="text">
-        {{ pb_member.description }}
-      </div>
-      <div class="text">
-        {{ pb_member.contact }}
-      </div>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+
+{% for pb_member in pb %}
+<div class="columns is-vcentered">
+	<div class="column is-3">
+		<div class="content box">
+			<h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
+			<p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
+			<div class="image">
+				<img class="pb-image image is-rounded" src="https://www.csua.berkeley.edu{{ pb_member.officer.photo1.url }}">
+			</div>
+		</div>
+	</div>
+	<div class="column">
+		<article class="content">
+			<h1 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
+			<p>
+			{{ pb_member.description }}
+			</p>
+			<p>
+			{{ pb_member.contact_info }}
+			</p>
+		</article>
+	</div>
+</div>
+{% endfor %}
 {% endblock %}

@@ -2,112 +2,95 @@
 {% block title %}Home{% endblock %}
 {% block css_file %}index.css{% endblock %}
 {% block content %}
-        <div class="block" id="pagetitle">
-          <div class="header" id="headertitle">Join the CSUA</div>
-          <div class="text" id="texttitle">
-            Become a part of a vast, welcoming community of students interested in CS!
-          </div>
-        </div>
-        <div class="blockseparation"></div>
-        <div class="column columnleft">
-            <div id="signup" class="block">
-                <div class="header">Sign Up</div>
-                <div class="text">
-                    Visit our office at 311 Soda and sign up for an account! All you have
-                    to do is walk in, find an <a href="../officers">
-                    <span class="blue">officer</span></a>, and provide some information, such
-                    as your name and Berkeley email address. You'll have an account on
-                    our computers, server space, and more in no time! </br>
-                    Once you make an account with the CSUA, you'll be able to periodically
-                    receive emails about events and job opportunities, use our office computers,
-                    and even host your own website on the CSUA server. </br>
-                    If you have any questions about the benefits of CSUA membership, please
-                    contact our Outreach Chair at outreach@csua.berkeley.edu.</br>
-                    If you have problems with your CSUA account, please direct your questions
-                    to our Tech VP at vp@csua.berkeley.edu.
-                </div>
-            </div>
-            <div class="blockseparation"></div>
-            <div id="officer" class="block">
-                <div class="header">Become An Officer</div>
-                <div class="text">
-                    Interested in becoming more involved? Officers are active members of the
-                    CSUA who have shown that they want to contribute to the organization and
-                    to the computer science community. Officers are entrusted with appropriate
-                    privileges, such as office access, and have opportunities to participate
-                    in essential club duties. From networking with industry to learning
-                    how to maintain the servers to planning social events, officers are the
-                    core of the CSUA's membership.
-                    </br>
-                    Come ask us in 311 Soda to learn more, or email the politburo at
-                    pb@csua.berkeley.edu.
-                </div>
-            </div>
-            <div class="blockseparation"></div>
-            <div id="joinpicture">
-                <img src="{{ STATIC_URL }}images/Woz.jpg">
-            </div>
-        </div>
-        <div class="responsivehidden blockseparation"></div>
-        <div class="column columnright">
-	<div id="wozpic">
-		<img src="{{ STATIC_URL }}images/PuzzleHunt.jpg">
+<div class="hero">
+    <div class="hero-body">
+	<h1 class="title">Join the CSUA</h2>
+	<h2 class="subtitle">
+	    Become a part of a vast, welcoming community of students interested in CS!
+	</h2>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+	<div class="box content">
+	    <h1>Sign Up</h1>
+	    <p>
+	    Visit our office at 311 Soda and sign up for an account! All you have
+	    to do is walk in, find an <a href="/officers/"> officer</a>, and provide some information, such
+	    as your name and Berkeley email address. You'll have an account on
+	    our computers, server space, and more in no time! </br>
+	    Once you make an account with the CSUA, you'll be able to periodically
+	    receive emails about events and job opportunities, use our office computers,
+	    and even host your own website on the CSUA server. </br>
+	    If you have any questions about the benefits of CSUA membership, please
+	    contact our Outreach Chair at outreach@csua.berkeley.edu.</br>
+	    If you have problems with your CSUA account, please direct your questions
+	    to our Tech VP at vp@csua.berkeley.edu.
+	    </p>
 	</div>
-	<div class="blockseparation"></div>
-            <div id="whytojoin" class="block">
-                <div class="header">Why You Should Join</div>
-                <div class="textseparation"></div>
-                <div class="reason">
-                    <div class="reasontitle">
-                        [0] Access to industry professionals and companies
-                    </div>
-                    <div class="text">
-                        The CSUA holds many information sessions and tech talks that bring
-                        in notable technical entrepreneurs to talk about building great
-                        companies. Jonathan Blow, independent video game
-                        programmer/designer and former CSUA President, spoke in the
-                        Wozniak Lounge in Spring 2016. Jack Dorsey, CEO of Square and
-                        co-founder of Twitter, spoke in Sibley Auditorium in Fall 2013.
-                        Drew Houston, CEO of Dropbox, spoke in the Woz in Spring 2010.
-                    </div>
-                </div>
-                <div class="textseparation"></div>
-                <div class="reason">
-                    <div class="reasontitle">
-                        [1] Informational and skill-building events
-                    </div>
-                    <div class="text">
-                        We help provide resources for computer science students to find
-                        jobs and internships. We host info sessions with great companies
-                        and provide lots of skill-building events, such as interview
-                        workshops and industry sponsored hackathons. We also hold dinners
-                        with faculty (e.g. Brian Harvey in Spring 2013) and alumni.
-                    </div>
-                </div>
-                <div class="textseparation"></div>
-                <div class="reason">
-                    <div class="reasontitle">
-                        [2] Opportunities to build connections and meet students
-                    </div>
-                    <div class="text">
-                        Come to CSUA events to meet your fellow CS students! Find study
-                        partners for your classes, work with other students on projects
-                        or hacks, and discuss topics like interview questions, CS research,
-                        good upper-division classes, and more!
-                    </div>
-                </div>
-                <div class="textseparation"></div>
-                <div class="reason">
-                    <div class="reasontitle">
-                        [3] Free food at fun events
-                    </div>
-                    <div class="text">
-                        While we primarily serve as the entry point to the software
-                        industry, we know how to have fun too. We host hackathons with
-                        cool prizes, general meetings with free food, alumni BBQs, ice
-                        cream socials, intersocietal events, and more.
-                    </div>
-                </div>
-            </div>
-        </div>
+
+	<div class="box content">
+	    <h1>Become An Officer</h1>
+	    <p>
+	    Interested in becoming more involved? Officers are active members of the
+	    CSUA who have shown that they want to contribute to the organization and
+	    to the computer science community. Officers are entrusted with appropriate
+	    privileges, such as office access, and have opportunities to participate
+	    in essential club duties. From networking with industry to learning
+	    how to maintain the servers to planning social events, officers are the
+	    core of the CSUA's membership.
+	    </br>
+	    Come ask us in 311 Soda to learn more, or email the politburo at
+	    pb@csua.berkeley.edu.
+	    </p>
+	</div>
+	<div>
+	    <img class="image" src="{{ STATIC_URL }}images/Woz.jpg">
+	</div>
+    </div>
+    <div class="column">
+	<div class="box content">
+	    <h1>Why You Should Join</h1>
+	    <h4>
+	    [0] Access to industry professionals and companies
+	    </h4>
+	    <p>
+	    The CSUA holds many information sessions and tech talks that bring
+	    in notable technical entrepreneurs to talk about building great
+	    companies. Jonathan Blow, independent video game
+	    programmer/designer and former CSUA President, spoke in the
+	    Wozniak Lounge in Spring 2016. Jack Dorsey, CEO of Square and
+	    co-founder of Twitter, spoke in Sibley Auditorium in Fall 2013.
+	    Drew Houston, CEO of Dropbox, spoke in the Woz in Spring 2010.
+	    </p>
+	    <h4>
+	    [1] Informational and skill-building events
+	    </h4>
+	    We help provide resources for computer science students to find
+	    jobs and internships. We host info sessions with great companies
+	    and provide lots of skill-building events, such as interview
+	    workshops and industry sponsored hackathons. We also hold dinners
+	    with faculty (e.g. Brian Harvey in Spring 2013) and alumni.
+	    </p>
+	    <h4>
+	    [2] Opportunities to build connections and meet students
+	    </h4>
+	    <p>
+	    Come to CSUA events to meet your fellow CS students! Find study
+	    partners for your classes, work with other students on projects
+	    or hacks, and discuss topics like interview questions, CS research,
+	    good upper-division classes, and more!
+	    </p>
+	    <h4>
+	    [3] Free food at fun events
+	    </h4>
+	    <p>
+	    While we primarily serve as the entry point to the software
+	    industry, we know how to have fun too. We host hackathons with
+	    cool prizes, general meetings with free food, alumni BBQs, ice
+	    cream socials, intersocietal events, and more.
+	    </p>
+	</div>
+    </div>
+</div>
 {% endblock %}

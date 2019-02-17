@@ -1,0 +1,37 @@
+/* hardcoded because I can't seem to make a square div :( --robertquitt */
+.photo-frame {
+	overflow: hidden;
+	height: 132px;
+}
+.officer-photo {
+	position: relative;
+}
+.photoone, .phototwo, .single {
+	object-fit: cover;
+	height: 100%;
+}
+/* Logic for showing alternative photo */
+.phototwo {
+	display: none;
+}
+.photo-frame:hover .photoone {
+	display: none;
+}
+.photo-frame:hover .phototwo {
+	display: block;
+}
+.root-staff-banner {
+	background: #366d97;
+	color: #decb4b;
+	font-family: Courier New, monospace;
+	font-weight: bold;
+	padding: 5px 0;
+	position: relative;
+	text-align: center;
+        z-index: 1;
+	bottom: 30%;
+	left: 50%;
+	width: 120px;
+	box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	transform: rotate(-45deg);
+}

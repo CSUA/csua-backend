@@ -65,5 +65,9 @@ csua.sqlite3
 data/
 
 # Ansible playbook retries
-
 *.retry
+
+.mypy_cache
+.vagrant/
+
+deploy/remote_user.txt

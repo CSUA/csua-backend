@@ -1,67 +1,64 @@
 {% extends "base.html" %}
 {% block title %}Industry{% endblock %}
-{% block css_file %}industry.css{% endblock %}
 {% block content %}
-    <div class="block" id="pagetitle">
-      <div class="header" id="headertitle">Sponsors</div>
-      <div class="text" id="texttitle">
-        We are very grateful to all our company sponsors who make much of what
-        we do possible. Thank you!
-      </div>
+<div class="hero">
+    <div class="hero-body">
+	<div class="content">
+	    <h1>Sponsors</h1>
+	    <p>We are very grateful to all our company sponsors who make much of what
+	    we do possible. Thank you!</p>
+	</div>
     </div>
-    <div class="blockseparation"></div>
-    <div class="block">
-        <div class="header">Industry</div>
-        <div class="blockseparation"></div>
-        <div class="text">
-            Interested in working with the CSUA to sponsor an event or to
-            speak at one of our events? Please send an email to indrel@csua.berkeley.edu.
-        </div>
+</div>
+<div class="box content">
+    <h1>Industry</h1>
+    <p>Interested in working with the CSUA to sponsor an event or to speak at
+    one of our events? Please send an email to indrel@csua.berkeley.edu.</p>
+</div>
+<div class="columns">
+    <div class="column">
+	<div class="content">
+	    <h1>Current Sponsors</h1>
+	</div>
+	<div class="columns is-multiline">
+	    {% for sponsor in sponsors_current %}
+	    <div class="column is-3">
+		<div class="box">
+		    <a href="{{ sponsor.url }}"><h2 class="subtitle has-text-centered">{{ sponsor.name }}</h2></a>
+		    <figure class="image container is-128x128">
+			<img class="image is-128x128" src="https://csua.berkeley.edu/{{ sponsor.photo.url }}">
+		    </figure>
+		    <div class="content">
+			<p>{{ sponsor.description }}</p>
+		    </div>
+		</div>
+	    </div>
+	    {% endfor %}
+	</div>
     </div>
-    <div class="blockseparation"></div>
-    <div class="block">
-        <div class="header">Current Sponsors</div>
-        <table class="sponsors">
-            {% for sponsor_row in sponsors_current %}
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td><img src="{{ sponsor.photo.url }}"></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td>
-                            <div class="subheader"><a href="{{ sponsor.url }}">{{ sponsor.name }}</a></div>
-                            <div class="text">
-                                {{ sponsor.description }}
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
+</div>
+{# TODO: DRY this template#}
+<div class="columns">
+    <div class="column">
+	<div class="content">
+	    <h1>Past Sponsors</h1>
+	</div>
+	<div class="columns is-multiline">
+	    {% for sponsor in sponsors_past %}
+	    <div class="column is-3">
+		<div class="box">
+		    <a href="{{ sponsor.url }}"><h2 class="subtitle has-text-centered">{{ sponsor.name }}</h2></a>
+		    <figure class="image container is-128x128">
+			<img class="image is-128x128" src="https://csua.berkeley.edu/{{ sponsor.photo.url }}">
+		    </figure>
+		    <div class="content">
+			<p>{{ sponsor.description }}</p>
+		    </div>
+		</div>
+	    </div>
+	    {% endfor %}
+	</div>
     </div>
-    <div class="blockseparation"></div>
-    <div class="block">
-        <div class="header">Past Sponsors</div>
-        <table class="sponsors">
-            {% for sponsor_row in sponsors_old %}
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td><img src="{{ sponsor.photo.url }}"></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    {% for sponsor in sponsor_row %}
-                        <td>
-                            <div class="subheader"><a href="{{ sponsor.url }}">{{ sponsor.name }}</a></div>
-                            <div class="text">
-                                {{ sponsor.description }}
-                            </div>
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+</div>
 {% endblock %}
+{# vim:set sw=4:et:ts=4 #}
