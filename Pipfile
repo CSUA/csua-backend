@@ -7,7 +7,7 @@ verify_ssl = true
 gunicorn = "*"
 
 [packages]
-django = "==2.0.6"
+django = ">=2.0.6"
 python-ldap = "*"
 ldap3 = "*"
 pillow = "*"
