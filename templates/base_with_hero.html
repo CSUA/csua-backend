@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticthumbnail %}
+{% load thumbnail %}
+{% load static from staticfiles %}
+{% block content %}
+<section class="hero is-medium has-text-centered" style="
+{% with request.scheme|add:"://"|add:request.get_host|add:"/static/images/tushar_photoshoots/Officers_FA16.jpg" as orig_img %}
+
+{% thumbnail orig_img "1000x1000" as im %}
+background: url('{{ im.url }}')center lightgray;
+background-size: cover;
+background-repeat: no-repeat;
+background-blend-mode: overlay;
+{% endthumbnail %}
+{% endwith %}
+  ">
+  <div class="hero-body">
+    <h1 class="title is-1 animated fadeInDown">
+      {% block herotitle %}{% endblock %}
+    </h1>
+    <h2 class="subtitle animated fadeIn long">
+      {% block herosubtitle %}{% endblock %}
+    </h2>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    {% block page_content %}{% endblock %}
+  </div>
+</section>
+{% endblock %}
+{# vim: set et ts=2 sw=2 tw=200: #}

@@ -286,6 +286,7 @@ INSTALLED_APPS = [
     ## Third-party
     "ldapdb",
     "markdown_deux",
+    "sorl.thumbnail",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
@@ -420,3 +421,5 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+
+THUMBNAIL_DEBUG = DEBUG

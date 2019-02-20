@@ -1,56 +1,62 @@
-{% extends "base.html" %}
+{% extends "base_with_hero.html" %}
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
-{% block content %}
+{% block herotitle %}
+The Politburo
+{% endblock %}
+{% block herosubtitle %}
+Executive Committee of the CSUA
+{% endblock %}
+{% block page_content %}
 <div class="columns">
-	<div class="column is-3">
-		<div class="box content">
-			<h1>The Politburo</h1>
-			<p>
-			The Politburo consists of the seven elected officers of the CSUA.
-			They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br>
+  <div class="column is-3">
+    <div class="box content">
+      <p>
+      The Politburo consists of the seven elected officers of the CSUA.
+      They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br>
 
-			You can contact the Politburo at politburo@csua.berkeley.edu.
-			</p>
-		</div>
-	</div>
-	<div class="column">
-		<img src="{{ STATIC_URL }}images/pb_fa18.jpg">
-	</div>
-	<div class="column is-4">
-		<div class="box content">
-			<h1>Positions</h1>
-			<ul>
-				{% for pb_member in pb %}
-				<li><a href="#{{ pb_member.position }}">{{ pb_member.title }}</a></li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
+      You can contact the Politburo at politburo@csua.berkeley.edu.
+      </p>
+    </div>
+  </div>
+  <div class="column">
+    <img src="{{ STATIC_URL }}images/pb_fa18.jpg">
+  </div>
+  <div class="column is-3">
+    <div class="box content">
+      <h1>Positions</h1>
+      <ul>
+        {% for pb_member in pb %}
+        <li><a href="#{{ pb_member.position }}">{{ pb_member.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </div>
 
 {% for pb_member in pb %}
 <div class="columns is-vcentered">
-	<div class="column is-3">
-		<div class="content box">
-			<h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
-			<p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
-			<div class="image">
-				<img class="pb-image image is-rounded" src="https://www.csua.berkeley.edu{{ pb_member.officer.photo1.url }}">
-			</div>
-		</div>
-	</div>
-	<div class="column">
-		<article class="content">
-			<h1 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
-			<p>
-			{{ pb_member.description }}
-			</p>
-			<p>
-			{{ pb_member.contact_info }}
-			</p>
-		</article>
-	</div>
+  <div class="column is-3">
+    <div class="content box">
+      <h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
+      <p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
+      <div class="image">
+        <img class="pb-image image is-rounded" src="https://www.csua.berkeley.edu{{ pb_member.officer.photo1.url }}">
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <article class="content">
+      <h1 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
+      <p>
+      {{ pb_member.description }}
+      </p>
+      <p>
+      {{ pb_member.contact_info }}
+      </p>
+    </article>
+  </div>
 </div>
 {% endfor %}
 {% endblock %}
+{# vim: set et ts=2 sw=2: #}

@@ -21,6 +21,7 @@ requests = "*"
 djangorestframework = "*"
 slackclient = "*"
 django-auth-ldap = "*"
+sorl-thumbnail = "*"
 
 [requires]
 python_version = "3.5"
