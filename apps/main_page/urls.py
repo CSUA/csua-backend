@@ -11,6 +11,7 @@ urlpatterns = [
     path("constitution/", TemplateView.as_view(template_name="constitution.html")),
     path("join/", TemplateView.as_view(template_name="join.html")),
     path("tutoring/", TemplateView.as_view(template_name="tutoring.html")),
+    path("alumni/", TemplateView.as_view(template_name="alumni.html")),
     path("hackathon14/", views.hackathon14),
     path("hackathonsp15/", views.hackathonsp15),
     path("hackathonfa15/", views.hackathonfa15),
