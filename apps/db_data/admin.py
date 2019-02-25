@@ -15,8 +15,8 @@ from .constants import DAYS_OF_WEEK, OH_TIMES, OH_CHOICES
 # Register your models here.
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    ordering = ["enabled", "date"]
-    list_display = ["name", "date", "time", "link", "enabled"]
+    ordering = ["-enabled", "-date"]
+    list_display = ["name", "date", "time", "link", "location", "enabled"]
     actions = ["duplicate_events", "enable_events", "disable_events"]
 
     def disable_events(modeladmin, request, queryset):
