@@ -10,6 +10,6 @@ CSUA_HOST=tap.csua.berkeley.edu
 
 
 echo "Logging into $CSUA_HOST and running prod_deploy.sh"
-ssh -t $CSUA_UNAME@$CSUA_HOST exec /webserver/CSUA-backend/deploy.sh
+ssh -t $CSUA_UNAME@$CSUA_HOST sudo /webserver/CSUA-backend/deploy.sh
 
 # vim: sw=2:et:sts=2
