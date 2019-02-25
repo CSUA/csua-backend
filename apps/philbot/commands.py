@@ -12,15 +12,26 @@ Read here: https://api.slack.com/slash-commands
 import json
 import re
 import shlex
+import socket
+import subprocess
+
 from django.conf import settings
 import requests
-import subprocess
 from slackclient import SlackClient
+
+from .exceptions import SlackAuthError
 
 SLACK_VERIFICATION_TOKEN = getattr(settings, "SLACK_VERIFICATION_TOKEN", None)
 SLACK_BOT_USER_TOKEN = getattr(settings, "SLACK_BOT_USER_TOKEN", None)
 
 Client = SlackClient(SLACK_BOT_USER_TOKEN)
+IS_PROD = socket.gethostname() == "tap"
+
+
+def run_shell_command(command):
+    if not IS_PROD:
+        command = "ssh soda " + command
+    return subprocess.check_output(command.split(" ")).decode()
 
 
 def help(slack_message):
@@ -58,18 +69,21 @@ def finger_1(slack_message):
     user_id = slack_message.get("user_id")
     payload = {"token": SLACK_BOT_USER_TOKEN, "user": user_id}
     command_text = slack_message.get("text")
-    r = requests.get("https://slack.com/api/users.info", params=payload)
-    fingerer_user_info = json.loads(r.text)
-    fingered_user_info = subprocess.check_output(
-        ["ssh", "soda", "finger", "-m", command_text, "|", "head", "-n", "2"]
-    ).decode()
+    fingerer_user_info = requests.get(
+        "https://slack.com/api/users.info", params=payload
+    ).json()
+    if not fingerer_user_info["ok"]:
+        # slack auth failed
+        fingerer_user_info = {"user": {"profile": {"display_name": "pnunez"}}}
+    fingered_user_info = run_shell_command(
+        "finger -m {} | head -n 2".format(command_text)
+    )
     if fingered_user_info:
         text = "{} p:hilfinger:ed {}@csua.berkeley.edu: \n```{}```".format(
             fingerer_user_info["user"]["profile"]["display_name"],
             command_text,
             fingered_user_info,
         )
-
     else:
         text = "{} tried to finger {} but failed!".format(
             fingerer_user_info["user"]["profile"]["display_name"], command_text
@@ -96,7 +110,7 @@ def man(slack_message):
 
 
 def computers(slack_message):
-    text = "https://www.csua.berkeley.edu:8080/computers/"
+    text = "https://www.csua.berkeley.edu/computers/"
     return ({"response_type": "ephemeral", "text": text}, None)
 
 

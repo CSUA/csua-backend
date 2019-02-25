@@ -10,6 +10,7 @@ from rest_framework import status
 from django.conf import settings
 from slackclient import SlackClient
 from .commands import COMMANDS
+from .exceptions import SlackAuthError
 
 SLACK_VERIFICATION_TOKEN = getattr(settings, "SLACK_VERIFICATION_TOKEN", None)
 SLACK_BOT_USER_TOKEN = getattr(settings, "SLACK_BOT_USER_TOKEN", None)
@@ -97,15 +98,18 @@ class SlackCommandAPI(APIView):
         command = slack_message.get("command")
 
         if command in COMMANDS:
-            response, delayed_response = COMMANDS[command](slack_message)
-            if delayed_response:
-                response_url = slack_message.get("response_url")
-                t = threading.Thread(
-                    target=send_delayed_response,
-                    args=[response_url, delayed_response, slack_message],
-                )
-                t.setDaemon(False)
-                t.start()
+            try:
+                response, delayed_response = COMMANDS[command](slack_message)
+                if delayed_response:
+                    response_url = slack_message.get("response_url")
+                    t = threading.Thread(
+                        target=send_delayed_response,
+                        args=[response_url, delayed_response, slack_message],
+                    )
+                    t.setDaemon(False)
+                    t.start()
+            except SlackAuthError:
+                return Response("Could not access Slack API")
             return Response(response)
         else:
             return Response("Command not recognized: {}".format(command))

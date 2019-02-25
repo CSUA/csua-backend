@@ -1,0 +1,2 @@
+class SlackAuthError(BaseException):
+    pass

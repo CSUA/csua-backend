@@ -40,7 +40,6 @@ class SlackCommandSanityTest(TestCase):
     def check_valid_response(self, response):
         self.assertEqual(response.status_code, 200)
         response_content = json.loads(response.content.decode())
-        print(response_content)
         self.assertIn("text", response_content)
         self.assertIn("response_type", response_content)
         self.assertIn(response_content["response_type"], ("in_channel", "ephemeral"))
