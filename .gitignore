@@ -71,3 +71,4 @@ data/
 .vagrant/
 
 deploy/remote_user.txt
+my_csua_username.txt
