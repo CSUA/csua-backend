@@ -22,6 +22,8 @@ def get_html_email():
             "small_title": "UC Berkeley Computer Science Undergraduate Association",
             "big_title": "UPCOMING EVENTS",
             "before_toc": "Announcements!",
+            "preview_text": ", ".join(e.name for e in events),
+            "title": "CSUA Upcoming Events",
         },
         # Old email image: "header_image_url": "https://gallery.mailchimp.com/3e2d3e62274ea01781b01bd2d/images/01a7e34b-1b9a-4625-9259-2ef05decf823.png",
     )
