@@ -12,8 +12,19 @@ from apps.db_data.models import Event
 def get_html_email():
     today = datetime.today()
     print(today)
-    events = Event.objects.filter(date__gte=today)
-    return render_to_string("outreach/upcoming_events_email.html", {"events": events})
+    events = Event.objects.filter(date__gte=today).order_by("date")
+    return render_to_string(
+        "outreach/upcoming_events_email.html",
+        {
+            "events": events,
+            "upper_left_text": "CSUA: Upcoming Events Newsletter",
+            "header_image_url": "https://www.csua.berkeley.edu/static/images/pic.png",
+            "small_title": "UC Berkeley Computer Science Undergraduate Association",
+            "big_title": "UPCOMING EVENTS",
+            "before_toc": "Announcements!",
+        },
+        # Old email image: "header_image_url": "https://gallery.mailchimp.com/3e2d3e62274ea01781b01bd2d/images/01a7e34b-1b9a-4625-9259-2ef05decf823.png",
+    )
 
 
 def index(request):
@@ -22,9 +33,7 @@ def index(request):
 
 def preview(request):
     html_message = get_html_email()
-    # return render(request, "outreach/preview.html", {"html_message": html_message})
     return render(request, "outreach/preview.html")
-    # return HttpResponse(get_html_email())
 
 
 def preview_iframe(request):

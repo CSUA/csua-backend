@@ -1,0 +1,21 @@
+<span style="font-size:14px">
+  <span style="font-family:arial,helvetica neue,helvetica,sans-serif">
+    {{ forloop.counter }}. <strong>{{ event.name }}</strong>
+  </span>
+</span>
+<br />
+<span style="font-size:13px">
+  <em>
+    {{ event.date|date:"l, F jS" }}, {{ event.time }}<br />
+    {{ event.location }}
+  </em>
+  <br />
+  Link:&nbsp;<a
+    href="{{ event.link }}"
+    target="_blank"
+    >
+    {{ event.link }}
+  </a >
+  <br />
+  {{ event.description|escape|urlize }}
+</span>
