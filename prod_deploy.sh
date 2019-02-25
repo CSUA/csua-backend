@@ -3,7 +3,7 @@
 # should be run with root permissions
 HERE=$(dirname $0)
 sudo -u www-data git -C $HERE pull origin master \
-	&& ./test.sh \
-	&& ./prod_migrate.sh \
+	&& $HERE/test.sh \
+	&& $HERE/prod_migrate.sh \
 	&& systemctl reload csua-backend-gunicorn \
 	&& echo "Reloaded csua-backend"
