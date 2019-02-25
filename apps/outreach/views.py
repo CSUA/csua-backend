@@ -32,6 +32,7 @@ def preview_iframe(request):
 
 
 def sendmail(request):
+    html_message = get_html_email()
     subject = "Test Email"
     plain_message = strip_tags(html_message)
     from_email = "Robert Quitt <outreach@mail.csua.berkeley.edu>"
