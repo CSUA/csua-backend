@@ -25,58 +25,42 @@ FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        "default": {
+DB_USER = os.getenv("MYSQL_USER")
+DB_PASS = os.getenv("MYSQL_PASSWORD")
+DB_NAME = os.getenv("MYSQL_DATABASE")
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": DB_NAME,
+        # The following settings are not used with sqlite3:
+        "USER": DB_USER,
+        "PASSWORD": DB_PASS,
+        "HOST": "db",  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        "PORT": "",  # Set to empty string for default.
+        "TEST": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": os.path.join(PROJECT_HOME, "csua.sqlite3"),
-        }
+            "USER": "",
+            "PASSWORD": "",
+        },
     }
-    DATABASE_ROUTERS = ["ldapdb.router.Router"]
-else:
-    with open("/etc/secrets/db_pass.secret") as f:
-        DB_PASS = f.read().strip()
-
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": "csua_backend",
-            # The following settings are not used with sqlite3:
-            "USER": "pnunez",
-            "PASSWORD": DB_PASS,
-            "HOST": "",  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-            "PORT": "",  # Set to empty string for default.
-            "TEST": {
-                "ENGINE": "django.db.backends.sqlite3",
-                "NAME": os.path.join(PROJECT_HOME, "csua.sqlite3"),
-                "USER": "",
-                "PASSWORD": "",
-            },
-        }
-    }
-    DATABASE_ROUTERS = ["ldapdb.router.Router"]
+}
+DATABASE_ROUTERS = ["ldapdb.router.Router"]
 
 ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
 ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_ALLOW)
 
-if DEBUG:
-    # Read-only LDAP connection for now (no auth)
-    DATABASES["ldap"] = {
-        "ENGINE": "ldapdb.backends.ldap",
-        "NAME": "ldaps://tap.csua.berkeley.edu/",
-        "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
-    }
-else:
-    DATABASES["ldap"] = {
-        "ENGINE": "ldapdb.backends.ldap",
-        "NAME": "ldaps://tap.csua.berkeley.edu/",
-        "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
-        # TODO: populate this with some ldap admin dummy user
-        # "USER": "uid=,ou=People,dc=csua,dc=berkeley,dc=edu",
-        # "PASSWORD": "",
-    }
+DATABASES["ldap"] = {
+    "ENGINE": "ldapdb.backends.ldap",
+    "NAME": "ldaps://tap.csua.berkeley.edu/",
+    "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
+    # TODO: populate this with some ldap admin dummy user
+    # "USER": "uid=,ou=People,dc=csua,dc=berkeley,dc=edu",
+    # "PASSWORD": "",
+}
 
-    # Hosts/domain names that are valid for this site; required if DEBUG is False
+# Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
     "www.csua.berkeley.edu",
@@ -151,26 +135,12 @@ STATICFILES_FINDERS = [
 ]
 
 # Security
-if not DEBUG:
-    CSRF_COOKIE_SECURE = True
-    CSRF_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = True
-    SESSION_COOKIE_HTTPONLY = True
-    SECURE_HSTS_SECONDS = 60
-    SECURE_HSTS_PRELOAD = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_Forwarded_Proto", "https")
-X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Make this unique, and don't share it with anybody.
-if DEBUG:
-    SECRET_KEY = "CSUA)@3zekni&mwis6s031xsru2v&h(y=l89oa4@^&i#lxfoa9p9"
-else:
-    with open("/etc/secrets/secret_key.secret") as f:
-        SECRET_KEY = f.read().strip()
+SECRET_KEY = os.getenv(
+    "DJANGO_SECRET_KEY", "Not empty so that collectstatic will still run"
+)
 
 
 # Password validation
@@ -335,88 +305,7 @@ LOGGING = {
 }
 
 SLACK_CLIENT_ID = "3311748471.437459179046"
-try:
-    with open("/etc/secrets/slack.txt") as f:
-        SLACK_CLIENT_SECRET = f.readline().strip()
-        SLACK_BOT_USER_TOKEN = f.readline().strip()
-        SLACK_SIGNING_SECRET = f.readline().strip()
-        SLACK_VERIFICATION_TOKEN = f.readline().strip()
-except FileNotFoundError:
-    SLACK_CLIENT_SECRET = ""
-    SLACK_BOT_USER_TOKEN = ""
-    SLACK_SIGNING_SECRET = ""
-    SLACK_VERIFICATION_TOKEN = ""
-
-## LDAP CONFIG ##
-DATABASE_ROUTERS = ["ldapdb.router.Router"]
-
-ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
-ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_ALLOW)
-
-DATABASES["ldap"] = {
-    "ENGINE": "ldapdb.backends.ldap",
-    "NAME": "ldaps://tap.csua.berkeley.edu/",
-    "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
-}
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        "OPTIONS": {"min_length": 9},
-    },
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-]
-
-AUTH_LDAP_SERVER_URI = "ldaps://ldap.csua.berkeley.edu"
-
-AUTH_LDAP_CONNECTION_OPTIONS = {
-    ldap.OPT_X_TLS_CACERTFILE: "ldap_csua_berkeley_edu_interm.cer",
-    ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_ALLOW,
-}
-
-AUTH_LDAP_BIND_DN = ""
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
-
-AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "ou=People,dc=csua,dc=berkeley,dc=edu", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
-)
-
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    "ou=Group,dc=csua,dc=berkeley,dc=edu",
-    ldap.SCOPE_SUBTREE,
-    "(objectClass=posixGroup)",
-)
-
-AUTH_LDAP_GROUP_TYPE = PosixGroupType()
-
-AUTH_LDAP_USER_ATTR_MAP = {
-    "first_name": "gecos.split(',')[0].split(' ')[0]",
-    "last_name": "gecos.split(',')[0].split(' ')[1]",
-    "mail": "gecos.split(',')[1]",
-}
-
-IS_ROOT = LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu")
-IS_PB = LDAPGroupQuery("cn=excomm,ou=Group,dc=csua,dc=berkeley,dc=edu")
-IS_OFFICER = LDAPGroupQuery("cn=officers,ou=Group,dc=csua,dc=berkeley,dc=edu")
-
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_staff": IS_ROOT | IS_PB,
-    "is_superuser": IS_ROOT,
-    "is_active": IS_ROOT | IS_PB | IS_OFFICER,
-}
-
-AUTH_LDAP_ALWAYS_UPDATE_USER = False
-
-AUTH_LDAP_MIRROR_GROUPS = True
-
-AUTHENTICATION_BACKENDS = [
-    "django_auth_ldap.backend.LDAPBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
-
-LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+SLACK_CLIENT_SECRET = ""
+SLACK_BOT_USER_TOKEN = ""
+SLACK_SIGNING_SECRET = ""
+SLACK_VERIFICATION_TOKEN = ""
