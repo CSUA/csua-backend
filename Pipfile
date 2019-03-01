@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 gunicorn = "*"
+watchdog = "*"
 
 [packages]
 django = ">=2.0.6"
@@ -12,7 +13,6 @@ python-ldap = "*"
 ldap3 = "*"
 pillow = "*"
 python-magic = "*"
-python-magic-bin = {version = "*",platform_system = " == 'Windows'"}
 django-markdown-deux = "*"
 django-ldapdb = "*"
 mysqlclient = "*"

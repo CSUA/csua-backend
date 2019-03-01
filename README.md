@@ -3,7 +3,22 @@ CSUA-backend
 
 A backend for the CSUA interblags.
 
-## Installation
+## Docker install instructions
+
+1. Install docker and docker-compose
+2. In this repo, in a seperate terminal, run `docker-compose up`
+  - Alternatively, run `docker-compose up -d`
+3. Run `docker-compose exec csua-backend python manage.py migrate` once the
+   database is ready
+4. That's it! Navigate to localhost:8080 to see the site, and modify the files
+   in ./apps/ and ./templates/ to watch changes go live.
+
+## Debian install instructions
+
+- Install Python 3.5 in a venv
+- Install libldap2-dev and libsasl2-dev
+
+## Installation DEPRECATED
 
 1. Install Python 3
 2. Install Django and dependencies with `pip3 install --user -r requirements/dev.txt`
@@ -14,11 +29,6 @@ A backend for the CSUA interblags.
 If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 7. Create admin user with `python3 manage.py createsuperuser`
-
-## Debian install instructions
-
-- Install Python 3.5 in a venv
-- Install libldap and libsasl
 
 ## Deploy a new change to git
 
@@ -40,7 +50,7 @@ If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 ## Editing/Creating/Deleting Officers
 
-Go to https://www.csua.berkeley.edu:8080/admin/ to edit officer data!
+Go to https://www.csua.berkeley.edu/admin/ to edit officer data!
 
 ## Repo structure
 
@@ -58,12 +68,8 @@ Django's online documentation has more detail on a project's structure
   	- `tests.py` has unit tests to test the apps functionality
   	- `urls.py` says what URLs route to which views
   	- `views.py` has functions that serve a "view" (webpage)
-- `deploy/`
-  - `deploy.yml` is an ansible configuration for deploying the website
 - `fixtures/` contains database fixtures to record and bootstrap content and various database data
 - `media_root/` is where user-uploaded files are served from
-- `requirements/`
-  - `[base,dev,prod].txt` lists the `pip` dependencies of this project
 - `static_root/` is where static files are served from (many of which come from `main_page/static/` and are moved here by `manage.py`'s `collectstatic`)
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project

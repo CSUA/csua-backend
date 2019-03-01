@@ -17,6 +17,27 @@ services:
       - ./apps:/app/apps
       - ./templates:/app/templates
       - ./static:/app/static_root
+      - ./Pipfile:/app/Pipfile
+      - ./Pipfile.lock:/app/Pipfile.lock
+        #command: gunicorn --bind 0.0.0.0:8001 apps.csua_backend.wsgi
+    command: gunicorn --bind 0.0.0.0:8001 --reload apps.csua_backend.wsgi
+  csua-backend-test:
+    build: .
+    environment:
+      - DJANGO_SECRET_KEY=poop
+      - DJANGO_DEBUG=True
+      - MYSQL_USER=pnunez
+      - MYSQL_PASSWORD=forwardA1r2t3hBL4STz0ne!
+      - MYSQL_DATABASE=csua_backend
+    networks:
+      - main
+    depends_on:
+      - db
+    volumes:
+      - ./apps:/app/apps
+      - ./templates:/app/templates
+      - ./static:/app/static_root
+    command: watchmedo auto-restart --recursive --debug-force-polling --pattern="*.py" --directory="." -- python manage.py test
 
   db:
     image: mysql:5.7
