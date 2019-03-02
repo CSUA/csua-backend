@@ -1,146 +1,148 @@
-{% extends "base.html" %}
+{% extends "base_with_hero.html" %}
 {% block title %}Officers{% endblock %}
 {% block css_file %}officers.css{% endblock %}
-{% block content %}
-<div class="hero">
-  <div class="hero-body">
-    <div class="content">
-      <h1 class="title">Officers</h1>
-      <p>
-      Are you new to Berkeley? New to CS? Need help with class? Want people to
-      talk to? Come by the office in 311 Soda and meet some of our officers! They're here
-      to help you and keep the office tidy and fun. <br><br>
-      </p>
-    </div>
-  </div>
-</div>
-
+{% block hero %}
 <div class="container">
-  <div class="box">
-    <div class="content">
-      <h2 id="office-hours">Office Hours</h2>
-      <p>
-      Each officer is responsible for keeping the office open during their
-      assigned office hours. Additionally, some officers have their office
-      hours open for tutoring.
-      </p>
-      <p>
-      <a href="/tutoring">
-        Read more about tutoring here.
-      </a>
-      </p>
-    </div>
-    <div class="table-container">
-      <table class="table is-hoverable is-striped is-fullwidth is-bordered">
-        <thead>
-          <tr>
-            <td></td>
-            {% for day in calendar.days %}
-            <th>
-              {{ day }}
-            </th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for hour_each_day in calendar.contents %}
-          <tr>
-            {% for timeslot in hour_each_day %}
-            <td>
-              {% if forloop.counter == 1 %}
-              <span style="white-space: nowrap;">
-                {{ timeslot }}
-              </span>
-              {% else %}
-              {% for officer in timeslot %}
-              <a class="button has-text-link" href="#{{ officer.first_name }}{{ officer.last_name }}">
-                <span>
-                  {{ officer.first_name }}&nbsp;{{ officer.last_name }}
-                </span>
-                {% if officer.tutor_subjects %}
-                <span class="icon">
-                  <i class="fas fa-graduation-cap"></i>
-                </span>
-                {% endif %}
-                {% if officer.root_staff %}
-                <span class="icon">
-                  <i class="fas fa-hashtag">
-                  </i>
-                </span>
-                {% endif %}
-              </a>
-              {% endfor %}
-              {% endif %}
-            </td>
-            {% endfor %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="content">
-      <p>
-      Legend:
-      </p>
-      <ul>
-        <li>
-          Root staff
-          <span class="icon">
-            <i class="fas fa-hashtag"></i>
-          </span>
-            &mdash; Helps manage CSUA computers
-        </li>
-        <li>
-          Tutor
-          <span class="icon">
-            <i class="fas fa-graduation-cap"></i>
-          </span>
-          &mdash; Can help you with your courses
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="roster columns is-multiline roster">
-    {% for officer in officer_list|dictsort:"first_name" %}
-    <article class="column is-2-widescreen is-3-desktop is-3-tablet" id="{{ officer.first_name }}{{ officer.last_name }}">
-      <div class="box">
-        <div class="photo-frame">
-          {% if not officer.photo2 %}
-          <figure class="single has-text-centered">
-            <img class="single is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-          </figure>
-          {% elif officer.video2%}
-          <video class="videotwo" loop nocontrols onmouseover="play()" onmouseoff="pause()">
-            <source src="https://www.csua.berkeley.edu/{{ officer.video2 }}" type="video/mp4"></source>
-          </video>
-          {% else %}
-          <figure class="photoone has-text-centered">
-            <img class="photoone is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-          </figure>
-          <figure class="phototwo has-text-centered">
-            <img class="phototwo is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
-          </figure>
-          {% endif %}
-          {% if officer.root_staff %}
-          <div class="root-staff-banner">Root</div>
-          {% endif %}
-        </div>
-        <div class="content">
-          <h5 class="has-text-centered">{{ officer.first_name }} {{ officer.last_name }}</h5>
-          <div>
-            <a href="#office-hours">{{ officer.office_hours }}</a>
-          </div>
-          <div>"{{ officer.blurb }}"</div>
-          {% if officer.tutor_subjects %}
-          <hr>
-          <div>Tutors for: {{ officer.tutor_subjects }}</div>
-          {% endif %}
-        </div>
-      </div>
-    </article>
-    {% endfor %}
-  </div>
+  {% include "hero_with_bg_img.html" with title="Officers" subtitle="Are you new to Berkeley? New to CS? Need help with class? Want people to talk to? Come by the office in 311 Soda and meet some of our officers! They're here to help you and keep the office tidy and fun." size="is-small" %}
 </div>
-{% endblock content %}
-{# vim: set et sw=2 ts=2: #}
+{% endblock %}
+{% block page_content %}
+<div class="content">
+  <h2 id="office-hours">Office Hours</h2>
+  <p>
+  Each officer is responsible for keeping the office open during their
+  assigned office hours. Additionally, some officers have their office
+  hours open for tutoring.
+  </p>
+</div>
+<div class="table-container">
+  <table class="table is-hoverable is-striped is-fullwidth is-bordered">
+    <thead>
+      <tr>
+        <td></td>
+        {% for day in calendar.days %}
+        <th>
+          {{ day }}
+        </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for hour_each_day in calendar.contents %}
+      <tr>
+        {% for timeslot in hour_each_day %}
+        <td>
+          {% if forloop.counter == 1 %}
+          <span style="white-space: nowrap;">
+            {{ timeslot }}
+          </span>
+          {% else %}
+          {% for officer in timeslot %}
+          <a class="button has-text-link" href="#{{ officer.first_name }}{{ officer.last_name }}">
+            <span>
+              {{ officer.first_name }}&nbsp;{{ officer.last_name }}
+            </span>
+            {% if officer.tutor_subjects %}
+            <span class="icon">
+              <i class="fas fa-graduation-cap"></i>
+            </span>
+            {% endif %}
+            {% if officer.root_staff %}
+            <span class="icon">
+              <i class="fas fa-hashtag">
+              </i>
+            </span>
+            {% endif %}
+          </a>
+          {% endfor %}
+          {% endif %}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="content">
+  <p>
+  Legend:
+  </p>
+  <ul>
+    <li>
+      Root staff
+      <span class="icon">
+        <i class="fas fa-hashtag"></i>
+      </span>
+      &mdash; Helps manage CSUA computers. Ask them if you need any
+      assistance with root@csua.berkeley.edu
+    </li>
+    <li>
+      Tutor
+      <span class="icon">
+        <i class="fas fa-graduation-cap"></i>
+      </span>
+      &mdash; Will help you with your courses. Most officers, regardless of
+      tutor status, have taken all the lower division classes and are happy
+      to help, just come by our office at 311 Soda and ask about tutoring!
+      <a href="/tutoring">Read more about tutoring here.</a>
+      </p>
+    </li>
+  </ul>
+</div>
+
+<br><br>
+
+<div class="roster columns is-multiline roster">
+  {% for officer in officer_list|dictsort:"first_name" %}
+  <article class="column is-3" id="{{ officer.first_name }}{{ officer.last_name }}">
+    <div class="">
+      <div class="photo-frame">
+        {% if not officer.photo2 %}
+        <figure class="single has-text-centered">
+          <img class="single is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+        </figure>
+        {% elif officer.video2%}
+        <video class="videotwo" loop nocontrols onmouseover="play()" onmouseoff="pause()">
+          <source src="https://www.csua.berkeley.edu/{{ officer.video2 }}" type="video/mp4"></source>
+        </video>
+        {% else %}
+        <figure class="photoone has-text-centered">
+          <img class="photoone is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+        </figure>
+        <figure class="phototwo has-text-centered">
+          <img class="phototwo is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
+        </figure>
+        {% endif %}
+      </div>
+      <!-- <div class="content"> -->
+      <div class="has-text-centered">
+        <strong>
+          {{ officer.first_name }} {{ officer.last_name }}
+        </strong>
+        <br>
+        <a href="#office-hours">
+          OH: {{ officer.office_hours }}
+        </a>
+        <br>
+        {% if officer.tutor_subjects %}
+        <span>
+          <i class="fas fa-graduation-cap"></i>
+        Tutors for: {{ officer.tutor_subjects }}
+        </span>
+        <br>
+        {% endif %}
+        {% if officer.root_staff %}
+        <span><i class="fas fa-hashtag"></i>
+        <tt>root</tt></span>
+        <br>
+        {% endif %}
+        <span>
+          "{{ officer.blurb }}"
+        </span>
+      </div>
+      </div>
+  </article>
+  {% endfor %}
+    </div>
+    {% endblock %}
+    {# vim: set et sw=2 ts=2 tw=0: #}

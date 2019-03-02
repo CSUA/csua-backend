@@ -1,16 +1,14 @@
 {% extends "base_with_hero.html" %}
+{% load thumbnail %}
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
-{% block herotitle %}
-The Politburo
-{% endblock %}
-{% block herosubtitle %}
-Executive Committee of the CSUA
+{% block hero %}
+{% include "hero_with_bg_img.html" with title="The Politburo" subtitle="Executive Committee of the CSUA" img_url="/static/images/pb_sp19.jpg" position="inherit" crop="center" geom="1000x600" %}
 {% endblock %}
 {% block page_content %}
-<div class="columns">
-  <div class="column is-3">
-    <div class="box content">
+<div class="columns is-centered">
+  <div class="column is-6">
+    <div class="content">
       <p>
       The Politburo consists of the seven elected officers of the CSUA.
       They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br>
@@ -19,35 +17,26 @@ Executive Committee of the CSUA
       </p>
     </div>
   </div>
-  <div class="column">
-    <img src="{{ STATIC_URL }}images/pb_fa18.jpg">
-  </div>
-  <div class="column is-3">
-    <div class="box content">
-      <h1>Positions</h1>
-      <ul>
-        {% for pb_member in pb %}
-        <li><a href="#{{ pb_member.position }}">{{ pb_member.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
 </div>
 
 {% for pb_member in pb %}
-<div class="columns is-vcentered">
+<div class="columns">
   <div class="column is-3">
-    <div class="content box">
-      <h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
-      <p class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</p>
-      <div class="image">
-        <img class="pb-image image is-rounded" src="https://www.csua.berkeley.edu{{ pb_member.officer.photo1.url }}">
-      </div>
+    {% with "https://www.csua.berkeley.edu/"|add:pb_member.officer.photo1.url as img_url %}
+    {% thumbnail img_url "500x500" crop="center" as im %}
+    <div class="has-text-centered">
+      <figure class="image is-inline-block">
+        <img style="max-height: 230px; max-width: 230px;" class="is-rounded" src="{{ im.url }}">
+      </figure>
     </div>
+    {% endthumbnail %}
+    {% endwith %}
   </div>
-  <div class="column">
+  <div class="column is-6">
     <article class="content">
-      <h1 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
+      <h2 class="pb-name">{{ pb_member.officer.first_name }} {{ pb_member.officer.last_name }}</h2>
+      <h4 class="pb-title" id="{{ pb_member.position }}">{{ pb_member.title }}</h1>
+      <p><i class="pb-email">{{ pb_member.position }}@csua.berkeley.edu</i></p>
       <p>
       {{ pb_member.description }}
       </p>
@@ -59,4 +48,4 @@ Executive Committee of the CSUA
 </div>
 {% endfor %}
 {% endblock %}
-{# vim: set et ts=2 sw=2: #}
+{# vim: set et ts=2 sw=2 tw=0: #}

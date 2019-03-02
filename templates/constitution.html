@@ -1,17 +1,12 @@
-{% extends "base.html" %}
+{% extends "base_with_hero.html" %}
 {% load markdown_deux_tags %}
 {% block title %}Constitution{% endblock %}
-{% block content %}
 
-<div class="hero">
-	<div class="hero-body">
-	    <div class="container">
-		<h1 class="title">Constitution</h1>
-		<h2 class="subtitle">Constitution of the Computer Science Undergraduate Association</h2>
-	    </div>
-	</div>
-</div>
+{% block hero %}
+{% include "hero_with_bg_img.html" with title="Constitution" subtitle="Constitution of the Computer Science Undergraduate Association" size="is-small" %}
+{% endblock hero %}
 
+{% block page_content %}
 <div class="content">
 {% markdown %}
 
