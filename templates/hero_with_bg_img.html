@@ -1,0 +1,23 @@
+{% load thumbnail %}
+<section class="hero {{ size|default:"is-medium" }} has-text-centered" style="
+{% if img_url %}
+{% with request.scheme|add:"://"|add:request.get_host|add:img_url as orig_img %}
+{% thumbnail orig_img geom|default:"1000x1000" crop=crop|default:"noop" as im %}
+background: url('{{ im.url }}') lightgray;
+background-size: cover;
+background-repeat: no-repeat;
+background-blend-mode: overlay;
+background-position-y: {{ position|default:"center" }};
+{% endthumbnail %}
+{% endwith %}
+{% endif %}
+">
+<div class="hero-body">
+        <h1 class="title is-1 animated fadeInDown">
+                {{ title }}
+        </h1>
+        <h2 class="subtitle animated fadeInDown">
+                {{ subtitle }}
+        </h2>
+</div>
+</section>

@@ -1,26 +1,24 @@
-{% extends "base.html" %}
+{% extends "base_with_hero.html" %}
 {% block title %}Workshops{% endblock %}
-{% block content %}
+{% block pre_hero %}
+<div class="container">
 <nav class="breadcrumb">
     <ul>
         <li><a href="/events">Events</a></li>
         <li class="is-active"><a>Workshops</a></li>
     </ul>
 </nav>
-<section class="hero">
-    <div class="hero-body">
-        <h1 class="title">
-            Workshops
-        </h1>
-        <h2 class="subtitle">
-            Putting the CS in CSUA
-        </h2>
-    </div>
-</section>
+</div>
+{% endblock %}
+{% block hero %}
+{% include "hero_with_bg_img.html" with title="Workshops" subtitle="Putting the CS in CSUA" size="is-small" %}
+{% endblock %}
+
+
+{% block page_content %}
 <div class="tabs">
     <ul>
         <li class="is-active"><a>Workshops</a></li>
-        <li><a href="/events/socials/">Socials</a></li>
     </ul>
 </div>
 <div class="container content">

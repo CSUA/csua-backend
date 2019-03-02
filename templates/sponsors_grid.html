@@ -1,0 +1,23 @@
+{# placeholder for vim #}
+<div class="columns is-multiline">
+{% for sponsor in sponsors %}
+<div class="column is-3">
+  <div class="has-text-centered">
+    <strong class="subtitle">
+      <a class="has-text-centered" href="{{ sponsor.url }}">
+        {{ sponsor.name }}
+      </a>
+    </strong>
+  </div>
+  <div style="height: 132px">
+    <figure class="sponsor has-text-centered">
+      <img style="object-fit:cover; max-height:132px;" src="https://csua.berkeley.edu/{{ sponsor.photo.url }}">
+    </figure>
+  </div>
+  <div style="margin-bottom: 1em;" class="content has-text-centered">
+    <p><i>{{ sponsor.description }}</i></p>
+  </div>
+</div>
+{% endfor %}
+</div>
+{# vim:set sw=2:et:ts=4: #}

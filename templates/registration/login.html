@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="content">
+      <p>Log in here</p>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{# vim: set et ts=2 sw=2 tw=200: #}

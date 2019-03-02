@@ -1,19 +1,11 @@
-{% extends "base.html" %}
+{% extends "base_with_hero.html" %}
 {% load static from staticfiles %}
 {% block title %}Home{% endblock %}
-{% block content %}
-<section class="hero animated fadeInDown">
-  <div class="hero-body">
-    <h1 class="title">
-      Welcome to the CSUA
-    </h1>
-    <h2 class="subtitle">
-      UC Berkeley Computer Science Undergraduate Association
-    </h2>
-  </div>
-</section>
-<div class="container content">
-</div>
+{% block hero %}
+{% include "hero_with_bg_img.html" with title="Welcome to the CSUA" subtitle="UC Berkeley Computer Science Undergraduate Association" img_url="/static/images/Ben_and_Starr_at_Calapalooza.jpg" %}
+{% endblock %}
+
+{% block page_content %}
 <div class="tile is-vertical is-ancestor">
   <div class="tile">
     <div class="tile is-parent is-5">
@@ -45,16 +37,6 @@
     </div>
   </div>
   <div class="tile">
-    <div class="tile is-parent is-8">
-      <div class="tile is-child box">
-        <img class="image"
-             src="{% static '/images/tushar_photoshoots/Officers_FA16.jpg' %}"
-             alt="CSUA Officers at Hearst Mining Circle">
-        <p class="has-text-centered">
-        We &lt;3 CS and welcome students of all majors!
-        </p>
-      </div>
-    </div>
     <div class="tile is-parent">
       <article class="tile is-child content box">
         <h1>People</h1>
@@ -148,8 +130,5 @@
     </div>
   </div>
 </div>
-<script>
-  ScrollReveal().reveal('.box', {'delay': 500});
-</script>
 {% endblock %}
 {# vim: set et ts=2 sw=2: #}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% block pre_hero%}{% endblock %}
+{% block hero %}
+{% include "hero_with_bg_img.html" %}
+{% endblock %}
+
+<section class="section">
+  <div class="container">
+    {% block page_content %}{% endblock %}
+  </div>
+</section>
+{% endblock %}
+{# vim: set et ts=2 sw=2 tw=200: #}

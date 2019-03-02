@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path("join/", TemplateView.as_view(template_name="join.html")),
     path("tutoring/", TemplateView.as_view(template_name="tutoring.html")),
     path("alumni/", TemplateView.as_view(template_name="alumni.html")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("hackathon14/", views.hackathon14),
     path("hackathonsp15/", views.hackathonsp15),
     path("hackathonfa15/", views.hackathonfa15),

@@ -45,8 +45,8 @@ def politburo(request):
 
 
 def sponsors(request):
-    sponsors_current = Sponsor.objects.filter(current=True)
-    sponsors_past = Sponsor.objects.filter(current=False)
+    sponsors_current = Sponsor.objects.filter(current=True).order_by("name")
+    sponsors_past = Sponsor.objects.filter(current=False).order_by("name")
     return render(
         request,
         "sponsors.html",
