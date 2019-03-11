@@ -7,6 +7,7 @@
 </div>
 {% endblock %}
 {% block page_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
 <div class="content">
   <h2 id="office-hours">Office Hours</h2>
   <p>
@@ -93,7 +94,7 @@
 <div class="roster columns is-multiline roster">
   {% for officer in officer_list|dictsort:"first_name" %}
   <article class="column is-3" id="{{ officer.first_name }}{{ officer.last_name }}">
-    <div class="">
+    <div class="" data-balloon="{{officer.officer_since}}" data-balloon-pos="up">
       <div class="photo-frame">
         {% if not officer.photo2 %}
         <figure class="single has-text-centered">
