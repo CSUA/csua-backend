@@ -56,8 +56,7 @@ Django's online documentation has more detail on a project's structure
   	- `views.py` has functions that serve a "view" (webpage)
 - `fixtures/` contains database fixtures to record and bootstrap content and various database data
 - `media_root/` is where user-uploaded files are served from
-- `requirements/`
-  - `[base,dev,prod].txt` lists the `pip` dependencies of this project
+- `requirements.txt` lists the required python packages for this project.
 - `static_root/` is where static files are served from (many of which come from `main_page/static/` and are moved here by `manage.py`'s `collectstatic`)
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
@@ -67,6 +66,24 @@ Django's online documentation has more detail on a project's structure
 ```shell
 python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
 ```
+
+## Deployment Details
+
+- This Django app runs as on a `gunicorn` server on `tap`.
+- The `gunicorn` process is managed by `systemd` and the service file is located at `/etc/systemd/system/csua-backend-gunicorn.service`
+  - This service can be manipulated with `systemctl`
+    - To reload the wsgi app, run `sudo systemctl reload csua-backend-gunicorn`
+- `tap` runs debian 9.8 (stretch), we are using Python 3.5.
+  This may change in the near future, as I (Robert) just installed Python 3.6 from source.
+  This means you cannot use any Python 3.6+ features such as:
+  - formatted string literals (f-strings) (e.g. `print(f"Oh yea yea {globals()}")`)
+  - Underscores in numeric literals (e.g. `69_420_000`)
+  - Typing hints (e.g. `primes: List[int] = []`)
+- The app is behind an Nginx proxy.
+  - Nginx serves the static and media files, homedirs, and forwards all other requests to the app.
+  - <https://github.com/CSUA/services-nginx/blob/master/sites-available/www.csua.berkeley.edu>
+  - `/etc/nginx/sites-available/www.csua.berkeley.edu`
+- `mysqlclient` is installed and necessary for deployment on `tap`
 
 ## LDAP Details
 
