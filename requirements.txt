@@ -1,0 +1,15 @@
+# BASE
+django
+django-markdown-deux
+pillow
+sorl-thumbnail
+python-decouple
+
+# AUTH
+django-python3-ldap
+ldap3
+django-ldapdb
+# SLACK
+requests
+djangorestframework
+slackclient

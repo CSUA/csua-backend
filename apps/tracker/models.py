@@ -1,8 +1,6 @@
 from time import time
 from django.db import models
 
-from apps.ldap_data.utils import uname_to_realname
-
 # Create your models here.
 
 
@@ -27,7 +25,8 @@ class User(models.Model):
 
     @property
     def realname(self):
-        return uname_to_realname(self.username)
+        # TODO: make an LDAP query here and cache the result.
+        return self.username
 
 
 class Computer(models.Model):

@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 import os
 from pathlib import Path
-import ldap
-from django_auth_ldap.config import LDAPSearch, PosixGroupType, LDAPGroupQuery
+
+from decouple import config
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DJANGO_DEBUG", False))
+DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(Path(__file__).parent.parent.parent)
@@ -25,17 +25,8 @@ FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(PROJECT_HOME, "csua.sqlite3"),
-        }
-    }
-    DATABASE_ROUTERS = ["ldapdb.router.Router"]
-else:
-    with open("/etc/secrets/db_pass.secret") as f:
-        DB_PASS = f.read().strip()
+if config("CSUA_BACKEND_USE_MYSQL", cast=bool, default=False):
+    DB_PASS = config("DJANGO_DB_PASS")
 
     DATABASES = {
         "default": {
@@ -54,29 +45,16 @@ else:
             },
         }
     }
-    DATABASE_ROUTERS = ["ldapdb.router.Router"]
-
-ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
-ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_ALLOW)
-
-if DEBUG:
-    # Read-only LDAP connection for now (no auth)
-    DATABASES["ldap"] = {
-        "ENGINE": "ldapdb.backends.ldap",
-        "NAME": "ldaps://tap.csua.berkeley.edu/",
-        "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
-    }
 else:
-    DATABASES["ldap"] = {
-        "ENGINE": "ldapdb.backends.ldap",
-        "NAME": "ldaps://tap.csua.berkeley.edu/",
-        "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
-        # TODO: populate this with some ldap admin dummy user
-        # "USER": "uid=,ou=People,dc=csua,dc=berkeley,dc=edu",
-        # "PASSWORD": "",
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(PROJECT_HOME, "csua.sqlite3"),
+        }
     }
 
-    # Hosts/domain names that are valid for this site; required if DEBUG is False
+
+# Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
     "www.csua.berkeley.edu",
@@ -169,8 +147,8 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 if DEBUG:
     SECRET_KEY = "CSUA)@3zekni&mwis6s031xsru2v&h(y=l89oa4@^&i#lxfoa9p9"
 else:
-    with open("/etc/secrets/secret_key.secret") as f:
-        SECRET_KEY = f.read().strip()
+    SECRET_KEY = config("DJANGO_SECRET_KEY")
+
 
 
 # Password validation
@@ -187,41 +165,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-AUTH_LDAP_SERVER_URI = "ldaps://ldap.csua.berkeley.edu"
-AUTH_LDAP_CONNECTION_OPTIONS = {
-    ldap.OPT_X_TLS_CACERTFILE: "ldap_csua_berkeley_edu_interm.cer",
-    ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_ALLOW,
-}
-AUTH_LDAP_BIND_DN = ""
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "ou=People,dc=csua,dc=berkeley,dc=edu", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
-)
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    "ou=Group,dc=csua,dc=berkeley,dc=edu",
-    ldap.SCOPE_SUBTREE,
-    "(objectClass=posixGroup)",
-)
-AUTH_LDAP_GROUP_TYPE = PosixGroupType()
-
-AUTH_LDAP_USER_ATTR_MAP = {"first_name": "gecos", "last_name": "gecos", "mail": "gecos"}
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_staff": (
-        LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu")
-        | LDAPGroupQuery("cn=excomm,ou=Group,dc=csua,dc=berkeley,dc=edu")
-    ),
-    "is_superuser": LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu"),
-    "is_active": LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu"),
-}
-AUTH_LDAP_ALWAYS_UPDATE_USER = True
-AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
-AUTH_LDAP_MIRROR_GROUPS = True
-AUTHENTICATION_BACKENDS = [
-    "django_auth_ldap.backend.LDAPBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
-LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -280,13 +223,12 @@ INSTALLED_APPS = [
     "apps.newuser",
     "apps.db_data",
     "apps.tracker",
-    "apps.ldap_data",
     "apps.philbot",
     "apps.outreach",
     ## Third-party
-    "ldapdb",
     "markdown_deux",
     "sorl.thumbnail",
+    "django_python3_ldap",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
@@ -335,91 +277,27 @@ LOGGING = {
     },
 }
 
+## SORL-THUMBNAIL CONFIG ##
+THUMBNAIL_DEBUG = DEBUG
+
+## SLACK CONFIG ##
 SLACK_CLIENT_ID = "3311748471.437459179046"
-try:
-    with open("/etc/secrets/slack.txt") as f:
-        SLACK_CLIENT_SECRET = f.readline().strip()
-        SLACK_BOT_USER_TOKEN = f.readline().strip()
-        SLACK_SIGNING_SECRET = f.readline().strip()
-        SLACK_VERIFICATION_TOKEN = f.readline().strip()
-except FileNotFoundError:
-    SLACK_CLIENT_SECRET = ""
-    SLACK_BOT_USER_TOKEN = ""
-    SLACK_SIGNING_SECRET = ""
-    SLACK_VERIFICATION_TOKEN = ""
+SLACK_CLIENT_SECRET = config("SLACK_CLIENT_SECRET", default="")
+SLACK_BOT_USER_TOKEN = config("SLACK_BOT_USER_TOKEN", default="")
+SLACK_SIGNING_SECRET = config("SLACK_SIGNING_SECRET", default="")
+SLACK_VERIFICATION_TOKEN = config("SLACK_VERIFICATION_TOKEN", default="")
 
-## LDAP CONFIG ##
-DATABASE_ROUTERS = ["ldapdb.router.Router"]
-
-ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "ldap_csua_berkeley_edu_interm.cer")
-ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_ALLOW)
-
-DATABASES["ldap"] = {
-    "ENGINE": "ldapdb.backends.ldap",
-    "NAME": "ldaps://tap.csua.berkeley.edu/",
-    "CONNECTION_OPTIONS": {ldap.OPT_X_TLS_DEMAND: True},
+## LDAP_AUTH CONFIG ##
+LDAP_AUTH_URL = "ldaps://ldap.csua.berkeley.edu"
+LDAP_AUTH_USE_TLS = True
+LDAP_AUTH_SEARCH_BASE = "ou=People,dc=csua,dc=berkeley,dc=edu"
+LDAP_AUTH_USER_FIELDS = {
+    "username": "uid"
 }
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        "OPTIONS": {"min_length": 9},
-    },
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-]
-
-AUTH_LDAP_SERVER_URI = "ldaps://ldap.csua.berkeley.edu"
-
-AUTH_LDAP_CONNECTION_OPTIONS = {
-    ldap.OPT_X_TLS_CACERTFILE: "ldap_csua_berkeley_edu_interm.cer",
-    ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_ALLOW,
-}
-
-AUTH_LDAP_BIND_DN = ""
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_BIND_AS_AUTHENTICATING_USER = True
-
-AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "ou=People,dc=csua,dc=berkeley,dc=edu", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
-)
-
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    "ou=Group,dc=csua,dc=berkeley,dc=edu",
-    ldap.SCOPE_SUBTREE,
-    "(objectClass=posixGroup)",
-)
-
-AUTH_LDAP_GROUP_TYPE = PosixGroupType()
-
-AUTH_LDAP_USER_ATTR_MAP = {
-    "first_name": "gecos.split(',')[0].split(' ')[0]",
-    "last_name": "gecos.split(',')[0].split(' ')[1]",
-    "mail": "gecos.split(',')[1]",
-}
-
-IS_ROOT = LDAPGroupQuery("cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu")
-IS_PB = LDAPGroupQuery("cn=excomm,ou=Group,dc=csua,dc=berkeley,dc=edu")
-IS_OFFICER = LDAPGroupQuery("cn=officers,ou=Group,dc=csua,dc=berkeley,dc=edu")
-
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_staff": IS_ROOT | IS_PB,
-    "is_superuser": IS_ROOT,
-    "is_active": IS_ROOT | IS_PB | IS_OFFICER,
-}
-
-AUTH_LDAP_ALWAYS_UPDATE_USER = False
-
-AUTH_LDAP_MIRROR_GROUPS = True
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+LDAP_AUTH_OBJECT_CLASS = "posixAccount"
 
 AUTHENTICATION_BACKENDS = [
-    "django_auth_ldap.backend.LDAPBackend",
+    "django_python3_ldap.auth.LDAPBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
-
-LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
-
-THUMBNAIL_DEBUG = DEBUG

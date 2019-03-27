@@ -6,19 +6,15 @@ A backend for the CSUA interblags.
 ## Installation
 
 1. Install Python 3
-2. Install Django and dependencies with `pip3 install --user -r requirements/dev.txt`
-3. Set up local db with `python3 manage.py --debug migrate`
-4. Run server with `python3 manage.py --debug runserver`
-5. Navigate web browser to http://127.0.0.1:8000/
+2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
+3. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
+4. Set up local db with `python3 manage.py migrate`
+5. Run server with `python3 manage.py runserver`
+6. Navigate web browser to http://127.0.0.1:8000/
 
-If you want to visit the admin page at http://127.0.0.1:8000/admin/
+- If you want to visit the admin page at http://127.0.0.1:8000/admin/
 
 7. Create admin user with `python3 manage.py createsuperuser`
-
-## Debian install instructions
-
-- Install Python 3.5 in a venv
-- Install libldap and libsasl
 
 ## Deploy a new change to git
 
@@ -36,11 +32,11 @@ If you want to visit the admin page at http://127.0.0.1:8000/admin/
 4. Commit and push your changes to `models.py` as well as generated `migrations/`
 5. Pull latest changes on remote machine
 6. `python3 manage.py migrate` on remote machine to update database with latest models
-7. Run `sudo systemctl reload apache2` on the remote machine so the changes take effect
+7. Run `sudo systemctl reload csua-backend-gunicorn` on the remote machine so the changes take effect
 
 ## Editing/Creating/Deleting Officers
 
-Go to https://www.csua.berkeley.edu:8080/admin/ to edit officer data!
+Go to https://www.csua.berkeley.edu/admin/ to edit officer data!
 
 ## Repo structure
 
@@ -58,8 +54,6 @@ Django's online documentation has more detail on a project's structure
   	- `tests.py` has unit tests to test the apps functionality
   	- `urls.py` says what URLs route to which views
   	- `views.py` has functions that serve a "view" (webpage)
-- `deploy/`
-  - `deploy.yml` is an ansible configuration for deploying the website
 - `fixtures/` contains database fixtures to record and bootstrap content and various database data
 - `media_root/` is where user-uploaded files are served from
 - `requirements/`
@@ -68,34 +62,10 @@ Django's online documentation has more detail on a project's structure
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
 
-## Repo branch structure
-
-To facilitate forks and parallel development, this is the branching model we use.
-
-``` 
-      csua/master, fork/master
-     /
-A---B---C---E---G---I---K-csua/dev, fork/dev
-         \       \     / <- Accepted pull request
-          D---F---H---J-fork/feature(, possibly csua/feature)
-```
-
-All work is done on the `dev` branch, and when it is ready to be deployed, the `master` will merge in `dev`.
-The `master` branch on `CSUA/CSUA-backend` is the version that is in production.
-
-### Your feature branch
-
-The recommended way is to develop on a feature branch in your fork, then make a pull request to `dev` or the feature branch if it exists. Use `git pull upstream dev` to make sure you are using the latest changes to `dev` and your pull request doesn't fail due to merge conflicts.
-
-### Your dev branch
-
-Some commits may not warrant a feature branch and may go directly to `dev`. If you are working directly on your fork of `dev`, it is a good idea to `git pull upstream dev` often to make sure nothing breaks.
-
 ## Dumping database data into json:
 
 ```shell
 python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
-python3 manage.py dumpdata fiber > fixtures/$(date +fiber-%m%d%y.json)
 ```
 
 ## LDAP Details
