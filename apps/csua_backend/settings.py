@@ -274,11 +274,17 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": True,
         },
+        "django.db.backends": {
+            "level": config("DJANGO_DB_DEBUG_LOG", default="ERROR"),
+            "handlers": ["console"],
+        },
     },
 }
 
 ## SORL-THUMBNAIL CONFIG ##
 THUMBNAIL_DEBUG = DEBUG
+THUMBNAIL_BACKEND = "apps.csua_backend.thumbnail_backends.SEOThumbnailBackend"
+THUMBNAIL_PREFIX = "images"
 
 ## SLACK CONFIG ##
 SLACK_CLIENT_ID = "3311748471.437459179046"
