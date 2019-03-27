@@ -150,7 +150,6 @@ else:
     SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -254,7 +253,10 @@ EMAIL_PORT = 25
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
+    },
     "handlers": {
         "file": {
             "level": "DEBUG",
@@ -265,6 +267,11 @@ LOGGING = {
             "level": "ERROR",
             "class": "logging.FileHandler",
             "filename": os.path.join(BASE_DIR, "error.log"),
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "filters": ["require_debug_true"],
         },
     },
     "loggers": {
@@ -297,9 +304,7 @@ SLACK_VERIFICATION_TOKEN = config("SLACK_VERIFICATION_TOKEN", default="")
 LDAP_AUTH_URL = "ldaps://ldap.csua.berkeley.edu"
 LDAP_AUTH_USE_TLS = True
 LDAP_AUTH_SEARCH_BASE = "ou=People,dc=csua,dc=berkeley,dc=edu"
-LDAP_AUTH_USER_FIELDS = {
-    "username": "uid"
-}
+LDAP_AUTH_USER_FIELDS = {"username": "uid"}
 LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
 LDAP_AUTH_OBJECT_CLASS = "posixAccount"
 
