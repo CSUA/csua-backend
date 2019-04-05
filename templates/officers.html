@@ -118,6 +118,11 @@
         <strong>
           {{ officer.first_name }} {{ officer.last_name }}
         </strong>
+        {% if officer.is_anniversary %}
+            <span class="icon">
+              <i class="fas fa-birthday-cake"></i>
+            </span>
+            {% endif %}
         <br>
         <a href="#office-hours">
           OH: {{ officer.office_hours }}
