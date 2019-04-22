@@ -15,10 +15,7 @@ urlpatterns = [
     path("alumni/", TemplateView.as_view(template_name="alumni.html")),
     path("login/", LoginView.as_view(template_name="registration/login.html")),
     path("logout/", LogoutView.as_view()),
-    path("hackathon14/", views.hackathon14),
-    path("hackathonsp15/", views.hackathonsp15),
-    path("hackathonfa15/", views.hackathonfa15),
-    path("hackathonsp16/", views.hackathonsp16),
-    path("hackathonfa16/", views.hackathonfa16),
+    path("profile/", views.profile),
+    path("profile/<username>/", views.profile),
     path("404/", TemplateView.as_view(template_name="404.html")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
