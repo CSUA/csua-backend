@@ -4,8 +4,8 @@
 <section class="section">
   <div class="container">
     <div class="content">
-      <p>Log in here</p>
-      <form method="post">
+      <h1>Log in</h1>
+      <form method="post" {% if next %} action="?next={{next}}" {% endif %}>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Login</button>

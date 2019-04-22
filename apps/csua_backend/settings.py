@@ -288,6 +288,9 @@ LOGGING = {
     },
 }
 
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
 ## SORL-THUMBNAIL CONFIG ##
 THUMBNAIL_DEBUG = DEBUG
 THUMBNAIL_BACKEND = "apps.csua_backend.thumbnail_backends.SEOThumbnailBackend"
