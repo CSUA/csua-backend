@@ -8,7 +8,6 @@ python-decouple
 # AUTH
 django-python3-ldap
 ldap3
-django-ldapdb
 # SLACK
 requests
 djangorestframework
