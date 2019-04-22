@@ -346,6 +346,7 @@ def clean_ldap_user_data(fields):
         "last_name": last_name,
         "email": email,
         "is_staff": is_staff,
+        "is_superuser": is_staff,
     }
 
 AUTHENTICATION_BACKENDS = [
