@@ -72,3 +72,4 @@ data/
 
 deploy/remote_user.txt
 my_csua_username.txt
+.env

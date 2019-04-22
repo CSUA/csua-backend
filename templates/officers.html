@@ -94,7 +94,7 @@
 <div class="roster columns is-multiline roster">
   {% for officer in officer_list|dictsort:"first_name" %}
   <article class="column is-3" id="{{ officer.first_name }}{{ officer.last_name }}">
-    <div class="" data-balloon="{{officer.officer_since}}" data-balloon-pos="up">
+    <div data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up">
       <div class="photo-frame">
         {% if not officer.photo2 %}
         <figure class="single has-text-centered">
@@ -118,6 +118,11 @@
         <strong>
           {{ officer.first_name }} {{ officer.last_name }}
         </strong>
+        {% if officer.is_anniversary %}
+            <span class="icon">
+              <i class="fas fa-birthday-cake"></i>
+            </span>
+            {% endif %}
         <br>
         <a href="#office-hours">
           OH: {{ officer.office_hours }}

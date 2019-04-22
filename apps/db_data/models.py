@@ -30,6 +30,11 @@ class Officer(models.Model):
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+    @property
+    def is_anniversary(self):
+        today = datetime.date.today()
+        return self.officer_since.month == today.month and self.officer_since.day == today.day
+
 
 class Politburo(models.Model):
     position = models.CharField(max_length=30)

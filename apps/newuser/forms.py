@@ -1,8 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from apps.ldap_data.models import LdapUser, LdapGroup
-
 usernameWhitelist = set(".-_")
 
 
@@ -14,10 +12,8 @@ def validate_username_chars(value):
 
 
 def validate_username_in_use(value):
-    if LdapUser.objects.filter(username=value).exists():
-        raise ValidationError("Username already taken")
-    if LdapGroup.objects.filter(name=value).exists():
-        raise ValidationError("Username already taken")
+    # TODO: check if username is in use by making a simple ldap query.
+    pass
 
 
 class NewUserForm(forms.Form):

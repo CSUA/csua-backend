@@ -3,38 +3,37 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 
+from ldap3 import Connection
+from ldap3.utils.conv import escape_filter_chars
 
-def index(request):
-    return render(request, "index.html")
-
-
-def login(request):
-    return render(request, "login.html")
+LDAP_URL = "ldaps://ldap.csua.berkeley.edu"
 
 
-def workshops(request):
-    return render(request, "workshops.html")
+def profile(request, username=None):
+	if not username:
+		if request.user.is_authenticated:
+			username = request.user.username
+		else:
+			raise Http404("No such user!")
+	with Connection(LDAP_URL) as c:
+		c.search(
+			"ou=People,dc=csua,dc=berkeley,dc=edu",
+			"(uid={})".format(escape_filter_chars(username)),
+			attributes="gecos"
+		)
+		if len(c.entries) == 0:
+			raise Http404("No such user!")
 
+		realname = str(c.entries[0].gecos).split(",", 1)[0]
+		c.search(
+			"ou=Group,dc=csua,dc=berkeley,dc=edu",
+			"(memberUid={})".format(escape_filter_chars(username)),
+			attributes="cn"
+		)
+		groups = [str(entry.cn) for entry in c.entries]
 
-def hackathon13(request):
-    return render(request, "hackathonfa13.html")
-
-
-def hackathon14(request):
-    return render(request, "hackathonfa14.html")
-
-
-def hackathonsp15(request):
-    return render(request, "hackathonsp15.html")
-
-
-def hackathonfa15(request):
-    return render(request, "index.html")
-
-
-def hackathonsp16(request):
-    return render(request, "hackathonsp16.html")
-
-
-def hackathonfa16(request):
-    return render(request, "hackathonfa16.html")
+	return render(
+		request,
+		"profile.html", 
+		{"username": username, "groups": groups, "realname": realname}
+	)

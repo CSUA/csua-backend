@@ -2,35 +2,54 @@
 {% block title %}Create Account{% endblock %}
 {% block css_file %}newuser.css{% endblock %}
 {% block content %}
-<div class="box content" id="top">
-	<h1>Create Account</h1>
+<div class="container">
+    <div class="box content" id="top">
+        <h1>Create Account</h1>
 
-	Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our computers and use of our servers.  In order to use our servers, ssh into soda.berkeley.edu and enter the username and password you are creating below. <br/><br/>Passwords must be at least nine characters long and contain characters from at least two of the following three categories: <ul>
-		<li>Alphabetical</li>
-		<li>Numerical</li>
-		<li>Punctuation/Other</li> </ul>
-</div>
-<form class="box" action="/newuser/" method="post">
-	{% csrf_token %}
-	<table>
-		{{ form.as_table }}
-	</table>
-	<input type="submit" value="Submit" />
-</form>
-<div class="box content">
-<b>CSUA Office Rules are as follows:</b>
-<ol>
-	<li>Do not violate the law or University policy</li>
-	<li>Be courteous to your peers</li>
-	<li><b>Keep yourself, your surroundings, and the office clean</b></li>
-	<li>Respect office equipment - put away equipment in designated bins</li>
-	<li>Business hours are from 10 AM to 7 PM
-		<br /><b>Video gaming and full screen videos are not permitted</b></li>
-	<li>Keep noise pollution to a minimum (use headphones, and other measures)</li>
-	<li>Sleeping in the office is not permitted</li>
-	<li>Be courteous to others who wish to use the computers
-		<br /><b>Limit usage to 2 hours during busy periods</b></li>
-	<!-- <li>During business hours (weekdays 10AM-7PM), the office should be a productive, inclusive workspace. Video gaming is not permitted during these hours.  </li> -->
-</ol>
+        <p>
+            Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our computers and use of our servers.  In order to use our servers, ssh into soda.berkeley.edu and enter the username and password you are creating below.
+        </p>
+        <p>
+            Passwords must be at least nine characters long and contain characters from at least two of the following three categories:
+            <ul>
+                <li>Alphabetical</li>
+                <li>Numerical</li>
+                <li>Punctuation/Other</li>
+            </ul>
+        </p>
+    </div>
+    {% if messages %}
+    <div class="notification is-danger">
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="box">
+        <form action="/newuser/" method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+    <div class="box content">
+        <b>CSUA Office Rules are as follows:</b>
+        <ol>
+            <li>Do not violate the law or University policy</li>
+            <li>Be courteous to your peers</li>
+            <li><b>Keep yourself, your surroundings, and the office clean</b></li>
+            <li>Respect office equipment - put away equipment in designated bins</li>
+            <li>Business hours are from 10 AM to 7 PM
+                <br><b>Video gaming and full screen videos are not permitted</b></li>
+            <li>Keep noise pollution to a minimum (use headphones, and other measures)</li>
+            <li>Sleeping in the office is not permitted</li>
+            <li>Be courteous to others who wish to use the computers
+                <br><b>Limit usage to 2 hours during busy periods</b></li>
+        </ol>
+    </div>
 </div>
 {% endblock %}

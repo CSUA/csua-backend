@@ -16,68 +16,52 @@ def index(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
-            if ldap_bindings.ValidateOfficer(
-                form.cleaned_data["officer_username"],
-                form.cleaned_data["officer_password"],
-            ):
-                enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
-                status, uid = ldap_bindings.NewUser(
-                    form.cleaned_data["username"],
-                    form.cleaned_data["full_name"],
-                    form.cleaned_data["email"],
-                    form.cleaned_data["student_id"],
-                    form.cleaned_data["password"],
-                )
-                print("UID:{0}".format(uid))
-                if not status:
-                    return render(
-                        request,
-                        "create_failure.html",
-                        {"error": "Your username is already taken."},
+            if valid_password(form.cleaned_data["password"]):
+                if ldap_bindings.validate_officer(
+                    form.cleaned_data["officer_username"],
+                    form.cleaned_data["officer_password"],
+                ):
+                    enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
+                    success, uid = ldap_bindings.create_new_user(
+                        form.cleaned_data["username"],
+                        form.cleaned_data["full_name"],
+                        form.cleaned_data["email"],
+                        form.cleaned_data["student_id"],
+                        form.cleaned_data["password"],
                     )
-                else:
-                    system(
-                        "sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(
-                            form.cleaned_data["username"],
-                            form.cleaned_data["email"],
-                            uid,
-                            form.cleaned_data["enroll_jobs"],
+                    print("UID:{0}".format(uid))
+                    if success:
+                        exit_code = system(
+                            "sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(
+                                form.cleaned_data["username"],
+                                form.cleaned_data["email"],
+                                uid,
+                                form.cleaned_data["enroll_jobs"],
+                            )
                         )
-                    )
-                    return render(request, "create_success.html")
+                        if exit_code == 0:
+                            return render(request, "create_success.html")
+                        else:
+                            messages.error(request, "Account created, but failed to run config_newuser. Please contact #website for assistance.")
+                            # TODO: delete user to roll back the newuser operation.
+                    else:
+                        if uid == -1:
+                            messages.error(request, "Internal error, failed to bind as newuser. Please report this to #website.")
+                        else:
+                            messages.error(request, "Your username is already taken.")
+                else:
+                    messages.error(request, "Incorrect officer credentials.")
             else:
-                messages.error()
+                messages.error(request, "Password must be meet requirements.")
         else:
-            return render(request, "newuser.html", {"form": form})
+            messages.error(request, "Form is invalid.")
     else:
         form = NewUserForm()
 
     return render(request, "newuser.html", {"form": form})
 
 
-def validUsername(username):
-    """
-  This helper function takes in a string (the username) and checks if it has whitelisted characters. 
-  If there's a character that is not whitelisted, it is not a valid username. In other words, the 
-  username must be composed of whitelisted characters. 
-  """
-    for character in username:
-        if not character.isalnum() and character not in usernameWhitelist:
-            return False
-    return True
-
-
-def validEmail(email):
-    """
-  Similar to validUsername, but for emails!
-  """
-    for character in email:
-        if not character.isalnum() and character not in emailWhitelist:
-            return False
-    return True
-
-
-def validPassword(password):
+def valid_password(password):
     """
   The password must be at least nine characters long. Also, it must include characters from 
   two of the three following categories:
