@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 
 from decouple import config
+import ldap3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
@@ -307,9 +308,45 @@ SLACK_VERIFICATION_TOKEN = config("SLACK_VERIFICATION_TOKEN", default="")
 LDAP_AUTH_URL = "ldaps://ldap.csua.berkeley.edu"
 LDAP_AUTH_USE_TLS = True
 LDAP_AUTH_SEARCH_BASE = "ou=People,dc=csua,dc=berkeley,dc=edu"
-LDAP_AUTH_USER_FIELDS = {"username": "uid"}
+LDAP_AUTH_USER_FIELDS = {"username": "uid", "gecos": "gecos"}
 LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
 LDAP_AUTH_OBJECT_CLASS = "posixAccount"
+LDAP_AUTH_CLEAN_USER_DATA = "apps.csua_backend.settings.clean_ldap_user_data"
+
+STAFF_GROUPS = ("excomm", "root")
+def clean_ldap_user_data(fields):
+    """
+    Path to a callable that takes a dict of {model_field_name: value}, returning a dict of clean model data.
+    Use this to customize how data loaded from LDAP is saved to the User model.
+    See django-python3-ldap docs for more info.
+    """
+    if "gecos" in fields:
+        gecos = fields["gecos"].split(",")
+        name = gecos[0].split(" ", 1)
+        if len(name) == 1:
+            first_name, last_name = name[0], ""
+        else:
+            first_name, last_name = name
+        if len(gecos) > 1:
+            email = gecos[1]
+        else:
+            email = ""
+    else:
+        first_name, last_name, email = "", "", ""
+
+    with ldap3.Connection("ldaps://ldap.csua.berkeley.edu") as c:
+        c.search("ou=Group,dc=csua,dc=berkeley,dc=edu", "(memberUid={})".format(fields["username"]), attributes="cn")
+        groups = [str(group.cn) for group in c.entries]
+
+    is_staff = any(staff_group in groups for staff_group in STAFF_GROUPS)
+
+    return {
+        "username": fields["username"],
+        "first_name": first_name,
+        "last_name": last_name,
+        "email": email,
+        "is_staff": is_staff,
+    }
 
 AUTHENTICATION_BACKENDS = [
     "django_python3_ldap.auth.LDAPBackend",
