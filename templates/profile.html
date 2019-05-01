@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Profile: {{ username }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="content container">
+    <h2>{{ username }}</h2>
+
+    <h2>{{ realname }}</h2>
+
+    <ul>
+      {% for group in groups %}
+      <li>{{ group }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
+{# vim:set sw=2:et:ts=4 #}
