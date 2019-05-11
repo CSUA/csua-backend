@@ -233,7 +233,6 @@ INSTALLED_APPS = [
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
 
-
 ADMINS = (("Robert Quitt", "robertq@csua.berkeley.edu"),)
 
 MANAGERS = ADMINS
@@ -246,6 +245,8 @@ EMAIL_HOST = "mail.csua.berkeley.edu"
 
 EMAIL_PORT = 25
 
+EMAIL_USE_TLS = True
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -254,32 +255,25 @@ EMAIL_PORT = 25
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {
-        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
-        "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
-    },
+#     "filters": {
+#         "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+#         "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
+#     },
     "handlers": {
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, "server.log"),
-        },
-        "errorfile": {
+        "mail_admins": {
             "level": "ERROR",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, "error.log"),
+            "class": "django.utils.log.AdminEmailHandler",
         },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
-            "filters": ["require_debug_true"],
         },
     },
     "loggers": {
-        "django.request": {"handlers": ["file"], "level": "ERROR", "propagate": True},
+        "django.request": {"handlers": ["mail_admins"], "level": "ERROR", "propagate": True},
         "django.security.csrf": {
-            "handlers": ["file"],
-            "level": "DEBUG",
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
             "propagate": True,
         },
         "django.db.backends": {
