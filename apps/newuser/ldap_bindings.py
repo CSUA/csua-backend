@@ -35,7 +35,7 @@ def create_new_user(username, name, email, sid, password):
     with Connection(LDAP_SERVER_URL, user=NEWUSER_DN, password=NEWUSER_PW) as c:
         if c.bind():
             dn = "uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
-            uid = get_max_uid()
+            uid = get_max_uid() + 1
             attrs = {
                 "uid": username,
                 "objectclass": ["account", "posixaccount", "top", "shadowaccount"],
