@@ -1,0 +1,5484 @@
+{
+  "entries": [
+    {
+      "dn": "dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "dc": "csua",
+        "o": [
+          "CSUA"
+        ],
+        "objectClass": [
+          "top",
+          "dcObject",
+          "organization"
+        ]
+      },
+      "raw": {
+        "dc": [
+          "csua"
+        ],
+        "o": [
+          "CSUA"
+        ],
+        "objectClass": [
+          "top",
+          "dcObject",
+          "organization"
+        ]
+      }
+    },
+    {
+      "dn": "cn=admin,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "admin"
+        ],
+        "description": [
+          "LDAP administrator"
+        ],
+        "objectClass": [
+          "simpleSecurityObject",
+          "organizationalRole"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "admin"
+        ],
+        "description": [
+          "LDAP administrator"
+        ],
+        "objectClass": [
+          "simpleSecurityObject",
+          "organizationalRole"
+        ]
+      }
+    },
+    {
+      "dn": "cn=root,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "root"
+        ],
+        "objectClass": [
+          "simpleSecurityObject",
+          "organizationalRole"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "root"
+        ],
+        "objectClass": [
+          "simpleSecurityObject",
+          "organizationalRole"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Hosts"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Hosts"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Rpc"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Rpc"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Services,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Services"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Services"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Mounts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Mounts"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Mounts"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Networks,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Networks"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Networks"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=People,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "People"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "People"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Group"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Group"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Netgroup,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Netgroup"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Netgroup"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Protocols"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Protocols"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Aliases,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Aliases"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Aliases"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "cn=www-data,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "brandon92",
+          "collin38",
+          "hinerz",
+          "mark64",
+          "robertq",
+          "root",
+          "sarahjkim",
+          "wylliec"
+        ],
+        "gidNumber": 33,
+        "cn": [
+          "www-data"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "brandon92",
+          "collin38",
+          "hinerz",
+          "mark64",
+          "robertq",
+          "root",
+          "sarahjkim",
+          "wylliec"
+        ],
+        "gidNumber": [
+          "33"
+        ],
+        "cn": [
+          "www-data"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=irc,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "gidNumber": 39,
+        "cn": [
+          "irc"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "gidNumber": [
+          "39"
+        ],
+        "cn": [
+          "irc"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=gnats,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "gidNumber": 41,
+        "cn": [
+          "gnats"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "gidNumber": [
+          "41"
+        ],
+        "cn": [
+          "gnats"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=csua,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "hoser",
+          "root"
+        ],
+        "gidNumber": 1000,
+        "cn": [
+          "csua"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "hoser",
+          "root"
+        ],
+        "gidNumber": [
+          "1000"
+        ],
+        "cn": [
+          "csua"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=excomm,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "bchen",
+          "bill.cao",
+          "catherinecang",
+          "domath",
+          "externalhardrive",
+          "jesskuo",
+          "jonathanjtan",
+          "mark64",
+          "meganz",
+          "nlingarkar",
+          "pinbat",
+          "robertq",
+          "samsafadi",
+          "sqwen",
+          "stevel",
+          "userans22",
+          "waywan",
+          "wylliec"
+        ],
+        "gidNumber": 1001,
+        "cn": [
+          "excomm"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "bchen",
+          "bill.cao",
+          "catherinecang",
+          "domath",
+          "externalhardrive",
+          "jesskuo",
+          "jonathanjtan",
+          "mark64",
+          "meganz",
+          "nlingarkar",
+          "pinbat",
+          "robertq",
+          "samsafadi",
+          "sqwen",
+          "stevel",
+          "userans22",
+          "waywan",
+          "wylliec"
+        ],
+        "gidNumber": [
+          "1001"
+        ],
+        "cn": [
+          "excomm"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=contrib,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "alanc",
+          "android",
+          "aspolito",
+          "ausman",
+          "brain",
+          "brett",
+          "brg",
+          "cmlee",
+          "danh",
+          "darch",
+          "dbushong",
+          "dpassage",
+          "dpetrou",
+          "eric",
+          "geordan",
+          "ilyas",
+          "john",
+          "jon",
+          "jones",
+          "jwang",
+          "jwm",
+          "lila",
+          "mconst",
+          "mehlhaff",
+          "michener",
+          "mikeh",
+          "nevman",
+          "njh",
+          "peterm",
+          "pld",
+          "prole",
+          "psb",
+          "randal",
+          "raytrace",
+          "root",
+          "sameer",
+          "scotsman",
+          "seidl",
+          "sheikh",
+          "smurf",
+          "tmonroe",
+          "tom",
+          "tonytung",
+          "twaung"
+        ],
+        "gidNumber": 1002,
+        "cn": [
+          "contrib"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "alanc",
+          "android",
+          "aspolito",
+          "ausman",
+          "brain",
+          "brett",
+          "brg",
+          "cmlee",
+          "danh",
+          "darch",
+          "dbushong",
+          "dpassage",
+          "dpetrou",
+          "eric",
+          "geordan",
+          "ilyas",
+          "john",
+          "jon",
+          "jones",
+          "jwang",
+          "jwm",
+          "lila",
+          "mconst",
+          "mehlhaff",
+          "michener",
+          "mikeh",
+          "nevman",
+          "njh",
+          "peterm",
+          "pld",
+          "prole",
+          "psb",
+          "randal",
+          "raytrace",
+          "root",
+          "sameer",
+          "scotsman",
+          "seidl",
+          "sheikh",
+          "smurf",
+          "tmonroe",
+          "tom",
+          "tonytung",
+          "twaung"
+        ],
+        "gidNumber": [
+          "1002"
+        ],
+        "cn": [
+          "contrib"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=www,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "bordicon",
+          "jmah",
+          "steven",
+          "stevenk",
+          "vaheder"
+        ],
+        "gidNumber": 1004,
+        "cn": [
+          "www"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "bordicon",
+          "jmah",
+          "steven",
+          "stevenk",
+          "vaheder"
+        ],
+        "gidNumber": [
+          "1004"
+        ],
+        "cn": [
+          "www"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=aliases,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "ajani",
+          "brett",
+          "jon",
+          "jvarga",
+          "majordom",
+          "michener",
+          "mikeh",
+          "mrauser",
+          "njh",
+          "scotsman",
+          "smmsp",
+          "twohey"
+        ],
+        "gidNumber": 1005,
+        "cn": [
+          "aliases"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "ajani",
+          "brett",
+          "jon",
+          "jvarga",
+          "majordom",
+          "michener",
+          "mikeh",
+          "mrauser",
+          "njh",
+          "scotsman",
+          "smmsp",
+          "twohey"
+        ],
+        "gidNumber": [
+          "1005"
+        ],
+        "cn": [
+          "aliases"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=cypher-p,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "hughes",
+          "iang",
+          "raph",
+          "sameer"
+        ],
+        "gidNumber": 1006,
+        "cn": [
+          "cypher-p"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "hughes",
+          "iang",
+          "raph",
+          "sameer"
+        ],
+        "gidNumber": [
+          "1006"
+        ],
+        "cn": [
+          "cypher-p"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=motd,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "ajani",
+          "alanc",
+          "brg",
+          "chialea",
+          "danh",
+          "debbie",
+          "galen",
+          "helper",
+          "jhs",
+          "jon",
+          "jvarga",
+          "lila",
+          "mikeh",
+          "mrauser",
+          "njh",
+          "prole",
+          "saarp",
+          "scotsman",
+          "tmonroe",
+          "twohey"
+        ],
+        "gidNumber": 1023,
+        "cn": [
+          "motd"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "ajani",
+          "alanc",
+          "brg",
+          "chialea",
+          "danh",
+          "debbie",
+          "galen",
+          "helper",
+          "jhs",
+          "jon",
+          "jvarga",
+          "lila",
+          "mikeh",
+          "mrauser",
+          "njh",
+          "prole",
+          "saarp",
+          "scotsman",
+          "tmonroe",
+          "twohey"
+        ],
+        "gidNumber": [
+          "1023"
+        ],
+        "cn": [
+          "motd"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=helper,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "brg",
+          "chaos",
+          "dans",
+          "jon",
+          "jones",
+          "mconst",
+          "mikeh",
+          "prole",
+          "reeser",
+          "twohey"
+        ],
+        "gidNumber": 1123,
+        "cn": [
+          "helper"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "brg",
+          "chaos",
+          "dans",
+          "jon",
+          "jones",
+          "mconst",
+          "mikeh",
+          "prole",
+          "reeser",
+          "twohey"
+        ],
+        "gidNumber": [
+          "1123"
+        ],
+        "cn": [
+          "helper"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=wwwdir,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "alanc",
+          "jon",
+          "kenji",
+          "marc",
+          "norby"
+        ],
+        "gidNumber": 2001,
+        "cn": [
+          "wwwdir"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "alanc",
+          "jon",
+          "kenji",
+          "marc",
+          "norby"
+        ],
+        "gidNumber": [
+          "2001"
+        ],
+        "cn": [
+          "wwwdir"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=nwrite,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "aaron",
+          "alanc",
+          "marco"
+        ],
+        "gidNumber": 2002,
+        "cn": [
+          "nwrite"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "aaron",
+          "alanc",
+          "marco"
+        ],
+        "gidNumber": [
+          "2002"
+        ],
+        "cn": [
+          "nwrite"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=gimp,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "petm",
+          "spencer"
+        ],
+        "gidNumber": 2003,
+        "cn": [
+          "gimp"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "petm",
+          "spencer"
+        ],
+        "gidNumber": [
+          "2003"
+        ],
+        "cn": [
+          "gimp"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ftp,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "jwang",
+          "sowings"
+        ],
+        "gidNumber": 2100,
+        "cn": [
+          "ftp"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "jwang",
+          "sowings"
+        ],
+        "gidNumber": [
+          "2100"
+        ],
+        "cn": [
+          "ftp"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=hobag,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "kane",
+          "lila"
+        ],
+        "gidNumber": 2982,
+        "cn": [
+          "hobag"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "kane",
+          "lila"
+        ],
+        "gidNumber": [
+          "2982"
+        ],
+        "cn": [
+          "hobag"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=mentors,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "mrauser"
+        ],
+        "gidNumber": 3003,
+        "cn": [
+          "mentors"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "mrauser"
+        ],
+        "gidNumber": [
+          "3003"
+        ],
+        "cn": [
+          "mentors"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=sheep,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "brg",
+          "chaos",
+          "chucky",
+          "dbushong",
+          "debbie",
+          "galen",
+          "geordan",
+          "ilyas",
+          "jon",
+          "jones",
+          "kane",
+          "lila",
+          "mconst",
+          "mikeh",
+          "nevman",
+          "peterm",
+          "reeser",
+          "scotsman",
+          "tmonroe",
+          "twohey"
+        ],
+        "gidNumber": 5433,
+        "cn": [
+          "sheep"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "brg",
+          "chaos",
+          "chucky",
+          "dbushong",
+          "debbie",
+          "galen",
+          "geordan",
+          "ilyas",
+          "jon",
+          "jones",
+          "kane",
+          "lila",
+          "mconst",
+          "mikeh",
+          "nevman",
+          "peterm",
+          "reeser",
+          "scotsman",
+          "tmonroe",
+          "twohey"
+        ],
+        "gidNumber": [
+          "5433"
+        ],
+        "cn": [
+          "sheep"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=elite,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "aaron",
+          "ausman",
+          "danh",
+          "dennisc",
+          "dpetrou",
+          "pld",
+          "raytrace"
+        ],
+        "gidNumber": 31337,
+        "cn": [
+          "elite"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "aaron",
+          "ausman",
+          "danh",
+          "dennisc",
+          "dpetrou",
+          "pld",
+          "raytrace"
+        ],
+        "gidNumber": [
+          "31337"
+        ],
+        "cn": [
+          "elite"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=csrg,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "brg",
+          "bz",
+          "dans",
+          "jon",
+          "jones",
+          "mconst",
+          "mikeh",
+          "prole",
+          "schoen"
+        ],
+        "gidNumber": 2112,
+        "cn": [
+          "csrg"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "brg",
+          "bz",
+          "dans",
+          "jon",
+          "jones",
+          "mconst",
+          "mikeh",
+          "prole",
+          "schoen"
+        ],
+        "gidNumber": [
+          "2112"
+        ],
+        "cn": [
+          "csrg"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=publicity,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "ajaffe",
+          "chialea",
+          "darin",
+          "das",
+          "galen",
+          "jspiegel",
+          "nksingh",
+          "prole",
+          "twohey"
+        ],
+        "gidNumber": 2469,
+        "cn": [
+          "publicity"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "ajaffe",
+          "chialea",
+          "darin",
+          "das",
+          "galen",
+          "jspiegel",
+          "nksingh",
+          "prole",
+          "twohey"
+        ],
+        "gidNumber": [
+          "2469"
+        ],
+        "cn": [
+          "publicity"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=saturday,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "appel",
+          "davepick",
+          "dsweet",
+          "dwoo",
+          "jahn",
+          "kube"
+        ],
+        "gidNumber": 3004,
+        "cn": [
+          "saturday"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "appel",
+          "davepick",
+          "dsweet",
+          "dwoo",
+          "jahn",
+          "kube"
+        ],
+        "gidNumber": [
+          "3004"
+        ],
+        "cn": [
+          "saturday"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=localhost,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "127.0.0.1"
+        ],
+        "cn": [
+          "localhost"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "127.0.0.1"
+        ],
+        "cn": [
+          "localhost"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip6-localhost,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "::1"
+        ],
+        "cn": [
+          "ip6-localhost",
+          "ip6-loopback"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "::1"
+        ],
+        "cn": [
+          "ip6-localhost",
+          "ip6-loopback"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip6-localnet,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "fe00::0"
+        ],
+        "cn": [
+          "ip6-localnet"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "fe00::0"
+        ],
+        "cn": [
+          "ip6-localnet"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip6-mcastprefix,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "ff00::0"
+        ],
+        "cn": [
+          "ip6-mcastprefix"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "ff00::0"
+        ],
+        "cn": [
+          "ip6-mcastprefix"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip6-allnodes,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "ff02::1"
+        ],
+        "cn": [
+          "ip6-allnodes"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "ff02::1"
+        ],
+        "cn": [
+          "ip6-allnodes"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip6-allrouters,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "ff02::2"
+        ],
+        "cn": [
+          "ip6-allrouters"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "ff02::2"
+        ],
+        "cn": [
+          "ip6-allrouters"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip6-allhosts,ou=Hosts,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipHostNumber": [
+          "ff02::3"
+        ],
+        "cn": [
+          "ip6-allhosts"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      },
+      "raw": {
+        "ipHostNumber": [
+          "ff02::3"
+        ],
+        "cn": [
+          "ip6-allhosts"
+        ],
+        "objectClass": [
+          "top",
+          "ipHost",
+          "device"
+        ]
+      }
+    },
+    {
+      "dn": "cn=default,ou=Networks,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipNetworkNumber": "0.0.0.0",
+        "cn": [
+          "default"
+        ],
+        "objectClass": [
+          "ipNetwork",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipNetworkNumber": [
+          "0.0.0.0"
+        ],
+        "cn": [
+          "default"
+        ],
+        "objectClass": [
+          "ipNetwork",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=loopback,ou=Networks,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipNetworkNumber": "127.0.0.0",
+        "cn": [
+          "loopback"
+        ],
+        "objectClass": [
+          "ipNetwork",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipNetworkNumber": [
+          "127.0.0.0"
+        ],
+        "cn": [
+          "loopback"
+        ],
+        "objectClass": [
+          "ipNetwork",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=link-local,ou=Networks,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipNetworkNumber": "169.254.0.0",
+        "cn": [
+          "link-local"
+        ],
+        "objectClass": [
+          "ipNetwork",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipNetworkNumber": [
+          "169.254.0.0"
+        ],
+        "cn": [
+          "link-local"
+        ],
+        "objectClass": [
+          "ipNetwork",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ip,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ip"
+        ],
+        "ipProtocolNumber": 0,
+        "description": [
+          "Protocol ip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ip"
+        ],
+        "ipProtocolNumber": [
+          "0"
+        ],
+        "description": [
+          "Protocol ip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=icmp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "icmp"
+        ],
+        "ipProtocolNumber": 1,
+        "description": [
+          "Protocol icmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "icmp"
+        ],
+        "ipProtocolNumber": [
+          "1"
+        ],
+        "description": [
+          "Protocol icmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=igmp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "igmp"
+        ],
+        "ipProtocolNumber": 2,
+        "description": [
+          "Protocol igmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "igmp"
+        ],
+        "ipProtocolNumber": [
+          "2"
+        ],
+        "description": [
+          "Protocol igmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ggp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ggp"
+        ],
+        "ipProtocolNumber": 3,
+        "description": [
+          "Protocol ggp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ggp"
+        ],
+        "ipProtocolNumber": [
+          "3"
+        ],
+        "description": [
+          "Protocol ggp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipencap,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipencap",
+          "IP-ENCAP"
+        ],
+        "ipProtocolNumber": 4,
+        "description": [
+          "Protocol ipencap"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipencap",
+          "IP-ENCAP"
+        ],
+        "ipProtocolNumber": [
+          "4"
+        ],
+        "description": [
+          "Protocol ipencap"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=st,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "st"
+        ],
+        "ipProtocolNumber": 5,
+        "description": [
+          "Protocol st"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "st"
+        ],
+        "ipProtocolNumber": [
+          "5"
+        ],
+        "description": [
+          "Protocol st"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=tcp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "tcp"
+        ],
+        "ipProtocolNumber": 6,
+        "description": [
+          "Protocol tcp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "tcp"
+        ],
+        "ipProtocolNumber": [
+          "6"
+        ],
+        "description": [
+          "Protocol tcp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=egp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "egp"
+        ],
+        "ipProtocolNumber": 8,
+        "description": [
+          "Protocol egp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "egp"
+        ],
+        "ipProtocolNumber": [
+          "8"
+        ],
+        "description": [
+          "Protocol egp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=igp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "igp"
+        ],
+        "ipProtocolNumber": 9,
+        "description": [
+          "Protocol igp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "igp"
+        ],
+        "ipProtocolNumber": [
+          "9"
+        ],
+        "description": [
+          "Protocol igp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=pup,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "pup"
+        ],
+        "ipProtocolNumber": 12,
+        "description": [
+          "Protocol pup"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "pup"
+        ],
+        "ipProtocolNumber": [
+          "12"
+        ],
+        "description": [
+          "Protocol pup"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=udp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "udp"
+        ],
+        "ipProtocolNumber": 17,
+        "description": [
+          "Protocol udp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "udp"
+        ],
+        "ipProtocolNumber": [
+          "17"
+        ],
+        "description": [
+          "Protocol udp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=hmp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "hmp"
+        ],
+        "ipProtocolNumber": 20,
+        "description": [
+          "Protocol hmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "hmp"
+        ],
+        "ipProtocolNumber": [
+          "20"
+        ],
+        "description": [
+          "Protocol hmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=xns-idp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "xns-idp"
+        ],
+        "ipProtocolNumber": 22,
+        "description": [
+          "Protocol xns-idp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "xns-idp"
+        ],
+        "ipProtocolNumber": [
+          "22"
+        ],
+        "description": [
+          "Protocol xns-idp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rdp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "rdp"
+        ],
+        "ipProtocolNumber": 27,
+        "description": [
+          "Protocol rdp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "rdp"
+        ],
+        "ipProtocolNumber": [
+          "27"
+        ],
+        "description": [
+          "Protocol rdp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=iso-tp4,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "iso-tp4"
+        ],
+        "ipProtocolNumber": 29,
+        "description": [
+          "Protocol iso-tp4"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "iso-tp4"
+        ],
+        "ipProtocolNumber": [
+          "29"
+        ],
+        "description": [
+          "Protocol iso-tp4"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=xtp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "xtp"
+        ],
+        "ipProtocolNumber": 36,
+        "description": [
+          "Protocol xtp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "xtp"
+        ],
+        "ipProtocolNumber": [
+          "36"
+        ],
+        "description": [
+          "Protocol xtp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ddp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ddp"
+        ],
+        "ipProtocolNumber": 37,
+        "description": [
+          "Protocol ddp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ddp"
+        ],
+        "ipProtocolNumber": [
+          "37"
+        ],
+        "description": [
+          "Protocol ddp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=idpr-cmtp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "idpr-cmtp"
+        ],
+        "ipProtocolNumber": 38,
+        "description": [
+          "Protocol idpr-cmtp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "idpr-cmtp"
+        ],
+        "ipProtocolNumber": [
+          "38"
+        ],
+        "description": [
+          "Protocol idpr-cmtp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipv6,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipv6"
+        ],
+        "ipProtocolNumber": 41,
+        "description": [
+          "Protocol ipv6"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipv6"
+        ],
+        "ipProtocolNumber": [
+          "41"
+        ],
+        "description": [
+          "Protocol ipv6"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipv6-route,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipv6-route"
+        ],
+        "ipProtocolNumber": 43,
+        "description": [
+          "Protocol ipv6-route"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipv6-route"
+        ],
+        "ipProtocolNumber": [
+          "43"
+        ],
+        "description": [
+          "Protocol ipv6-route"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipv6-frag,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipv6-frag"
+        ],
+        "ipProtocolNumber": 44,
+        "description": [
+          "Protocol ipv6-frag"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipv6-frag"
+        ],
+        "ipProtocolNumber": [
+          "44"
+        ],
+        "description": [
+          "Protocol ipv6-frag"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=idrp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "idrp"
+        ],
+        "ipProtocolNumber": 45,
+        "description": [
+          "Protocol idrp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "idrp"
+        ],
+        "ipProtocolNumber": [
+          "45"
+        ],
+        "description": [
+          "Protocol idrp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rsvp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "rsvp"
+        ],
+        "ipProtocolNumber": 46,
+        "description": [
+          "Protocol rsvp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "rsvp"
+        ],
+        "ipProtocolNumber": [
+          "46"
+        ],
+        "description": [
+          "Protocol rsvp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=gre,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "gre"
+        ],
+        "ipProtocolNumber": 47,
+        "description": [
+          "Protocol gre"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "gre"
+        ],
+        "ipProtocolNumber": [
+          "47"
+        ],
+        "description": [
+          "Protocol gre"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=esp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "esp",
+          "IPSEC-ESP"
+        ],
+        "ipProtocolNumber": 50,
+        "description": [
+          "Protocol esp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "esp",
+          "IPSEC-ESP"
+        ],
+        "ipProtocolNumber": [
+          "50"
+        ],
+        "description": [
+          "Protocol esp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ah,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ah",
+          "IPSEC-AH"
+        ],
+        "ipProtocolNumber": 51,
+        "description": [
+          "Protocol ah"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ah",
+          "IPSEC-AH"
+        ],
+        "ipProtocolNumber": [
+          "51"
+        ],
+        "description": [
+          "Protocol ah"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=skip,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "skip"
+        ],
+        "ipProtocolNumber": 57,
+        "description": [
+          "Protocol skip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "skip"
+        ],
+        "ipProtocolNumber": [
+          "57"
+        ],
+        "description": [
+          "Protocol skip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipv6-icmp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipv6-icmp"
+        ],
+        "ipProtocolNumber": 58,
+        "description": [
+          "Protocol ipv6-icmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipv6-icmp"
+        ],
+        "ipProtocolNumber": [
+          "58"
+        ],
+        "description": [
+          "Protocol ipv6-icmp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipv6-nonxt,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipv6-nonxt"
+        ],
+        "ipProtocolNumber": 59,
+        "description": [
+          "Protocol ipv6-nonxt"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipv6-nonxt"
+        ],
+        "ipProtocolNumber": [
+          "59"
+        ],
+        "description": [
+          "Protocol ipv6-nonxt"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipv6-opts,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipv6-opts"
+        ],
+        "ipProtocolNumber": 60,
+        "description": [
+          "Protocol ipv6-opts"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipv6-opts"
+        ],
+        "ipProtocolNumber": [
+          "60"
+        ],
+        "description": [
+          "Protocol ipv6-opts"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rspf,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "rspf",
+          "CPHB"
+        ],
+        "ipProtocolNumber": 73,
+        "description": [
+          "Protocol rspf"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "rspf",
+          "CPHB"
+        ],
+        "ipProtocolNumber": [
+          "73"
+        ],
+        "description": [
+          "Protocol rspf"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=vmtp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "vmtp"
+        ],
+        "ipProtocolNumber": 81,
+        "description": [
+          "Protocol vmtp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "vmtp"
+        ],
+        "ipProtocolNumber": [
+          "81"
+        ],
+        "description": [
+          "Protocol vmtp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=eigrp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "eigrp"
+        ],
+        "ipProtocolNumber": 88,
+        "description": [
+          "Protocol eigrp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "eigrp"
+        ],
+        "ipProtocolNumber": [
+          "88"
+        ],
+        "description": [
+          "Protocol eigrp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ospf,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ospf",
+          "OSPFIGP"
+        ],
+        "ipProtocolNumber": 89,
+        "description": [
+          "Protocol ospf"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ospf",
+          "OSPFIGP"
+        ],
+        "ipProtocolNumber": [
+          "89"
+        ],
+        "description": [
+          "Protocol ospf"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ax.25,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ax.25"
+        ],
+        "ipProtocolNumber": 93,
+        "description": [
+          "Protocol ax.25"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ax.25"
+        ],
+        "ipProtocolNumber": [
+          "93"
+        ],
+        "description": [
+          "Protocol ax.25"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipip,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipip"
+        ],
+        "ipProtocolNumber": 94,
+        "description": [
+          "Protocol ipip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipip"
+        ],
+        "ipProtocolNumber": [
+          "94"
+        ],
+        "description": [
+          "Protocol ipip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=etherip,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "etherip"
+        ],
+        "ipProtocolNumber": 97,
+        "description": [
+          "Protocol etherip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "etherip"
+        ],
+        "ipProtocolNumber": [
+          "97"
+        ],
+        "description": [
+          "Protocol etherip"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=encap,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "encap"
+        ],
+        "ipProtocolNumber": 98,
+        "description": [
+          "Protocol encap"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "encap"
+        ],
+        "ipProtocolNumber": [
+          "98"
+        ],
+        "description": [
+          "Protocol encap"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=pim,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "pim"
+        ],
+        "ipProtocolNumber": 103,
+        "description": [
+          "Protocol pim"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "pim"
+        ],
+        "ipProtocolNumber": [
+          "103"
+        ],
+        "description": [
+          "Protocol pim"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ipcomp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "ipcomp"
+        ],
+        "ipProtocolNumber": 108,
+        "description": [
+          "Protocol ipcomp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "ipcomp"
+        ],
+        "ipProtocolNumber": [
+          "108"
+        ],
+        "description": [
+          "Protocol ipcomp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=vrrp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "vrrp"
+        ],
+        "ipProtocolNumber": 112,
+        "description": [
+          "Protocol vrrp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "vrrp"
+        ],
+        "ipProtocolNumber": [
+          "112"
+        ],
+        "description": [
+          "Protocol vrrp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=l2tp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "l2tp"
+        ],
+        "ipProtocolNumber": 115,
+        "description": [
+          "Protocol l2tp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "l2tp"
+        ],
+        "ipProtocolNumber": [
+          "115"
+        ],
+        "description": [
+          "Protocol l2tp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=isis,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "isis"
+        ],
+        "ipProtocolNumber": 124,
+        "description": [
+          "Protocol isis"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "isis"
+        ],
+        "ipProtocolNumber": [
+          "124"
+        ],
+        "description": [
+          "Protocol isis"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=sctp,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "sctp"
+        ],
+        "ipProtocolNumber": 132,
+        "description": [
+          "Protocol sctp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "sctp"
+        ],
+        "ipProtocolNumber": [
+          "132"
+        ],
+        "description": [
+          "Protocol sctp"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=fc,ou=Protocols,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "cn": [
+          "fc"
+        ],
+        "ipProtocolNumber": 133,
+        "description": [
+          "Protocol fc"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      },
+      "raw": {
+        "cn": [
+          "fc"
+        ],
+        "ipProtocolNumber": [
+          "133"
+        ],
+        "description": [
+          "Protocol fc"
+        ],
+        "objectClass": [
+          "ipProtocol",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=portmapper,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100000,
+        "cn": [
+          "portmapper",
+          "portmap",
+          "sunrpc"
+        ],
+        "description": [
+          "RPC portmapper"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100000"
+        ],
+        "cn": [
+          "portmapper",
+          "portmap",
+          "sunrpc"
+        ],
+        "description": [
+          "RPC portmapper"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rstatd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100001,
+        "cn": [
+          "rstatd",
+          "perfmeter",
+          "rstat",
+          "rstat_svc",
+          "rup"
+        ],
+        "description": [
+          "RPC rstatd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100001"
+        ],
+        "cn": [
+          "rstatd",
+          "perfmeter",
+          "rstat",
+          "rstat_svc",
+          "rup"
+        ],
+        "description": [
+          "RPC rstatd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rusersd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100002,
+        "cn": [
+          "rusersd",
+          "rusers"
+        ],
+        "description": [
+          "RPC rusersd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100002"
+        ],
+        "cn": [
+          "rusersd",
+          "rusers"
+        ],
+        "description": [
+          "RPC rusersd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=nfs,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100003,
+        "cn": [
+          "nfs",
+          "nfsprog"
+        ],
+        "description": [
+          "RPC nfs"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100003"
+        ],
+        "cn": [
+          "nfs",
+          "nfsprog"
+        ],
+        "description": [
+          "RPC nfs"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ypserv,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100004,
+        "cn": [
+          "ypserv",
+          "ypprog"
+        ],
+        "description": [
+          "RPC ypserv"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100004"
+        ],
+        "cn": [
+          "ypserv",
+          "ypprog"
+        ],
+        "description": [
+          "RPC ypserv"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=mountd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100005,
+        "cn": [
+          "mountd",
+          "mount",
+          "showmount"
+        ],
+        "description": [
+          "RPC mountd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100005"
+        ],
+        "cn": [
+          "mountd",
+          "mount",
+          "showmount"
+        ],
+        "description": [
+          "RPC mountd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ypbind,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100007,
+        "cn": [
+          "ypbind"
+        ],
+        "description": [
+          "RPC ypbind"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100007"
+        ],
+        "cn": [
+          "ypbind"
+        ],
+        "description": [
+          "RPC ypbind"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=walld,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100008,
+        "cn": [
+          "walld",
+          "rwall",
+          "shutdown"
+        ],
+        "description": [
+          "RPC walld"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100008"
+        ],
+        "cn": [
+          "walld",
+          "rwall",
+          "shutdown"
+        ],
+        "description": [
+          "RPC walld"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=yppasswdd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100009,
+        "cn": [
+          "yppasswdd",
+          "yppasswd"
+        ],
+        "description": [
+          "RPC yppasswdd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100009"
+        ],
+        "cn": [
+          "yppasswdd",
+          "yppasswd"
+        ],
+        "description": [
+          "RPC yppasswdd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=etherstatd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100010,
+        "cn": [
+          "etherstatd",
+          "etherstat"
+        ],
+        "description": [
+          "RPC etherstatd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100010"
+        ],
+        "cn": [
+          "etherstatd",
+          "etherstat"
+        ],
+        "description": [
+          "RPC etherstatd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rquotad,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100011,
+        "cn": [
+          "rquotad",
+          "quota",
+          "rquota",
+          "rquotaprog"
+        ],
+        "description": [
+          "RPC rquotad"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100011"
+        ],
+        "cn": [
+          "rquotad",
+          "quota",
+          "rquota",
+          "rquotaprog"
+        ],
+        "description": [
+          "RPC rquotad"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=sprayd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100012,
+        "cn": [
+          "sprayd",
+          "spray"
+        ],
+        "description": [
+          "RPC sprayd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100012"
+        ],
+        "cn": [
+          "sprayd",
+          "spray"
+        ],
+        "description": [
+          "RPC sprayd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=3270_mapper,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100013,
+        "cn": [
+          "3270_mapper"
+        ],
+        "description": [
+          "RPC 3270_mapper"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100013"
+        ],
+        "cn": [
+          "3270_mapper"
+        ],
+        "description": [
+          "RPC 3270_mapper"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rje_mapper,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100014,
+        "cn": [
+          "rje_mapper"
+        ],
+        "description": [
+          "RPC rje_mapper"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100014"
+        ],
+        "cn": [
+          "rje_mapper"
+        ],
+        "description": [
+          "RPC rje_mapper"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=selection_svc,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100015,
+        "cn": [
+          "selection_svc",
+          "selnsvc"
+        ],
+        "description": [
+          "RPC selection_svc"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100015"
+        ],
+        "cn": [
+          "selection_svc",
+          "selnsvc"
+        ],
+        "description": [
+          "RPC selection_svc"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=database_svc,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100016,
+        "cn": [
+          "database_svc"
+        ],
+        "description": [
+          "RPC database_svc"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100016"
+        ],
+        "cn": [
+          "database_svc"
+        ],
+        "description": [
+          "RPC database_svc"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rexd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100017,
+        "cn": [
+          "rexd",
+          "rex"
+        ],
+        "description": [
+          "RPC rexd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100017"
+        ],
+        "cn": [
+          "rexd",
+          "rex"
+        ],
+        "description": [
+          "RPC rexd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=alis,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100018,
+        "cn": [
+          "alis"
+        ],
+        "description": [
+          "RPC alis"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100018"
+        ],
+        "cn": [
+          "alis"
+        ],
+        "description": [
+          "RPC alis"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=sched,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100019,
+        "cn": [
+          "sched"
+        ],
+        "description": [
+          "RPC sched"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100019"
+        ],
+        "cn": [
+          "sched"
+        ],
+        "description": [
+          "RPC sched"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=llockmgr,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100020,
+        "cn": [
+          "llockmgr"
+        ],
+        "description": [
+          "RPC llockmgr"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100020"
+        ],
+        "cn": [
+          "llockmgr"
+        ],
+        "description": [
+          "RPC llockmgr"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=nlockmgr,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100021,
+        "cn": [
+          "nlockmgr"
+        ],
+        "description": [
+          "RPC nlockmgr"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100021"
+        ],
+        "cn": [
+          "nlockmgr"
+        ],
+        "description": [
+          "RPC nlockmgr"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=x25.inr,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100022,
+        "cn": [
+          "x25.inr"
+        ],
+        "description": [
+          "RPC x25.inr"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100022"
+        ],
+        "cn": [
+          "x25.inr"
+        ],
+        "description": [
+          "RPC x25.inr"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=statmon,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100023,
+        "cn": [
+          "statmon"
+        ],
+        "description": [
+          "RPC statmon"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100023"
+        ],
+        "cn": [
+          "statmon"
+        ],
+        "description": [
+          "RPC statmon"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=status,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100024,
+        "cn": [
+          "status"
+        ],
+        "description": [
+          "RPC status"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100024"
+        ],
+        "cn": [
+          "status"
+        ],
+        "description": [
+          "RPC status"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=bootparam,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100026,
+        "cn": [
+          "bootparam"
+        ],
+        "description": [
+          "RPC bootparam"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100026"
+        ],
+        "cn": [
+          "bootparam"
+        ],
+        "description": [
+          "RPC bootparam"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ypupdated,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100028,
+        "cn": [
+          "ypupdated",
+          "ypupdate"
+        ],
+        "description": [
+          "RPC ypupdated"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100028"
+        ],
+        "cn": [
+          "ypupdated",
+          "ypupdate"
+        ],
+        "description": [
+          "RPC ypupdated"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=keyserv,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100029,
+        "cn": [
+          "keyserv",
+          "keyserver"
+        ],
+        "description": [
+          "RPC keyserv"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100029"
+        ],
+        "cn": [
+          "keyserv",
+          "keyserver"
+        ],
+        "description": [
+          "RPC keyserv"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=tfsd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100037,
+        "cn": [
+          "tfsd"
+        ],
+        "description": [
+          "RPC tfsd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100037"
+        ],
+        "cn": [
+          "tfsd"
+        ],
+        "description": [
+          "RPC tfsd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=nsed,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100038,
+        "cn": [
+          "nsed"
+        ],
+        "description": [
+          "RPC nsed"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100038"
+        ],
+        "cn": [
+          "nsed"
+        ],
+        "description": [
+          "RPC nsed"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=nsemntd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100039,
+        "cn": [
+          "nsemntd"
+        ],
+        "description": [
+          "RPC nsemntd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100039"
+        ],
+        "cn": [
+          "nsemntd"
+        ],
+        "description": [
+          "RPC nsemntd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ypxfrd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 100069,
+        "cn": [
+          "ypxfrd"
+        ],
+        "description": [
+          "RPC ypxfrd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "100069"
+        ],
+        "cn": [
+          "ypxfrd"
+        ],
+        "description": [
+          "RPC ypxfrd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=pcnfsd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 150001,
+        "cn": [
+          "pcnfsd"
+        ],
+        "description": [
+          "RPC pcnfsd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "150001"
+        ],
+        "cn": [
+          "pcnfsd"
+        ],
+        "description": [
+          "RPC pcnfsd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=amd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 300019,
+        "cn": [
+          "amd",
+          "amq"
+        ],
+        "description": [
+          "RPC amd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "300019"
+        ],
+        "cn": [
+          "amd",
+          "amq"
+        ],
+        "description": [
+          "RPC amd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=sgi_fam,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 391002,
+        "cn": [
+          "sgi_fam"
+        ],
+        "description": [
+          "RPC sgi_fam"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "391002"
+        ],
+        "cn": [
+          "sgi_fam"
+        ],
+        "description": [
+          "RPC sgi_fam"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ugidd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 545580417,
+        "cn": [
+          "ugidd"
+        ],
+        "description": [
+          "RPC ugidd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "545580417"
+        ],
+        "cn": [
+          "ugidd"
+        ],
+        "description": [
+          "RPC ugidd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=fypxfrd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 600100069,
+        "cn": [
+          "fypxfrd",
+          "freebsd-ypxfrd"
+        ],
+        "description": [
+          "RPC fypxfrd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "600100069"
+        ],
+        "cn": [
+          "fypxfrd",
+          "freebsd-ypxfrd"
+        ],
+        "description": [
+          "RPC fypxfrd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=bwnfsd,ou=Rpc,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "oncRpcNumber": 788585389,
+        "cn": [
+          "bwnfsd"
+        ],
+        "description": [
+          "RPC bwnfsd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      },
+      "raw": {
+        "oncRpcNumber": [
+          "788585389"
+        ],
+        "cn": [
+          "bwnfsd"
+        ],
+        "description": [
+          "RPC bwnfsd"
+        ],
+        "objectClass": [
+          "oncRpc",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=rtmp,ou=Services,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipServicePort": 1,
+        "cn": [
+          "rtmp"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipServicePort": [
+          "1"
+        ],
+        "cn": [
+          "rtmp"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=tcpmux,ou=Services,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipServicePort": 1,
+        "cn": [
+          "tcpmux"
+        ],
+        "ipServiceProtocol": [
+          "tcp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipServicePort": [
+          "1"
+        ],
+        "cn": [
+          "tcpmux"
+        ],
+        "ipServiceProtocol": [
+          "tcp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=nbp,ou=Services,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipServicePort": 2,
+        "cn": [
+          "nbp"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipServicePort": [
+          "2"
+        ],
+        "cn": [
+          "nbp"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=echo,ou=Services,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipServicePort": 4,
+        "cn": [
+          "echo"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipServicePort": [
+          "4"
+        ],
+        "cn": [
+          "echo"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=zip,ou=Services,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ipServicePort": 6,
+        "cn": [
+          "zip"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      },
+      "raw": {
+        "ipServicePort": [
+          "6"
+        ],
+        "cn": [
+          "zip"
+        ],
+        "ipServiceProtocol": [
+          "ddp"
+        ],
+        "objectClass": [
+          "ipService",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=pseudo,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "gidNumber": 1007,
+        "cn": [
+          "pseudo"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "gidNumber": [
+          "1007"
+        ],
+        "cn": [
+          "pseudo"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=fuse,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "hoser",
+          "kimbrel",
+          "steven"
+        ],
+        "gidNumber": 105,
+        "cn": [
+          "fuse"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "hoser",
+          "kimbrel",
+          "steven"
+        ],
+        "gidNumber": [
+          "105"
+        ],
+        "cn": [
+          "fuse"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=root,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "domath",
+          "jonathanjtan",
+          "jvperrin",
+          "mark64",
+          "mccheese",
+          "newuser",
+          "rnithin",
+          "robertq",
+          "samsafadi",
+          "userans22",
+          "waywan",
+          "wylliec"
+        ],
+        "gidNumber": 0,
+        "cn": [
+          "root"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "domath",
+          "jonathanjtan",
+          "jvperrin",
+          "mark64",
+          "mccheese",
+          "newuser",
+          "rnithin",
+          "robertq",
+          "samsafadi",
+          "userans22",
+          "waywan",
+          "wylliec"
+        ],
+        "gidNumber": [
+          "0"
+        ],
+        "cn": [
+          "root"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=screwdriver,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "dwc",
+          "fruisc"
+        ],
+        "gidNumber": 1008,
+        "cn": [
+          "screwdriver"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "dwc",
+          "fruisc"
+        ],
+        "gidNumber": [
+          "1008"
+        ],
+        "cn": [
+          "screwdriver"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=screwdriver-root,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "bordicon",
+          "jvarga",
+          "dwc",
+          "njh"
+        ],
+        "gidNumber": 1500,
+        "cn": [
+          "screwdriver-root"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "bordicon",
+          "jvarga",
+          "dwc",
+          "njh"
+        ],
+        "gidNumber": [
+          "1500"
+        ],
+        "cn": [
+          "screwdriver-root"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=mailroot,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "seidl"
+        ],
+        "gidNumber": 1009,
+        "cn": [
+          "mailroot"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "seidl"
+        ],
+        "gidNumber": [
+          "1009"
+        ],
+        "cn": [
+          "mailroot"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=cdrom,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "bordicon",
+          "steven",
+          "rfm",
+          "edilaic"
+        ],
+        "gidNumber": 24,
+        "cn": [
+          "cdrom"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "bordicon",
+          "steven",
+          "rfm",
+          "edilaic"
+        ],
+        "gidNumber": [
+          "24"
+        ],
+        "cn": [
+          "cdrom"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=gateway,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "dwc",
+          "jmah",
+          "prole",
+          "rodarmor"
+        ],
+        "gidNumber": 1010,
+        "cn": [
+          "gateway"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "dwc",
+          "jmah",
+          "prole",
+          "rodarmor"
+        ],
+        "gidNumber": [
+          "1010"
+        ],
+        "cn": [
+          "gateway"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=sas,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "steven",
+          "stevenk"
+        ],
+        "gidNumber": 9999,
+        "cn": [
+          "sas"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "steven",
+          "stevenk"
+        ],
+        "gidNumber": [
+          "9999"
+        ],
+        "cn": [
+          "sas"
+        ],
+        "objectClass": [
+          "posixGroup",
+          "top"
+        ]
+      }
+    },
+    {
+      "dn": "cn=officers,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "akazantsev",
+          "alexkassil",
+          "annabrewer",
+          "bchen",
+          "bill.cao",
+          "catherinecang",
+          "clamos",
+          "cs.kevinlu",
+          "domath",
+          "jcheng412",
+          "jesskuo",
+          "jonathanjtan",
+          "jtao",
+          "leon.ming",
+          "mark64",
+          "pinbat",
+          "rnithin",
+          "robertq",
+          "samsafadi",
+          "sean_meng",
+          "skware",
+          "sqwen",
+          "starrtyang",
+          "userans22",
+          "waywan",
+          "yeungjasonj",
+          "externalhardrive",
+          "clhager",
+          "nicholaswang2000"
+        ],
+        "gidNumber": 1003,
+        "cn": [
+          "officers"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "akazantsev",
+          "alexkassil",
+          "annabrewer",
+          "bchen",
+          "bill.cao",
+          "catherinecang",
+          "clamos",
+          "cs.kevinlu",
+          "domath",
+          "jcheng412",
+          "jesskuo",
+          "jonathanjtan",
+          "jtao",
+          "leon.ming",
+          "mark64",
+          "pinbat",
+          "rnithin",
+          "robertq",
+          "samsafadi",
+          "sean_meng",
+          "skware",
+          "sqwen",
+          "starrtyang",
+          "userans22",
+          "waywan",
+          "yeungjasonj",
+          "externalhardrive",
+          "clhager",
+          "nicholaswang2000"
+        ],
+        "gidNumber": [
+          "1003"
+        ],
+        "cn": [
+          "officers"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=office-hosers,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "acrabb",
+          "albertde",
+          "alexhu",
+          "amontoya",
+          "aurabaun",
+          "benj",
+          "brandon92",
+          "cberner",
+          "cchen",
+          "cherie",
+          "cjzhang",
+          "collin38",
+          "devincr",
+          "diegok",
+          "drallen",
+          "dratnos",
+          "edilaic",
+          "edison",
+          "ekrasner",
+          "ericw",
+          "erikadelk",
+          "eyang",
+          "fawkes",
+          "foresthughes",
+          "gerald",
+          "ghsyu",
+          "gulegoli",
+          "hayg",
+          "heidiho",
+          "hihihiclaire",
+          "hinerz",
+          "iandavis",
+          "james",
+          "jayferd",
+          "jaze",
+          "jespanda",
+          "jint",
+          "jjpark",
+          "jkn",
+          "jlhawn",
+          "jsilver",
+          "jsproch",
+          "kgieseking",
+          "laughinghan",
+          "leeple",
+          "leowu",
+          "lilyelin",
+          "maajid",
+          "marys",
+          "mccheese",
+          "medwards",
+          "miknairb",
+          "nadine",
+          "nater",
+          "nathan",
+          "ncoelius",
+          "nxhh",
+          "pedro",
+          "pjotter",
+          "quiet",
+          "rb",
+          "rfm",
+          "rohand",
+          "sarahjkim",
+          "shrayus",
+          "soohyun",
+          "steggy",
+          "steven",
+          "sudizhe",
+          "tirumari",
+          "tullidil",
+          "vaheder",
+          "vincent",
+          "wchieng",
+          "whunt",
+          "wsong",
+          "xscapezaer",
+          "zayd",
+          "zmbush"
+        ],
+        "gidNumber": 1011,
+        "cn": [
+          "office-hosers"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "acrabb",
+          "albertde",
+          "alexhu",
+          "amontoya",
+          "aurabaun",
+          "benj",
+          "brandon92",
+          "cberner",
+          "cchen",
+          "cherie",
+          "cjzhang",
+          "collin38",
+          "devincr",
+          "diegok",
+          "drallen",
+          "dratnos",
+          "edilaic",
+          "edison",
+          "ekrasner",
+          "ericw",
+          "erikadelk",
+          "eyang",
+          "fawkes",
+          "foresthughes",
+          "gerald",
+          "ghsyu",
+          "gulegoli",
+          "hayg",
+          "heidiho",
+          "hihihiclaire",
+          "hinerz",
+          "iandavis",
+          "james",
+          "jayferd",
+          "jaze",
+          "jespanda",
+          "jint",
+          "jjpark",
+          "jkn",
+          "jlhawn",
+          "jsilver",
+          "jsproch",
+          "kgieseking",
+          "laughinghan",
+          "leeple",
+          "leowu",
+          "lilyelin",
+          "maajid",
+          "marys",
+          "mccheese",
+          "medwards",
+          "miknairb",
+          "nadine",
+          "nater",
+          "nathan",
+          "ncoelius",
+          "nxhh",
+          "pedro",
+          "pjotter",
+          "quiet",
+          "rb",
+          "rfm",
+          "rohand",
+          "sarahjkim",
+          "shrayus",
+          "soohyun",
+          "steggy",
+          "steven",
+          "sudizhe",
+          "tirumari",
+          "tullidil",
+          "vaheder",
+          "vincent",
+          "wchieng",
+          "whunt",
+          "wsong",
+          "xscapezaer",
+          "zayd",
+          "zmbush"
+        ],
+        "gidNumber": [
+          "1011"
+        ],
+        "cn": [
+          "office-hosers"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=president,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "domath",
+          "jonathanjtan",
+          "meganz"
+        ],
+        "gidNumber": 1012,
+        "cn": [
+          "president"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "domath",
+          "jonathanjtan",
+          "meganz"
+        ],
+        "gidNumber": [
+          "1012"
+        ],
+        "cn": [
+          "president"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=vpindrel,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "annabrewer",
+          "excomm",
+          "pinbat"
+        ],
+        "gidNumber": 1013,
+        "cn": [
+          "vpindrel"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "annabrewer",
+          "excomm",
+          "pinbat"
+        ],
+        "gidNumber": [
+          "1013"
+        ],
+        "cn": [
+          "vpindrel"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=vptech,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "jonathanjtan",
+          "mark64",
+          "robertq",
+          "wylliec"
+        ],
+        "gidNumber": 1014,
+        "cn": [
+          "vptech"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "jonathanjtan",
+          "mark64",
+          "robertq",
+          "wylliec"
+        ],
+        "gidNumber": [
+          "1014"
+        ],
+        "cn": [
+          "vptech"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=secretary,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "userans22",
+          "waywan"
+        ],
+        "gidNumber": 1015,
+        "cn": [
+          "secretary"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "userans22",
+          "waywan"
+        ],
+        "gidNumber": [
+          "1015"
+        ],
+        "cn": [
+          "secretary"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=treasurer,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "secretary"
+        ],
+        "gidNumber": 1016,
+        "cn": [
+          "treasurer"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "secretary"
+        ],
+        "gidNumber": [
+          "1016"
+        ],
+        "cn": [
+          "treasurer"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=outreach,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "bill.cao",
+          "catherincang",
+          "jesskuo",
+          "robertq"
+        ],
+        "gidNumber": 1017,
+        "cn": [
+          "outreach"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "bill.cao",
+          "catherincang",
+          "jesskuo",
+          "robertq"
+        ],
+        "gidNumber": [
+          "1017"
+        ],
+        "cn": [
+          "outreach"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=externalevents,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "bchen",
+          "domath"
+        ],
+        "gidNumber": 1018,
+        "cn": [
+          "externalevents"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "bchen",
+          "domath"
+        ],
+        "gidNumber": [
+          "1018"
+        ],
+        "cn": [
+          "externalevents"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=internalevents,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "externalhardrive",
+          "userans22"
+        ],
+        "gidNumber": 1019,
+        "cn": [
+          "internalevents"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "externalhardrive",
+          "userans22"
+        ],
+        "gidNumber": [
+          "1019"
+        ],
+        "cn": [
+          "internalevents"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=office-admin,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "akazantsev",
+          "alramech",
+          "clamos",
+          "domath",
+          "jesse.ou",
+          "jonathanjtan",
+          "mccheese",
+          "meganz",
+          "nlingarkar",
+          "pinbat",
+          "waywan",
+          "wylliec",
+          "xscapezaer",
+          "zhoubw"
+        ],
+        "gidNumber": 1024,
+        "cn": [
+          "office-admin"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "akazantsev",
+          "alramech",
+          "clamos",
+          "domath",
+          "jesse.ou",
+          "jonathanjtan",
+          "mccheese",
+          "meganz",
+          "nlingarkar",
+          "pinbat",
+          "waywan",
+          "wylliec",
+          "xscapezaer",
+          "zhoubw"
+        ],
+        "gidNumber": [
+          "1024"
+        ],
+        "cn": [
+          "office-admin"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "uid=createuser,ou=People,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "uid": [
+          "createuser"
+        ],
+        "objectClass": [
+          "account",
+          "top",
+          "shadowAccount"
+        ]
+      },
+      "raw": {
+        "uid": [
+          "createuser"
+        ],
+        "objectClass": [
+          "account",
+          "top",
+          "shadowAccount"
+        ]
+      }
+    },
+    {
+      "dn": "ou=Roles,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "ou": [
+          "Roles"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      },
+      "raw": {
+        "ou": [
+          "Roles"
+        ],
+        "objectClass": [
+          "top",
+          "organizationalUnit"
+        ]
+      }
+    },
+    {
+      "dn": "cn=prosp-officers,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "ChuBamboo",
+          "darylbui",
+          "esli",
+          "externalhardrive",
+          "mark64",
+          "michatu",
+          "murthy1999",
+          "rainwaffles",
+          "rama22446",
+          "saelzeiny",
+          "sagnick",
+          "yes.soyeon"
+        ],
+        "gidNumber": 1025,
+        "cn": [
+          "prosp-officers"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "ChuBamboo",
+          "darylbui",
+          "esli",
+          "externalhardrive",
+          "mark64",
+          "michatu",
+          "murthy1999",
+          "rainwaffles",
+          "rama22446",
+          "saelzeiny",
+          "sagnick",
+          "yes.soyeon"
+        ],
+        "gidNumber": [
+          "1025"
+        ],
+        "cn": [
+          "prosp-officers"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=mlgod,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "catherinecang",
+          "jonathanjtan",
+          "jvperrin",
+          "mark64",
+          "rnithin",
+          "robertq",
+          "skware",
+          "wylliec"
+        ],
+        "gidNumber": 6784,
+        "cn": [
+          "mlgod"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "catherinecang",
+          "jonathanjtan",
+          "jvperrin",
+          "mark64",
+          "rnithin",
+          "robertq",
+          "skware",
+          "wylliec"
+        ],
+        "gidNumber": [
+          "6784"
+        ],
+        "cn": [
+          "mlgod"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ml2018,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "andrewmzhang",
+          "jesse.ou",
+          "rnithin",
+          "skware",
+          "stac_gpu",
+          "starrta",
+          "userans22",
+          "zhoubw"
+        ],
+        "gidNumber": 6785,
+        "cn": [
+          "ml2018"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "andrewmzhang",
+          "jesse.ou",
+          "rnithin",
+          "skware",
+          "stac_gpu",
+          "starrta",
+          "userans22",
+          "zhoubw"
+        ],
+        "gidNumber": [
+          "6785"
+        ],
+        "cn": [
+          "ml2018"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    },
+    {
+      "dn": "cn=ridge,ou=Group,dc=csua,dc=berkeley,dc=edu",
+      "attributes": {
+        "memberUid": [
+          "domath",
+          "mark64",
+          "pinbat",
+          "starrtyang"
+        ],
+        "gidNumber": 2467,
+        "cn": [
+          "ridge"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      },
+      "raw": {
+        "memberUid": [
+          "domath",
+          "mark64",
+          "pinbat",
+          "starrtyang"
+        ],
+        "gidNumber": [
+          "2467"
+        ],
+        "cn": [
+          "ridge"
+        ],
+        "objectClass": [
+          "top",
+          "posixGroup"
+        ]
+      }
+    }
+  ]
+}

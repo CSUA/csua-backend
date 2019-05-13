@@ -1,4 +1,5 @@
 from os import mkdir, system
+import logging
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -10,6 +11,7 @@ from .forms import NewUserForm
 
 usernameWhitelist = set(".-_")
 emailWhitelist = set("@+").union(usernameWhitelist)
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -29,10 +31,9 @@ def index(request):
                         form.cleaned_data["student_id"],
                         form.cleaned_data["password"],
                     )
-                    print("UID:{0}".format(uid))
                     if success:
                         exit_code = system(
-                            "sudo /webserver/CSUA-backend/newuser/config_newuser {0} {1} {2} {3}".format(
+                            "sudo /webserver/CSUA-backend/apps/newuser/config_newuser {0} {1} {2} {3}".format(
                                 form.cleaned_data["username"],
                                 form.cleaned_data["email"],
                                 uid,
@@ -40,9 +41,11 @@ def index(request):
                             )
                         )
                         if exit_code == 0:
+                            logger.info("New user created: {0}".format(uid))
                             return render(request, "create_success.html")
                         else:
                             messages.error(request, "Account created, but failed to run config_newuser. Please contact #website for assistance.")
+                            logger.error("Account created, but failed to run config_newuser.")
                             # TODO: delete user to roll back the newuser operation.
                     else:
                         if uid == -1:
