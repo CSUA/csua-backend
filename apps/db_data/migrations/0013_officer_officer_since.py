@@ -6,15 +6,13 @@ import django.utils.datetime_safe
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0012_auto_20190210_1637'),
-    ]
+    dependencies = [("db_data", "0012_auto_20190210_1637")]
 
     operations = [
         migrations.AddField(
-            model_name='officer',
-            name='officer_since',
+            model_name="officer",
+            name="officer_since",
             field=models.DateField(default=django.utils.datetime_safe.date.today),
             preserve_default=False,
-        ),
+        )
     ]

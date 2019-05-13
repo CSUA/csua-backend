@@ -6,33 +6,38 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tracker', '0003_auto_20181026_2013'),
-    ]
+    dependencies = [("tracker", "0003_auto_20181026_2013")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='computer',
-            name='foreign_timestamp',
-        ),
+        migrations.RemoveField(model_name="computer", name="foreign_timestamp"),
         migrations.AlterField(
-            model_name='computer',
-            name='local_timestamp',
+            model_name="computer",
+            name="local_timestamp",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AlterField(
-            model_name='computer',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='tracker.User'),
+            model_name="computer",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="tracker.User",
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='last_ping',
+            model_name="user",
+            name="last_ping",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='username',
-            field=models.CharField(editable=False, max_length=32, primary_key=True, serialize=False, unique=True),
+            model_name="user",
+            name="username",
+            field=models.CharField(
+                editable=False,
+                max_length=32,
+                primary_key=True,
+                serialize=False,
+                unique=True,
+            ),
         ),
     ]

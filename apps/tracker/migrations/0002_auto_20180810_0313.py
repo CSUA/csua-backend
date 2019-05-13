@@ -6,14 +6,16 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tracker', '0001_initial'),
-    ]
+    dependencies = [("tracker", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='computer',
-            name='user',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.PROTECT, to='tracker.User'),
-        ),
+            model_name="computer",
+            name="user",
+            field=models.OneToOneField(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="tracker.User",
+            ),
+        )
     ]

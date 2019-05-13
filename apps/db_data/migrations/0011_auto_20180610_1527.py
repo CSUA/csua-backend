@@ -6,19 +6,19 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0010_merge'),
-    ]
+    dependencies = [("db_data", "0010_merge")]
 
     operations = [
         migrations.AddField(
-            model_name='officer',
-            name='enabled',
+            model_name="officer",
+            name="enabled",
             field=models.BooleanField(default=True),
         ),
         migrations.AlterField(
-            model_name='politburo',
-            name='officer',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, to='db_data.Officer'),
+            model_name="politburo",
+            name="officer",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.PROTECT, to="db_data.Officer"
+            ),
         ),
     ]

@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0008_event'),
-    ]
+    dependencies = [("db_data", "0008_event")]
 
     operations = [
         migrations.AlterField(
-            model_name='officer',
-            name='tutor_subjects',
+            model_name="officer",
+            name="tutor_subjects",
             field=models.CharField(blank=True, max_length=255),
-        ),
+        )
     ]

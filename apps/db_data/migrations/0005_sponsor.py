@@ -8,20 +8,33 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0004_auto_20161105_0813'),
-    ]
+    dependencies = [("db_data", "0004_auto_20161105_0813")]
 
     operations = [
         migrations.CreateModel(
-            name='Sponsor',
+            name="Sponsor",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=70)),
-                ('url', models.CharField(max_length=70)),
-                ('photo', models.ImageField(default='images/officers/cardigan.jpg', max_length=255, upload_to=db_data.models.sponsor_photo_path)),
-                ('description', models.CharField(max_length=255)),
-                ('current', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=70)),
+                ("url", models.CharField(max_length=70)),
+                (
+                    "photo",
+                    models.ImageField(
+                        default="images/officers/cardigan.jpg",
+                        max_length=255,
+                        upload_to=db_data.models.sponsor_photo_path,
+                    ),
+                ),
+                ("description", models.CharField(max_length=255)),
+                ("current", models.BooleanField(default=True)),
             ],
-        ),
+        )
     ]

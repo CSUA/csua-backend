@@ -33,7 +33,10 @@ class Officer(models.Model):
     @property
     def is_anniversary(self):
         today = datetime.date.today()
-        return self.officer_since.month == today.month and self.officer_since.day == today.day
+        return (
+            self.officer_since.month == today.month
+            and self.officer_since.day == today.day
+        )
 
 
 class Politburo(models.Model):

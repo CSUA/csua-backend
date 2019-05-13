@@ -308,6 +308,8 @@ LDAP_AUTH_OBJECT_CLASS = "posixAccount"
 LDAP_AUTH_CLEAN_USER_DATA = "apps.csua_backend.settings.clean_ldap_user_data"
 
 STAFF_GROUPS = ("excomm", "root")
+
+
 def clean_ldap_user_data(fields):
     """
     Path to a callable that takes a dict of {model_field_name: value}, returning a dict of clean model data.
@@ -329,7 +331,11 @@ def clean_ldap_user_data(fields):
         first_name, last_name, email = "", "", ""
 
     with ldap3.Connection("ldaps://ldap.csua.berkeley.edu") as c:
-        c.search("ou=Group,dc=csua,dc=berkeley,dc=edu", "(memberUid={})".format(fields["username"]), attributes="cn")
+        c.search(
+            "ou=Group,dc=csua,dc=berkeley,dc=edu",
+            "(memberUid={})".format(fields["username"]),
+            attributes="cn",
+        )
         groups = [str(group.cn) for group in c.entries]
 
     is_staff = any(staff_group in groups for staff_group in STAFF_GROUPS)
@@ -342,6 +348,7 @@ def clean_ldap_user_data(fields):
         "is_staff": is_staff,
         "is_superuser": is_staff,
     }
+
 
 AUTHENTICATION_BACKENDS = [
     "django_python3_ldap.auth.LDAPBackend",

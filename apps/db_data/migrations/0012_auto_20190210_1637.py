@@ -5,30 +5,24 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0011_auto_20180610_1527'),
-    ]
+    dependencies = [("db_data", "0011_auto_20180610_1527")]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='enabled',
+            model_name="event",
+            name="enabled",
             field=models.BooleanField(default=True),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='event',
-            name='date',
-            field=models.DateField(null=True),
+            model_name="event", name="date", field=models.DateField(null=True)
         ),
         migrations.AlterField(
-            model_name='politburo',
-            name='contact',
+            model_name="politburo",
+            name="contact",
             field=models.TextField(max_length=255),
         ),
         migrations.AlterField(
-            model_name='politburo',
-            name='description',
-            field=models.TextField(),
+            model_name="politburo", name="description", field=models.TextField()
         ),
     ]

@@ -7,15 +7,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0006_officer_root_staff'),
-    ]
+    dependencies = [("db_data", "0006_officer_root_staff")]
 
     operations = [
         migrations.AddField(
-            model_name='officer',
-            name='tutor_subjects',
-            field=models.CharField(default='', max_length=255),
+            model_name="officer",
+            name="tutor_subjects",
+            field=models.CharField(default="", max_length=255),
             preserve_default=False,
-        ),
+        )
     ]

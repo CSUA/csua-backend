@@ -8,32 +8,30 @@ from apps import db_data
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0001_initial'),
-    ]
+    dependencies = [("db_data", "0001_initial")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='officer',
-            name='photo1_url',
-        ),
-        migrations.RemoveField(
-            model_name='officer',
-            name='photo2_url',
+        migrations.RemoveField(model_name="officer", name="photo1_url"),
+        migrations.RemoveField(model_name="officer", name="photo2_url"),
+        migrations.AddField(
+            model_name="officer",
+            name="photo1",
+            field=models.ImageField(
+                default="images/officers/cardigan.jpg",
+                max_length=255,
+                upload_to=db_data.models.photo_path,
+            ),
         ),
         migrations.AddField(
-            model_name='officer',
-            name='photo1',
-            field=models.ImageField(default='images/officers/cardigan.jpg', max_length=255, upload_to=db_data.models.photo_path),
-        ),
-        migrations.AddField(
-            model_name='officer',
-            name='photo2',
-            field=models.ImageField(blank=True, max_length=255, upload_to=db_data.models.photo_path),
+            model_name="officer",
+            name="photo2",
+            field=models.ImageField(
+                blank=True, max_length=255, upload_to=db_data.models.photo_path
+            ),
         ),
         migrations.AlterField(
-            model_name='officer',
-            name='pb_position',
+            model_name="officer",
+            name="pb_position",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

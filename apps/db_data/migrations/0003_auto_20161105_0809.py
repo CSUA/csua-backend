@@ -8,28 +8,33 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0002_auto_20161026_0302'),
-    ]
+    dependencies = [("db_data", "0002_auto_20161026_0302")]
 
     operations = [
         migrations.CreateModel(
-            name='Politburo',
+            name="Politburo",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('position', models.CharField(max_length=30)),
-                ('title', models.CharField(max_length=30)),
-                ('description', models.CharField(max_length=255)),
-                ('contact', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("position", models.CharField(max_length=30)),
+                ("title", models.CharField(max_length=30)),
+                ("description", models.CharField(max_length=255)),
+                ("contact", models.CharField(max_length=255)),
             ],
         ),
-        migrations.RemoveField(
-            model_name='officer',
-            name='pb_position',
-        ),
+        migrations.RemoveField(model_name="officer", name="pb_position"),
         migrations.AddField(
-            model_name='politburo',
-            name='officer',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='db_data.Officer'),
+            model_name="politburo",
+            name="officer",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE, to="db_data.Officer"
+            ),
         ),
     ]

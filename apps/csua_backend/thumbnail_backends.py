@@ -24,7 +24,6 @@ class SEOThumbnailBackend(ThumbnailBackend):
             r"^%s%s?" % (basepath, os.sep), "", source.name.split("/")[-1]
         ).split(os.sep)
         split_path.insert(-1, geometry_string)
-        print(split_path)
 
         # attempt to slugify the filename to make it SEO-friendly
         split_name = split_path[-1].split(".")

@@ -7,14 +7,8 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0008_event'),
-    ]
+    dependencies = [("db_data", "0008_event")]
 
     operations = [
-        migrations.AlterField(
-            model_name='sponsor',
-            name='url',
-            field=models.URLField(),
-        ),
+        migrations.AlterField(model_name="sponsor", name="url", field=models.URLField())
     ]

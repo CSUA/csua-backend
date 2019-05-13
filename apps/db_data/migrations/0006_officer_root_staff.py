@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0005_sponsor'),
-    ]
+    dependencies = [("db_data", "0005_sponsor")]
 
     operations = [
         migrations.AddField(
-            model_name='officer',
-            name='root_staff',
+            model_name="officer",
+            name="root_staff",
             field=models.BooleanField(default=False),
-        ),
+        )
     ]

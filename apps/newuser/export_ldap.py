@@ -48,9 +48,7 @@ if __name__ == "__main__":
     connection.unbind()
 
     # Create a fake server from the info and schema json files
-    fake_server = Server.from_definition(
-        "csua_mock", INFO_OUTPUT, SCHEMA_OUTPUT
-    )
+    fake_server = Server.from_definition("csua_mock", INFO_OUTPUT, SCHEMA_OUTPUT)
 
     # Create a MockSyncStrategy connection to the fake server
     fake_connection = Connection(fake_server, client_strategy=MOCK_SYNC)

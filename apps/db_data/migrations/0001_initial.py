@@ -9,21 +9,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Officer',
+            name="Officer",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=70)),
-                ('last_name', models.CharField(max_length=70)),
-                ('office_hours', models.CharField(max_length=70)),
-                ('photo1_url', models.CharField(max_length=255)),
-                ('photo2_url', models.CharField(max_length=255)),
-                ('blurb', models.CharField(max_length=255)),
-                ('pb_position', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=70)),
+                ("last_name", models.CharField(max_length=70)),
+                ("office_hours", models.CharField(max_length=70)),
+                ("photo1_url", models.CharField(max_length=255)),
+                ("photo2_url", models.CharField(max_length=255)),
+                ("blurb", models.CharField(max_length=255)),
+                ("pb_position", models.CharField(max_length=255)),
             ],
-        ),
+        )
     ]

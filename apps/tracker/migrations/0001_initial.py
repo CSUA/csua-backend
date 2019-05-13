@@ -8,29 +8,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Computer',
+            name="Computer",
             fields=[
-                ('hostname', models.CharField(max_length=15, primary_key=True, serialize=False)),
-                ('foreign_timestamp', models.IntegerField(default=0)),
-                ('local_timestamp', models.IntegerField(default=0)),
+                (
+                    "hostname",
+                    models.CharField(max_length=15, primary_key=True, serialize=False),
+                ),
+                ("foreign_timestamp", models.IntegerField(default=0)),
+                ("local_timestamp", models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('username', models.CharField(max_length=32, primary_key=True, serialize=False)),
-                ('last_ping', models.IntegerField(default=0)),
-                ('time_spent', models.IntegerField(default=0)),
+                (
+                    "username",
+                    models.CharField(max_length=32, primary_key=True, serialize=False),
+                ),
+                ("last_ping", models.IntegerField(default=0)),
+                ("time_spent", models.IntegerField(default=0)),
             ],
         ),
         migrations.AddField(
-            model_name='computer',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, to='tracker.User'),
+            model_name="computer",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.PROTECT, to="tracker.User"
+            ),
         ),
     ]

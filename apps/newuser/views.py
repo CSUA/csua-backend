@@ -23,7 +23,9 @@ def index(request):
                     form.cleaned_data["officer_username"],
                     form.cleaned_data["officer_password"],
                 ):
-                    enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
+                    enroll_jobs = (
+                        "true" if form.cleaned_data["enroll_jobs"] else "false"
+                    )
                     success, uid = ldap_bindings.create_new_user(
                         form.cleaned_data["username"],
                         form.cleaned_data["full_name"],
@@ -44,12 +46,20 @@ def index(request):
                             logger.info("New user created: {0}".format(uid))
                             return render(request, "create_success.html")
                         else:
-                            messages.error(request, "Account created, but failed to run config_newuser. Please contact #website for assistance.")
-                            logger.error("Account created, but failed to run config_newuser.")
+                            messages.error(
+                                request,
+                                "Account created, but failed to run config_newuser. Please contact #website for assistance.",
+                            )
+                            logger.error(
+                                "Account created, but failed to run config_newuser."
+                            )
                             # TODO: delete user to roll back the newuser operation.
                     else:
                         if uid == -1:
-                            messages.error(request, "Internal error, failed to bind as newuser. Please report this to #website.")
+                            messages.error(
+                                request,
+                                "Internal error, failed to bind as newuser. Please report this to #website.",
+                            )
                         else:
                             messages.error(request, "Your username is already taken.")
                 else:
