@@ -31,7 +31,7 @@ IS_PROD = socket.gethostname() == "tap"
 def run_shell_command(command):
     if not IS_PROD:
         command = "ssh soda " + command
-    return subprocess.check_output(command.split(" ")).decode()
+    return subprocess.check_output(command, shell=True).decode()
 
 
 def help(slack_message):
