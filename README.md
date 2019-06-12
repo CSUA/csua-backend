@@ -24,6 +24,11 @@ A backend for the CSUA interblags.
 4. `python3 manage.py collectstatic` to update static images
 5. If you're making changes to the db models, follow those instructions too
 
+### Deploy using fabric
+
+1. `fab -H <user>@tap.csua.berkeley.edu deploy`
+2. Profit
+
 ## Making changes to database models
 
 1. Make changes to `db_data/models.py`
