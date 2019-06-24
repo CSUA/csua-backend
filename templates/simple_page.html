@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="hero-body">
+      <h1 class="title">
+        {% block pagetitle %}DEFAULT TITLE{% endblock %}
+      </h1>
+    </div>
+    {% block page_content %}
+    <div class="box">
+      DEFAULT PAGE CONTENT
+    </div>
+    {% endblock %}
+  </div>
+</section>
+{% endblock %}
+{# vim: set et ts=2 sw=2 tw=200: #}

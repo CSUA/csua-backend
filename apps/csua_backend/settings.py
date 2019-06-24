@@ -38,10 +38,7 @@ if config("CSUA_BACKEND_USE_MYSQL", cast=bool, default=False):
             "PASSWORD": DB_PASS,
             "HOST": "",  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
             "PORT": "",  # Set to empty string for default.
-            "TEST": {
-                "NAME": "test_csua_backend",
-                'CHARSET': 'utf8',
-            },
+            "TEST": {"NAME": "test_csua_backend", "CHARSET": "utf8"},
         }
     }
 else:
@@ -117,6 +114,7 @@ STATICFILES_DIRS = [
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_HOME, "static")
 ]
 
 # List of finder classes that know how to find static files in
@@ -253,22 +251,19 @@ EMAIL_USE_TLS = True
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-#     "filters": {
-#         "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
-#         "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
-#     },
     "handlers": {
         "mail_admins": {
             "level": "ERROR",
             "class": "django.utils.log.AdminEmailHandler",
         },
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-        },
+        "console": {"level": "DEBUG", "class": "logging.StreamHandler"},
     },
     "loggers": {
-        "django.request": {"handlers": ["mail_admins"], "level": "ERROR", "propagate": True},
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": True,
+        },
         "django.security.csrf": {
             "handlers": ["mail_admins"],
             "level": "ERROR",
@@ -287,7 +282,7 @@ LOGOUT_REDIRECT_URL = "/"
 ## SORL-THUMBNAIL CONFIG ##
 THUMBNAIL_DEBUG = DEBUG
 THUMBNAIL_BACKEND = "apps.csua_backend.thumbnail_backends.SEOThumbnailBackend"
-THUMBNAIL_PREFIX = "images"
+THUMBNAIL_PREFIX = "thumbnails"
 
 ## SLACK CONFIG ##
 SLACK_CLIENT_ID = "3311748471.437459179046"

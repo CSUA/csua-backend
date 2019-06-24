@@ -4,10 +4,15 @@ from django.views.generic.base import TemplateView
 from . import views
 
 urlpatterns = [
-    path("politburo/", views.politburo),
-    path("officers/", views.officers),
-    path("sponsors/", views.sponsors),
-    path("events/", views.EventsView.as_view()),
-    path("events/workshops/", TemplateView.as_view(template_name="workshops.html")),
-    path("api/db.json/", views.json),
+    path("politburo/", views.politburo, name="politburo"),
+    path("politburo/<semester_id>", views.politburo, name="politburo_semester"),
+    path("officers/", views.officers, name="officers"),
+    path("officers/<semester_id>/", views.officers, name="officers_semester"),
+    path("sponsors/", views.sponsors, name="sponsors"),
+    path("events/", views.EventsView.as_view(), name="events"),
+    path(
+        "events/workshops/",
+        TemplateView.as_view(template_name="workshops.html"),
+        name="workshops",
+    ),
 ]

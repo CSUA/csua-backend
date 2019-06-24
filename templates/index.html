@@ -6,85 +6,107 @@
 {% endblock %}
 
 {% block page_content %}
-<div class="tile is-vertical is-ancestor">
-  <div class="tile">
-    <div class="tile is-parent is-5">
-      <article class="tile is-child content box">
-        <h1>Hello World!</h1>
-        <p>
-        The Computer Science Undergraduate Association supports the undergraduate
-        computer science student body at UC Berkeley and acts as an entry point to
-        industry.
-        </p>
-        <p>
-        The CSUA hosts tech talks, hackathons, info sessions, CS workshops,
-        LAN parties, and the biannual
-        <a href="http://ucbstartupfair.com/">Startup Fair</a>.
-        </p>
+<div class="columns is-centered">
+  <div class="column">
+    <div class="box content">
+      <h1>Hello World!</h1>
+      <p>
+      The Computer Science Undergraduate Association supports the undergraduate
+      computer science student body at UC Berkeley and acts as an entry point to
+      <a href="{% url 'sponsors' %}">industry</a>.
+      </p>
+      <p>
+      The CSUA hosts tech talks, hackathons, info sessions, CS workshops,
+      LAN parties, and the biannual
+      <a href="http://ucbstartupfair.com/">Startup Fair</a>.
+      </p>
 
-        <p>
-        Looking for a place to learn more about computer science and meet
-        other students? Come visit us at our office (311 Soda) or come to our
-        <a href="/events/">events.</a>
-        </p>
-      </article>
-    </div>
-    <div class="tile is-parent">
-      <article class="tile is-child content box">
-        <a href="/events/"><h1>Upcoming Events</h1></a>
-        {% include "upcoming_events.html" %}
-      </article>
+      <p>
+      Looking for a place to learn more about computer science and meet
+      other students? Come visit us at our office (311 Soda) or come to our
+      <a href="/events/">events.</a>
+      </p>
     </div>
   </div>
-  <div class="tile">
-    <div class="tile is-parent">
-      <article class="tile is-child content box">
-        <h1>People</h1>
-        <h2><a href="/politburo/">The Politburo</a></h2>
-        <p>
-        The Politburo is composed of elected officers of the CSUA. You can
-        contact the Politburo at politburo@csua.berkeley.edu.
-        </p>
-        <h2 id="officers"><a href="/officers/">Officers</a></h2>
-        <p>
-        Officers are people you find frequently at the office. They’re
-        responsible for keeping the place open and friendly. Many of them are
-        experienced with programming and can help you with your classes.
-        </p>
-      </article>
+</div>
+
+
+<div class="columns">
+  <div class="column">
+    <div class="content box">
+      <a href="/events/"><h1>Upcoming Events</h1></a>
+      {% include "upcoming_events.html" %}
     </div>
   </div>
-  <div class="tile">
-    <div class="tile is-parent">
-      <article class="tile is-child content box">
-        <h1 id="the-department">The Department</h1>
+  <div class="column">
+    <div class="content box">
+      <h1>People</h1>
+      <h2><a href="{% url 'politburo' %}">The Politburo</a></h2>
+      <p>
+      The Politburo is composed of elected officers of the CSUA. You can
+      contact the Politburo at politburo@csua.berkeley.edu.
+      </p>
+      <h2 id="officers"><a href="{% url 'officers' %}">Officers</a></h2>
+      <p>
+      Officers are people you find frequently at the office. They’re
+      responsible for keeping the place open and friendly. Many of them are
+      experienced with programming and can help you with your classes.
+      </p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content box">
+      <h1>Our Office</h1>
 
-        <h2 id="computer-science">
-          <a href="http://www.cs.berkeley.edu/">Computer Science</a>
-        </h2>
+      <p>
+      The CSUA Office is located in 311 Soda Hall in front of the 3rd floor
+      entrance to Soda Hall, at the corner of Hearst &amp; LeRoy.
+      </p>
 
-        <p>
-        Learn more about the Computer Science department at UC Berkeley. The
-        L&amp;S CS advisors are
-        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-          Leslie Mach
-        </a>
-        (379 Soda),
-        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-          Lydia Raya
-        </a>
-        (379 Soda) and
-        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-          Charlene Hughes
-        </a>
-        (315 Soda),
-        </p>
+      <p>
+      We work around the clock to provide
+      <a href="{% url 'computing_resources' %}">computing resources</a>,
+      support, and community to the computer science students at Berkeley.
+      </p>
 
-        <h2 id="electrical-engineering--computer-science">
-          <a href="http://www.eecs.berkeley.edu/">
-            Electrical Engineering &amp; Computer Science
-          </a>
-        </h2>
+      <b>Address</b><br />
+
+      Computer Science Undergraduate Association<br />
+      University of California, Berkeley<br />
+      311 Soda Hall<br />
+      Berkeley, CA 94720-1776<br />
+    </div>
+  </div>
+</div>
+<div class="columns">
+  <div class="column">
+    <div class="content box">
+      <h1 id="the-department">The Department</h1>
+      <h2 id="computer-science">
+        <a href="http://www.cs.berkeley.edu/">Computer Science</a>
+      </h2>
+      <p>
+      Learn more about the Computer Science department at UC Berkeley. The
+      L&amp;S CS advisors are
+      <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+        Leslie Mach
+      </a>
+      (379 Soda),
+      <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+        Lydia Raya
+      </a>
+      (379 Soda) and
+      <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+        Charlene Hughes
+      </a>
+      (315 Soda),
+      </p>
+
+      <h2 id="electrical-engineering--computer-science">
+        <a href="http://www.eecs.berkeley.edu/">
+          Electrical Engineering &amp; Computer Science
+        </a>
+      </h2>
 
         <p>
         Learn more about the Electrical Engineering &amp; Computer Science
@@ -102,31 +124,6 @@
            >Andrea Mejia Valencia</a>
         (all 205 Cory).
         </p>
-      </article>
-    </div>
-    <div class="tile is-parent">
-      <article class="tile is-child content box">
-        <h1>Our Office</h1>
-
-        <p>
-        The CSUA Office is located in 311 Soda Hall in front of the 3rd floor
-        entrance to Soda Hall, at the corner of Hearst &amp; LeRoy.
-        </p>
-
-        <p>
-        We work around the clock to provide computing resources, support, and
-        community to the computer science students at Berkeley. In the rare
-        case that you have an emergency and the office is vacant, you may
-        email us at politburo@csua.berkeley.edu.
-        </p>
-
-        <b>Address</b><br />
-
-        Computer Science Undergraduate Association<br />
-        University of California, Berkeley<br />
-        311 Soda Hall<br />
-        Berkeley, CA 94720-1776<br />
-      </article>
     </div>
   </div>
 </div>

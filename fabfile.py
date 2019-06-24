@@ -11,11 +11,13 @@ def format(c):
     """Should only be run locally"""
     os.system("black .")
 
+
 @task
 def init(c):
     shutil.copyfile(".env.dev", ".env")
     print("Copied .env.dev -> .env")
     os.system("python manage.py migrate")
+
 
 @task
 def deploy(c):

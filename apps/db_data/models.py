@@ -2,33 +2,65 @@ import os
 import datetime
 
 from django.db import models
+from django.contrib.auth.models import User as DjangoUser
 
 
-def photo_path(instance, filename):
-    # upload to MEDIA_ROOT/images/officers/{first_name}_{last_name}.{ext}
+class Semester(models.Model):
+    id = models.CharField(max_length=8, primary_key=True)
+    current = models.BooleanField()
+    name = models.CharField(max_length=16)
+    officers = models.ManyToManyField("Officer", through="Officership", blank=True)
+    politburo = models.ManyToManyField("Politburo", through="PolitburoMembership")
+    sponsors = models.ManyToManyField("Sponsor", through="Sponsorship")
+    events = models.ManyToManyField("Event", blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+def person_photo_path(instance, filename):
+    # upload to MEDIA_ROOT/images/people/{first_name}_{last_name}_alt.{ext}
     filename, file_extension = os.path.splitext(filename)
-    return "images/officers/{0}_{1}{2}".format(
-        instance.first_name, instance.last_name, file_extension
+    return "images/people/{0}_{1}{2}".format(
+        instance.user.first_name, instance.user.last_name, file_extension
     )
+
+
+def person_photo_path_alt(instance, filename):
+    filename, file_extension = os.path.splitext(filename)
+    return "images/people/{0}_{1}_alt{2}".format(
+        instance.user.first_name, instance.user.last_name, file_extension
+    )
+
+
+class Person(models.Model):
+    user = models.OneToOneField(
+        DjangoUser, on_delete=models.PROTECT, primary_key=True, to_field="username"
+    )
+    photo1 = models.ImageField(
+        upload_to=person_photo_path,
+        max_length=255,
+        default="images/officers/cardigan.jpg",
+    )
+    photo2 = models.ImageField(
+        upload_to=person_photo_path_alt, max_length=255, blank=True
+    )
+    video2 = models.FileField(
+        upload_to=person_photo_path_alt, max_length=255, blank=True
+    )
+
+    def __str__(self):
+        return str(self.user)
 
 
 # Create your models here.
 class Officer(models.Model):
-    first_name = models.CharField(max_length=70)
-    last_name = models.CharField(max_length=70)
-    office_hours = models.CharField(max_length=70)
-    photo1 = models.ImageField(
-        upload_to=photo_path, max_length=255, default="images/officers/cardigan.jpg"
-    )
-    photo2 = models.ImageField(upload_to=photo_path, max_length=255, blank=True)
-    blurb = models.CharField(max_length=255)
+    person = models.OneToOneField(Person, on_delete=models.PROTECT, unique=True)
     root_staff = models.BooleanField(default=False)
-    tutor_subjects = models.CharField(max_length=255, blank=True)
-    enabled = models.BooleanField(default=True)
     officer_since = models.DateField()
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return str(self.person)
 
     @property
     def is_anniversary(self):
@@ -39,19 +71,42 @@ class Officer(models.Model):
         )
 
 
+class Officership(models.Model):
+    officer = models.ForeignKey(Officer, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    tutor_subjects = models.ManyToManyField("UcbClass", blank=True)
+    blurb = models.CharField(max_length=255)
+    office_hours = models.CharField(max_length=70)
+
+    def __str__(self):
+        return str(self.semester) + ": " + str(self.officer)
+
+
+class UcbClass(models.Model):
+    id = models.CharField(max_length=8, primary_key=True)
+
+
 class Politburo(models.Model):
     position = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
     description = models.TextField()
     contact = models.TextField(max_length=255)
-    officer = models.OneToOneField(Officer, on_delete=models.PROTECT)
-
-    @property
-    def contact_info(self):
-        return self.contact.replace("[name]", self.officer.first_name, 1)
 
     def __str__(self):
         return self.title
+
+
+class PolitburoMembership(models.Model):
+    politburo = models.ForeignKey(Politburo, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.PROTECT)
+
+    @property
+    def contact_info(self):
+        return self.politburo.contact.replace("[name]", self.person.user.first_name, 1)
+
+    def __str__(self):
+        return str(self.semester) + ": " + str(self.politburo) + ": " + str(self.person)
 
 
 def sponsor_photo_path(instance, filename):
@@ -68,11 +123,15 @@ class Sponsor(models.Model):
         max_length=255,
         default="images/officers/cardigan.jpg",
     )
-    description = models.CharField(max_length=255)
-    current = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
+
+
+class Sponsorship(models.Model):
+    sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    description = models.CharField(max_length=255)
 
 
 class Event(models.Model):
@@ -81,8 +140,8 @@ class Event(models.Model):
     date = models.DateField(null=True)
     time = models.CharField(max_length=70)
     description = models.TextField()
-    link = models.URLField()
-    enabled = models.BooleanField()
+    link = models.URLField(blank=True)
+    category = models.ForeignKey("EventCategory", null=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
@@ -90,3 +149,8 @@ class Event(models.Model):
     @property
     def is_passed(self):
         return self.date < datetime.date.today()
+
+
+class EventCategory(models.Model):
+    id = models.CharField(max_length=16, primary_key=True)
+    name = models.CharField(max_length=32)

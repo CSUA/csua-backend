@@ -92,17 +92,6 @@ body {
 		max-width: 960px;
 		padding: 80px 20px 20px;
 	}
-	.column {
-		display: inline-block;
-		width: 40%;
-		width: calc(100% / 2.04);
-	}
-	.columnleft {
-		float: left;
-	}
-	.columnright {
-		float: right;
-	}
 	.responsivehidden {
 		display: none;
 	}
@@ -127,9 +116,6 @@ body {
 .textseparation {
 	margin-bottom: 10px;
 }
-#half-text {
-	width: 50%;
-}
 #pagetitle {
 	text-align: center;
 }
@@ -139,9 +125,10 @@ body {
 #texttitle {
 	font-size: 20px;
 }
-footer {
+footer.footer {
 	clear: both;
 	text-align: center;
 	padding-top: 20px;
 	color: darkgray;
+	background-color: #e0e0e0;
 }

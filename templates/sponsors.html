@@ -16,11 +16,7 @@
   <div class="content">
     <h1>Current Sponsors</h1>
   </div>
-  {% include "sponsors_grid.html" with sponsors=sponsors_current %}
-  <div class="content">
-    <h1>Past Sponsors</h1>
-  </div>
-  {% include "sponsors_grid.html" with sponsors=sponsors_past %}
+  {% include "sponsors_grid.html" with sponsorships=sponsorships %}
 </div>
 {% endblock %}
 {# vim:set sw=2:et:ts=4 #}

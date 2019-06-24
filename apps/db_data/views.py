@@ -1,11 +1,20 @@
 import datetime
 
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.decorators.cache import cache_page
 
-from .models import Event, Officer, Politburo, Sponsor
+from .models import (
+    Event,
+    Officer,
+    Politburo,
+    Sponsor,
+    Sponsorship,
+    Semester,
+    Officership,
+    PolitburoMembership,
+)
 from .constants import DAYS_OF_WEEK, OH_TIMES
 
 
@@ -14,98 +23,72 @@ class EventsView(TemplateView):
 
     def get_context_data(request):
         context = {}
-        context["events"] = Event.objects.filter(
-            enabled=True, date__gte=datetime.date.today()
-        )
+        semester = Semester.objects.filter(current=True).get()
+        context["events"] = semester.events.all()
         return context
 
 
 # @cache_page(3 * 60)
-def officers(request):
-    officer_queryset = Officer.objects.filter(enabled=True)
-    calendar_contents = [
+def officers(request, semester_id=None):
+    if semester_id is None:
+        semester = Semester.objects.filter(current=True).get()
+    else:
+        semester = get_object_or_404(Semester, id=semester_id)
+    officerships = (
+        Officership.objects.filter(semester=semester)
+        .select_related("officer__person__user")
+        .order_by("officer__person__user__first_name")
+    )
+    print(officerships.all())
+
+    for officership in officerships:
+        print(officership)
+
+    office_hours_calendar = [
         [hour]
-        + [
-            officer_queryset.filter(office_hours=day + " " + hour)
-            for day in DAYS_OF_WEEK
-        ]
+        + [officerships.filter(office_hours=day + " " + hour) for day in DAYS_OF_WEEK]
         for hour in OH_TIMES
     ]
 
-    calendar = {"days": DAYS_OF_WEEK, "hours": OH_TIMES, "contents": calendar_contents}
+    calendar = {
+        "days": DAYS_OF_WEEK,
+        "hours": OH_TIMES,
+        "contents": office_hours_calendar,
+    }
     return render(
         request,
         "officers.html",
-        {"officer_list": officer_queryset, "calendar": calendar},
+        {"officer_list": officerships, "calendar": calendar, "semester": semester},
     )
 
 
-def politburo(request):
-    return render(request, "politburo.html", {"pb": Politburo.objects.all()})
+def politburo(request, semester_id=None):
+    if semester_id is None:
+        semester = Semester.objects.filter(current=True).get()
+    else:
+        semester = get_object_or_404(Semester, id=semester_id)
+
+    pb = (
+        PolitburoMembership.objects.filter(semester=semester)
+        .select_related("person__user")
+        .order_by("id")
+    )
+
+    return render(request, "politburo.html", {"pb": pb})
 
 
-def sponsors(request):
-    sponsors_current = Sponsor.objects.filter(current=True).order_by("name")
-    sponsors_past = Sponsor.objects.filter(current=False).order_by("name")
+def sponsors(request, semester_id=None):
+    if semester_id is None:
+        semester = Semester.objects.filter(current=True).get()
+    else:
+        semester = get_object_or_404(Semester, id=semester_id)
+    sponsorships = (
+        Sponsorship.objects.select_related("sponsor")
+        .filter(semester=semester)
+        .order_by("sponsor__name")
+    )
     return render(
         request,
         "sponsors.html",
-        {"sponsors_current": sponsors_current, "sponsors_past": sponsors_past},
+        {"sponsorships": sponsorships},
     )
-
-
-def json(request):
-    officers_all = Officer.objects.filter(enabled=True).order_by("last_name")
-    serialized_officers = [
-        {
-            "name": o.first_name + " " + o.last_name,
-            "hours": o.office_hours,
-            "img": o.photo1.url if o.photo1 else None,
-            "img2": o.photo2.url if o.photo2 else None,
-            "quote": o.blurb,
-            "rootStaff": o.root_staff,
-            "tutorSubjects": o.tutor_subjects,
-        }
-        for o in officers_all
-    ]
-
-    pb_arr = Politburo.objects.all()
-    pb_dict = {}
-    for pb_member in pb_arr:
-        pb_dict[pb_member.position] = {
-            "name": pb_member.officer.first_name + " " + pb_member.officer.last_name,
-            "img": pb_member.officer.photo1.url if pb_member.officer.photo1 else None,
-        }
-
-    events_all = Event.objects.order_by("date")
-    serialized_events = [
-        {
-            "name": e.name,
-            "location": e.location,
-            "date": e.date.strftime("%A - %m/%d"),
-            "time": e.time,
-            "description": e.description,
-            "href": e.link,
-        }
-        for e in events_all
-    ]
-
-    sponsors_all = Sponsor.objects.order_by("name")
-    serialized_sponsors = [
-        {
-            "name": s.name,
-            "href": s.url,
-            "type": s.description,
-            "img": s.photo.url if s.photo else None,
-            "current": s.current,
-        }
-        for s in sponsors_all
-    ]
-
-    result = {
-        "officers": serialized_officers,
-        "pb": pb_dict,
-        "events": serialized_events,
-        "sponsors": serialized_sponsors,
-    }
-    return JsonResponse(result)
