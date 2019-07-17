@@ -38,10 +38,7 @@
           {% for officership in timeslot %}
           {% with officership.officer.person.user as user %}
           <a class="button has-text-link" href="#{{ user }}">
-            <span>
-              {{ user.first_name }}&nbsp;{{ user.last_name }}
-            </span>
-            {% if officership.tutor_subjects|length > 1 %}
+            {% if officership.is_tutor %}
             <span class="icon">
               <i class="fas fa-graduation-cap"></i>
             </span>
@@ -52,6 +49,9 @@
               </i>
             </span>
             {% endif %}
+            <span>
+              {{ user.first_name }}&nbsp;{{ user.last_name }}
+            </span>
           </a>
           {% endwith %}
           {% endfor %}
@@ -134,10 +134,10 @@
           OH: {{ officership.office_hours }}
         </a>
         <br>
-        {% if officership.tutor_subjects|length > 1 %}
+        {% if officership.tutor_subjects.all|length > 0 %}
         <span class="tutor-badge">
           <i class="fas fa-graduation-cap"></i>
-        Tutors for: {{ officership.tutor_subjects }}
+        Tutors for: {{ officership.tutor_subjects.all|join:", " }}
         </span>
         <br>
         {% endif %}

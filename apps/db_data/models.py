@@ -81,9 +81,16 @@ class Officership(models.Model):
     def __str__(self):
         return str(self.semester) + ": " + str(self.officer)
 
+    @property
+    def is_tutor(self):
+        return len(self.tutor_subjects.all()) > 0
+
 
 class UcbClass(models.Model):
     id = models.CharField(max_length=8, primary_key=True)
+
+    def __str__(self):
+        return self.id
 
 
 class Politburo(models.Model):

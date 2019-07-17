@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.decorators.cache import cache_page
+from django.views.decorators.http import require_safe
 
 from .models import (
     Event,
@@ -14,6 +15,7 @@ from .models import (
     Semester,
     Officership,
     PolitburoMembership,
+    UcbClass,
 )
 from .constants import DAYS_OF_WEEK, OH_TIMES
 
@@ -39,10 +41,6 @@ def officers(request, semester_id=None):
         .select_related("officer__person__user")
         .order_by("officer__person__user__first_name")
     )
-    print(officerships.all())
-
-    for officership in officerships:
-        print(officership)
 
     office_hours_calendar = [
         [hour]
@@ -87,8 +85,24 @@ def sponsors(request, semester_id=None):
         .filter(semester=semester)
         .order_by("sponsor__name")
     )
-    return render(
-        request,
-        "sponsors.html",
-        {"sponsorships": sponsorships},
+    return render(request, "sponsors.html", {"sponsorships": sponsorships})
+
+
+def tutoring(request, semester_id=None):
+    if semester_id is None:
+        semester = Semester.objects.filter(current=True).get()
+    else:
+        semester = get_object_or_404(Semester, id=semester_id)
+    officerships = Officership.objects.select_related("officer").filter(
+        semester=semester
     )
+    print(officerships.explain())
+    all_tutoring_subjects = UcbClass.objects.all()
+    tutors_by_subject = {}
+    for subject in all_tutoring_subjects:
+        tutors_by_subject[str(subject)] = [
+            officership.officer
+            for officership in officerships
+            if subject in officership.tutor_subjects.all()
+        ]
+    return render(request, "tutoring.html", {"tutors_by_subject": tutors_by_subject})

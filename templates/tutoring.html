@@ -1,20 +1,23 @@
-{% extends "base.html" %}
+{% extends "simple_page.html" %}
 {% block title %}Tutoring{% endblock %}
-{% block content %}
-<div class="hero">
-    <div class="hero-body">
-        <h1 class="title">Tutoring</h1>
-        <p>
-        Need help with your classes? Members of the CSUA provide free tutoring
-        services in 311 Soda. Please check our calendar below!
-        </p>
-    </div>
-</div>
+{% block pagetitle %}Tutoring{% endblock %}
+{% block page_content %}
+<p>
+Need help with your classes?
+Officers of the CSUA provide free tutoring services in 311 Soda.
+Please check our calendar below!
+</p>
 
-<div id="tutoring-calendar" class="box container has-text-centered">
-    <iframe
-        src="https://calendar.google.com/calendar/embed?src=berkeley.edu_ovluroab46af2sbup6ot2h6m58%40group.calendar.google.com&ctz=America%2FLos_Angeles&mode=AGENDA"
-        style="border: 0" frameborder="0" scrolling="no" height=600 width=800></iframe>
+<div class="columns">
+    {% for subject, tutors in tutors_by_subject.items %}
+    <div class="column">
+        {{ subject }}<br>
+        {% for tutor in tutors %}
+        {{ tutor.person.user.first_name }}&nbsp;{{ tutor.person.user.last_name }}
+        &lt;{{ tutor.person.user }}&gt;
+        {% endfor %}
+    </div>
+    {% endfor %}
 </div>
 
 <p>

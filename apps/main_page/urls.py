@@ -9,20 +9,17 @@ from apps.db_data.views import EventsView
 
 urlpatterns = [
     path("", EventsView.as_view(template_name="index.html"), name="index"),
-    path("constitution/",
+    path(
+        "constitution/",
         TemplateView.as_view(template_name="constitution.html"),
-        name="constitution"),
+        name="constitution",
+    ),
     path(
         "resources/",
         TemplateView.as_view(template_name="computing_resources.html"),
         name="computing_resources",
     ),
     path("join/", TemplateView.as_view(template_name="join.html"), name="join"),
-    path(
-        "tutoring/",
-        TemplateView.as_view(template_name="tutoring.html"),
-        name="tutoring",
-    ),
     path("alumni/", TemplateView.as_view(template_name="alumni.html"), name="alumni"),
     path(
         "login/",

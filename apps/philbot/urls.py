@@ -1,9 +1,7 @@
-from django.conf.urls import url
-from django.contrib import admin
-from .views import SlackEventAPI, SlackCommandAPI
-from django.views.decorators.csrf import csrf_exempt
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    url(r"^event/$", SlackEventAPI.as_view()),
-    url(r"^command/$", SlackCommandAPI.as_view()),
+    path("event/", views.SlackEventAPI.as_view()),
+    path("command/", views.SlackCommandAPI.as_view()),
 ]
