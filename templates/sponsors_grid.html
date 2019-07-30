@@ -1,4 +1,4 @@
-{# placeholder for vim #}
+{% load thumbnail %}
 <div class="columns is-multiline is-centered">
 {% for sponsorship in sponsorships %}
 {% with sponsorship.sponsor as sponsor %}
@@ -11,9 +11,11 @@
     </h2>
   </div>
   <br>
-  <figure class="sponsor has-text-centered">
-    <img style="max-height: 300px;" src="{{ sponsor.photo.url }}">
+  {% thumbnail sponsor.photo "x200" as im%}
+  <figure class="has-text-centered">
+    <img src="{{ im.url }}">
   </figure>
+  {% endthumbnail %}
   <div style="margin-bottom: 1em;" class="content has-text-centered">
     <p>{{ sponsorship.description }}</p>
   </div>

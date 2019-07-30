@@ -65,10 +65,10 @@
 </div>
 <div class="columns">
   <div class="column">
-  Each officer is responsible for keeping the office open during their
-  assigned office hours. Additionally, some officers have their office
-  hours open for tutoring. Talk to an officer if you would like to join the
-  CSUA and make an account!
+    Each officer is responsible for keeping the office open during their
+    assigned office hours. Additionally, some officers have their office
+    hours open for tutoring. Talk to an officer if you would like to join the
+    CSUA and make an account!
   </div>
   <div class="column">
     Root staff
@@ -98,7 +98,7 @@
   {% for officership in officer_list %}
   {% with officership.officer as officer %}
   {% with officer.person.user as user %}
-  {% thumbnail officer.person.photo1 "500x500" as photo1 %}
+  {% thumbnail officer.person.photo1 "500x500" crop="center" as photo1 %}
   <article class="column is-3" id="{{ user }}">
     <div data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up">
       <div class="photo-frame">
@@ -125,10 +125,10 @@
           {{ user.first_name }} {{ user.last_name }}
         </strong>
         {% if officer.is_anniversary %}
-            <span class="icon">
-              <i class="fas fa-birthday-cake"></i>
-            </span>
-            {% endif %}
+        <span class="icon">
+          <i class="fas fa-birthday-cake"></i>
+        </span>
+        {% endif %}
         <br>
         <a href="#office-hours">
           OH: {{ officership.office_hours }}
@@ -137,13 +137,13 @@
         {% if officership.tutor_subjects.all|length > 0 %}
         <span class="tutor-badge">
           <i class="fas fa-graduation-cap"></i>
-        Tutors for: {{ officership.tutor_subjects.all|join:", " }}
+          Tutors for: {{ officership.tutor_subjects.all|join:", " }}
         </span>
         <br>
         {% endif %}
         {% if officer.root_staff %}
         <span class="root-badge"><i class="fas fa-hashtag"></i>
-        <tt>root</tt></span>
+          <tt>root</tt></span>
         <br>
         {% endif %}
         <span class="blurb">
@@ -152,10 +152,10 @@
       </div>
     </div>
   </article>
-{% endthumbnail %}
-{% endwith %}
-{% endwith %}
-{% endfor %}
+  {% endthumbnail %}
+  {% endwith %}
+  {% endwith %}
+  {% endfor %}
 </div>
 {% endblock %}
 {# vim: set et sw=2 ts=2 tw=0: #}

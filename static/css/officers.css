@@ -1,8 +1,3 @@
-/* hardcoded because I can't seem to make a square div :( --robertquitt */
-.photo-frame {
-	overflow: hidden;
-	height: 300px;
-}
 /* Logic for showing alternative photo */
 .phototwo, .videotwo {
 	display: none;
