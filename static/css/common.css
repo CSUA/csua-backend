@@ -1,3 +1,16 @@
+:root {
+	--bg: #345;
+	--base03: #002b36;
+	--base02: #073642;
+	--base01: #586e75;
+	--base00: #657b83;
+	--base0: #839496;
+	--base1: #93a1a1;
+	--base2: #eee8d5;
+	--base3: #fdf6e3;
+	--blue: #268bd2;
+	--yellow: #b58900;
+}
 html, body {
 	margin: 0px;
 	padding: 0px;
@@ -9,14 +22,40 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	background-color: var(--base3);
 }
-#navbar {
+#navbar, .navbar-menu {
+	background-color: var(--base03);
+}
+#navbar .navbar-link, .navbar-item,.navbar-dropdown {
+	border-top-color: var(--base02);
+	background-color: var(--base03);
+	color: var(--base0);
+}
+#navbar a:hover {
+	background-color: var(--base02);
+	color: var(--base0);
+}
+#navbar .navbar-link:hover,.navbar-link.active,.navbar-item:hover {
+	background-color: var(--base02);
+}
+.navbar-link:not(.is-arrowless)::after {
+	border-color: var(--base01);
 }
 #content {
 	flex: 1 0 auto;
 }
 #footer {
-	color: #3a4a5a;
-	background-color: #dedff3;
+	color: var(--base0);
+	background-color: var(--base03);
 	width: 100%;
+}
+#footer a {
+	color: var(--blue);
+}
+#footer a:hover {
+	color: var(--yellow);
+}
+.box {
+	background-color: var(--base2);
 }

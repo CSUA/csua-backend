@@ -3,7 +3,7 @@
 {% block title %}Politburo{% endblock %}
 {% block css_file %}politburo.css{% endblock %}
 {% block hero %}
-{% include "hero_with_bg_img.html" with title="The Politburo" subtitle="Executive Committee of the CSUA" img_url="/static/images/pb_sp19.jpg" position="inherit" crop="center" geom="1000x600" %}
+{% include "hero_with_bg_img.html" with title="The Politburo" subtitle="Executive Committee of the CSUA" size="is-small" %}
 {% endblock %}
 {% block page_content %}
 <div class="box">
@@ -50,6 +50,16 @@
   {% endwith %}
   {% endwith %}
   {% endfor %}
+  {% if semesters %}
+  <div class="content">
+    <h2>Previous Semesters</h2>
+    <ul>
+      {% for semester in semesters %}
+      <li><a href="{% url 'politburo_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
 {# vim: set et ts=2 sw=2 tw=0: #}

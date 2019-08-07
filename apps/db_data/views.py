@@ -36,6 +36,7 @@ def officers(request, semester_id=None):
         semester = Semester.objects.filter(current=True).get()
     else:
         semester = get_object_or_404(Semester, id=semester_id)
+    semesters = Semester.objects.exclude(id=semester.id)
     officerships = (
         Officership.objects.filter(semester=semester)
         .select_related("officer__person__user")
@@ -56,7 +57,7 @@ def officers(request, semester_id=None):
     return render(
         request,
         "officers.html",
-        {"officer_list": officerships, "calendar": calendar, "semester": semester},
+        {"officer_list": officerships, "calendar": calendar, "semester": semester, "semesters": semesters},
     )
 
 
@@ -65,6 +66,7 @@ def politburo(request, semester_id=None):
         semester = Semester.objects.filter(current=True).get()
     else:
         semester = get_object_or_404(Semester, id=semester_id)
+    semesters = Semester.objects.exclude(id=semester.id)
 
     pb = (
         PolitburoMembership.objects.filter(semester=semester)
@@ -72,7 +74,7 @@ def politburo(request, semester_id=None):
         .order_by("id")
     )
 
-    return render(request, "politburo.html", {"pb": pb})
+    return render(request, "politburo.html", {"pb": pb, "semesters": semesters})
 
 
 def sponsors(request, semester_id=None):
@@ -80,12 +82,13 @@ def sponsors(request, semester_id=None):
         semester = Semester.objects.filter(current=True).get()
     else:
         semester = get_object_or_404(Semester, id=semester_id)
+    semesters = Semester.objects.exclude(id=semester.id)
     sponsorships = (
         Sponsorship.objects.select_related("sponsor")
         .filter(semester=semester)
         .order_by("sponsor__name")
     )
-    return render(request, "sponsors.html", {"sponsorships": sponsorships})
+    return render(request, "sponsors.html", {"sponsorships": sponsorships, "current_semester": semester, "semesters": semesters})
 
 
 def tutoring(request, semester_id=None):
