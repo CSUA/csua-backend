@@ -11,4 +11,4 @@ ldap3
 # SLACK
 requests
 djangorestframework
-slackclient
+slackclient>=2.1.0
