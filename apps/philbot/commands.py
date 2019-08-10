@@ -17,14 +17,14 @@ import subprocess
 
 from django.conf import settings
 import requests
-from slackclient import SlackClient
+from slack import WebClient
 
 from .exceptions import SlackAuthError
 
 SLACK_VERIFICATION_TOKEN = getattr(settings, "SLACK_VERIFICATION_TOKEN", None)
 SLACK_BOT_USER_TOKEN = getattr(settings, "SLACK_BOT_USER_TOKEN", None)
 
-Client = SlackClient(SLACK_BOT_USER_TOKEN)
+Client = WebClient(token=SLACK_BOT_USER_TOKEN)
 IS_PROD = socket.gethostname() == "tap"
 
 
