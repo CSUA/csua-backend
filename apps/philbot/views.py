@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
-from slackclient import SlackClient
+from slack import WebClient
 from .commands import COMMANDS
 from .exceptions import SlackAuthError
 
@@ -16,7 +16,7 @@ SLACK_VERIFICATION_TOKEN = getattr(settings, "SLACK_VERIFICATION_TOKEN", None)
 SLACK_BOT_USER_TOKEN = getattr(settings, "SLACK_BOT_USER_TOKEN", None)
 
 
-Client = SlackClient(SLACK_BOT_USER_TOKEN)
+Client = WebClient(SLACK_BOT_USER_TOKEN)
 
 
 class SlackEventAPI(APIView):
@@ -27,7 +27,7 @@ class SlackEventAPI(APIView):
             "team_id": "T0395N0DV",
             "api_app_id": "ACVDH591C",
             "event": {
-                "type": "message",
+                "type": "message"
                 "user": "U40GUFVBP",
                 "text": "Event",
                 "client_msg_id": "06f856c9-e94e-4b60-bd4e-756d312978be",

@@ -70,4 +70,7 @@ data/
 .mypy_cache
 .vagrant/
 
-.env
+/.env
+
+# Virtual environment
+/venv
