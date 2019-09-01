@@ -1,5 +1,5 @@
 :root {
-	--bg: #345;
+	--bg: #e0e8ef;
 	--base03: #002b36;
 	--base02: #073642;
 	--base01: #586e75;
@@ -8,6 +8,7 @@
 	--base1: #93a1a1;
 	--base2: #eee8d5;
 	--base3: #fdf6e3;
+	--base4: #fdf6f3;
 	--blue: #268bd2;
 	--yellow: #b58900;
 }
@@ -22,7 +23,7 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	background-color: var(--base3);
+	background-color: var(--bg);
 }
 #navbar, .navbar-menu {
 	background-color: var(--base03);
@@ -57,5 +58,5 @@ html, body {
 	color: var(--yellow);
 }
 .box {
-	background-color: var(--base2);
+	background-color: white;
 }
