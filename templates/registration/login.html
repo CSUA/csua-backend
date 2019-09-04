@@ -3,13 +3,21 @@
 {% block content %}
 <section class="section">
   <div class="container">
-    <div class="content">
-      <h1>Log in</h1>
-      <form method="post" {% if next %} action="?next={{next}}" {% endif %}>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-      </form>
+    <div class="columns is-centered">
+      <div class="column is-5">
+        <div class="content box">
+          <h1>Log in</h1>
+          <form method="post" {% if next %} action="?next={{next}}" {% endif %}>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+          </form>
+          <br>
+          <p>
+          Need an account? Talk to an <a href="{% url 'officers' %}">officer!</a>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

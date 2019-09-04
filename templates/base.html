@@ -1,158 +1,166 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
     <title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static "css/common.css" %}">
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-          // Add a click event on each of them
-          $navbarBurgers.forEach( el => {
-            el.addEventListener('click', () => {
-              // Get the target from the "data-target" attribute
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-            });
-          });
-        }
+document.addEventListener('DOMContentLoaded', () => {
+  // to get mobile navbar to work
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  if ($navbarBurgers.length > 0) {
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
       });
+    });
+  }
+});
     </script>
   </head>
   <body>
-    <nav class="navbar is-link" role="navigation", aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="/static/images/pic.png" width="36" height="28">
-        </a>
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+    <div id="body-container">
+      <nav id="navbar" class="navbar" role="navigation", aria-label="main navigation">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'index' %}">
+              <img src="{% static 'images/pic.png' %}" width="36" height="28">
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="/events/">
+                  <span class="icon">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                  <span>
+                    Events
+                  </span>
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item" href="{% url 'workshops' %}">
+                    Workshops
+                  </a>
+                </div>
+              </div>
+
+              <div class="navbar-item has-dropdown is-hoverable">
+                <span class="navbar-link">
+                  <span class="icon">
+                    <i class="fa fa-users"></i>
+                  </span>
+                  <span>
+                    About Us
+                  </span>
+                </span>
+
+                <div class="navbar-dropdown">
+                  <a class="navbar-item" href="{% url 'politburo' %}">
+                    Politburo
+                  </a>
+
+                  <a class="navbar-item" href="{% url 'officers' %}">
+                    Officers
+                  </a>
+
+                  <a class="navbar-item" href="{% url 'constitution' %}">
+                    Constitution
+                  </a>
+
+                </div>
+              </div>
+
+              <a class="navbar-item" href="{% url 'join' %}">
+                Join
+              </a>
+
+              <a class="navbar-item" href="{% url 'sponsors' %}">
+                Sponsors
+              </a>
+
+              <a class="navbar-item" href="{% url 'contact' %}">
+                Contact Us
+              </a>
+            </div>
+
+            <div class="navbar-end">
+              {% if request.user.is_authenticated %}
+              <a class="navbar-item" href="{% url 'my_profile' %}">
+                Welcome {{ request.user.first_name }}!
+              </a>
+              <a class="navbar-item" href="{% url 'logout' %}">
+                Logout
+              </a>
+              {% else %}
+              <a class="navbar-item" href="{% url 'login' %}">
+                Login
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div id="content">
+        {% block content %}{% endblock %}
       </div>
-      <div id="navMenu" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link" href="/events/">
-              <span class="icon">
-                <i class="fas fa-calendar-alt"></i>
-              </span>
-              <span>
-                Events
-              </span>
-            </a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="/events/workshops/">
-                Workshops
+
+      <footer id="footer" class="footer has-text-left">
+        <div class="container">
+          <div class="columns">
+            <div class="column">
+              <div class="content">
+                <a href="https://www.facebook.com/csua/">
+                  <i class="fab fa-facebook-square"></i>
+                  Like us on Facebook
+                </a>
+              </div>
+            </div>
+            <div class="column">
+              <p>
+              &copy; CSUA {% now "Y" %}
+              </p>
+              <p>
+              <a href="{% url 'contact' %}">
+                Contact Us
               </a>
+              </p>
+            </div>
+            <div class="column">
+              <p>
+              Made by CSUA root staff with special help from Phillip "Edward" Nunez.
+              <a href="https://github.com/CSUA/csua-backend/graphs/contributors">
+                Contributors
+              </a>
+              </p>
+              <p>
+              Website feedback? Make an issue or pull request on
+              <a href="https://github.com/CSUA/csua-backend">
+                <i class="fab fa-github"></i>
+                GitHub.
+              </a>
+              </p>
             </div>
           </div>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <span class="navbar-link">
-              <span class="icon">
-                <i class="fa fa-users"></i>
-              </span>
-              <span>
-                About Us
-              </span>
-            </span>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="/politburo/">
-                Politburo
-              </a>
-
-              <a class="navbar-item" href="/officers/">
-                Officers
-              </a>
-
-              <a class="navbar-item" href="/constitution/">
-                Constitution
-              </a>
-
-            </div>
-          </div>
-
-          <a class="navbar-item" href="/join/">
-            Join
-          </a>
-
-          <a class="navbar-item" href="/sponsors/">
-            Sponsors
-          </a>
         </div>
-
-        <div class="navbar-end">
-          {% if request.user.is_authenticated %}
-          <a class="navbar-item" href="/profile/">
-            Welcome {{ request.user.first_name }}!
-          </a>
-          <a class="navbar-item" href="/logout/">
-            Logout
-          </a>
-          {% else %}
-          <a class="navbar-item" href="/login/">
-            Login
-          </a>
-          {% endif %}
-        </div>
-      </div>
-    </nav>
-
-    {% block content %}{% endblock %}
-
-    <footer class="footer has-text-left">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <div class="content">
-              <a href="https://www.facebook.com/csua/">
-                <i class="fab fa-facebook-square"></i>
-                Like us on Facebook
-              </a>
-            </div>
-          </div>
-          <div class="column">
-            <p>
-            &copy; CSUA {% now "Y" %}
-            </p>
-          </div>
-          <div class="column">
-            <p>
-            Lovingly made by CSUA root staff with special help from Phillip
-            "Edward" Nunez.
-            <a href="https://github.com/CSUA/csua-backend/graphs/contributors">
-              Contributors
-            </a>
-            </p>
-            <p>
-            Website feedback? Make an issue or pull request for this page on
-            <a href="https://github.com/CSUA/csua-backend">
-              <i class="fab fa-github"></i>
-              GitHub.
-            </a>
-            </p>
-            <a href="https://bulma.io">
-              <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with
-              Bulma" width="128" height="24">
-            </a>
-          </div>
-        </div>
-    </footer>
+      </footer>
+    </div>
   </body>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
 </html>
+<!-- Colossians 3:23 -->
 {# vim: set et ts=2 sw=2: #}

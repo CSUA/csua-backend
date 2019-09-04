@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero has-text-centered">
+  <div class="hero-body">
+    <h1 class="title is-2 animated fadeInDown">
+      {% block pagetitle %}DEFAULT TITLE{% endblock %}
+    </h1>
+    <h2 class="subtitle animated fadeInDown">
+      {{ subtitle }}
+    </h2>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8 box">
+        {% block page_content %}
+        DEFAULT PAGE CONTENT
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{# vim: set et ts=2 sw=2 tw=200: #}

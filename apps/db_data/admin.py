@@ -1,22 +1,67 @@
-import json
-from urllib.request import urlopen
-from urllib.parse import urlencode
-import urllib.parse as urlparse
-
 from django import forms
 from django.contrib import admin
-from django.http import HttpResponse
-from django.urls import path
-from django.utils.dateparse import parse_datetime
 
-from .models import Event, Officer, Politburo, Sponsor
+from .models import (
+    Event,
+    Officer,
+    Officership,
+    Person,
+    Politburo,
+    PolitburoMembership,
+    Sponsor,
+    Sponsorship,
+    Semester,
+    UcbClass,
+)
 from .constants import DAYS_OF_WEEK, OH_TIMES, OH_CHOICES
+
+
+class OfficershipAdminForm(forms.ModelForm):
+    office_hours = forms.CharField(widget=forms.Select(choices=OH_CHOICES))
+    tutor_subjects = forms.ModelMultipleChoiceField(
+        required=False, queryset=UcbClass.objects, widget=forms.CheckboxSelectMultiple
+    )
+
+
+class SponsorshipInline(admin.TabularInline):
+    model = Sponsorship
+    extra = 0
+
+
+class OfficershipInline(admin.TabularInline):
+    form = OfficershipAdminForm
+    model = Officership
+    extra = 0
+
+
+class PolitburoMembershipInline(admin.TabularInline):
+    model = PolitburoMembership
+    extra = 0
+
+
+@admin.register(Semester)
+class SemesterAdmin(admin.ModelAdmin):
+    inlines = [OfficershipInline, PolitburoMembershipInline, SponsorshipInline]
+
+
+@admin.register(Officer)
+class OfficerAdmin(admin.ModelAdmin):
+    inlines = [OfficershipInline]
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(UcbClass)
+class UcbClassAdmin(admin.ModelAdmin):
+    pass
+
 
 # Register your models here.
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    ordering = ["-enabled", "-date"]
-    list_display = ["name", "date", "time", "link", "location", "enabled"]
     actions = ["duplicate_events", "enable_events", "disable_events"]
 
     def disable_events(modeladmin, request, queryset):
@@ -31,47 +76,11 @@ class EventAdmin(admin.ModelAdmin):
             event.save()
 
 
-class OfficerAdminForm(forms.ModelForm):
-    blurb = forms.CharField(widget=forms.Textarea)
-    office_hours = forms.CharField(widget=forms.Select(choices=OH_CHOICES))
-
-
-@admin.register(Officer)
-class OfficerAdmin(admin.ModelAdmin):
-    list_display = [
-        "first_name",
-        "last_name",
-        "office_hours",
-        "root_staff",
-        "blurb",
-        "enabled",
-    ]
-    ordering = ["-enabled", "first_name", "last_name"]
-    form = OfficerAdminForm
-
-    actions = ["disable_officer", "enable_officer"]
-
-    def disable_officer(modeladmin, request, queryset):
-        queryset.update(enabled=False)
-
-    def enable_officer(modeladmin, request, queryset):
-        queryset.update(enabled=True)
-
-
 @admin.register(Politburo)
 class PolituburoAdmin(admin.ModelAdmin):
-    list_display = ["position", "title", "officer"]
-    ordering = ["position"]
+    inlines = [PolitburoMembershipInline]
 
 
 @admin.register(Sponsor)
 class SponsorAdmin(admin.ModelAdmin):
-    list_display = ["name", "url", "description", "current"]
-
-    actions = ["disable_sponsor", "enable_sponsor"]
-
-    def disable_sponsor(modeladmin, request, queryset):
-        queryset.update(current=False)
-
-    def enable_sponsor(modeladmin, request, queryset):
-        queryset.update(current=True)
+    inlines = [SponsorshipInline]

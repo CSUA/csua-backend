@@ -1,20 +1,17 @@
 {% extends "base_with_hero.html" %}
+{% load thumbnail %}
+{% load static %}
 {% block title %}Officers{% endblock %}
-{% block css_file %}officers.css{% endblock %}
 {% block hero %}
 <div class="container">
   {% include "hero_with_bg_img.html" with title="Officers" subtitle="Are you new to Berkeley? New to CS? Need help with class? Want people to talk to? Come by the office in 311 Soda and meet some of our officers! They're here to help you and keep the office tidy and fun." size="is-small" %}
 </div>
 {% endblock %}
 {% block page_content %}
+<link rel="stylesheet" href="{% static 'css/officers.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css">
 <div class="content">
-  <h2 id="office-hours">Office Hours</h2>
-  <p>
-  Each officer is responsible for keeping the office open during their
-  assigned office hours. Additionally, some officers have their office
-  hours open for tutoring.
-  </p>
+  <h2 id="office-hours">{{ semester.name }} Office Hours</h2>
 </div>
 <div class="table-container">
   <table class="table is-hoverable is-striped is-fullwidth is-bordered">
@@ -38,23 +35,25 @@
             {{ timeslot }}
           </span>
           {% else %}
-          {% for officer in timeslot %}
-          <a class="button has-text-link" href="#{{ officer.first_name }}{{ officer.last_name }}">
-            <span>
-              {{ officer.first_name }}&nbsp;{{ officer.last_name }}
-            </span>
-            {% if officer.tutor_subjects %}
+          {% for officership in timeslot %}
+          {% with officership.officer.person.user as user %}
+          <a class="button has-text-link" href="#{{ user }}">
+            {% if officership.is_tutor %}
             <span class="icon">
               <i class="fas fa-graduation-cap"></i>
             </span>
             {% endif %}
-            {% if officer.root_staff %}
+            {% if officership.officer.root_staff %}
             <span class="icon">
               <i class="fas fa-hashtag">
               </i>
             </span>
             {% endif %}
+            <span>
+              {{ user.first_name }}&nbsp;{{ user.last_name }}
+            </span>
           </a>
+          {% endwith %}
           {% endfor %}
           {% endif %}
         </td>
@@ -64,89 +63,109 @@
     </tbody>
   </table>
 </div>
-<div class="content">
-  <ul>
-    <li>
-      Root staff
-      <span class="icon">
-        <i class="fas fa-hashtag"></i>
-      </span>
-      &mdash; Helps manage CSUA computers. Talk to them if you need any
-      assistance with accessing CSUA computers. They can be reached at
-      root@csua.berkeley.edu.
-    </li>
-    <li>
-      Tutor
-      <span class="icon">
-        <i class="fas fa-graduation-cap"></i>
-      </span>
-      &mdash; Will help you with your courses. Most officers, regardless of
-      tutor status, have taken all the lower division classes and are happy
-      to help, just come by our office at 311 Soda and ask about tutoring!
-      <a href="/tutoring">Read more about tutoring here.</a>
-      </p>
-    </li>
-  </ul>
+<div class="columns">
+  <div class="column">
+    Each officer is responsible for keeping the office open during their
+    assigned office hours. Additionally, some officers have their office
+    hours open for tutoring. Talk to an officer if you would like to join the
+    CSUA and make an account!
+  </div>
+  <div class="column">
+    Root staff
+    <span class="icon">
+      <i class="fas fa-hashtag"></i>
+    </span>
+    &mdash; Helps manage CSUA computers. Talk to them if you need any
+    assistance with accessing CSUA computers. They can be reached at
+    root@csua.berkeley.edu.
+  </div>
+  <div class="column">
+    Tutors
+    <span class="icon">
+      <i class="fas fa-graduation-cap"></i>
+    </span>
+    &mdash; Will help you with your courses. Most officers, regardless of
+    tutor status, have taken all the lower division classes and are happy
+    to help, just come by our office at 311 Soda and ask about tutoring!
+    <a href="/tutoring">Read more about tutoring here.</a>
+    </p>
+  </div>
 </div>
 
 <br><br>
 
 <div class="roster columns is-multiline roster">
-  {% for officer in officer_list|dictsort:"first_name" %}
-  <article class="column is-3" id="{{ officer.first_name }}{{ officer.last_name }}">
+  {% for officership in officer_list %}
+  {% with officership.officer as officer %}
+  {% with officer.person.user as user %}
+  {% thumbnail officer.person.photo1 "500x500" crop="center" as photo1 %}
+  <article class="column is-2" id="{{ user }}">
     <div data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up">
       <div class="photo-frame">
-        {% if not officer.photo2 %}
-        <figure class="single has-text-centered">
-          <img class="single is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
-        </figure>
-        {% elif officer.video2%}
-        <video class="videotwo" loop nocontrols onmouseover="play()" onmouseoff="pause()">
-          <source src="https://www.csua.berkeley.edu/{{ officer.video2 }}" type="video/mp4"></source>
+        {% if officer.person.video2 %}
+        <img class="photoone is-rounded is-inline-block" src="{{ photo1.url }}">
+        <video class="videotwo" loop nocontrols muted onmouseover="play();" onmouseoff="pause();">
+          <source src="{{ officer.person.video2.url }}" type="video/mp4"></source>
         </video>
-        {% else %}
-        <figure class="photoone has-text-centered">
-          <img class="photoone is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo1.url }}">
+        {% elif officer.person.photo2 %}
+        <figure class="image photoone has-text-centered">
+          <img class="is-rounded photoone is-inline-block" src="{{ photo1.url }}">
         </figure>
         <figure class="phototwo has-text-centered">
-          <img class="phototwo is-inline-block" src="https://www.csua.berkeley.edu/{{ officer.photo2.url }}">
+          <img class="phototwo is-inline-block" src="{{ officer.person.photo2.url }}">
+        </figure>
+        {% else %}
+        <figure class="image single has-text-centered">
+          <img class="is-rounded single is-inline-block" src="{{ photo1.url }}">
         </figure>
         {% endif %}
       </div>
-      <!-- <div class="content"> -->
       <div class="has-text-centered">
         <strong>
-          {{ officer.first_name }} {{ officer.last_name }}
+          {{ user.first_name }} {{ user.last_name }}
         </strong>
         {% if officer.is_anniversary %}
-            <span class="icon">
-              <i class="fas fa-birthday-cake"></i>
-            </span>
-            {% endif %}
+        <span class="icon">
+          <i class="fas fa-birthday-cake"></i>
+        </span>
+        {% endif %}
         <br>
         <a href="#office-hours">
-          OH: {{ officer.office_hours }}
+          OH: {{ officership.office_hours }}
         </a>
         <br>
-        {% if officer.tutor_subjects %}
-        <span>
+        {% if officership.tutor_subjects.all|length > 0 %}
+        <span class="tutor-badge">
           <i class="fas fa-graduation-cap"></i>
-        Tutors for: {{ officer.tutor_subjects }}
+          Tutors for: {{ officership.tutor_subjects.all|join:", " }}
         </span>
         <br>
         {% endif %}
         {% if officer.root_staff %}
-        <span><i class="fas fa-hashtag"></i>
-        <tt>root</tt></span>
+        <span class="root-badge"><i class="fas fa-hashtag"></i>
+          <tt>root</tt></span>
         <br>
         {% endif %}
-        <span>
-          "{{ officer.blurb }}"
+        <span class="blurb">
+          "{{ officership.blurb }}"
         </span>
       </div>
-      </div>
-  </article>
-  {% endfor %}
     </div>
-    {% endblock %}
-    {# vim: set et sw=2 ts=2 tw=0: #}
+  </article>
+  {% endthumbnail %}
+  {% endwith %}
+  {% endwith %}
+  {% endfor %}
+</div>
+{% if semesters %}
+<div class="content">
+  <h2>Previous Semesters</h2>
+  <ul>
+    {% for semester in semesters %}
+    <li><a href="{% url 'officers_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}
+{# vim: set et sw=2 ts=2 tw=0: #}

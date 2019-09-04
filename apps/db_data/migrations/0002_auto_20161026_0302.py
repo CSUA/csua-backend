@@ -19,14 +19,16 @@ class Migration(migrations.Migration):
             field=models.ImageField(
                 default="images/officers/cardigan.jpg",
                 max_length=255,
-                upload_to=db_data.models.photo_path,
+                upload_to=db_data.models.person_photo_path,
             ),
         ),
         migrations.AddField(
             model_name="officer",
             name="photo2",
             field=models.ImageField(
-                blank=True, max_length=255, upload_to=db_data.models.photo_path
+                blank=True,
+                max_length=255,
+                upload_to=db_data.models.person_photo_path_alt,
             ),
         ),
         migrations.AlterField(

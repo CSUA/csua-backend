@@ -3,24 +3,30 @@
 {% block title %}Industry{% endblock %}
 
 {% block hero %}
-{% include "hero_with_bg_img.html" with title="Sponsors" subtitle="We are very grateful for all our company sponsors who make much of what we do possible. Thank you!" size="is-small" %}
+{% include "hero_with_bg_img.html" with title="Sponsors" subtitle="We are grateful for our company sponsors who make much of what we do possible. Thank you!" size="is-small" %}
 {% endblock %}
 
 {% block page_content %}
-<div class="container">
+<div class="container box">
   <div class="content">
     <h1>Industry</h1>
     <p>Interested in working with the CSUA to sponsor an event or to speak at
     one of our events? Please send an email to indrel@csua.berkeley.edu.</p>
   </div>
   <div class="content">
-    <h1>Current Sponsors</h1>
+    <h1>Sponsors for {{ current_semester.name }}</h1>
   </div>
-  {% include "sponsors_grid.html" with sponsors=sponsors_current %}
+  {% include "sponsors_grid.html" with sponsorships=sponsorships %}
+  {% if semesters %}
   <div class="content">
-    <h1>Past Sponsors</h1>
+    <h1>Previous Sponsors</h1>
+    <ul>
+      {% for semester in semesters %}
+      <li><a href="{% url 'sponsors_semester' semester_id=semester.id %}">{{ semester.name }}</a>
+      {% endfor %}
+    </ul>
   </div>
-  {% include "sponsors_grid.html" with sponsors=sponsors_past %}
+  {% endif %}
 </div>
 {% endblock %}
 {# vim:set sw=2:et:ts=4 #}

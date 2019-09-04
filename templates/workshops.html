@@ -1,27 +1,10 @@
 {% extends "base_with_hero.html" %}
 {% block title %}Workshops{% endblock %}
-{% block pre_hero %}
-<div class="container">
-<nav class="breadcrumb">
-    <ul>
-        <li><a href="/events">Events</a></li>
-        <li class="is-active"><a>Workshops</a></li>
-    </ul>
-</nav>
-</div>
-{% endblock %}
 {% block hero %}
 {% include "hero_with_bg_img.html" with title="Workshops" subtitle="Putting the CS in CSUA" size="is-small" %}
 {% endblock %}
-
-
 {% block page_content %}
-<div class="tabs">
-    <ul>
-        <li class="is-active"><a>Workshops</a></li>
-    </ul>
-</div>
-<div class="container content">
+<div class="box container content">
     <p>CSUA has hosted workshops to teach people important skills. Here
     are some topics that have been taught.</p>
     <ul>
@@ -30,9 +13,10 @@
         <li>LaTeX</li>
         <li>Machine Learning / Deep Learning / Computer
             Vision</li>
-        <li>Professional Development</li>
+        <li>Professional Development (R&eacute;sum&eacute; crafting,
+            interviewing, personal branding)</li>
         <li>Unix</li>
-        <li>Vim, Vim / Tmux</li>
+        <li>Vim, Tmux</li>
     </ul>
 
     <p>We have a folder on Google docs containing most of our workshops
@@ -56,6 +40,11 @@
             </a>
         </li>
     </ul>
+
+    <p>If you have any ideas for workshops, or would like to help host one,
+    please join the #workshop-planning channel on our
+    <a href="https://csua.slack.com/">slack</a>.
+    </p>
 </div>
 {% endblock %}
 {# vim:set et sw=4: #}

@@ -1,23 +1,11 @@
-/* hardcoded because I can't seem to make a square div :( --robertquitt */
-.photo-frame {
-	overflow: hidden;
-	height: 132px;
-}
-.officer-photo {
-	position: relative;
-}
-.photoone, .phototwo, .single {
-	object-fit: cover;
-	height: 100%;
-}
 /* Logic for showing alternative photo */
-.phototwo {
+.phototwo, .videotwo {
 	display: none;
 }
 .photo-frame:hover .photoone {
 	display: none;
 }
-.photo-frame:hover .phototwo {
+.photo-frame:hover .phototwo, .photo-frame:hover .videotwo {
 	display: block;
 }
 .root-staff-banner {
