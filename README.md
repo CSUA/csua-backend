@@ -16,7 +16,9 @@ A backend for the CSUA interblags.
 
 7. Create admin user with `python3 manage.py createsuperuser`
 
-## Deploy a new change to git
+## Deploying
+
+### (Option 1) Deploy a new change from GitHub to tap
 
 1. `ssh` into `tap.csua.berkeley.edu`
 2. Change directory to the project directory
@@ -24,7 +26,7 @@ A backend for the CSUA interblags.
 4. `python3 manage.py collectstatic` to update static images
 5. If you're making changes to the db models, follow those instructions too
 
-### Deploy using fabric
+### (Option 2) Deploy to tap using fabric
 
 1. `fab -H <user>@tap.csua.berkeley.edu deploy`
 2. Profit
@@ -39,9 +41,9 @@ A backend for the CSUA interblags.
 6. `python3 manage.py migrate` on remote machine to update database with latest models
 7. Run `sudo systemctl reload csua-backend-gunicorn` on the remote machine so the changes take effect
 
-## Editing/Creating/Deleting Officers
+## Editing/Creating/Deleting Data
 
-Go to https://www.csua.berkeley.edu/admin/ to edit officer data!
+Go to https://www.csua.berkeley.edu/admin/ to edit data!
 
 ## Repo structure
 
