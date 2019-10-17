@@ -42,7 +42,13 @@ PERSON_HELP_TEXT = (
 
 
 class Person(models.Model):
-    user = models.CharField(max_length=32, primary_key=True, help_text=PERSON_HELP_TEXT)
+    user = models.OneToOneField(
+        DjangoUser,
+        on_delete=models.PROTECT,
+        primary_key=True,
+        to_field="username",
+        help_text=PERSON_HELP_TEXT,
+    )
     photo1 = models.ImageField(
         upload_to=person_photo_path,
         max_length=255,
