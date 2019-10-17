@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from .models import (
     Event,
+    EventCategory,
     Officer,
     Officership,
     Person,
@@ -39,6 +40,11 @@ class PolitburoMembershipInline(admin.TabularInline):
     extra = 0
 
 
+@admin.register(EventCategory)
+class EventCategoryAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Semester)
 class SemesterAdmin(admin.ModelAdmin):
     inlines = [OfficershipInline, PolitburoMembershipInline, SponsorshipInline]
@@ -49,6 +55,13 @@ class OfficerAdmin(admin.ModelAdmin):
     inlines = [OfficershipInline]
 
 
+@admin.register(Officership)
+class OfficershipAdmin(admin.ModelAdmin):
+    list_display = ("semester", "officer", "office_hours", "blurb")
+    list_filter = ("semester", "officer")
+    autocomplete_fields = ("tutor_subjects",)
+
+
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     pass
@@ -56,7 +69,7 @@ class PersonAdmin(admin.ModelAdmin):
 
 @admin.register(UcbClass)
 class UcbClassAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("id",)
 
 
 # Register your models here.

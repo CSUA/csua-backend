@@ -6,20 +6,23 @@ from django.contrib.auth.models import User as DjangoUser
 
 
 class Semester(models.Model):
-    id = models.CharField(max_length=8, primary_key=True)
-    current = models.BooleanField()
-    name = models.CharField(max_length=16)
+    id = models.CharField(
+        max_length=8, primary_key=True, help_text="Used for URLs etc."
+    )
+    current = models.BooleanField(
+        help_text="There should only be one current semester."
+    )
+    name = models.CharField(max_length=16, help_text="Display name")
     officers = models.ManyToManyField("Officer", through="Officership", blank=True)
     politburo = models.ManyToManyField("Politburo", through="PolitburoMembership")
     sponsors = models.ManyToManyField("Sponsor", through="Sponsorship")
-    events = models.ManyToManyField("Event", blank=True)
+    events = models.ManyToManyField("Event", blank=True, help_text="Currently unused.")
 
     def __str__(self):
         return self.name
 
 
 def person_photo_path(instance, filename):
-    # upload to MEDIA_ROOT/images/people/{first_name}_{last_name}_alt.{ext}
     filename, file_extension = os.path.splitext(filename)
     return "images/people/{0}_{1}{2}".format(
         instance.user.first_name, instance.user.last_name, file_extension
@@ -33,10 +36,13 @@ def person_photo_path_alt(instance, filename):
     )
 
 
+PERSON_HELP_TEXT = (
+    "There is one Officer object<->one Person object<->one auth.User<->one LDAP user"
+)
+
+
 class Person(models.Model):
-    user = models.OneToOneField(
-        DjangoUser, on_delete=models.PROTECT, primary_key=True, to_field="username"
-    )
+    user = models.CharField(max_length=32, primary_key=True, help_text=PERSON_HELP_TEXT)
     photo1 = models.ImageField(
         upload_to=person_photo_path,
         max_length=255,
@@ -55,7 +61,9 @@ class Person(models.Model):
 
 # Create your models here.
 class Officer(models.Model):
-    person = models.OneToOneField(Person, on_delete=models.PROTECT, unique=True)
+    person = models.OneToOneField(
+        Person, on_delete=models.PROTECT, unique=True, help_text=PERSON_HELP_TEXT
+    )
     root_staff = models.BooleanField(default=False)
     officer_since = models.DateField()
 
@@ -148,7 +156,13 @@ class Event(models.Model):
     time = models.CharField(max_length=70)
     description = models.TextField()
     link = models.URLField(blank=True)
-    category = models.ForeignKey("EventCategory", null=True, on_delete=models.PROTECT)
+    category = models.ForeignKey(
+        "EventCategory",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        help_text="Currently unused.",
+    )
 
     def __str__(self):
         return self.name

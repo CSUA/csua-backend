@@ -25,8 +25,7 @@ class EventsView(TemplateView):
 
     def get_context_data(request):
         context = {}
-        semester = Semester.objects.filter(current=True).get()
-        context["events"] = semester.events.all()
+        context["events"] = Event.objects.filter(date__gte=datetime.date.today())
         return context
 
 
