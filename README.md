@@ -3,33 +3,28 @@ CSUA-backend
 
 A backend for the CSUA interblags.
 
+Current Maintainer: Robert Quitt <robertq@csua.berkeley.edu>
+
+## User Workflow
+
+1. Create a fork of this repo
+2. Clone your fork to your local/development machine
+3. Install dependencies locally
+4. Make changes locally, test, repeat
+5. Commit those changes
+6. Push commits to your fork
+7. Make a pull request
+
 ## Installation
 
 1. Install Python 3
 2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
 3. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
 4. Set up local db with `python3 manage.py migrate`
+  - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
 5. Run server with `python3 manage.py runserver`
 6. Navigate web browser to http://127.0.0.1:8000/
-
-- If you want to visit the admin page at http://127.0.0.1:8000/admin/
-
 7. Create admin user with `python3 manage.py createsuperuser`
-
-## Deploying
-
-### (Option 1) Deploy a new change from GitHub to tap
-
-1. `ssh` into `tap.csua.berkeley.edu`
-2. Change directory to the project directory
-3. `git pull`
-4. `python3 manage.py collectstatic` to update static images
-5. If you're making changes to the db models, follow those instructions too
-
-### (Option 2) Deploy to tap using fabric
-
-1. `fab -H <user>@tap.csua.berkeley.edu deploy`
-2. Profit
 
 ## Making changes to database models
 
@@ -64,7 +59,7 @@ Django's online documentation has more detail on a project's structure
 - `fixtures/` contains database fixtures to record and bootstrap content and various database data
 - `media_root/` is where user-uploaded files are served from
 - `requirements.txt` lists the required python packages for this project.
-- `static_root/` is where static files are served from (many of which come from `main_page/static/` and are moved here by `manage.py`'s `collectstatic`)
+- `static_root/` is where static files are served from (many of which come from `./static/` and are moved here by `manage.py`'s `collectstatic`)
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
 
@@ -73,6 +68,22 @@ Django's online documentation has more detail on a project's structure
 ```shell
 python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
 ```
+
+## Deploying
+
+### (Option 1) Deploy a new change from GitHub to tap
+
+1. `ssh` into `tap.csua.berkeley.edu`
+2. Change directory to the project directory
+3. `git pull`
+4. `python3 manage.py collectstatic` to update static images
+5. If you're making changes to the db models, follow those instructions too
+
+### (Option 2) Deploy to tap using fabric
+
+1. `fab -H <user>@tap.csua.berkeley.edu deploy`
+2. Profit
+
 
 ## Deployment Details
 
