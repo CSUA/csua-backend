@@ -56,7 +56,12 @@ def officers(request, semester_id=None):
     return render(
         request,
         "officers.html",
-        {"officer_list": officerships, "calendar": calendar, "semester": semester, "semesters": semesters},
+        {
+            "officer_list": officerships,
+            "calendar": calendar,
+            "semester": semester,
+            "semesters": semesters,
+        },
     )
 
 
@@ -87,7 +92,15 @@ def sponsors(request, semester_id=None):
         .filter(semester=semester)
         .order_by("sponsor__name")
     )
-    return render(request, "sponsors.html", {"sponsorships": sponsorships, "current_semester": semester, "semesters": semesters})
+    return render(
+        request,
+        "sponsors.html",
+        {
+            "sponsorships": sponsorships,
+            "current_semester": semester,
+            "semesters": semesters,
+        },
+    )
 
 
 def tutoring(request, semester_id=None):
