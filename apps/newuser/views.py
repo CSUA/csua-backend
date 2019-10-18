@@ -65,7 +65,7 @@ def index(request):
                 else:
                     messages.error(request, "Incorrect officer credentials.")
             else:
-                messages.error(request, "Password must be meet requirements.")
+                messages.error(request, "Password must meet requirements.")
         else:
             messages.error(request, "Form is invalid.")
     else:
