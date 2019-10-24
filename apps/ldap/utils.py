@@ -4,14 +4,19 @@ from base64 import b64encode
 from random import choice
 from contextlib import contextmanager
 
-from ldap3 import ALL_ATTRIBUTES, SYNC, Connection, Server
+from django.http import Http404
 from decouple import config
+
+from ldap3 import ALL_ATTRIBUTES, SYNC, Connection, Server
 
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
-LDAP_SERVER = Server(LDAP_SERVER_URL)
+LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=1)
 LDAP_CLIENT_STRATEGY = SYNC
-NEWUSER_DN = "uid=newuser,ou=People,dc=csua,dc=berkeley,dc=edu"
+CSUA_DC = "dc=csua,dc=berkeley,dc=edu"
+PEOPLE_OU = "ou=People," + CSUA_DC
+GROUP_OU = "ou=Group," + CSUA_DC
+NEWUSER_DN = "uid=newuser," + PEOPLE_OU
 NEWUSER_PW = config("NEWUSER_PW")
 
 
@@ -28,11 +33,9 @@ def ldap_connection(**kwargs):
 
 
 def get_max_uid():
-    with ldap_connection() as conn:
-        conn.search(
-            "ou=People,dc=csua,dc=berkeley,dc=edu", "(cn=*)", attributes="uidNumber"
-        )
-        max_uid = max(int(str(entry.uidNumber)) for entry in conn.entries)
+    with ldap_connection() as c:
+        c.search(PEOPLE_OU, "(cn=*)", attributes="uidNumber")
+        max_uid = max(int(str(entry.uidNumber)) for entry in c.entries)
         return max_uid
 
 
@@ -49,10 +52,14 @@ def make_password(password):
 def create_new_user(username, name, email, sid, password):
     """
     binds as newuser and creates a new user. be careful that this isn't called by any unpriveleged views.
+
+    Returns a tuple of (success, uid)
+
+    If uid is -1, this means the bind failed.
     """
     with ldap_connection(user=NEWUSER_DN, password=NEWUSER_PW) as c:
         if c.bind():
-            dn = "uid={0},ou=people,dc=csua,dc=berkeley,dc=edu".format(username)
+            dn = "uid={0},{1}".format(username, PEOPLE_OU)
             uid = get_max_uid() + 1
             attrs = {
                 "uid": username,
@@ -78,7 +85,7 @@ def authenticate(username, password):
     """
     verifies that the username and password are correct
     """
-    user_dn = "uid={0},ou=People,dc=csua,dc=berkeley,dc=edu".format(username)
+    user_dn = "uid={0},{1}".format(username, PEOPLE_OU)
     with ldap_connection(user=user_dn, password=password) as c:
         if c.bind():
             return True
@@ -86,13 +93,56 @@ def authenticate(username, password):
             return False
 
 
-def is_officer(username):
-    base_dn = "dc=csua,dc=berkeley,dc=edu"
-    search_filter = "(cn=officers)"
+def get_group_members(group):
+    search_filter = "(cn={0})".format(group)
     with ldap_connection() as c:
-        c.search(base_dn, search_filter, attributes=ALL_ATTRIBUTES)
-        officers = c.entries[0].memberUid
-        return username in officers
+        c.search(GROUP_OU, search_filter, attributes=ALL_ATTRIBUTES)
+        print(c.response)
+        if len(c.entries) == 0:
+            raise Http404("No group found")
+        return list(c.entries[0].memberUid)
+
+
+def get_root():
+    return get_group_members("root")
+
+
+def get_prosps():
+    return get_group_members("prosp-officers")
+
+
+def get_officers():
+    return get_group_members("officers")
+
+
+def get_politburo():
+    return get_group_members("excomm")
+
+
+def get_user_gecos(username):
+    with ldap_connection() as c:
+        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="gecos")
+        if len(c.entries) == 0:
+            raise Http404("No such user!")
+
+        return str(c.entries[0].gecos)
+
+
+def get_user_realname(username):
+    gecos = get_user_gecos(username)
+    return gecos.split(",", 1)[0]
+
+
+def get_user_groups(username):
+    with ldap_connection() as c:
+        c.search(GROUP_OU, "(memberUid={})".format(username), attributes="cn")
+        groups = [str(entry.cn) for entry in c.entries]
+        return groups
+
+
+def is_officer(username):
+    officers = get_officers()
+    return username in officers
 
 
 def validate_officer(username, password):
