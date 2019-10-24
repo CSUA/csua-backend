@@ -266,6 +266,10 @@ LOGGING = {
             "handlers": ["mail_admins"],
             "level": "ERROR",
             "propagate": True,
+        },
+        "sorl.thumbnail": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
         }
     },
 }
