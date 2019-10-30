@@ -299,6 +299,7 @@ LDAP_AUTH_USER_FIELDS = {"username": "uid", "gecos": "gecos"}
 LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
 LDAP_AUTH_OBJECT_CLASS = "posixAccount"
 LDAP_AUTH_CLEAN_USER_DATA = "apps.csua_backend.settings.clean_ldap_user_data"
+LDAP_AUTH_CONNECT_TIMEOUT = 1
 
 STAFF_GROUPS = ("excomm", "root")
 
@@ -344,6 +345,6 @@ def clean_ldap_user_data(fields):
 
 
 AUTHENTICATION_BACKENDS = [
-    "django_python3_ldap.auth.LDAPBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "django_python3_ldap.auth.LDAPBackend",
 ]
