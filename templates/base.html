@@ -122,6 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <a class="navbar-item" href="{% url 'logout' %}">
                 Logout
               </a>
+              {% if request.user.is_staff %}
+              <a class="navbar-item" href="/admin/">
+                Admin
+              </a>
+              {% endif %}
               {% else %}
               <a class="navbar-item" href="{% url 'login' %}">
                 Login
