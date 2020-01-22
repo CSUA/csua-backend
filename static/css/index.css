@@ -1,4 +1,11 @@
-#address {
-    line-height: 18px;
-    margin: 15px 15px 5px;
+#title {
+	font-size: 4rem;
+}
+#headline {
+	text-align: center;
+	font-weight: 500;
+	font-size: 1.5em;
+}
+html {
+	scroll-behavior: smooth;
 }
