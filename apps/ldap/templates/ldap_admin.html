@@ -29,10 +29,9 @@
           <div class="column content">
             <h2>Users</h2>
             <form
-              id="user"
+              id="userform"
               action="#"
-              onsubmit="this.action='{% url 'ldap_admin_user'
-              username='replaceme' %}'.replace('replaceme', this.user.value); this.user.value='';">
+              onsubmit="this.action='{% url 'ldap_admin_user' username='replaceme' %}'.replace('replaceme', this.user.value);">
               <input type="text" name="user">
               <input type="submit" value="Go">
             </form>
