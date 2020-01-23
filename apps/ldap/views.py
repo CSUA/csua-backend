@@ -7,8 +7,7 @@ from .utils import get_root, get_group_members, get_user_gecos, get_user_groups
 
 
 def index(request):
-    resp = "\n".join(get_root())
-    return HttpResponse(resp, content_type="text/plain")
+    return render(request, "group_admin.html", {"groupname": "root"})
 
 
 def group(request, groupname=None):

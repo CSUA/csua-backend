@@ -1,0 +1,27 @@
+{% extends "ldap_admin.html" %}
+{% block content %}
+<section class="section has-background-light">
+  <div class="container content">
+    <h2>{{ groupname }}</h2>
+  </div>
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <ul>
+          {% for member in members %}
+          <li>{{ member }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="column">
+        <form action="{% url 'ldap_admin_group' groupname=groupname %}" method="post">
+          {% csrf_token %}
+          {{ user_add_form }}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{# vim: set et sw=2: #}

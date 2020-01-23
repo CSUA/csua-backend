@@ -93,11 +93,17 @@ def authenticate(username, password):
             return False
 
 
+def get_all_groups():
+    with ldap_connection() as c:
+        c.search(GROUP_OU, "(objectClass=posixGroup)", attributes="cn")
+        groups = [str(entry.cn) for entry in c.entries]
+        return groups
+
+
 def get_group_members(group):
     search_filter = "(cn={0})".format(group)
     with ldap_connection() as c:
         c.search(GROUP_OU, search_filter, attributes=ALL_ATTRIBUTES)
-        print(c.response)
         if len(c.entries) == 0:
             raise Http404("No group found")
         return list(c.entries[0].memberUid)
@@ -117,6 +123,30 @@ def get_officers():
 
 def get_politburo():
     return get_group_members("excomm")
+
+
+def get_user_creation_time(username):
+    # WIP
+    with ldap_connection() as c:
+        c.search(
+            PEOPLE_OU,
+            "(uid={0})".format(username),
+            attributes=[
+                "createTimestamp",
+                "creatorsName",
+                "modifyTimestamp",
+                "modifiersName",
+            ],
+        )
+        if len(c.entries) == 0:
+            raise Http404("No such user!")
+
+        return [
+            str(c.entries[0].createTimestamp),
+            str(c.entries[0].creatorsName),
+            str(c.entries[0].modifyTimestamp),
+            str(c.entries[0].modifiersName),
+        ][0]
 
 
 def get_user_gecos(username):

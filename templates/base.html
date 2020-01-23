@@ -123,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
               <a class="navbar-item" href="/admin/">
                 Admin
               </a>
+              <a class="navbar-item" href="{% url 'ldap_admin' %}">
+                LDAP Admin
+              </a>
               {% endif %}
               {% else %}
               <a class="navbar-item" href="{% url 'login' %}">

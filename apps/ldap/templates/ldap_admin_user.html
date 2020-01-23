@@ -1,0 +1,24 @@
+{% extends "ldap_admin.html" %}
+{% block content %}
+<section class="section has-background-light">
+  <div class="container content">
+    <h2>{{ username }}</h2>
+  </div>
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        {{ gecos }}<br>
+        {{ creation_time }}
+      </div>
+      <div class="column">
+        <form action="{% url 'ldap_admin_user' username=username %}" method="post">
+          {% csrf_token %}
+          {{ user_add_form }}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{# vim: set et sw=2: #}

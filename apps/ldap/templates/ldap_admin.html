@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/thirdparty/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ldap_admin.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <nav class="navbar has-background-light">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'index' %}">CSUA Home</a>
+      </div>
+    </nav>
+    {% block header %}
+    <section id="header" class="section has-background-primary">
+      <div class="container content">
+        <h1>
+          <a href="{% url 'ldap_admin' %}">
+            CSUA LDAP Admin Interface
+          </a>
+        </h1>
+      </div>
+    </section>
+    {% endblock %}
+    {% block content %}
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column content">
+            <h2>Users</h2>
+            <form
+              id="user"
+              action="#"
+              onsubmit="this.action='{% url 'ldap_admin_user'
+              username='replaceme' %}'.replace('replaceme', this.user.value); this.user.value='';">
+              <input type="text" name="user">
+              <input type="submit" value="Go">
+            </form>
+          </div>
+          <div class="column content">
+            <h2>Groups</h2>
+            <ul>
+              {% for group in groups %}
+              <li>
+                <a href="{% url 'ldap_admin_group' groupname=group %}">
+                  {{ group }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+  </body>
+</html>
+{# vim: set et sw=2: #}
