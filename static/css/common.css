@@ -28,8 +28,8 @@ html, body {
 #navbar, .navbar-menu {
 	background-color: var(--base03);
 }
-#navbar .navbar-link, .navbar-item,.navbar-dropdown {
-	border-top-color: var(--base02);
+#navbar .navbar-link, #navbar .navbar-item, #navbar .navbar-dropdown {
+	border-top-color: var(--base03);
 	background-color: var(--base03);
 	color: var(--base0);
 }

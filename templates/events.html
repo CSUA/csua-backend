@@ -1,20 +1,20 @@
-{% extends "base_with_hero.html" %}
+{% extends "base.html" %}
 {% block title %}Events{% endblock %}
-{% block hero %}
+{% block content %}
 {% include "hero_with_bg_img.html" with title="Events" subtitle="The CSUA hosts a large variety of social events, tech talks, networking events, workshops, and hackathons for the CS community." size="is-small" %}
-{% endblock %}
-{% block page_content %}
-<div class="content">
-    <div class="columns is-centered">
-        <div class="column is-6">
-            <div class="box">
+<section class="section has-background-light">
+    <div class="content">
+        <div class="columns is-centered">
+            <div class="column is-6">
                 {% include "upcoming_events.html" %}
             </div>
         </div>
     </div>
-</div>
-<div id="upcoming-events" class="container has-text-centered">
-    <iframe src="https://calendar.google.com/calendar/embed?src=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com&ctz=America/Los_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-</div>
+</section>
+<section class="section">
+    <div id="upcoming-events" class="container has-text-centered">
+        <iframe src="https://calendar.google.com/calendar/embed?src=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com&ctz=America/Los_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+</section>
 {% endblock %}
 {# vim:set et sw=4: #}
