@@ -1,0 +1,41 @@
+# Just a bunch of commands I used while migrating stuff around
+# I honestly forgot what most of them are for but I find this useful to reference
+# -robertq
+
+cat db_data_08292019.json  | jq '[.[] | select(.model == "db_data.politburo")] | del(.[].fields.officer)' > pb.json
+
+cat db_data_08292019.json | jq '[.[] | select(.model == "db_data.officer")] | [.[].fields | {fields: {user_id: (.first_name + "_" + .last_name), photo1: .photo1, photo2: .photo2}}]'
+
+insert into auth_user (first_name, last_name, username, is_active) values ("Testf", "Testl", "robertq_test3", 1);
+
+cat officers.txt | sed -E 's/(\w+) (\w+),(.+)/\"\1\","\2","\3\"/' > officers.csv'"'
+
+load data local infile 'officers.csv' into table auth_user fields terminated by ',' (first_name, last_name, username);
+
+delete from auth_user where username like '"%'
+
+load data local infile 'officers.csv' into table auth_user fields terminated by ',' enclosed by '"' (first_name, last_name, username);
+
+update auth_user set is_active=1;
+
+cat person.json | jq -r '.[].fields | .user_id + "," + .photo1 + "," + .photo2' > person.csv
+
+
+while read row
+do
+	fullname="$(echo $row | cut -d ',' -f 1 | tr ' ' '_')";
+	username="$(echo $row | cut -d ',' -f 2)";
+	sed -i -e "s/$fullname/$username/" person2.csv
+done < officers.txt
+
+delete ignore from db_data_person;
+
+load data local infile 'person2.csv' into table db_data_person fields terminated by ',' (user_id, photo1, photo2)
+
+cat db_data_08292019.json | jq -r '.[] | select(.model == "db_data.sponsor") | .fields | [.name, .url, .photo] | @csv' > sponsors.csv
+
+cat sponsors.csv | tr -d \" > sponsors_no_quote.csv
+
+sudo -u www-data python3.6 /webserver/CSUA-backend/manage.py dumpdata auth > hue
+
+cat auth_hue | sed 's/null/"1998-10-12T00:00:00Z"/g' | jq '.' > auth_hue_fix
