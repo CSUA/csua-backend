@@ -5,10 +5,9 @@
     <title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
     <link rel="stylesheet" href="{% static "css/common.css" %}">
-    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"></script>
+    <link rel="stylesheet" href="{% static "css/thirdparty/bulma.min.css" %}">
+    <script defer src="{% static "js/fontawesomev5.7.1.all.js" %}"></script>
     <script>
 document.addEventListener('DOMContentLoaded', () => {
   // to get mobile navbar to work
@@ -25,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
     </script>
+    {% block head_content %}{% endblock %}
   </head>
   <body>
     <div id="body-container">
@@ -80,12 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
                   <a class="navbar-item" href="{% url 'constitution' %}">
                     Constitution
                   </a>
-
                 </div>
               </div>
 
-              
-              
               <div class="navbar-item has-dropdown is-hoverable">
                 <span class="navbar-link">
                   <span>
@@ -122,6 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <a class="navbar-item" href="{% url 'logout' %}">
                 Logout
               </a>
+              {% if request.user.is_staff %}
+              <a class="navbar-item" href="/admin/">
+                Admin
+              </a>
+              {% endif %}
               {% else %}
               <a class="navbar-item" href="{% url 'login' %}">
                 Login
@@ -177,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </footer>
     </div>
   </body>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
 </html>
 <!-- Colossians 3:23 -->
 {# vim: set et ts=2 sw=2: #}

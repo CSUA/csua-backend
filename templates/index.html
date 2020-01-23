@@ -1,22 +1,35 @@
-{% extends "base_with_hero.html" %}
+{% extends "base.html" %}
 {% load static from staticfiles %}
 {% block title %}Home{% endblock %}
-{% block hero %}
-{% include "hero_with_bg_img.html" with title="Welcome to the CSUA" subtitle="UC Berkeley Computer Science Undergraduate Association" img_url="/static/images/Ben_and_Starr_at_Calapalooza.jpg" %}
+{% block head_content %}
+<link rel="stylesheet" href="{% static "css/index.css" %}">
 {% endblock %}
+{% block content %}
 
-{% block page_content %}
-<div class="columns is-centered">
-  <div class="column">
-    <div class="box content">
+<section id="top" class="hero is-fullheight-with-navbar has-text-centered">
+  <div class="hero-body">
+    <div class="container">
+      <h1 id="title" class="title">
+        Welcome to the CSUA
+      </h1>
+      <h2 class="subtitle">
+        UC Berkeley Computer Science Association
+      </h2>
+      <a class="smooth" href="#hello-world">Start!</a>
+    </div>
+  </div>
+</section>
+
+
+<section id="hello-world" class="section has-background-light">
+  <div class="container">
+    <div class="content">
       <h1>Hello World!</h1>
       <p>
-      The Computer Science Undergraduate Association supports the undergraduate
-      computer science student body at UC Berkeley and acts as an entry point to
+      The CSUA supports the undergraduate computer science student body at
+      UC Berkeley and acts as an entry point to
       <a href="{% url 'sponsors' %}">industry</a>.
-      </p>
-      <p>
-      The CSUA hosts tech talks, hackathons, info sessions,
+      We host tech talks, hackathons, info sessions,
       <a href="{% url 'workshops' %}">workshops</a>,
       LAN parties, and the biannual
       <a href="http://ucbstartupfair.com/">Startup Fair</a>.
@@ -28,86 +41,186 @@
       </p>
     </div>
   </div>
-</div>
+</section>
 
+<section id="services" class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <div class="content">
+          <h1>Our Office</h1>
 
-<div class="columns">
-  <div class="column">
-    <div class="box">
+          <p>
+          The CSUA Office is located in 311 Soda Hall&mdash;in front of the 3rd floor
+          entrance to Soda Hall.
+          Inside are computers, study space, a TV, a fridge, a microwave, board games, and a library.
+          Business hours are 10am-7pm, at this time no gaming is allowed in the office.
+          </p>
+
+          <p>
+          Officers keep the office open and work around the clock to provide
+          support and community to students.
+          There is always at least one officer present if the office is unlocked.
+          Come say hi!
+          <a href="{% url 'officers' %}">Learn more about officers here</a>
+          </p>
+
+          <b>Address</b><br />
+
+          Computer Science Undergraduate Association<br />
+          University of California, Berkeley<br />
+          311 Soda Hall<br />
+          Berkeley, CA 94720-1776<br />
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <h2>
+            Technical Services
+          </h2>
+          <p>
+          The CSUA provides computing resources, free of charge, for all members.
+          We have servers that provide webhosting, shell access, email
+          forwarding, and commercial-grade machine learning.
+          <a href="{% url 'computing_resources' %}">Read more here.</a>
+          </p>
+
+          <p>
+          Need help with getting access to, or using our systems?
+          Contact root staff (root@csua)
+          </p>
+
+          <p>
+          Interested in getting more involved in technical services at CSUA?
+          Want to help improve our systems?
+          Consider applying for root staff.
+          Contact the <a href="{% url 'politburo' %}">VP of Tech</a> to learn more.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <h2>
+            Events
+          </h2>
+          <p>
+          CSUA hosts many events throughout the semester to support the
+          community.
+          We host
+          </p>
+          <ul>
+            <li>Hackathons</li>
+            <li>Infosessions</li>
+            <li>CS Workshops</li>
+            <li>LAN Parties</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="upcoming-events" class="section has-background-light">
+  <div class="container">
     <div class="content">
       <a href="{% url 'events' %}"><h1>Upcoming Events</h1></a>
       {% include "upcoming_events.html" %}
     </div>
+  </div>
+</section>
+
+<section id="founded" class="section has-background-blue">
+  <h2 id="headline">
+    Founded in 1972, CSUA is the largest and oldest computer science club on
+    campus.
+  </h2>
+</section>
+
+<section id="people" class="section has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column content">
+        <h2>The Politburo</h2>
+        <p>
+        The Politburo is composed of elected officers of the CSUA.
+        They run most of the club's operations.
+        You can contact the Politburo at politburo@csua.berkeley.edu.
+        <a href="{% url 'politburo' %}">See PB membership here.</a>
+        </p>
+      </div>
+      <div class="column content">
+        <h2 id="officers">Officers</h2>
+        <p>
+        Officers are people you find frequently at the office.
+        They’re responsible for keeping the place open and friendly.
+        Many of them are experienced with programming and can help you with your classes.
+        <a href="{% url 'officers' %}">Read more here.</a>
+        </p>
+      </div>
+      <div class="column content">
+        <h2>Members</h2>
+        <p>
+        Becoming a CSUA member is easy.
+        All you have to do is
+        <a href="join">sign up for an account</a>,
+        and you're done!
+        An account gives you access to all of our technical resources, as well as
+        membership to our mailing list and slack communities.
+        </p>
+      </div>
+      <div class="column content">
+        <h2>Alumni</h2>
+        <p>
+        Having been around since 1972, the CSUA has a large population of alumni.
+        Our alumni work at startups, big tech companies, and regularly come back
+        to us looking for new talent. CSUA occassionally invites alumni to come
+        speak and hosts an annual alumni lunch in order to get students to meet
+        the older generations.
+        </p>
+      </div>
     </div>
   </div>
-  <div class="column">
-    <div class="content box">
-      <h1>People</h1>
-      <h2><a href="{% url 'politburo' %}">The Politburo</a></h2>
-      <p>
-      The Politburo is composed of elected officers of the CSUA. You can
-      contact the Politburo at politburo@csua.berkeley.edu.
-      </p>
-      <h2 id="officers"><a href="{% url 'officers' %}">Officers</a></h2>
-      <p>
-      Officers are people you find frequently at the office. They’re
-      responsible for keeping the place open and friendly. Many of them are
-      experienced with programming and can help you with your classes.
-      </p>
-    </div>
-  </div>
-  <div class="column">
-    <div class="content box">
-      <h1>Our Office</h1>
+</section>
 
-      <p>
-      The CSUA Office is located in 311 Soda Hall in front of the 3rd floor
-      entrance to Soda Hall, at the corner of Hearst &amp; LeRoy.
-      </p>
-
-      <p>
-      We work around the clock to provide
-      <a href="{% url 'computing_resources' %}">computing resources</a>,
-      support, and community to the computer science students at Berkeley.
-      </p>
-
-      <b>Address</b><br />
-
-      Computer Science Undergraduate Association<br />
-      University of California, Berkeley<br />
-      311 Soda Hall<br />
-      Berkeley, CA 94720-1776<br />
-    </div>
-  </div>
-</div>
-<div class="columns">
-  <div class="column">
-    <div class="content box">
+<section id="department" class="section has-background-blue">
+  <div class="container">
+    <div class="content">
       <h1 id="the-department">The Department</h1>
-      <h2 id="computer-science">
-        <a href="http://www.cs.berkeley.edu/">Computer Science</a>
-      </h2>
-      <p>
-      Learn more about the Computer Science department at UC Berkeley. The
-      L&amp;S CS advisors can be found
-      <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
-      here</a>.
-      </p>
-
-      <h2 id="electrical-engineering--computer-science">
-        <a href="http://www.eecs.berkeley.edu/">
-          Electrical Engineering &amp; Computer Science
-        </a>
-      </h2>
-
+    </div>
+    <div class="columns">
+      <div class="column content">
+        <h3 id="computer-science">
+          <a href="http://www.cs.berkeley.edu/">Computer Science</a>
+        </h3>
+        <p>
+        Learn more about the Computer Science department at UC Berkeley. The
+        L&amp;S CS advisors can be found
+        <a href="https://eecs.berkeley.edu/resources/undergrads/cs/advising">
+          here</a>.
+        </p>
+      </div>
+      <div class="column content">
+        <h3 id="electrical-engineering--computer-science">
+          <a href="http://www.eecs.berkeley.edu/">
+            Electrical Engineering &amp; Computer Science
+          </a>
+        </h3>
         <p>
         Learn more about the Electrical Engineering &amp; Computer Science
         department in UC Berkeley’s College of Engineering. The EECS advisors can be found
         <a href="https://eecs.berkeley.edu/resources/undergrads/eecs/advising">
           here</a>.
         </p>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="section has-background-light">
+  <div class="container">
+    <a href="#navbar">Back to top</a>
+  </div>
+</section>
+
 {% endblock %}
 {# vim: set et ts=2 sw=2: #}
