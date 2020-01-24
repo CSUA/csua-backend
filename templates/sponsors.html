@@ -13,20 +13,12 @@
     <p>Interested in working with the CSUA to sponsor an event or to speak at
     one of our events? Please send an email to indrel@csua.berkeley.edu.</p>
   </div>
+  {% for semester, sponsorships_this_semester in sponsorships_by_semester %}
   <div class="content">
-    <h1>Sponsors for {{ current_semester.name }}</h1>
+    <h1>{{ semester.name }}</h1>
   </div>
-  {% include "sponsors_grid.html" with sponsorships=sponsorships %}
-  {% if semesters %}
-  <div class="content">
-    <h1>Previous Sponsors</h1>
-    <ul>
-      {% for semester in semesters %}
-      <li><a href="{% url 'sponsors_semester' semester_id=semester.id %}">{{ semester.name }}</a>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
+  {% include "sponsors_grid.html" with sponsorships=sponsorships_this_semester %}
+  {% endfor %}
 </div>
 {% endblock %}
 {# vim:set sw=2:et:ts=4 #}

@@ -1,4 +1,6 @@
 import datetime
+import codecs
+from collections import defaultdict
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -80,25 +82,27 @@ def politburo(request, semester_id=None):
 
     return render(request, "politburo.html", {"pb": pb, "semesters": semesters})
 
+def semester_ordering_key(semester):
+    return semester.id[2:] + codecs.encode(semester.id[:2], "rot13"),
 
-def sponsors(request, semester_id=None):
-    if semester_id is None:
-        semester = Semester.objects.filter(current=True).get()
-    else:
-        semester = get_object_or_404(Semester, id=semester_id)
-    semesters = Semester.objects.exclude(id=semester.id)
-    sponsorships = (
-        Sponsorship.objects.select_related("sponsor")
-        .filter(semester=semester)
-        .order_by("sponsor__name")
+
+def sponsors(request):
+    semesters = Semester.objects.all()
+    sponsorships = Sponsorship.objects.all()
+    sponsorships_by_semester = defaultdict(list)
+    for sponsorship in sponsorships:
+        sponsorships_by_semester[sponsorship.semester].append(sponsorship)
+    sponsorships_by_semester = sorted(
+        sponsorships_by_semester.items(),
+        key=lambda pair: semester_ordering_key(pair[0]),
+        reverse=True,
     )
+
     return render(
         request,
         "sponsors.html",
         {
-            "sponsorships": sponsorships,
-            "current_semester": semester,
-            "semesters": semesters,
+            "sponsorships_by_semester": sponsorships_by_semester,
         },
     )
 
