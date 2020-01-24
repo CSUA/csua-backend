@@ -97,6 +97,8 @@ def sponsors(request):
         key=lambda pair: semester_ordering_key(pair[0]),
         reverse=True,
     )
+    for semester, sponsorships in sponsorships_by_semester:
+        sponsorships.sort(key=lambda sponsorship: sponsorship.sponsor.name)
 
     return render(
         request,
