@@ -5,6 +5,8 @@ A backend for the CSUA interblags.
 
 Current Maintainer: Robert Quitt <robertq@csua.berkeley.edu>
 
+**JAN 2020: SEEKING NEW MAINTAINER** (I'm graduating -robertq)
+
 ## User Workflow
 
 1. Create a fork of this repo
