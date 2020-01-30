@@ -7,7 +7,9 @@ from django.contrib.auth.models import User as DjangoUser
 
 class Semester(models.Model):
     id = models.CharField(
-        max_length=8, primary_key=True, help_text="Used for URLs etc."
+        max_length=8,
+        primary_key=True,
+        help_text="Used for URLs, should match /(fa|sp)[0-9]{2}/",
     )
     current = models.BooleanField(
         help_text="There should only be one current semester."

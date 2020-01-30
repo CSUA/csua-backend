@@ -25,7 +25,7 @@ html, body {
 	min-height: 100vh;
 	background-color: var(--bg);
 }
-#navbar, .navbar-menu {
+#navbar, .navbar-menu, #navMenu {
 	background-color: var(--base03);
 }
 #navbar .navbar-link, .navbar-item,.navbar-dropdown {
