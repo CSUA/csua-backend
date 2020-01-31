@@ -2,9 +2,11 @@ from django import forms
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 
 from .utils import (
+        add_group_member,
     get_all_groups,
     get_group_members,
     get_user_gecos,
@@ -31,12 +33,12 @@ def admin_group(request, groupname=None):
     if request.method == "POST":
         form = LdapGroupForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect(
-                reverse("ldap_admin_group", kwargs={"groupname": groupname})
-            )
+            success, message = add_group_member(groupname, form.cleaned_data['add_user'])
+            if not success:
+                messages.error(request, message)
     else:
-        group_members = get_group_members(groupname)
         form = LdapGroupForm()
+    group_members = get_group_members(groupname)
     return render(
         request,
         "ldap_admin_group.html",

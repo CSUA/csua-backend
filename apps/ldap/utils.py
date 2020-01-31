@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from django.http import Http404
 from decouple import config
 
-from ldap3 import ALL_ATTRIBUTES, SYNC, Connection, Server
+from ldap3 import ALL_ATTRIBUTES, MODIFY_ADD, SYNC, Connection, Server
 
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
@@ -29,6 +29,15 @@ def ldap_connection(**kwargs):
             "Don't change the client strategy unless you know what you're doing!"
         )
     with Connection(LDAP_SERVER, **kwargs) as c:
+        yield c
+
+
+@contextmanager
+def newuser_connection(**kwargs):
+    """
+    creates a connection that binds as newuser, which has edit access to LDAP database
+    """
+    with ldap_connection(user=NEWUSER_DN, password=NEWUSER_PW, **kwargs) as c:
         yield c
 
 
@@ -57,7 +66,7 @@ def create_new_user(username, name, email, sid, password):
 
     If uid is -1, this means the bind failed.
     """
-    with ldap_connection(user=NEWUSER_DN, password=NEWUSER_PW) as c:
+    with newuser_connection() as c:
         if c.bind():
             dn = "uid={0},{1}".format(username, PEOPLE_OU)
             uid = get_max_uid() + 1
@@ -79,6 +88,21 @@ def create_new_user(username, name, email, sid, password):
             return success, uid
         else:
             return False, -1
+
+
+def add_group_member(group, username):
+    with newuser_connection() as c:
+        if c.bind():
+            success = c.modify(
+                "cn={0},{1}".format(group, GROUP_OU),
+                {"memberUid": [(MODIFY_ADD, [username])]},
+            )
+            if success:
+                return True, "Success"
+            else:
+                return False, "Modify operation failed"
+        else:
+            return False, "Failed to bind"
 
 
 def authenticate(username, password):
