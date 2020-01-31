@@ -37,7 +37,17 @@
             </form>
           </div>
           <div class="column content">
-            <h2>Groups</h2>
+            <h2>Relevant Groups</h2>
+            <ul>
+              {% for group in relevant_groups %}
+              <li>
+                <a href="{% url 'ldap_admin_group' groupname=group %}">{{ group }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="column content">
+            <h2>All Groups</h2>
             <ul>
               {% for group in groups %}
               <li>

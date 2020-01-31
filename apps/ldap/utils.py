@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from django.http import Http404
 from decouple import config
 
-from ldap3 import ALL_ATTRIBUTES, MODIFY_ADD, SYNC, Connection, Server
+from ldap3 import ALL_ATTRIBUTES, MODIFY_ADD, MODIFY_DELETE, SYNC, Connection, Server
 
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
@@ -104,6 +104,23 @@ def add_group_member(group, username):
         else:
             return False, "Failed to bind"
 
+def remove_group_members(group, usernames):
+    if not usernames:
+        # without this check, the memberUid attribute gets overridden with []
+        return False, "No users specified"
+    with newuser_connection() as c:
+        if c.bind():
+            success = c.modify(
+                "cn={0},{1}".format(group, GROUP_OU),
+                {"memberUid": [(MODIFY_DELETE, usernames)]},
+            )
+            if success:
+                return True, "Success"
+            else:
+                return False, "Modify operation failed"
+        else:
+            return False, "Failed to bind"
+
 
 def authenticate(username, password):
     """
@@ -130,7 +147,10 @@ def get_group_members(group):
         c.search(GROUP_OU, search_filter, attributes=ALL_ATTRIBUTES)
         if len(c.entries) == 0:
             raise Http404("No group found")
-        return list(c.entries[0].memberUid)
+        if "memberUid" in c.entries[0]:
+            return list(c.entries[0].memberUid)
+        else:
+            return []
 
 
 def get_root():
