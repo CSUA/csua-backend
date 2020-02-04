@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 
-from . import ldap_bindings
+from apps.ldap.utils import create_new_user, validate_officer
 from .forms import NewUserForm
 
 usernameWhitelist = set(".-_")
@@ -19,14 +19,14 @@ def index(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             if valid_password(form.cleaned_data["password"]):
-                if ldap_bindings.validate_officer(
+                if validate_officer(
                     form.cleaned_data["officer_username"],
                     form.cleaned_data["officer_password"],
                 ):
                     enroll_jobs = (
                         "true" if form.cleaned_data["enroll_jobs"] else "false"
                     )
-                    success, uid = ldap_bindings.create_new_user(
+                    success, uid = create_new_user(
                         form.cleaned_data["username"],
                         form.cleaned_data["full_name"],
                         form.cleaned_data["email"],

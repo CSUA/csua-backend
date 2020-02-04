@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = [
     path("", include("apps.main_page.urls")),
     path("", include("apps.db_data.urls")),
+    path("ldap/", include("apps.ldap.urls")),
     path("outreach/", include("apps.outreach.urls")),
     path("admin/", admin.site.urls),
     path("newuser/", include("apps.newuser.urls")),

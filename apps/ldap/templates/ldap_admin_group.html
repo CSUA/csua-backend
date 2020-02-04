@@ -1,0 +1,48 @@
+{% extends "ldap_admin.html" %}
+{% block content %}
+<section class="section has-background-light">
+  <div class="container">
+    <div class="columns">
+      <div class="column content">
+        <h2>{{ groupname }}</h2>
+        <ul>
+            {% for member in members %}
+            <li>{{ member }}</li>
+            {% endfor %}
+        </ul>
+        <form action="{% url 'ldap_admin_group' groupname=groupname %}" method="post">
+          <input type="hidden" name="do_verify_all" value="yis">
+          {% csrf_token %}
+          <input type="submit" value="Verify all members">
+        </form>
+      </div>
+      <div class="column content">
+        <h2>Remove users from {{ groupname }}</h2>
+        <ul>
+          <form action="{% url 'ldap_admin_group' groupname=groupname %}" method="post">
+            <input type="hidden" name="do_delete" value="yis">
+            {% csrf_token %}
+            {% for member in members|dictsort:0 %}
+            <li>
+              <input type="checkbox" name="delete_{{ member }}">
+              <label for="delete_{{ member }}">{{ member }}</label>
+            </li>
+            {% endfor %}
+            <br>
+            <input type="submit" value="Remove selected from group">
+          </form>
+        </ul>
+      </div>
+      <div class="column content">
+        <h2>Add users to {{ groupname }}</h2>
+        <form action="{% url 'ldap_admin_group' groupname=groupname %}" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{# vim: set et sw=2: #}

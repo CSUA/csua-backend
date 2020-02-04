@@ -223,6 +223,7 @@ INSTALLED_APPS = [
     "apps.tracker",
     "apps.philbot",
     "apps.outreach",
+    "apps.ldap",
     ## Third-party
     "markdown_deux",
     "sorl.thumbnail",
