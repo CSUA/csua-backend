@@ -22,16 +22,26 @@
       </div>
     </section>
     {% endblock %}
+    {% block messages %}
+    {% if messages %}
+    <section class="section">
+      <div class="container content is-danger">
+        <ul>
+          {% for message in messages %}
+          <li>{{ message.level_tag|upper }} {{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+    {% endif %}
+    {% endblock %}
     {% block content %}
     <section class="section">
       <div class="container">
         <div class="columns">
           <div class="column content">
             <h2>Users</h2>
-            <form
-              id="userform"
-              action="#"
-              onsubmit="this.action='{% url 'ldap_admin_user' username='replaceme' %}'.replace('replaceme', this.user.value);">
+            <form id="userform" action="{% url 'ldap_admin' %}">
               <input type="text" name="user">
               <input type="submit" value="Go">
             </form>

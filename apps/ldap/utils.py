@@ -104,6 +104,7 @@ def add_group_member(group, username):
         else:
             return False, "Failed to bind"
 
+
 def remove_group_members(group, usernames):
     if not usernames:
         # without this check, the memberUid attribute gets overridden with []
@@ -193,6 +194,15 @@ def get_user_creation_time(username):
         ][0]
 
 
+def get_user_info(username):
+    with ldap_connection() as c:
+        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="*")
+        if len(c.entries) == 0:
+            raise Http404("No such user!")
+
+        return c.entries[0]
+
+
 def get_user_gecos(username):
     with ldap_connection() as c:
         c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="gecos")
@@ -200,6 +210,12 @@ def get_user_gecos(username):
             raise Http404("No such user!")
 
         return str(c.entries[0].gecos)
+
+
+def user_exists(username):
+    with ldap_connection() as c:
+        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="")
+        return len(c.entries) == 1
 
 
 def get_user_realname(username):

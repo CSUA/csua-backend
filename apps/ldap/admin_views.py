@@ -12,19 +12,28 @@ from .utils import (
     get_group_members,
     get_user_gecos,
     get_user_creation_time,
+    user_exists,
 )
 
 
 class LdapGroupForm(forms.Form):
     add_user = forms.CharField(label="User to add", max_length=32)
+    verify_user = forms.BooleanField(
+        label="Verify that username exists", initial=True, required=False
+    )
 
 
 class LdapUserForm(forms.Form):
+    # WIP
     poop = forms.CharField(label="Poop", max_length=32)
 
 
 @staff_member_required
 def admin(request, groupname=None):
+    if "user" in request.GET:
+        return HttpResponseRedirect(
+            reverse("ldap_admin_user", kwargs={"username": request.GET.get("user")})
+        )
     groups = get_all_groups()
     relevant_groups = [
         "root",
@@ -51,14 +60,30 @@ def admin_group(request, groupname=None):
     if request.method == "POST":
         if groupname == "root":
             messages.error(request, "I'm sorry Dave, I'm afraid I can't do that.")
+
         elif "add_user" in request.POST:
             form = LdapGroupForm(request.POST)
             if form.is_valid():
-                success, message = add_group_member(
-                    groupname, form.cleaned_data["add_user"]
-                )
-                if not success:
-                    messages.error(request, message)
+                user_to_add = form.cleaned_data["add_user"]
+                if not form.cleaned_data["verify_user"] or user_exists(user_to_add):
+                    success, message = add_group_member(groupname, user_to_add)
+                    if success:
+                        messages.info(
+                            request,
+                            "Successfully added {0} to {1}".format(
+                                user_to_add, groupname
+                            ),
+                        )
+                        return HttpResponseRedirect(
+                            reverse("ldap_admin_group", kwargs={"groupname": groupname})
+                        )
+                    else:
+                        messages.error(request, message)
+                else:
+                    messages.error(
+                        request, "User {0} does not exist".format(user_to_add)
+                    )
+
         elif "do_delete" in request.POST:
             users_to_remove = [
                 user[len("delete_") :]
@@ -67,11 +92,33 @@ def admin_group(request, groupname=None):
             ]
             if users_to_remove:
                 success, message = remove_group_members(groupname, users_to_remove)
-        return HttpResponseRedirect(
-            reverse("ldap_admin_group", kwargs={"groupname": groupname})
-        )
+                if success:
+                    for user in users_to_remove:
+                        messages.info(
+                            request,
+                            "Successfully removed {0} from {1}".format(user, groupname),
+                        )
+            return HttpResponseRedirect(
+                reverse("ldap_admin_group", kwargs={"groupname": groupname})
+            )
 
-    form = LdapGroupForm()
+        elif "do_verify_all" in request.POST:
+            invalid_usernames = []
+            for username in group_members:
+                if not user_exists(username):
+                    invalid_usernames.append(username)
+            if invalid_usernames:
+                for invalid_username in invalid_usernames:
+                    messages.error(
+                        request, "{0} is not a valid username".format(invalid_username)
+                    )
+            else:
+                messages.info(request, "All usernames are valid")
+            return HttpResponseRedirect(
+                reverse("ldap_admin_group", kwargs={"groupname": groupname})
+            )
+    else:
+        form = LdapGroupForm()
     return render(
         request,
         "ldap_admin_group.html",
@@ -84,13 +131,14 @@ def admin_user(request, username=None):
     if request.method == "POST":
         form = LdapUserForm(request.POST)
         if form.is_valid():
+            messages.info(request, form.cleaned_data["poop"])
             return HttpResponseRedirect(
-                reverse("ldap_admin_group", kwargs={"groupname": groupname})
+                reverse("ldap_admin_user", kwargs={"username": username})
             )
     else:
-        gecos = get_user_gecos(username)
-        creation_time = get_user_creation_time(username)
         form = LdapUserForm()
+    gecos = get_user_gecos(username)
+    creation_time = get_user_creation_time(username)
     return render(
         request,
         "ldap_admin_user.html",
