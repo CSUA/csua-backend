@@ -38,6 +38,7 @@ def admin(request, groupname=None):
     relevant_groups = [
         "root",
         "officers",
+        "prosp-officers",
         "excomm",
         "president",
         "vptech",
