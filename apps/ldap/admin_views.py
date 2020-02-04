@@ -57,6 +57,7 @@ def admin(request, groupname=None):
 
 @staff_member_required
 def admin_group(request, groupname=None):
+    form = LdapGroupForm()
     group_members = get_group_members(groupname)
     if request.method == "POST":
         if groupname == "root":
@@ -118,8 +119,6 @@ def admin_group(request, groupname=None):
             return HttpResponseRedirect(
                 reverse("ldap_admin_group", kwargs={"groupname": groupname})
             )
-    else:
-        form = LdapGroupForm()
     return render(
         request,
         "ldap_admin_group.html",
