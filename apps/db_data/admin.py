@@ -53,6 +53,8 @@ class SemesterAdmin(admin.ModelAdmin):
 @admin.register(Officer)
 class OfficerAdmin(admin.ModelAdmin):
     inlines = [OfficershipInline]
+    list_display = ("person", "officer_since")
+    ordering = ("person",)
 
 
 @admin.register(Officership)
@@ -64,7 +66,8 @@ class OfficershipAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    pass
+    ordering = ("user",)
+    list_display = ("user",)
 
 
 @admin.register(UcbClass)
