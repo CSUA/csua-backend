@@ -13,6 +13,7 @@ from pathlib import Path
 from decouple import config
 import ldap3
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
@@ -186,6 +187,7 @@ TEMPLATES = [
     }
 ]
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -193,11 +195,12 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.csua_backend.middleware.TemporaryRedirectFallbackMiddleware",
 ]
+
 
 ROOT_URLCONF = "apps.csua_backend.urls"
 
@@ -268,10 +271,7 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-        "sorl.thumbnail": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-        }
+        "sorl.thumbnail": {"handlers": ["mail_admins"], "level": "ERROR"},
     },
 }
 
