@@ -5,21 +5,22 @@
 <p>
 Need help with your classes?
 Officers of the CSUA provide free tutoring services in 311 Soda.
-Our tutoring calendar will be released soon.
-In the meantime, most officers are willing to help you with your classes, just come in and say hi!
 </p>
+<br>
 
-<div class="columns">
-    {% for subject, tutors in tutors_by_subject.items %}
-    <div class="column">
-        {{ subject }}<br>
-        {% for tutor in tutors %}
-        {{ tutor.person.user.first_name }}&nbsp;{{ tutor.person.user.last_name }}
-        &lt;{{ tutor.person.user }}&gt;
-        {% endfor %}
-    </div>
-    {% endfor %}
-</div>
+<p>
+If you cannot make it to any tutoring appointments, you are always welcome to
+come to our office in 311 Soda (just outside the 3rd floor entrance).
+Most officers are willing to help you with your classes, just come in and say hi!
+</p>
+<br>
+
+<p>
+<a class="button is-link" href="https://calendar.google.com/calendar/selfsched?sstoken=UUJwQ00ycnRfbFdhfGRlZmF1bHR8OTljZWU2NGY2Yzg5MWZiZTkwYjZmOTliOWIyN2RkNDY">
+        Click here to book a tutoring / advising appointment
+</a>
+</p>
+<br>
 
 <p>
 If you are interested in becoming a tutor,
