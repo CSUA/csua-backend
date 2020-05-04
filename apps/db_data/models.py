@@ -64,7 +64,7 @@ class Person(models.Model):
     )
 
     def __str__(self):
-        return str(self.user)
+        return f"{self.user!s} ({self.user.first_name} {self.user.last_name})"
 
 
 # Create your models here.
@@ -116,7 +116,7 @@ class Politburo(models.Model):
     contact = models.TextField(max_length=255)
 
     def __str__(self):
-        return self.title
+        return f"{self.position} ({self.title})"
 
 
 class PolitburoMembership(models.Model):
@@ -129,7 +129,7 @@ class PolitburoMembership(models.Model):
         return self.politburo.contact.replace("[name]", self.person.user.first_name, 1)
 
     def __str__(self):
-        return str(self.semester) + ": " + str(self.politburo) + ": " + str(self.person)
+        return f"{self.semester}: {self.politburo.position}: {self.person.user}"
 
 
 def sponsor_photo_path(instance, filename):
@@ -173,7 +173,7 @@ class Event(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.date})"
 
     @property
     def is_passed(self):

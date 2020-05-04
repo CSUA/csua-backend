@@ -26,17 +26,21 @@ class OfficershipAdminForm(forms.ModelForm):
 
 class SponsorshipInline(admin.TabularInline):
     model = Sponsorship
+    ordering = ("sponsor__name",)
+    autocomplete_fields = ("sponsor",)
     extra = 0
 
 
 class OfficershipInline(admin.TabularInline):
     form = OfficershipAdminForm
     model = Officership
+    autocomplete_fields = ("officer",)
     extra = 0
 
 
 class PolitburoMembershipInline(admin.TabularInline):
     model = PolitburoMembership
+    autocomplete_fields = ("person",)
     extra = 0
 
 
@@ -48,6 +52,7 @@ class EventCategoryAdmin(admin.ModelAdmin):
 @admin.register(Semester)
 class SemesterAdmin(admin.ModelAdmin):
     inlines = [OfficershipInline, PolitburoMembershipInline, SponsorshipInline]
+    autocomplete_fields = ("events",)
 
 
 @admin.register(Officer)
@@ -55,6 +60,11 @@ class OfficerAdmin(admin.ModelAdmin):
     inlines = [OfficershipInline]
     list_display = ("person", "officer_since")
     ordering = ("person",)
+    search_fields = (
+        "person__user__first_name",
+        "person__user__last_name",
+        "person__user__username",
+    )
 
 
 @admin.register(Officership)
@@ -68,6 +78,7 @@ class OfficershipAdmin(admin.ModelAdmin):
 class PersonAdmin(admin.ModelAdmin):
     ordering = ("user",)
     list_display = ("user",)
+    search_fields = ("user__first_name", "user__last_name", "user__username")
 
 
 @admin.register(UcbClass)
@@ -79,6 +90,7 @@ class UcbClassAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     actions = ["duplicate_events", "enable_events", "disable_events"]
+    search_fields = ("name", "date")
 
     def disable_events(modeladmin, request, queryset):
         queryset.update(enabled=False)
@@ -100,3 +112,4 @@ class PolituburoAdmin(admin.ModelAdmin):
 @admin.register(Sponsor)
 class SponsorAdmin(admin.ModelAdmin):
     inlines = [SponsorshipInline]
+    search_fields = ("name",)
