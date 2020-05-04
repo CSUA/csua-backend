@@ -1,4 +1,4 @@
-CSUA-backend
+csua-backend
 ============
 
 A backend for the CSUA interblags.
@@ -17,16 +17,21 @@ Current Maintainer: Robert Quitt <robertq@csua.berkeley.edu>
 6. Push commits to your fork
 7. Make a pull request
 
-## Installation
+## Installation (virtualenv)
 
-1. Install Python 3
-2. Install Django and dependencies with `pip3 install --user -r requirements.txt`
+1. Install Python 3.6+
+2. Create virtualenv `python3 -m `
+2. Install Django and dependencies with `venv/bin/pip3 install -r requirements.txt`
 3. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
-4. Set up local db with `python3 manage.py migrate`
-  - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
-5. Run server with `python3 manage.py runserver`
+4. Set up local db with `venv/bin/python3 manage.py migrate`
+5. Run server with `venv/bin/python3 manage.py runserver`
 6. Navigate web browser to http://127.0.0.1:8000/
-7. Create admin user with `python3 manage.py createsuperuser`
+7. Create admin user with `venv/bin/python3 manage.py createsuperuser`
+  - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
+
+### Installation (virtualenv, alternative)
+
+If you're using GNU/Linux, you should be able to use `bootstrap.sh`. In theory, OSX should also work, but it's untested.
 
 ## Making changes to database models
 
@@ -76,9 +81,9 @@ python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
 ### (Option 1) Deploy a new change from GitHub to tap
 
 1. `ssh` into `tap.csua.berkeley.edu`
-2. Change directory to the project directory
-3. `git pull`
-4. `python3 manage.py collectstatic` to update static images
+2. Change directory to the project directory `/webserver/csua-backend/`
+3. `sudo -u www-data git pull`
+4. `venv/bin/python manage.py collectstatic` to update static images
 5. If you're making changes to the db models, follow those instructions too
 
 ### (Option 2) Deploy to tap using fabric
@@ -93,12 +98,7 @@ python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
 - The `gunicorn` process is managed by `systemd` and the service file is located at `/etc/systemd/system/csua-backend-gunicorn.service`
   - This service can be manipulated with `systemctl`
     - To reload the wsgi app, run `sudo systemctl reload csua-backend-gunicorn`
-- `tap` runs debian 9.8 (stretch), we are using Python 3.5.
-  This may change in the near future, as I (Robert) just installed Python 3.6 from source.
-  This means you cannot use any Python 3.6+ features such as:
-  - formatted string literals (f-strings) (e.g. `print(f"Oh yea yea {globals()}")`)
-  - Underscores in numeric literals (e.g. `69_420_000`)
-  - Typing hints (e.g. `primes: List[int] = []`)
+- `tap` runs debian 9.8 (stretch), we are using Python 3.6.
 - The app is behind an Nginx proxy.
   - Nginx serves the static and media files, homedirs, and forwards all other requests to the app.
   - <https://github.com/CSUA/services-nginx/blob/master/sites-available/www.csua.berkeley.edu>

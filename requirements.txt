@@ -1,5 +1,5 @@
 # BASE
-django==2.2.9
+django~=2.2
 django-markdown-deux
 pillow
 sorl-thumbnail
