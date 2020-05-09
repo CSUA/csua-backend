@@ -1,6 +1,7 @@
 #!/bin/bash
 #!/bin/rbash
 #arguments: config_newuser username email uid enroll_jobs
+if [ $# -ne 4 ]; then echo "usage: $0 username email uid enroll_jobs"; exit 1; fi
 mkdir -m 700 /nfs/homes/$1
 echo $2 > /nfs/homes/$1/.forward
 chown -R $3:1000 /nfs/homes/$1

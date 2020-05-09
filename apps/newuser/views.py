@@ -1,4 +1,5 @@
 from os import mkdir, system
+import pathlib
 import logging
 
 from django.http import HttpResponse
@@ -12,6 +13,8 @@ from .forms import NewUserForm
 usernameWhitelist = set(".-_")
 emailWhitelist = set("@+").union(usernameWhitelist)
 logger = logging.getLogger(__name__)
+
+newuser_script = pathlib.Path(__file__).parent.absolute() / "config_newuser"
 
 
 def index(request):
@@ -35,12 +38,11 @@ def index(request):
                     )
                     if success:
                         exit_code = system(
-                            "sudo /webserver/CSUA-backend/apps/newuser/config_newuser {0} {1} {2} {3}".format(
-                                form.cleaned_data["username"],
-                                form.cleaned_data["email"],
-                                uid,
-                                form.cleaned_data["enroll_jobs"],
-                            )
+                            f"sudo {newuser_script}"
+                            " {form.cleaned_data['username']}"
+                            " {form.cleaned_data['email']}"
+                            " {uid}"
+                            " {form.cleaned_data['enroll_jobs']}"
                         )
                         if exit_code == 0:
                             logger.info("New user created: {0}".format(uid))
