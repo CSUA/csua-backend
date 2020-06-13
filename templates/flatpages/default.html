@@ -1,0 +1,10 @@
+{% extends "simple_page.html" %}
+{% load markdown_deux_tags %}
+{% block title %}{{ flatpage.title }}{% endblock %}
+{% block pagetitle %}{{ flatpage.title }}{% endblock %}
+{% block page_content %}
+<div class="content">
+  {{ flatpage.content|markdown }}
+</div>
+{% endblock %}
+{# vim: set et ts=2 sw=2: #}

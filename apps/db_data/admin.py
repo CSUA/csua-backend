@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import (
     Event,
     EventCategory,
+    Notice,
     Officer,
     Officership,
     Person,
@@ -113,3 +114,8 @@ class PolituburoAdmin(admin.ModelAdmin):
 class SponsorAdmin(admin.ModelAdmin):
     inlines = [SponsorshipInline]
     search_fields = ("name",)
+
+
+@admin.register(Notice)
+class NoticeAdmin(admin.ModelAdmin):
+    list_display = ("expires", "text")

@@ -9,6 +9,7 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_safe
 
 from .models import (
+    Notice,
     Event,
     Officer,
     Politburo,
@@ -20,16 +21,6 @@ from .models import (
     UcbClass,
 )
 from .constants import DAYS_OF_WEEK, OH_TIMES
-
-
-class EventsView(TemplateView):
-    template_name = "events.html"
-
-    def get_context_data(request):
-        context = {}
-        context["events"] = Event.objects.filter(date__gte=datetime.date.today())
-        return context
-
 
 # @cache_page(3 * 60)
 def officers(request, semester_id=None):
@@ -82,8 +73,9 @@ def politburo(request, semester_id=None):
 
     return render(request, "politburo.html", {"pb": pb, "semesters": semesters})
 
+
 def semester_ordering_key(semester):
-    return semester.id[2:] + codecs.encode(semester.id[:2], "rot13"),
+    return (semester.id[2:] + codecs.encode(semester.id[:2], "rot13"),)
 
 
 def sponsors(request):
@@ -101,11 +93,7 @@ def sponsors(request):
         sponsorships.sort(key=lambda sponsorship: sponsorship.sponsor.name)
 
     return render(
-        request,
-        "sponsors.html",
-        {
-            "sponsorships_by_semester": sponsorships_by_semester,
-        },
+        request, "sponsors.html", {"sponsorships_by_semester": sponsorships_by_semester}
     )
 
 

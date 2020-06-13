@@ -9,7 +9,7 @@ urlpatterns = [
     path("officers/", views.officers, name="officers"),
     path("officers/<semester_id>/", views.officers, name="officers_semester"),
     path("sponsors/", views.sponsors, name="sponsors"),
-    path("events/", views.EventsView.as_view(), name="events"),
+    path("events/", TemplateView.as_view(template_name="events.html"), name="events"),
     path(
         "events/workshops/",
         TemplateView.as_view(template_name="workshops.html"),
