@@ -43,6 +43,10 @@ html, body {
 .navbar-link:not(.is-arrowless)::after {
 	border-color: var(--base01);
 }
+#notices {
+	color: var(--base00);
+	background-color: white;
+}
 #content {
 	flex: 1 0 auto;
 }

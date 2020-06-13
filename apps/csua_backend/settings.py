@@ -199,6 +199,7 @@ MIDDLEWARE = [
     # Uncomment the next line for simple clickjacking protection:
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.csua_backend.middleware.TemporaryRedirectFallbackMiddleware",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
 ]
 
 
@@ -212,6 +213,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.sites",
+    "django.contrib.flatpages",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Uncomment the next line to enable the admin:

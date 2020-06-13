@@ -1,4 +1,6 @@
 {% load static %}
+{% load db_data_tags %}
+{% load markdown_deux_tags %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -141,6 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </nav>
 
+      {% get_current_notices as notices %}
+      {% if notices %}
+      <div id="notices" class="hero">
+        {% for notice in notices %}
+        <div class="container">
+          <div class="content has-text-centered">
+            {{ notice.text|markdown }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
       <div id="content">
         {% block content %}{% endblock %}
       </div>
@@ -153,6 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="https://www.facebook.com/csua/">
                   <i class="fab fa-facebook-square"></i>
                   Like us on Facebook
+                </a>
+                <br>
+                <a href="https://www.instagram.com/ucberkeleycsua/">
+                  Instagram @ucberkeleycsua
+                </a>
+                <br>
+                <a href="https://www.twitter.com/csua/">
+                  Twitter @csua
                 </a>
               </div>
             </div>

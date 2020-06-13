@@ -1,4 +1,6 @@
 {# vim placeholder #}
+{% load db_data_tags %}
+{% get_upcoming_events as events %}
 {% if events %}
 <ol start=0>
         {% for event in events %}

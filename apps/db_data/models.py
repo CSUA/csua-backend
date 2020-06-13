@@ -183,3 +183,8 @@ class Event(models.Model):
 class EventCategory(models.Model):
     id = models.CharField(max_length=16, primary_key=True)
     name = models.CharField(max_length=32)
+
+
+class Notice(models.Model):
+    text = models.TextField(help_text="Markdown for the text of the notice")
+    expires = models.DateField()

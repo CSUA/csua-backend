@@ -5,10 +5,9 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 
 from . import views
-from apps.db_data.views import EventsView
 
 urlpatterns = [
-    path("", EventsView.as_view(template_name="index.html"), name="index"),
+    path("", TemplateView.as_view(template_name="index.html"), name="index"),
     path(
         "constitution/",
         TemplateView.as_view(template_name="constitution.html"),
