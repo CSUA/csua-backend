@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
+from django.views import View
 from django import forms
 
 #import .ldap_bindings
