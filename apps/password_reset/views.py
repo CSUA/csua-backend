@@ -12,36 +12,49 @@ from django import forms
 from . import urls
 
 from .tokens import account_activation_token
+from apps import ldap
 
 #import .ldap_bindings
 #from forms import PasswordResetForm
 
 REDIRECT = "csua.berkeley.edu"
 
+class RequestPasswordResetForm(forms.Form):
+    username = forms.CharField(label="Username")
+    email = forms.CharField(label="Berkeley Email Address")
+
+class PasswordResetForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+
+    def clean(self):
+        cleaned_data = super(PasswordResetForm, self).clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password != confirm_password:
+            raise forms.ValidationError(
+                    "Passwords do not match!"
+                    )
+
 class ActivateAccountView(View):
-    def get(self, request, uidb64, token):
-        try:
-            uid = force_text(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+    def get(self, request, username, token):
+        if not ldap.utils.user_exists(username):
             user = None
+        else:
+            user = username
 
         if user is not None and account_activation_token.check_token(user, token):
-            user.profile.email_confirmed = True
-            user.save()
-            login(request, user)
-            return redirect('profile')
+            form = PasswordResetForm(data=request.POST)
+            return redirect(REDIRECT)
         else:
             # invalid link
             return render(request, 'registration/invalid.html')
 
-class PasswordResetForm(forms.Form):
-    username = forms.CharField(label="Username")
-    email = forms.CharField(label="Berkeley Email Address")
 
-def PasswordResetView(request):
+def RequestPasswordResetView(request):
     if request.method == "POST":
-        form = PasswordResetForm(request.POST)
+        form = RequestPasswordResetForm(request.POST)
         print("1", form)
         username = form.cleaned_data["username"]
         email = form.cleaned_data["email"]
@@ -60,7 +73,7 @@ def PasswordResetView(request):
             return redirect(REDIRECT)
         """
     else:
-        form = PasswordResetForm()
+        form = RequestPasswordResetForm()
         url = urls.urlpatterns[2]
         print("2")
         print(account_activation_token)
