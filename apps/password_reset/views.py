@@ -9,13 +9,14 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from django import forms
+from . import urls
+
+from .tokens import account_activation_token
 
 #import .ldap_bindings
 #from forms import PasswordResetForm
 
 REDIRECT = "csua.berkeley.edu"
-
-
 
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -44,6 +45,7 @@ def PasswordResetView(request):
         print("1", form)
         username = form.cleaned_data["username"]
         email = form.cleaned_data["email"]
+        """
         if valid_username_email(username, email):
             send_mail
             (
@@ -56,14 +58,15 @@ def PasswordResetView(request):
             return redirect(REDIRECT)
         else:
             return redirect(REDIRECT)
+        """
     else:
         form = PasswordResetForm()
-        print("2", form)
+        url = urls.urlpatterns[2]
+        print("2")
+        print(account_activation_token)
+        #print("2", form)
 
     return render(request, "simple_page.html", {"form": form})
-
-#def password_reset_url(request, uid,
-
 
 def valid_password(password):
     """
