@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from django.http import Http404
 from decouple import config
 
-from ldap3 import ALL_ATTRIBUTES, MODIFY_ADD, MODIFY_DELETE, SYNC, Connection, Server
+from ldap3 import ALL_ATTRIBUTES, MODIFY_ADD, MODIFY_DELETE, MODIFY_REPLACE, SYNC, Connection, Server
 
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
@@ -57,6 +57,17 @@ def make_password(password):
     ctx.update(salt.encode("utf-8"))
     return "{SSHA}" + b64encode(ctx.digest() + salt.encode("utf-8")).decode("utf-8")
 
+def change_password(username, new_password):
+    # using newuser_connection for edit privileges
+    with newuser_connection() as c:
+        if c.bind():
+            success = c.modify(
+                    'uid={0},{1}'.format(username, PEOPLE_OU),
+                    {'userpassword': [MODIFY_REPLACE, make_password(new_password)]},
+                    )
+            return success
+        else:
+            return False
 
 def create_new_user(username, name, email, sid, password):
     """
@@ -213,11 +224,11 @@ def get_user_gecos(username):
 
 def get_user_hashed_password(username):
     with ldap_connection() as c:
-        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="userPassword")
+        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="userpassword")
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
-        return str(c.entries[0].gecos)
+        return str(c.entries[0].userpassword)
 
 
 def user_exists(username):
@@ -230,6 +241,14 @@ def get_user_realname(username):
     gecos = get_user_gecos(username)
     return gecos.split(",", 1)[0]
 
+def get_user_email(username):
+    gecos = get_user_gecos(username)
+    gecos_list = gecos.split(",", 1)
+    # check if email exists (old entries don't have one)
+    if len(gecos_list) < 2:
+        return None
+    else:
+        return gecos_list[1]
 
 def get_user_groups(username):
     with ldap_connection() as c:

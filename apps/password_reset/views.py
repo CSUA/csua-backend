@@ -21,7 +21,6 @@ REDIRECT = "csua.berkeley.edu"
 
 class RequestPasswordResetForm(forms.Form):
     username = forms.CharField(label="Username")
-    email = forms.CharField(label="Berkeley Email Address")
 
 class PasswordResetForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -46,6 +45,9 @@ class ActivateAccountView(View):
 
         if user is not None and account_activation_token.check_token(user, token):
             form = PasswordResetForm(data=request.POST)
+            password = form.cleaned_data["password"]
+            success = ldap.utils.change_password(user, password)
+            print(success)
             return redirect(REDIRECT)
         else:
             # invalid link
@@ -57,12 +59,12 @@ def RequestPasswordResetView(request):
         form = RequestPasswordResetForm(request.POST)
         print("1", form)
         username = form.cleaned_data["username"]
-        email = form.cleaned_data["email"]
-        """
-        if valid_username_email(username, email):
+        email = ldap.utils.get_user_email(username)
+        if email is not None:
             send_mail
             (
                 'CSUA Account Password Reset Link',
+                'If you did not request this, please disregard this email',
                 'Reset Your password at this link:', # TODO: make link
                 'django@csua.berkeley.edu',
                 email,
@@ -71,10 +73,9 @@ def RequestPasswordResetView(request):
             return redirect(REDIRECT)
         else:
             return redirect(REDIRECT)
-        """
     else:
         form = RequestPasswordResetForm()
-        url = urls.urlpatterns[2]
+        #url = urls.urlpatterns[2]
         print("2")
         print(account_activation_token)
         #print("2", form)
