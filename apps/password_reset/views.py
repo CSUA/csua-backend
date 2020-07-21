@@ -31,12 +31,17 @@ class PasswordResetForm(forms.Form):
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
 
-        if password != confirm_password:
+        if not valid_password(password):
+            raise forms.ValidationError(
+                    "Password is not valid!"
+                    )
+
+        elif password != confirm_password:
             raise forms.ValidationError(
                     "Passwords do not match!"
                     )
 
-class ActivateAccountView(View):
+class PasswordResetView(View):
     def get(self, request, username, token):
         if not ldap.utils.user_exists(username):
             user = None
@@ -64,8 +69,8 @@ def RequestPasswordResetView(request):
             send_mail
             (
                 'CSUA Account Password Reset Link',
-                'If you did not request this, please disregard this email',
-                'Reset Your password at this link:', # TODO: make link
+                'If you did not request this, please disregard this email\n  \
+                        Reset Your password at this link:', # TODO: make link
                 'django@csua.berkeley.edu',
                 email,
                 True
@@ -77,10 +82,10 @@ def RequestPasswordResetView(request):
         form = RequestPasswordResetForm()
         #url = urls.urlpatterns[2]
         print("2")
-        print(account_activation_token)
+        print(type(account_activation_token))
         #print("2", form)
 
-    return render(request, "simple_page.html", {"form": form})
+    return render(request, "resetpassword.html", {"form": form})
 
 def valid_password(password):
     """
