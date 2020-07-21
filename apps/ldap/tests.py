@@ -13,8 +13,9 @@ from django.test import TestCase
 from django.conf import settings
 import ldap3
 
-from . import ldap_bindings
-from .ldap_bindings import NEWUSER_DN
+from .utils import NEWUSER_DN
+import apps.ldap.utils as utils
+
 
 TEST_NEWUSER_PW = "ilovepnunez"
 mock_ldap_server = ldap3.Server.from_definition(
@@ -24,8 +25,8 @@ mock_ldap_server = ldap3.Server.from_definition(
 )
 
 
-@patch("apps.newuser.ldap_bindings.LDAP_SERVER", mock_ldap_server)
-@patch("apps.newuser.ldap_bindings.LDAP_CLIENT_STRATEGY", ldap3.MOCK_SYNC)
+@patch("apps.ldap.utils.LDAP_SERVER", mock_ldap_server)
+@patch("apps.ldap.utils.LDAP_CLIENT_STRATEGY", ldap3.MOCK_SYNC)
 class LdapBindingsTest(unittest.TestCase):
     """
     Tests the LDAP code by mocking the CSUA LDAP server.
@@ -57,25 +58,25 @@ class LdapBindingsTest(unittest.TestCase):
             )
 
     def test_auth(self):
-        result = ldap_bindings.authenticate("test_user", "test_password")
+        result = utils.authenticate("test_user", "test_password")
         self.assertTrue(result)
-        result = ldap_bindings.authenticate("test_user", "wrong_password")
+        result = utils.authenticate("test_user", "wrong_password")
         self.assertFalse(result)
 
     def test_is_officer(self):
-        result = ldap_bindings.is_officer("robertq")
+        result = utils.is_officer("robertq")
         # hopefully I'll be an officer forever :3
         self.assertTrue(result)
 
-        result = ldap_bindings.is_officer("dangengdg")
+        result = utils.is_officer("dangengdg")
         self.assertFalse(result)
 
-    @patch("apps.newuser.ldap_bindings.NEWUSER_PW", TEST_NEWUSER_PW)
+    @patch("apps.ldap.utils.NEWUSER_PW", TEST_NEWUSER_PW)
     def test_create_new_user(self):
-        max_uid = ldap_bindings.get_max_uid()
+        max_uid = utils.get_max_uid()
         self.assertEquals(max_uid, 31337)
 
-        success, uid_num = ldap_bindings.create_new_user(
+        success, uid_num = utils.create_new_user(
             "pnunez",
             "Phillip E. Nunez",
             "pnunez@berkeley.edu",
@@ -85,7 +86,7 @@ class LdapBindingsTest(unittest.TestCase):
         self.assertTrue(success)
         self.assertEquals(uid_num, 31338)
 
-        max_uid = ldap_bindings.get_max_uid()
+        max_uid = utils.get_max_uid()
         self.assertEquals(max_uid, 31338)
 
     # TODO: finish this

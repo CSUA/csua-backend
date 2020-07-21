@@ -237,7 +237,7 @@ INSTALLED_APPS = [
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
 
-ADMINS = (("Robert Quitt", "robertq@csua.berkeley.edu"),)
+ADMINS = [("Tech VP", "vp@csua.berkeley.edu")]
 
 MANAGERS = ADMINS
 
@@ -251,11 +251,6 @@ EMAIL_PORT = 25
 
 EMAIL_USE_TLS = True
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -263,6 +258,8 @@ LOGGING = {
         "mail_admins": {
             "level": "ERROR",
             "class": "django.utils.log.AdminEmailHandler",
+            # Don't send admin emails when DEBUG=True because emails only work
+            # on tap
             "filters": ["require_debug_false"],
         }
     },
@@ -309,9 +306,13 @@ STAFF_GROUPS = ("excomm", "root")
 
 def clean_ldap_user_data(fields):
     """
-    Path to a callable that takes a dict of {model_field_name: value}, returning a dict of clean model data.
-    Use this to customize how data loaded from LDAP is saved to the User model.
-    See django-python3-ldap docs for more info.
+    Path to a callable that takes a dict of {model_field_name: value},
+    returning a dict of clean model data.  Use this to customize how data
+    loaded from LDAP is saved to the User model.  See django-python3-ldap docs
+    for more info.
+
+    Note: gecos may be missing, or missing an email, particularly for older
+    users.
     """
     if "gecos" in fields:
         gecos = fields["gecos"].split(",")

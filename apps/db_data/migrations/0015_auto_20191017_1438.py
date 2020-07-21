@@ -7,44 +7,68 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0014_auto_20190715_0236'),
-    ]
+    dependencies = [("db_data", "0014_auto_20190715_0236")]
 
     operations = [
         migrations.AlterField(
-            model_name='event',
-            name='category',
-            field=models.ForeignKey(blank=True, help_text='Currently unused.', null=True, on_delete=django.db.models.deletion.PROTECT, to='db_data.EventCategory'),
+            model_name="event",
+            name="category",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Currently unused.",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="db_data.EventCategory",
+            ),
         ),
         migrations.AlterField(
-            model_name='officer',
-            name='person',
-            field=models.OneToOneField(help_text='There is one Officer object<->one Person object<->one auth.User<->one LDAP user', on_delete=django.db.models.deletion.PROTECT, to='db_data.Person'),
+            model_name="officer",
+            name="person",
+            field=models.OneToOneField(
+                help_text="There is one Officer object<->one Person object<->one auth.User<->one LDAP user",
+                on_delete=django.db.models.deletion.PROTECT,
+                to="db_data.Person",
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='user',
-            field=models.OneToOneField(help_text='There is one Officer object<->one Person object<->one auth.User<->one LDAP user', on_delete=django.db.models.deletion.PROTECT, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL, to_field='username'),
+            model_name="person",
+            name="user",
+            field=models.OneToOneField(
+                help_text="There is one Officer object<->one Person object<->one auth.User<->one LDAP user",
+                on_delete=django.db.models.deletion.PROTECT,
+                primary_key=True,
+                serialize=False,
+                to=settings.AUTH_USER_MODEL,
+                to_field="username",
+            ),
         ),
         migrations.AlterField(
-            model_name='semester',
-            name='current',
-            field=models.BooleanField(help_text='There should only be one current semester.'),
+            model_name="semester",
+            name="current",
+            field=models.BooleanField(
+                help_text="There should only be one current semester."
+            ),
         ),
         migrations.AlterField(
-            model_name='semester',
-            name='events',
-            field=models.ManyToManyField(blank=True, help_text='Currently unused.', to='db_data.Event'),
+            model_name="semester",
+            name="events",
+            field=models.ManyToManyField(
+                blank=True, help_text="Currently unused.", to="db_data.Event"
+            ),
         ),
         migrations.AlterField(
-            model_name='semester',
-            name='id',
-            field=models.CharField(help_text='Used for URLs etc.', max_length=8, primary_key=True, serialize=False),
+            model_name="semester",
+            name="id",
+            field=models.CharField(
+                help_text="Used for URLs etc.",
+                max_length=8,
+                primary_key=True,
+                serialize=False,
+            ),
         ),
         migrations.AlterField(
-            model_name='semester',
-            name='name',
-            field=models.CharField(help_text='Display name', max_length=16),
+            model_name="semester",
+            name="name",
+            field=models.CharField(help_text="Display name", max_length=16),
         ),
     ]
