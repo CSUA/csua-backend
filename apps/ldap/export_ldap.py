@@ -3,7 +3,7 @@ export_ldap.py
 
 Use this script to export the info from the LDAP server.
 
-Move the outputs of the script to the fixtures directory to run them with the newuser test suite.
+Move the outputs of the script to the fixtures directory to run them with the ldap test suite.
 
 https://ldap3.readthedocs.io/mocking.html#a-complete-example
 """

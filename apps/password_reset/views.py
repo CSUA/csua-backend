@@ -1,28 +1,30 @@
+<<<<<<< HEAD
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 # this is for testing purposes
 from django.core import mail
-from django.core.mail import send_mail
-from django.shortcuts import redirect
-from django.contrib.auth import login
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
-from django.views import View
+=======
 from django import forms
-from . import urls
+>>>>>>> 2fa36f2f5ef24052fbde41f72745259d8ffdb998
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.views import View
+from django.urls import reverse
 
 from .tokens import account_activation_token
-from apps import ldap
+from apps.ldap.utils import change_password, get_user_email
+from apps.newuser.utils import valid_password
 
-#import .ldap_bindings
-#from forms import PasswordResetForm
-
+<<<<<<< HEAD
 REDIRECT = "/"
+=======
+>>>>>>> 2fa36f2f5ef24052fbde41f72745259d8ffdb998
 
 class RequestPasswordResetForm(forms.Form):
     username = forms.CharField(label="Username")
+
 
 class PasswordResetForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -34,14 +36,11 @@ class PasswordResetForm(forms.Form):
         confirm_password = cleaned_data.get("confirm_password")
 
         if not valid_password(password):
-            raise forms.ValidationError(
-                    "Password is not valid!"
-                    )
+            raise forms.ValidationError("Password is not valid!")
 
         elif password != confirm_password:
-            raise forms.ValidationError(
-                    "Passwords do not match!"
-                    )
+            raise forms.ValidationError("Passwords do not match!")
+
 
 class PasswordResetView(View):
     def get(self, request, username, token):
@@ -58,7 +57,7 @@ class PasswordResetView(View):
             return redirect(REDIRECT)
         else:
             # invalid link
-            return render(request, 'registration/invalid.html')
+            return render(request, "registration/invalid.html")
 
 
 #@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
@@ -66,51 +65,23 @@ def RequestPasswordResetView(request):
     if request.method == 'POST':
         form = RequestPasswordResetForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            email = ldap.utils.get_user_email(username)
-            print(username, email)
-            if email is not None:
-                send_mail
-                (
-                    'CSUA Account Password Reset Link',
-                    'If you did not request this, please disregard this email\n  \
-                            Reset Your password at this link:', # TODO: make link
-                    'django@csua.berkeley.edu',
-                    email,
-                    True,
+            username = form.cleaned_data["username"]
+            user_email = get_user_email(username)
+            if user_email is not None:
+                send_mail(
+                    subject="CSUA Account Password Reset Link",
+                    message="If you did not request this, please disregard this email\n"
+                    "Reset Your password at this link:",  # TODO: make link
+                    from_email="django@csua.berkeley.edu",
+                    recipient_list=[user_email],
+                    # fail_silently=True,
                 )
-                print(mail.outbox[0])
-                return redirect(REDIRECT)
+                return redirect(reverse("request-reset-password"))
             else:
-                return redirect(REDIRECT)
+                return redirect(reverse("request-reset-password"))
         else:
-            print("Form invalid")
+            pass  # form failure
     else:
         form = RequestPasswordResetForm()
 
     return render(request, "resetpassword.html", {"form": form})
-
-def valid_password(password):
-    """
-    The password must be at least nine characters long. Also, it must include characters from
-    two of the three following categories:
-    -alphabetical
-    -numerical
-    -punctuation/other
-    """
-    punctuation = set("""!@#$%^&*()_+|~-=\`{}[]:";'<>?,./""")
-    alpha = False
-    num = False
-    punct = False
-
-    if len(password) < 9:
-        return False
-
-    for character in password:
-        if character.isalpha():
-            alpha = True
-        if character.isdigit():
-            num = True
-        if character in punctuation:
-            punct = True
-    return (alpha + num + punct) >= 2
