@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+# this is for testing purposes
+from django.core import mail
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.contrib.auth import login
@@ -17,7 +19,7 @@ from apps import ldap
 #import .ldap_bindings
 #from forms import PasswordResetForm
 
-REDIRECT = "csua.berkeley.edu"
+REDIRECT = "/"
 
 class RequestPasswordResetForm(forms.Form):
     username = forms.CharField(label="Username")
@@ -59,31 +61,32 @@ class PasswordResetView(View):
             return render(request, 'registration/invalid.html')
 
 
+#@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
 def RequestPasswordResetView(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = RequestPasswordResetForm(request.POST)
-        print("1", form)
-        username = form.cleaned_data["username"]
-        email = ldap.utils.get_user_email(username)
-        if email is not None:
-            send_mail
-            (
-                'CSUA Account Password Reset Link',
-                'If you did not request this, please disregard this email\n  \
-                        Reset Your password at this link:', # TODO: make link
-                'django@csua.berkeley.edu',
-                email,
-                True
-            )
-            return redirect(REDIRECT)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = ldap.utils.get_user_email(username)
+            print(username, email)
+            if email is not None:
+                send_mail
+                (
+                    'CSUA Account Password Reset Link',
+                    'If you did not request this, please disregard this email\n  \
+                            Reset Your password at this link:', # TODO: make link
+                    'django@csua.berkeley.edu',
+                    email,
+                    True,
+                )
+                print(mail.outbox[0])
+                return redirect(REDIRECT)
+            else:
+                return redirect(REDIRECT)
         else:
-            return redirect(REDIRECT)
+            print("Form invalid")
     else:
         form = RequestPasswordResetForm()
-        #url = urls.urlpatterns[2]
-        print("2")
-        print(type(account_activation_token))
-        #print("2", form)
 
     return render(request, "resetpassword.html", {"form": form})
 
