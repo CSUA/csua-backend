@@ -2,17 +2,22 @@ import datetime
 import codecs
 from collections import defaultdict
 
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_safe
+from django.urls import reverse
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.admin.views.decorators import staff_member_required
 
 from .models import (
     Notice,
     Event,
     Officer,
     Politburo,
+    Person,
     Sponsor,
     Sponsorship,
     Semester,
@@ -21,6 +26,8 @@ from .models import (
     UcbClass,
 )
 from .constants import DAYS_OF_WEEK, OH_TIMES
+from .forms import OfficerCreationForm
+from apps.ldap.utils import user_exists, is_root, add_officer, is_officer
 
 # @cache_page(3 * 60)
 def officers(request, semester_id=None):
@@ -56,6 +63,56 @@ def officers(request, semester_id=None):
             "semesters": semesters,
         },
     )
+
+
+@staff_member_required
+def update_or_create_officer(request):
+    semester = Semester.objects.filter(current=True).get()
+    if request.method == "POST":
+        form = OfficerCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            if user_exists(username):
+                user, created = User.objects.get_or_create(username=username)
+                if created:
+                    messages.info(request, "User {username} created")
+                photo = form.cleaned_data.get("photo")
+                if photo:
+                    pass
+                else:
+                    photo_url = form.cleaned_data.get("photo_url")
+                    # TODO: download photo
+                person, created = Person.objects.update_or_create(
+                    user=user, defaults={"photo1": photo}
+                )
+                if created:
+                    messages.info(request, f"Person {username} created")
+                root_staff = is_root(username)
+                officer, created = Officer.objects.update_or_create(
+                    person=person, defaults={"root_staff": root_staff}
+                )
+                if created:
+                    messages.info(request, f"Officer {username} created")
+                officership = Officership.objects.update_or_create(
+                    officer=officer,
+                    semester=semester,
+                    defaults={
+                        "blurb": form.cleaned_data.get("blurb"),
+                        "officer_hours": form.cleaned_data.get("office_hours"),
+                    },
+                )
+                if not is_officer(username):
+                    if add_officer(username):
+                        messages.info(request, f"Added {username} to officers@")
+                    else:
+                        messages.error(request, "Poopy")
+                return HttpResponseRedirect(reverse("add-officer"))
+            else:
+                messages.error(request, f"User {username} does not exist in LDAP")
+    else:
+        form = OfficerCreationForm()
+
+    return render(request, "add_officer.html", {"form": form, "semester": semester})
 
 
 def politburo(request, semester_id=None):
