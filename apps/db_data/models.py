@@ -73,7 +73,7 @@ class Officer(models.Model):
         Person, on_delete=models.PROTECT, unique=True, help_text=PERSON_HELP_TEXT
     )
     root_staff = models.BooleanField(default=False)
-    officer_since = models.DateField()
+    officer_since = models.DateField(blank=True)
 
     def __str__(self):
         return str(self.person)

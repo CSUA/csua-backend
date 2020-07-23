@@ -53,6 +53,7 @@ def officers(request, semester_id=None):
         "hours": OH_TIMES,
         "contents": office_hours_calendar,
     }
+    print(officerships)
     return render(
         request,
         "officers.html",
@@ -73,39 +74,70 @@ def update_or_create_officer(request):
         if form.is_valid():
             username = form.cleaned_data.get("username")
             if user_exists(username):
+
                 user, created = User.objects.get_or_create(username=username)
                 if created:
                     messages.info(request, "User {username} created")
+
+                defaults = {}
                 photo = form.cleaned_data.get("photo")
                 if photo:
-                    pass
+                    messages.info(request, "Updated photo")
+                    defaults.update(photo1=photo)
                 else:
                     photo_url = form.cleaned_data.get("photo_url")
                     # TODO: download photo
+                photo2 = form.cleaned_data.get("photo2")
+                if photo2:
+                    messages.info(request, "Updated photo2")
+                    defaults.update(photo2=photo)
+                else:
+                    photo2_url = form.cleaned_data.get("photo2_url")
+                    # TODO: download photo
                 person, created = Person.objects.update_or_create(
-                    user=user, defaults={"photo1": photo}
+                    user=user, defaults=defaults
                 )
+                person.save()
                 if created:
                     messages.info(request, f"Person {username} created")
+
                 root_staff = is_root(username)
+                defaults = {"root_staff": root_staff}
+                officer_since = form.cleaned_data.get("officer_since")
+                if officer_since:
+                    defaults.update(officer_since=officer_since)
+                    messages.info(request, f"Officer since updated to {officer_since}")
                 officer, created = Officer.objects.update_or_create(
-                    person=person, defaults={"root_staff": root_staff}
+                    person=person, defaults=defaults
                 )
                 if created:
                     messages.info(request, f"Officer {username} created")
+
+                blurb = form.cleaned_data.get("blurb")
+                office_hours = form.cleaned_data.get("office_hours")
+                defaults = {}
+                if blurb:
+                    defaults.update(blurb=blurb)
+                    messages.info(request, "Blurb updated")
+                if office_hours:
+                    defaults.update(office_hours=office_hours)
+                    messages.info(request, f"Office hour updated to {office_hours}")
                 officership = Officership.objects.update_or_create(
-                    officer=officer,
-                    semester=semester,
-                    defaults={
-                        "blurb": form.cleaned_data.get("blurb"),
-                        "officer_hours": form.cleaned_data.get("office_hours"),
-                    },
+                    officer=officer, semester=semester, defaults=defaults
                 )
+
                 if not is_officer(username):
-                    if add_officer(username):
-                        messages.info(request, f"Added {username} to officers@")
+                    success, msg = add_officer(username)
+                    if success:
+                        messages.info(
+                            request, f"Added {username} to officers LDAP group"
+                        )
                     else:
-                        messages.error(request, "Poopy")
+                        messages.error(
+                            request,
+                            f"Failed to add {username} to officers LDAP group: {msg}",
+                        )
+                messages.info(request, f"{username} updated")
                 return HttpResponseRedirect(reverse("add-officer"))
             else:
                 messages.error(request, f"User {username} does not exist in LDAP")
@@ -162,7 +194,6 @@ def tutoring(request, semester_id=None):
     officerships = Officership.objects.select_related("officer").filter(
         semester=semester
     )
-    print(officerships.explain())
     all_tutoring_subjects = UcbClass.objects.all()
     tutors_by_subject = {}
     for subject in all_tutoring_subjects:

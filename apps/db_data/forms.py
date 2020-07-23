@@ -1,5 +1,7 @@
 from django import forms
 
+from .constants import OH_CHOICES
+
 
 class OfficerCreationForm(forms.Form):
     username = forms.CharField(max_length=32)
@@ -7,15 +9,21 @@ class OfficerCreationForm(forms.Form):
     photo_url = forms.CharField(label="Photo 1 URL", required=False)
     photo2 = forms.ImageField(label="Photo 2", required=False)
     photo2_url = forms.CharField(label="Photo 2 URL", required=False)
-    blurb = forms.CharField(widget=forms.Textarea, max_length=140)
+    blurb = forms.CharField(widget=forms.Textarea, max_length=255, required=False)
+    office_hours = forms.ChoiceField(
+        label="Office Hour", choices=([("", "")] + OH_CHOICES), required=False
+    )
+    officer_since = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}), required=False
+    )
 
     def clean(self):
         cleaned_data = super().clean()
         print(cleaned_data.get("photo"))
         print(cleaned_data.get("photo_url"))
-        if (not cleaned_data.get("photo")) == (not cleaned_data.get("photo_url")):
+        if (not cleaned_data.get("photo")) + (not cleaned_data.get("photo_url")) == 0:
             raise forms.ValidationError(
-                "Please specify one of 'Photo 1' or 'Photo 1 URL'"
+                "Please specify up to one of 'Photo 1' or 'Photo 1 URL'"
             )
         if (not cleaned_data.get("photo2")) + (not cleaned_data.get("photo2_url")) == 0:
             raise forms.ValidationError(
