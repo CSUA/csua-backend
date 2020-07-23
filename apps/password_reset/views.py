@@ -30,7 +30,6 @@ class PasswordResetForm(forms.Form):
 
 class PasswordResetView(View):
     def post(self, request, uid, token):
-        print("hoi")
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             password = form.cleaned_data["password"]
