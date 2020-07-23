@@ -27,46 +27,41 @@ class PasswordResetForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(), label='Enter password')
     confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirm password')
 
-    def clean(self):
-        cleaned_data = super(PasswordResetForm, self).clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
-
-        if password != confirm_password:
-            raise forms.ValidationError("Passwords do not match!")
-
 
 class PasswordResetView(View):
+    def post(self, request, uid, token):
+        print("hoi")
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data["password"]
+            confirm_password = form.cleaned_data["confirm_password"]
+            #success = change_password(user, password)
+            if password != confirm_password:
+                print("the passwords don't match")
+            if not valid_password(password):
+                print("this is an invalid password")
+            else:
+                print("i changed the password")
+        #print(success)
+        return redirect(REDIRECT)
+
     def get(self, request, uid, token):
-        if request.method == 'POST':
-            print("hoi")
-            form = PasswordResetForm(request.POST)
-            if form.is_valid():
-                password = form.cleaned_data["password"]
-                #success = change_password(user, password)
-                if not valid_password(password):
-                    print("THIS IS AN INVALID PASSWORD")
-                print("I CHANGED THE PASSWORD")
-            #print(success)
-            return redirect(REDIRECT)
+        print(uid, token)
+        if not user_exists(uid):
+            user = None
         else:
-            print(uid, token)
-            if not user_exists(uid):
-                user = None
-            else:
-                user = uid
+            user = uid
 
-            # getting here just need to get back the pass
-            if user is not None and account_activation_token.check_token(user, token):
-                form = PasswordResetForm()
-                context = {'form': form, 'uid': uid, 'token': token}
-                return render(request, "resetpassword.html", context)
-            else:
-                # invalid link
-                #return render(request, "")
-                print('invalid link')
-                return redirect(REDIRECT)
-
+        # getting here just need to get back the pass
+        if user is not None and account_activation_token.check_token(user, token):
+            form = PasswordResetForm()
+            context = {'form': form, 'uid': uid, 'token': token}
+            return render(request, "resetpasswordconfirm.html", context)
+        else:
+            # invalid link
+            #return render(request, "")
+            print('invalid link')
+            return redirect(REDIRECT)
 
 
 def get_html_email(username, email, token):
