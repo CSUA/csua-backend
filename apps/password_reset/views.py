@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+
 # this is for testing purposes
 from django.test import override_settings
 from django import forms
@@ -20,19 +21,22 @@ from apps.newuser.utils import valid_password
 
 REDIRECT = "/"
 
+
 class RequestPasswordResetForm(forms.Form):
     username = forms.CharField(label="Username")
 
 
 class PasswordResetForm(forms.Form):
-    password = forms.CharField(widget=forms.PasswordInput(), label='Enter password')
-    confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirm password')
+    password = forms.CharField(widget=forms.PasswordInput(), label="Enter password")
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(), label="Confirm password"
+    )
 
     def clean(self):
         form_data = super().clean()
         password = form_data.get("password")
         confirm_password = form_data.get("confirm_password")
-        
+
         if password != confirm_password:
             raise forms.ValidationError("Passwords must match!")
         elif not valid_password(password):
@@ -46,13 +50,12 @@ class PasswordResetView(View):
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             password = form.cleaned_data["password"]
-            confirm_password = form.cleaned_data["confirm_password"]
             success = change_password(uid, password)
             if not success:
                 raise Exception("Change password failed")
             return render(request, "password_reset/resetsuccess.html")
         else:
-            context = {'form': form, 'uid': uid, 'token': token}
+            context = {"form": form, "uid": uid, "token": token}
             return render(request, "password_reset/resetpasswordconfirm.html", context)
 
     def get(self, request, uid, token):
@@ -65,26 +68,21 @@ class PasswordResetView(View):
         # getting here just need to get back the pass
         if user is not None and account_activation_token.check_token(user, token):
             form = PasswordResetForm()
-            context = {'form': form, 'uid': uid, 'token': token}
+            context = {"form": form, "uid": uid, "token": token}
             return render(request, "password_reset/resetpasswordconfirm.html", context)
         else:
-            print('invalid link')
+            print("invalid link")
             return redirect(REDIRECT)
 
 
 def get_html_email(username, email, token):
     return render_to_string(
-            "password_reset_email.html",
-            {
-                "uid": username,
-                "email": email,
-                "token": token,
-            }
-        )
+        "password_reset_email.html", {"uid": username, "email": email, "token": token,}
+    )
 
 
 def RequestPasswordResetView(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RequestPasswordResetForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
