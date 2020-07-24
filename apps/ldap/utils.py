@@ -234,11 +234,12 @@ def get_user_gecos(username):
 
 
 def get_user_hashed_password(username):
-    with ldap_connection() as c:
+    with newuser_connection() as c:
         c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="userpassword")
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
+        print(c.entries)
         return str(c.entries[0].userpassword)
 
 
