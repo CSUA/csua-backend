@@ -105,7 +105,6 @@ def tutoring(request, semester_id=None):
     officerships = Officership.objects.select_related("officer").filter(
         semester=semester
     )
-    print(officerships.explain())
     all_tutoring_subjects = UcbClass.objects.all()
     tutors_by_subject = {}
     for subject in all_tutoring_subjects:

@@ -73,7 +73,7 @@ class Officer(models.Model):
         Person, on_delete=models.PROTECT, unique=True, help_text=PERSON_HELP_TEXT
     )
     root_staff = models.BooleanField(default=False)
-    officer_since = models.DateField()
+    officer_since = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return str(self.person)
@@ -81,7 +81,7 @@ class Officer(models.Model):
     @property
     def is_anniversary(self):
         today = datetime.date.today()
-        return (
+        return self.officer_since and (
             self.officer_since.month == today.month
             and self.officer_since.day == today.day
         )
