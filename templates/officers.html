@@ -100,7 +100,7 @@
   {% with officer.person.user as user %}
   {% thumbnail officer.person.photo1 "500x500" crop="center" as photo1 %}
   <article class="column is-2" id="{{ user }}">
-    <div data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up">
+    <div {% if officer.officer_since %}data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up"{% endif %}>
       <div class="photo-frame">
         {% if officer.person.video2 %}
         <img class="photoone is-rounded is-inline-block" src="{{ photo1.url }}">
