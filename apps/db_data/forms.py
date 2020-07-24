@@ -1,6 +1,7 @@
 from django import forms
 
 from .constants import OH_CHOICES
+from apps.ldap.utils import user_exists
 
 
 class OfficerCreationForm(forms.Form):
@@ -19,8 +20,6 @@ class OfficerCreationForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data.get("photo"))
-        print(cleaned_data.get("photo_url"))
         if (not cleaned_data.get("photo")) + (not cleaned_data.get("photo_url")) == 0:
             raise forms.ValidationError(
                 "Please specify up to one of 'Photo 1' or 'Photo 1 URL'"
@@ -29,4 +28,7 @@ class OfficerCreationForm(forms.Form):
             raise forms.ValidationError(
                 "Please specify up to one of 'Photo 2' or 'Photo 2 URL'"
             )
+        username = cleaned_data.get("username")
+        if not user_exists(username):
+            raise forms.ValidationError(f"User {username} is not in LDAP")
         return cleaned_data

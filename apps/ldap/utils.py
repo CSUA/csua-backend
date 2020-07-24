@@ -243,7 +243,6 @@ def get_user_hashed_password(username):
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
-        print(c.entries)
         return str(c.entries[0].userpassword)
 
 
