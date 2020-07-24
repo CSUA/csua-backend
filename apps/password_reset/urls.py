@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path("token/", views.RequestPasswordResetView, name="reset-password-token"),
     path(
-        "reset-password-confirm/<uid>_<token>",
+        "reset-password-confirm/<uid>/<token>",
         views.PasswordResetView.as_view(),
         name="reset-password-confirm",
     ),
