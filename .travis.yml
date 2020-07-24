@@ -1,9 +1,10 @@
 language: python
 python:
   - "3.6"
-  - "3.7"
-  - "3.8"
 # command to run tests
+env:
+  - DJANGO_SECRET_KEY=pnunez1
+  - NEWUSER_PW=pnunez2
 script:
   - python manage.py test
-
+# vi: sw=2
