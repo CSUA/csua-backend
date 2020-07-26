@@ -105,6 +105,14 @@ python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
   - `/etc/nginx/sites-available/www.csua.berkeley.edu`
 - `mysqlclient` is installed and necessary for deployment on `tap`
 
+### /etc/sudoers
+These changes are here so that the newuser script and deployment script run properly.
+If either change, `/etc/sudoers` may also need to be changed
+```
+www-data ALL = (root) NOPASSWD: /webserver/csua-backend/apps/newuser/config_newuser
+www-data ALL = NOPASSWD: /bin/systemctl restart csua-backend-gunicorn
+```
+
 ## LDAP Details
 
 `tap` runs an OpenLDAP server. It is accessible from anywhere over TLS on port 636.
