@@ -6,4 +6,15 @@ env:
   - DJANGO_SECRET_KEY=pnunez1 NEWUSER_PW=pnunez2
 script:
   - python manage.py test
+
+before_deploy:
+  - openssl aes-256-cbc -k $CSUA_SECRET_KEY -base64 -in scripts/id_rsa.enc -out scripts/id_rsa -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 scripts/id_rsa
+
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh
+  on:
+    branch: master
 # vi: sw=2
