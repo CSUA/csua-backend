@@ -19,8 +19,4 @@ deploy:
     script: bash scripts/deploy.sh
     on:
       branch: master
-  - provider: script
-    script: bash scripts/deploy.sh
-    on:
-      branch: continuous-deployment
 # vi: sw=2 ts=2
