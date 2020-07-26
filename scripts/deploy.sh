@@ -1,7 +1,11 @@
 HERE=$(dirname $0)
 KEYFILE=$HERE/id_rsa
 BRANCH=master
-ssh www-data@tap.csua.berkeley.edu -i $KEYFILE '
+stat $KEYFILE
+ssh \
+    -o StrictHostKeyChecking=no \
+    www-data@tap.csua.berkeley.edu \
+    -i $KEYFILE '
 	cd /webserver/csua-backend \
 	&& git pull origin $BRANCH \
 	&& venv/bin/python manage.py test --keepdb --noinput \
