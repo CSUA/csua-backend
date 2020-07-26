@@ -7,10 +7,12 @@ env:
 script:
   - python manage.py test
 
+# https://oncletom.io/2016/travis-ssh-deploy/
 before_deploy:
-  - openssl aes-256-cbc -k $CSUA_SECRET_KEY -base64 -in scripts/id_rsa.enc -out scripts/id_rsa -d
+  - openssl aes-256-cbc -k $CSUA_SECRET_KEY -base64 -in scripts/id_rsa.enc -out /tmp/id_rsa -d
   - eval "$(ssh-agent -s)"
-  - chmod 600 scripts/id_rsa
+  - chmod 600 /tmp/id_rsa
+  - ssh-add /tmp/id_rsa
 
 deploy:
   - provider: script
