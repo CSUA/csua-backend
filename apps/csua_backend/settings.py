@@ -221,14 +221,14 @@ INSTALLED_APPS = [
     # 'django.contrib.admindocs',
     "django.contrib.redirects",
     ## Our apps
+    "apps.db_data",
+    "apps.ldap",
     "apps.main_page",
     "apps.newuser",
-    "apps.db_data",
-    "apps.tracker",
-    "apps.philbot",
     "apps.outreach",
     "apps.password_reset",
-    "apps.ldap",
+    "apps.slackbot",
+    "apps.tracker",
     ## Third-party
     "markdown_deux",
     "sorl.thumbnail",
