@@ -11,20 +11,20 @@
     <link rel="stylesheet" href="{% static "css/thirdparty/bulma.min.css" %}">
     <script defer src="{% static "js/fontawesomev5.7.1.all.js" %}"></script>
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // to get mobile navbar to work
-  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-  if ($navbarBurgers.length > 0) {
-    $navbarBurgers.forEach( el => {
-      el.addEventListener('click', () => {
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
-        el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
+      document.addEventListener('DOMContentLoaded', () => {
+        // to get mobile navbar to work
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        if ($navbarBurgers.length > 0) {
+          $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
       });
-    });
-  }
-});
     </script>
     {% block head_content %}{% endblock %}
   </head>
@@ -126,12 +126,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 Logout
               </a>
               {% if request.user.is_staff %}
-              <a class="navbar-item" href="/admin/">
-                Admin
-              </a>
-              <a class="navbar-item" href="{% url 'ldap_admin' %}">
-                LDAP Admin
-              </a>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <span class="navbar-link">
+                  <span>
+                    KGB Links
+                  </span>
+                </span>
+
+                <div class="navbar-dropdown">
+                  <a class="navbar-item" href="{% url 'add-officer' %}">
+                    Update or Create Officers
+                  </a>
+                  <a class="navbar-item" href="{% url 'admin:index' %}">
+                    Django Admin
+                  </a>
+                  <a class="navbar-item" href="{% url 'ldap_admin' %}">
+                    CSUA LDAP Admin
+                  </a>
+                </div>
+              </div>
               {% endif %}
               {% else %}
               <a class="navbar-item" href="{% url 'login' %}">

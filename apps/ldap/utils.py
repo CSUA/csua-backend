@@ -111,6 +111,10 @@ def create_new_user(username, name, email, sid, password):
             return False, -1
 
 
+def add_officer(username):
+    return add_group_member("officers", username)
+
+
 def add_group_member(group, username):
     with newuser_connection() as c:
         if c.bind():
@@ -239,7 +243,6 @@ def get_user_hashed_password(username):
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
-        print(c.entries)
         return str(c.entries[0].userpassword)
 
 
@@ -274,6 +277,11 @@ def get_user_groups(username):
 def is_officer(username):
     officers = get_officers()
     return username in officers
+
+
+def is_root(username):
+    root = get_root()
+    return username in root
 
 
 def validate_officer(username, password):

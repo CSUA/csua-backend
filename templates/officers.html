@@ -98,10 +98,10 @@
   {% for officership in officer_list %}
   {% with officership.officer as officer %}
   {% with officer.person.user as user %}
-  {% thumbnail officer.person.photo1 "500x500" crop="center" as photo1 %}
   <article class="column is-2" id="{{ user }}">
     <div {% if officer.officer_since %}data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up"{% endif %}>
       <div class="photo-frame">
+        {% thumbnail officer.person.photo1 "500x500" crop="center" as photo1 %}
         {% if officer.person.video2 %}
         <img class="photoone is-rounded is-inline-block" src="{{ photo1.url }}">
         <video class="videotwo" loop nocontrols muted onmouseover="play();" onmouseoff="pause();">
@@ -119,6 +119,7 @@
           <img class="is-rounded single is-inline-block" src="{{ photo1.url }}">
         </figure>
         {% endif %}
+        {% endthumbnail %}
       </div>
       <div class="has-text-centered">
         <strong>
@@ -152,7 +153,6 @@
       </div>
     </div>
   </article>
-  {% endthumbnail %}
   {% endwith %}
   {% endwith %}
   {% endfor %}
