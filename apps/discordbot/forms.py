@@ -1,5 +1,8 @@
 import re
+
 from django import forms
+
+from .models import DiscordRegisteredUser
 
 discord_tag_regex = re.compile(r".{2,32}#[0-9]{4}")
 
@@ -12,11 +15,6 @@ class DiscordRegisterForm(forms.Form):
         label="Discord Tag",
         widget=forms.TextInput(attrs={"placeholder": "pnunez#1337"}),
     )
-    # csua_username = forms.CharField(
-    #     label="CSUA Username",
-    #     required=False,
-    #     widget=forms.TextInput(attrs={"placeholder": "(Optional) pnunez"}),
-    # )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -30,7 +28,8 @@ class DiscordRegisterForm(forms.Form):
                 "jonathan@csua.berkeley.edu."
             )
 
-        if not discord_tag_regex.fullmatch(cleaned_data.get("discord_tag")):
+        discord_tag = cleaned_data.get("discord_tag")
+        if not discord_tag_regex.fullmatch(discord_tag) or discord_tag.count("#") != 1:
             errors.append("Invalid Discord tag")
 
         if DiscordRegisteredUser.objects.filter(email=email).exists():
