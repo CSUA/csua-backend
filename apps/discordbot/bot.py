@@ -3,6 +3,7 @@ import logging
 import time
 import threading
 import asyncio
+import unicodedata
 
 from decouple import config
 import discord
@@ -10,6 +11,7 @@ from discord.utils import get
 from django.urls import reverse
 
 TOKEN = config("DISCORD_TOKEN", default="")
+
 TIMEOUT_SECS = 10
 
 CSUA_GUILD_ID = 368282532757897217
@@ -33,14 +35,17 @@ class CSUAClient(discord.Client):
         if message.author == self.user:
             return
         msg = message.content.lower()
-        if msg == "pee":
-            await message.channel.send("poo")
-        elif msg == "poo":
-            await message.channel.send("pee")
+        if msg == "piss":
+            await message.channel.send("shid")
+        elif msg == "poo" or msg == "poop":
+            await message.channel.send("funny poopies")
         elif msg == "uh oh":
             await message.channel.send("stinky")
         elif "based" in msg:
-            await message.channel.send(":sunglasses:")
+            for c in "based":
+                emoji = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
+                await message.add_reaction(emoji)
+            await message.add_reaction("😎")
 
     async def on_member_join(self, member):
         await member.send(
@@ -91,3 +96,5 @@ class CSUABot:
 
 if TOKEN:
     csua_bot = CSUABot()
+else:
+    csua_bot = None
