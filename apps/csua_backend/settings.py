@@ -222,6 +222,7 @@ INSTALLED_APPS = [
     "django.contrib.redirects",
     ## Our apps
     "apps.db_data",
+    "apps.discordbot",
     "apps.ldap",
     "apps.main_page",
     "apps.newuser",
@@ -250,6 +251,10 @@ EMAIL_HOST = "mail.csua.berkeley.edu"
 EMAIL_PORT = 25
 
 EMAIL_USE_TLS = True
+
+if config("DJANGO_FILEBASED_EMAIL_BACKEND", cast=bool, default=False):
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "emails")
 
 LOGGING = {
     "version": 1,

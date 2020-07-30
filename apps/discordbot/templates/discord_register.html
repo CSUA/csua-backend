@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Request Password Reset{% endblock %}
+{% block content %}
+<section class="section container">
+    <div class="box content" id="top">
+        <h1>Register your Discord Account with CSUA</h1>
+
+        <p>
+        </p>
+    </div>
+    <div class='box content'>
+        <form action="{% url 'discord_register' %}" method="post">
+            {% csrf_token %}
+            <table class="table">
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+</section>
+{% endblock %}
+{# vim:set et sw=4: #}
