@@ -17,6 +17,11 @@ from .models import (
 )
 from .constants import DAYS_OF_WEEK, OH_TIMES, OH_CHOICES
 
+admin.site.site_header = "CSUA Django Administration"
+admin.site.site_title = "CSUA Administration"
+admin.site.index_title = "Home"
+admin.site.index_header = "Home"
+
 
 class OfficershipAdminForm(forms.ModelForm):
     office_hours = forms.CharField(widget=forms.Select(choices=OH_CHOICES))
