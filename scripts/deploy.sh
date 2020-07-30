@@ -4,6 +4,7 @@ ssh \
     www-data@tap.csua.berkeley.edu \
     'cd /webserver/csua-backend \
 	&& git pull origin $BRANCH \
+	&& venv/bin/pip install -r requirements.txt \
 	&& venv/bin/python manage.py test --keepdb --noinput \
 	&& venv/bin/python manage.py migrate --noinput \
 	&& venv/bin/python manage.py collectstatic --noinput \
