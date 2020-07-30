@@ -1,0 +1,22 @@
+{# comment so that vim detects htmldjango #}
+<html>
+  <body>
+    <p>
+    Hello,
+    </p>
+    <p>
+    Someone requested to register their Discord account ({{ discord_tag }}) with your email ({{ email }}).
+    If this is correct, please click the link below. If not, you can ignore this email.
+    <br>
+    {% url 'discord_register_confirm' emailb64=emailb64 discord_tagb64=discord_tagb64 token=token as path %}
+    {% with host|add:path as fullurl %}
+    <a href="{{ fullurl }}">{{ fullurl }}</a>
+    </p>
+    <p>
+    Thank you,<br>
+    CSUA Discord Moderation Staff
+    </p>
+    {% endwith %}
+  </body>
+</html>
+{# vim:set et sw=2 ts=2: #}

@@ -1,14 +1,16 @@
-# BASE
+# base
 django~=2.2
 django-markdown-deux
 pillow
 sorl-thumbnail
 python-decouple
-
-# AUTH
 django-python3-ldap
 ldap3
-# SLACK
+
+# apps.slackbot
 requests
 djangorestframework
 slackclient>=2.1.0
+
+# apps.discordbot
+discord.py

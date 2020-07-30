@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Discord Registration Complete{% endblock %}
+{% block content %}
+<section class="section container">
+    <div class="box content" id="top">
+        <h1>Complete Discord Account Registration</h1>
+
+        <p>
+        </p>
+    </div>
+    <div class='box content'>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message.tags|upper }} {{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="#swag" method="post">
+            {% csrf_token %}
+            <input type="submit">
+        </form>
+    </div>
+</section>
+{% endblock %}
+{# vim:set et sw=4: #}
