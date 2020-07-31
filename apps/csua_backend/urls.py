@@ -14,5 +14,8 @@ urlpatterns = [
     path("computers/", include("apps.tracker.urls")),
     path("slack/", include("apps.slackbot.urls")),
     path("discord/", include("apps.discordbot.urls")),
-    path("reset-password/", include("apps.password_reset.urls")),
+    path(
+        "reset-password/",
+        include("apps.password_reset.urls", namespace="password_reset"),
+    ),
 ]

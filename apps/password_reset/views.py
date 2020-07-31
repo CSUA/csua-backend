@@ -50,6 +50,7 @@ class PasswordResetView(View):
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             password = form.cleaned_data["password"]
+            confirm_password = form.cleaned_data["confirm_password"]
             success = change_password(uid, password)
             if not success:
                 raise Exception("Change password failed")
@@ -97,9 +98,9 @@ def RequestPasswordResetView(request):
                     from_email="django@csua.berkeley.edu",
                     recipient_list=[user_email],
                 )
-                return redirect(reverse("request-reset-password"))
+                return redirect(reverse("password_reset:request-reset-password"))
             else:
-                return redirect(reverse("request-reset-password"))
+                return redirect(reverse("password_reset:request-reset-password"))
         else:
             pass  # form failure
     else:

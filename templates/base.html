@@ -147,6 +147,9 @@
               </div>
               {% endif %}
               {% else %}
+              <a class="navbar-item" href="{% url 'password_reset:request-reset-password' %}">
+                Reset Password
+              </a>
               <a class="navbar-item" href="{% url 'login' %}">
                 Login
               </a>
