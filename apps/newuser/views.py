@@ -1,7 +1,6 @@
 from os import mkdir, system
 import pathlib
 import logging
-import re
 
 from django.test import override_settings
 from django.http import HttpResponse
@@ -27,11 +26,29 @@ newuser_script = pathlib.Path(__file__).parent.absolute() / "config_newuser"
 
 
 def index(request):
+    return newuser(request, False)
+
+
+class RemoteCreateNewUserView(View):
+    def post(self, request, token):
+        return newuser(request, True, token)
+
+    def get(self, request, token):
+        return newuser(request, True, token)
+
+
+def newuser(request, remote, token=None):
     if request.method == "POST":
-        form = NewUserForm(request.POST)
+        if remote:
+            form = NewUserRemoteForm(request.POST)
+            context = {"form": form, "token": token, "remote": remote}
+        else:
+            form = NewUserForm(request.POST)
+            context = {"form": form, "remote": remote}
+
         if form.is_valid():
             if valid_password(form.cleaned_data["password"]):
-                if validate_officer(
+                if remote or validate_officer(
                     form.cleaned_data["officer_username"],
                     form.cleaned_data["officer_password"],
                 ):
@@ -80,62 +97,14 @@ def index(request):
         else:
             messages.error(request, "Form is invalid.")
     else:
-        form = NewUserForm()
-
-    return render(request, "newuser.html", {"form": form})
-
-
-class RemoteCreateNewUserView(View):
-    def post(self, request, token):
-        form = NewUserRemoteForm(request.POST)
-        if form.is_valid():
-            if valid_password(form.cleaned_data["password"]):
-                enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
-                success, uid = create_new_user(
-                    form.cleaned_data["username"],
-                    form.cleaned_data["full_name"],
-                    form.cleaned_data["email"],
-                    form.cleaned_data["student_id"],
-                    form.cleaned_data["password"],
-                )
-                if success:
-                    exit_code = system(
-                        f"sudo {newuser_script}"
-                        " {form.cleaned_data['username']}"
-                        " {form.cleaned_data['email']}"
-                        " {uid}"
-                        " {form.cleaned_data['enroll_jobs']}"
-                    )
-                    if exit_code == 0:
-                        logger.info("New user created: {0}".format(uid))
-                        return render(request, "create_success.html")
-                    else:
-                        messages.error(
-                            request,
-                            "Account created, but failed to run config_newuser. Please contact #website for assistance.",
-                        )
-                        logger.error(
-                            "Account created, but failed to run config_newuser."
-                        )
-                else:
-                    if uid == -1:
-                        messages.error(
-                            request,
-                            "Internal error, failed to bind as newuser. Please report this to #website.",
-                        )
-                    else:
-                        messages.error(request, "Your username is already taken.")
-            else:
-                messages.error(request, "Password must meet requirements.")
+        if not remote:
+            form = NewUserForm()
+            context = {"form": form, "remote": remote}
         else:
-            messages.error(request, "Form is invalid.")
-            context = {"form": form, "token": token}
-            return render(request, "newuserremote.html", context)
+            form = NewUserRemoteForm()
+            context = {"form": form, "token": token, "remote": remote}
 
-    def get(self, request, token):
-        form = NewUserRemoteForm()
-        context = {"form": form, "token": token}
-        return render(request, "newuserremote.html", context)
+    return render(request, "newuser.html", context)
 
 
 def get_html_message(email, token):
@@ -154,7 +123,7 @@ def remote_newuser(request):
             email = form.cleaned_data["email"]
             token = newuser_token_generator.make_token(email)
             html_message = get_html_message(email, token)
-            if valid_berkeley_email(email):
+            if email.endswith("@berkeley.edu"):
                 send_mail(
                     subject="CSUA New User Creation Link",
                     message=strip_tags(html_message),
@@ -168,12 +137,3 @@ def remote_newuser(request):
     else:
         form = RemoteEmailRequestForm()
         return render(request, "newuserremoterequest.html", {"form": form})
-
-
-def valid_berkeley_email(email: str):
-    regex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
-    if not re.search(regex, email):
-        return False
-    if email.split("@", 1)[1] != "berkeley.edu":
-        return False
-    return True

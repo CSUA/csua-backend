@@ -16,24 +16,6 @@ def validate_username_in_use(value):
     pass
 
 
-class NewUserForm(forms.Form):
-    full_name = forms.CharField(label="Full Name")
-    student_id = forms.IntegerField(
-        label="Student ID", min_value=100000, max_value=10000000000
-    )
-    email = forms.EmailField()
-    username = forms.CharField(
-        validators=[validate_username_chars, validate_username_in_use]
-    )
-    password = forms.CharField(widget=forms.PasswordInput())
-    enroll_jobs = forms.BooleanField(required=False)
-    officer_username = forms.CharField(label="Officer Username")
-    officer_password = forms.CharField(
-        widget=forms.PasswordInput(), label="Officer Password"
-    )
-    agree_rules = forms.BooleanField(required=True)
-
-
 class RemoteEmailRequestForm(forms.Form):
     email = forms.CharField(label="Email")
 
@@ -50,3 +32,10 @@ class NewUserRemoteForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
     enroll_jobs = forms.BooleanField(required=False)
     agree_rules = forms.BooleanField(required=True)
+
+
+class NewUserForm(NewUserRemoteForm):
+    officer_username = forms.CharField(label="Officer Username")
+    officer_password = forms.CharField(
+        widget=forms.PasswordInput(), label="Officer Password"
+    )

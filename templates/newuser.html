@@ -28,13 +28,23 @@
   </div>
   {% endif %}
   <div class="box">
-    <form action="/newuser/" method="post">
-      {% csrf_token %}
-      <table>
-        {{ form.as_table }}
-      </table>
-      <input type="submit" value="Submit" />
-    </form>
+    {% if remote %}
+      <form action="{% url 'remote-create' token %}" method="post">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+      </form>
+    {% else %}
+      <form action="/newuser/" method="post">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+      </form>
+    {% endif %}
   </div>
   <div class="box content">
     <b>CSUA Office Rules are as follows:</b>
