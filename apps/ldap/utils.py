@@ -267,6 +267,15 @@ def get_user_email(username):
         return gecos_list[1]
 
 
+def email_exists(email):
+    with ldap_connection() as c:
+        search_filter = "(gecos=*{0})".format(email)
+        c.search(PEOPLE_OU, search_filter, attributes="gecos")
+        if len(c.entries) > 0:
+            return True
+        return False
+
+
 def get_user_groups(username):
     with ldap_connection() as c:
         c.search(GROUP_OU, "(memberUid={})".format(username), attributes="cn")

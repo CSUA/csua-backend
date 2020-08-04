@@ -2,10 +2,12 @@ from django.utils.crypto import salted_hmac
 from django.utils.http import int_to_base36
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
+from apps.ldap.utils import email_exists
+
 
 class NewUserTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, email, timestamp):
-        return str(email) + str(timestamp)
+        return str(email) + str(email_exists(email)) + str(timestamp)
 
     def _make_token_with_timestamp(self, email, timestamp):
         ts_b36 = int_to_base36(timestamp)

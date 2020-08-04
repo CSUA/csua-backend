@@ -8,6 +8,15 @@
     <p>
     Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our computers and use of our servers.  Enter your Berkeley email in order to get sent a link where you can create a new CSUA account.
     </p>
+    {% if messages %}
+    <div class="notification is-danger">
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
     <div class="box">
       <form action="/newuser/remote/" method="post">
         {% csrf_token %}
