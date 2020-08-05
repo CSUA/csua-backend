@@ -1,21 +1,15 @@
-from os import mkdir
+import shlex
 import pathlib
 import logging
 import subprocess
 
-from django.test import override_settings
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.views.decorators.http import require_POST
+from django.shortcuts import render
 from django.contrib import messages
-from django.urls import reverse
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
-from django.views import View
 from django.template.loader import render_to_string
 
 from .forms import NewUserForm, RemoteEmailRequestForm, NewUserFormOfficerVerified
-from .utils import valid_password
 from .tokens import newuser_token_generator
 
 from apps.ldap.utils import create_new_user, validate_officer, email_exists
@@ -55,14 +49,20 @@ def remote_newuser(request, email, token):
         if request.method == "POST":
             form = NewUserForm(request.POST)
             if form.is_valid():
-                email = form.cleaned_data["email"]
-                return _make_newuser(
-                    request,
-                    form,
-                    {"email": email, "form": form, "token": token, "remote": True},
-                )
+                form_email = form.cleaned_data["email"]
+                if form_email == email:
+                    return _make_newuser(
+                        request,
+                        form,
+                        {"email": email, "form": form, "token": token, "remote": True},
+                    )
+                else:
+                    messages.error(request, "You must use the same email, try again")
+                    data = form.cleaned_data
+                    data["email"] = email
+                    form = NewUserForm(initial=data)
         else:
-            form = NewUserForm()
+            form = NewUserForm(initial={"email": email})
         return render(
             request,
             "newuser.html",
@@ -87,15 +87,10 @@ def _make_newuser(request, form, context):
         form.cleaned_data["password"],
     )
     if success:
+        email = shlex.quote(form.cleaned_data["email"])
+        username = shlex.quote(form.cleaned_data["username"])
         exit_code = subprocess.call(
-            [
-                "sudo",
-                newuser_script,
-                form.cleaned_data["username"],
-                form.cleaned_data["email"],
-                uid,
-                enroll_jobs,
-            ]
+            ["sudo", str(newuser_script), username, email, uid, enroll_jobs], shell=True
         ).returncode
         if exit_code == 0:
             logger.info("New user created: {0}".format(uid))

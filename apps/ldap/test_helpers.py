@@ -35,6 +35,7 @@ class LDAPTestCase(TestCase):
                 {
                     "uid": "cnunez",
                     "cn": "cnunez",
+                    "gecos": "C Nunez,cnunez@berkeley.edu",
                     "uidNumber": 420,
                     "userPassword": "pp",
                     "objectClass": ["posixAccount"],

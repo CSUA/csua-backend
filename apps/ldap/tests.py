@@ -6,7 +6,6 @@ Which I based some of this code off of
 """
 import unittest
 import os
-from unittest.mock import patch
 
 from django.test import TestCase
 from django.conf import settings
@@ -41,9 +40,9 @@ class LdapBindingsTest(LDAPTestCase):
         self.assertEquals(max_uid, 31337)
 
         success, uid_num = utils.create_new_user(
-            "pnunez",
+            "pnunez1",
             "Phillip E. Nunez",
-            "pnunez@berkeley.edu",
+            "pnunez1@berkeley.edu",
             3116969,
             "il0vedangengdg!",
         )
