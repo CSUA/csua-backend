@@ -18,7 +18,7 @@
     </div>
     {% endif %}
     <div class="box">
-      <form action="/newuser/remote/" method="post">
+      <form action="{% url "newuser-remote-request" %}" method="post">
         {% csrf_token %}
         <table>
           {{ form.as_table }}

@@ -4,8 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="newuser"),
-    path("remote/", views.remote_newuser, name="remote"),
-    path(
-        "remote/<token>", views.RemoteCreateNewUserView.as_view(), name="remote-create"
-    ),
+    path("remote/", views.request_remote_newuser, name="newuser-remote-request"),
+    path("remote/<email>/<token>/", views.remote_newuser, name="newuser-remote"),
 ]
