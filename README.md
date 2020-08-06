@@ -3,18 +3,20 @@ csua-backend
 
 A backend for the CSUA interblags.
 
-Current Maintainer: Robert Quitt <robertq@csua.berkeley.edu>
+Current Webmaster: Robert Quitt <robertq@csua.berkeley.edu>
 
-**JAN 2020: SEEKING NEW MAINTAINER** (I'm graduating -robertq)
+**AUG 2020: SEEKING NEW WEBMASTER** (I graduated -robertq)
 
 ## User Workflow
 
-1. Create a fork of this repo
-2. Clone your fork to your local/development machine
-3. Install dependencies locally
-4. Make changes locally, test, repeat
+1. (Optional) Create a fork of this repo
+    - Do this if you don't have write access
+    - If you do have write access, use a new branch instead
+2. Clone to your local/development machine
+3. Install dependencies
+4. Make changes, test, repeat
 5. Commit those changes
-6. Push commits to your fork
+6. Push commits to your fork/branch
 7. Make a pull request
 
 ## Installation (virtualenv)
@@ -27,17 +29,17 @@ Current Maintainer: Robert Quitt <robertq@csua.berkeley.edu>
 5. Run server with `venv/bin/python3 manage.py runserver`
 6. Navigate web browser to http://127.0.0.1:8000/
 7. Create admin user with `venv/bin/python3 manage.py createsuperuser`
-  - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
+    - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
 
 ### Installation (virtualenv, alternative)
 
-If you're using GNU/Linux, you should be able to use `bootstrap.sh`. In theory, OSX should also work, but it's untested.
+If you're using GNU/Linux or OSX, use `bootstrap.sh`.
 
 ## Making changes to database models
 
 1. Make changes to `db_data/models.py`
-2. `python3 manage.py makemigrations` on your development machine
-3. `python3 manage.py migrate` to apply new migrations to your local db
+2. `venv/bin/python3 manage.py makemigrations` on your development machine
+3. `venv/bin/python3 manage.py migrate` to apply new migrations to your local db
 4. Commit and push your changes to `models.py` as well as generated `migrations/`
 5. Pull latest changes on remote machine
 6. `python3 manage.py migrate` on remote machine to update database with latest models
@@ -70,27 +72,26 @@ Django's online documentation has more detail on a project's structure
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
 
-## Dumping database data into json:
-
-```shell
-python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
-```
-
 ## Deploying
 
-### (Option 1) Deploy a new change from GitHub to tap
+
+### (Automatic) Travis CI
+
+Commits to `master` get automatically tested and deployed by Travis CI.
+`scripts/id_rsa.enc` is an encrypted ssh key that lets the deploy script log in as `www-data`.
+It needs to be decrypted with a secret key which is specified as an environment variable in Travis.
+
+See builds here: https://travis-ci.org/github/CSUA/csua-backend
+
+### Manual Deploy
 
 1. `ssh` into `tap.csua.berkeley.edu`
 2. Change directory to the project directory `/webserver/csua-backend/`
 3. `sudo -u www-data git pull`
-4. `venv/bin/python manage.py collectstatic` to update static images
-5. If you're making changes to the db models, follow those instructions too
-
-### (Option 2) Deploy to tap using fabric
-
-1. `fab -H <user>@tap.csua.berkeley.edu deploy`
-2. Profit
-
+4. `sudo -u www-data venv/bin/python manage.py collectstatic` to update static files
+5. `sudo -u www-data venv/bin/python manage.py migrate` to migrate db
+6. `sudo -u www-data venv/bin/python manage.py test` to make sure tests pass
+7. `sudo systemctl restart csua-backend-gunicorn` to restart server
 
 ## Deployment Details
 
@@ -121,3 +122,9 @@ For an LDAP client to connect, it must accept our self-signed certificate.
 Usually this is done by adding this line to `/etc/ldap/ldap.conf`:
 
 `TLS_REQCERT allow`
+
+## Dumping database data into json:
+
+```shell
+python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
+```
