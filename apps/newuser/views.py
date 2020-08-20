@@ -22,10 +22,6 @@ logger = logging.getLogger(__name__)
 newuser_script = pathlib.Path(__file__).parent.absolute() / "config_newuser"
 
 
-class ConfigNewuserError(RuntimeError):
-    pass
-
-
 @sensitive_post_parameters("password", "officer_password")
 def index(request):
     if request.method == "POST":
@@ -96,17 +92,11 @@ def _make_newuser(request, form, context):
     email = shlex.quote(form.cleaned_data["email"])
     username = shlex.quote(form.cleaned_data["username"])
     if success:
-        try:
-            config_newuser_process = subprocess.run(
-                ["sudo", str(newuser_script), username, email, str(uid), enroll_jobs],
-                shell=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-            if config_newuser_process.returncode != 0:
-                raise ConfigNewuserError()
-        except ConfigNewuserError:
-            logger.exception("Config_newuser why??", extra={"request": request})
+        config_newuser_process = subprocess.run(
+            ["sudo", str(newuser_script), username, email, str(uid), enroll_jobs],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         if config_newuser_process.returncode == 0:
             logger.info(f"New user created: {username}")
             return render(request, "create_success.html")
