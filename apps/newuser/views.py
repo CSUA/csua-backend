@@ -89,10 +89,11 @@ def _make_newuser(request, form, context):
     if success:
         email = shlex.quote(form.cleaned_data["email"])
         username = shlex.quote(form.cleaned_data["username"])
-        exit_code = subprocess.call(
-            ["sudo", str(newuser_script), username, email, uid, enroll_jobs], shell=True
-        ).returncode
-        if exit_code == 0:
+        config_newuser_process = subprocess.run(
+            ["sudo", str(newuser_script), username, email, str(uid), enroll_jobs],
+            shell=True,
+        )
+        if config_newuser_process.returncode == 0:
             logger.info("New user created: {0}".format(uid))
             return render(request, "create_success.html")
         else:
