@@ -22,6 +22,10 @@ logger = logging.getLogger(__name__)
 newuser_script = pathlib.Path(__file__).parent.absolute() / "config_newuser"
 
 
+class ConfigNewuserError(RuntimeError):
+    pass
+
+
 @sensitive_post_parameters("password", "officer_password")
 def index(request):
     if request.method == "POST":
@@ -98,12 +102,11 @@ def _make_newuser(request, form, context):
                 shell=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                text=True,
             )
             if config_newuser_process.returncode != 0:
-                raise RuntimeError
-        except RuntimeError:
-            logger.exception("Config_newuser why??", request=request)
+                raise ConfigNewuserError()
+        except ConfigNewuserError:
+            logger.exception("Config_newuser why??", extra={"request": request})
         if config_newuser_process.returncode == 0:
             logger.info(f"New user created: {username}")
             return render(request, "create_success.html")
@@ -116,7 +119,7 @@ def _make_newuser(request, form, context):
                 logger.error(
                     f"Failed to run config_newuser. Username: {username} Email: {email}",
                     exc_info=None,
-                    request=request,
+                    extra={"request": request},
                 )
             else:
                 logger.error(
