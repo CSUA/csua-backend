@@ -238,7 +238,7 @@ INSTALLED_APPS = [
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
 
-ADMINS = [("Tech VP", "vp@csua.berkeley.edu")]
+ADMINS = [("Root Staff", "root@csua.berkeley.edu")]
 
 MANAGERS = ADMINS
 
@@ -260,24 +260,36 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "mail_admins": {
+        "admin_mail_error": {
             "level": "ERROR",
             "class": "django.utils.log.AdminEmailHandler",
-            # Don't send admin emails when DEBUG=True because emails only work
-            # on tap
-            "filters": ["require_debug_false"],
-        }
+        },
+        "admin_mail_info": {
+            "level": "INFO",
+            "class": "django.utils.log.AdminEmailHandler",
+        },
     },
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "loggers": {
         "django.request": {
-            "handlers": ["mail_admins"],
+            "handlers": ["admin_mail_error"],
             "level": "ERROR",
             "propagate": True,
         },
-        "sorl.thumbnail": {"handlers": ["mail_admins"], "level": "ERROR"},
+        "sorl.thumbnail": {"handlers": ["admin_mail_error"], "level": "ERROR"},
+        "apps.newuser.views": {"handlers": ["admin_mail_info"], "level": "INFO"},
     },
 }
+DEFAULT_EXCEPTION_REPORTER_FILTER = "apps.csua_backend.settings.ExceptionReporterFilter"
+
+from django.views.debug import SafeExceptionReporterFilter
+
+
+class ExceptionReporterFilter(SafeExceptionReporterFilter):
+    """By default, the filter is on when DEBUG=False, but I want to be able to test it when DEBUG=True"""
+
+    def is_active(self, request):
+        return True
+
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

@@ -15,8 +15,11 @@ from apps.newuser.views import newuser_script
 class NewUserTest(LDAPTestCase):
     """
     Tests the LDAP code by mocking the CSUA LDAP server.
+
     """
 
+    # TODO: include tests for failure modes (newuser bind fail, config_newuser
+    # fails)
     @patch("subprocess.run")
     def test_remote_newuser_flow(self, subprocess_run):
 
