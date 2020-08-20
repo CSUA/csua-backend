@@ -92,10 +92,18 @@ def _make_newuser(request, form, context):
     email = shlex.quote(form.cleaned_data["email"])
     username = shlex.quote(form.cleaned_data["username"])
     if success:
-        config_newuser_process = subprocess.run(
-            ["sudo", str(newuser_script), username, email, str(uid), enroll_jobs],
-            shell=True,
-        )
+        try:
+            config_newuser_process = subprocess.run(
+                ["sudo", str(newuser_script), username, email, str(uid), enroll_jobs],
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+            if config_newuser_process.returncode != 0:
+                raise RuntimeError
+        except RuntimeError:
+            logger.exception("Config_newuser why??", request=request)
         if config_newuser_process.returncode == 0:
             logger.info(f"New user created: {username}")
             return render(request, "create_success.html")
@@ -106,7 +114,9 @@ def _make_newuser(request, form, context):
             )
             if delete_user(form.cleaned_data["username"]):
                 logger.error(
-                    f"Failed to run config_newuser. Username: {username} Email: {email}"
+                    f"Failed to run config_newuser. Username: {username} Email: {email}",
+                    exc_info=None,
+                    request=request,
                 )
             else:
                 logger.error(
