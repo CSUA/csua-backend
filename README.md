@@ -22,7 +22,7 @@ Current Webmaster: Robert Quitt <robertq@csua.berkeley.edu>
 ## Installation (virtualenv)
 
 1. Install Python 3.6+
-2. Create virtualenv `python3 -m virtualenv venv`
+2. Create virtualenv `python3 -m venv venv`
 2. Install Django and dependencies with `venv/bin/pip3 install -r requirements.txt`
 3. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
 4. Set up local db with `venv/bin/python3 manage.py migrate`

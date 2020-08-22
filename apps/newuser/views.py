@@ -8,11 +8,12 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+from django.views.decorators.debug import sensitive_variables, sensitive_post_parameters
 
 from .forms import NewUserForm, RemoteEmailRequestForm, NewUserFormOfficerVerified
 from .tokens import newuser_token_generator
 
-from apps.ldap.utils import create_new_user, validate_officer, email_exists
+from apps.ldap.utils import create_new_user, delete_user, validate_officer, email_exists
 
 usernameWhitelist = set(".-_")
 emailWhitelist = set("@+").union(usernameWhitelist)
@@ -21,6 +22,7 @@ logger = logging.getLogger(__name__)
 newuser_script = pathlib.Path(__file__).parent.absolute() / "config_newuser"
 
 
+@sensitive_post_parameters("password", "officer_password")
 def index(request):
     if request.method == "POST":
         form = NewUserFormOfficerVerified(request.POST)
@@ -34,9 +36,7 @@ def index(request):
             else:
                 messages.error(request, "Officer credentials are incorrect!")
         else:
-            messages.error(
-                request, "Form is invalid! Please contact #website for assistance."
-            )
+            messages.error(request, "Form is invalid!")
     else:
         form = NewUserFormOfficerVerified()
         context = {"form": form, "remote": False}
@@ -44,6 +44,7 @@ def index(request):
     return render(request, "newuser.html", context)
 
 
+@sensitive_post_parameters("password")
 def remote_newuser(request, email, token):
     if newuser_token_generator.check_token(email, token):
         if request.method == "POST":
@@ -77,7 +78,9 @@ def remote_newuser(request, email, token):
 
 
 def _make_newuser(request, form, context):
-    """Creates a new user in LDAP and runs config_newuser"""
+    """Creates a new user in LDAP and runs config_newuser
+    if config_newuser fails, the user account is deleted to prevent the user
+    account from being in limbo."""
     enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
     success, uid = create_new_user(
         form.cleaned_data["username"],
@@ -86,24 +89,37 @@ def _make_newuser(request, form, context):
         form.cleaned_data["student_id"],
         form.cleaned_data["password"],
     )
+    email = shlex.quote(form.cleaned_data["email"])
+    username = shlex.quote(form.cleaned_data["username"])
     if success:
-        email = shlex.quote(form.cleaned_data["email"])
-        username = shlex.quote(form.cleaned_data["username"])
-        exit_code = subprocess.call(
-            ["sudo", str(newuser_script), username, email, uid, enroll_jobs], shell=True
-        ).returncode
-        if exit_code == 0:
-            logger.info("New user created: {0}".format(uid))
+        config_newuser_process = subprocess.run(
+            ["sudo", str(newuser_script), username, email, str(uid), enroll_jobs],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        if config_newuser_process.returncode == 0:
+            logger.info(f"New user created: {username}")
             return render(request, "create_success.html")
         else:
             messages.error(
                 request,
-                "Account created, but failed to run config_newuser. Please contact #website for assistance.",
+                "Failed to run config_newuser. Please contact #website on slack for assistance.",
             )
-            logger.error("Account created, but failed to run config_newuser.")
-            # TODO: delete user to roll back the newuser operation.
+            if delete_user(form.cleaned_data["username"]):
+                logger.error(
+                    f"Failed to run config_newuser. Username: {username} Email: {email}",
+                    exc_info=None,
+                    extra={"request": request},
+                )
+            else:
+                logger.error(
+                    f"Failed to run config_newuser and failed to delete user. Username: {username} Email: {email}"
+                )
     else:
         if uid == -1:
+            logger.error(
+                f"Failed to bind as newuser. Username: {username} Email: {email}"
+            )
             messages.error(
                 request,
                 "Internal error, failed to bind as newuser. Please report this to #website.",

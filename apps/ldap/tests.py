@@ -35,7 +35,7 @@ class LdapBindingsTest(LDAPTestCase):
         result = utils.is_officer("dangengdg")
         self.assertFalse(result)
 
-    def test_create_new_user(self):
+    def test_create_new_user_and_delete(self):
         max_uid = utils.get_max_uid()
         self.assertEquals(max_uid, 31337)
 
@@ -49,8 +49,10 @@ class LdapBindingsTest(LDAPTestCase):
         self.assertTrue(success)
         self.assertEquals(uid_num, 31338)
 
-        max_uid = utils.get_max_uid()
-        self.assertEquals(max_uid, 31338)
+        self.assertTrue(utils.user_exists("pnunez1"))
+        success = utils.delete_user("pnunez1")
+        self.assertTrue(success)
+        self.assertFalse(utils.user_exists("pnunez1"))
 
     # TODO: finish this
     # def test_password(self):

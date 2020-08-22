@@ -111,6 +111,19 @@ def create_new_user(username, name, email, sid, password):
             return False, -1
 
 
+def delete_user(username):
+    """Deletes a user. Returns True on successful deletion, False on failed
+    deletion, and raises a RuntimeError if newuser fails to bind.
+    """
+    with newuser_connection() as c:
+        if c.bind():
+            dn = f"uid={username},{PEOPLE_OU}"
+            success = c.delete(dn)
+            return success
+        else:
+            raise RuntimeError("Failed to bind as newuser")
+
+
 def add_officer(username):
     return add_group_member("officers", username)
 
