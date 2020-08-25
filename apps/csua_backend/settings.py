@@ -273,9 +273,11 @@ LOGGING = {
         "slack_message": {
             "level": "DEBUG",
             "class": "apps.slackbot.log.SlackMessageHandler",
+            "filters": ["slack_enabled"],
             "formatter": "slack",
         },
     },
+    "filters": {"slack_enabled": {"()": "apps.slackbot.log.enabled"}},
     "formatters": {"slack": {"()": "apps.slackbot.log.formatter"}},
     "loggers": {
         "django.request": {
@@ -290,6 +292,7 @@ LOGGING = {
         },
     },
 }
+
 DEFAULT_EXCEPTION_REPORTER_FILTER = "apps.csua_backend.settings.ExceptionReporterFilter"
 
 from django.views.debug import SafeExceptionReporterFilter

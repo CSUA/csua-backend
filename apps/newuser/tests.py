@@ -1,5 +1,6 @@
 import os
 import unittest
+import logging
 from unittest.mock import patch, Mock
 
 from django.test import TestCase
@@ -22,6 +23,7 @@ class NewUserTest(LDAPTestCase):
     # fails)
     @patch("subprocess.run")
     def test_remote_newuser_flow(self, subprocess_run):
+        logging.disable(logging.CRITICAL)
 
         url = "/newuser/remote/"
         email = "pnunez2@berkeley.edu"
@@ -59,3 +61,5 @@ class NewUserTest(LDAPTestCase):
         for arg in args:
             self.assertIs(type(arg), str)
         self.assertTrue(email_exists(email))
+
+        logging.disable(logging.NOTSET)
