@@ -98,7 +98,7 @@ def _make_newuser(request, form, context):
             stderr=subprocess.PIPE,
         )
         if config_newuser_process.returncode == 0:
-            logger.info(f"New user created: {username}")
+            logger.info(f"New CSUA member! Username: {username} Email: {email}")
             return render(request, "create_success.html")
         else:
             messages.error(

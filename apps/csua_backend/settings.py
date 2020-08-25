@@ -270,7 +270,13 @@ LOGGING = {
             "class": "django.utils.log.AdminEmailHandler",
             "include_html": True,
         },
+        "slack_message": {
+            "level": "DEBUG",
+            "class": "apps.slackbot.log.SlackMessageHandler",
+            "formatter": "slack",
+        },
     },
+    "formatters": {"slack": {"()": "apps.slackbot.log.formatter"}},
     "loggers": {
         "django.request": {
             "handlers": ["admin_mail_error"],
@@ -278,7 +284,10 @@ LOGGING = {
             "propagate": True,
         },
         "sorl.thumbnail": {"handlers": ["admin_mail_error"], "level": "ERROR"},
-        "apps.newuser.views": {"handlers": ["admin_mail_info"], "level": "INFO"},
+        "apps.newuser.views": {
+            "handlers": ["admin_mail_info", "slack_message"],
+            "level": "INFO",
+        },
     },
 }
 DEFAULT_EXCEPTION_REPORTER_FILTER = "apps.csua_backend.settings.ExceptionReporterFilter"

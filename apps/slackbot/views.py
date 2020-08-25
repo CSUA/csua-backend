@@ -2,21 +2,17 @@ import threading
 import json
 import requests
 from django.shortcuts import render
+from django.conf import settings
 
 # Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.conf import settings
-from slack import WebClient
 from .commands import COMMANDS
 from .exceptions import SlackAuthError
+from .client import webclient
 
 SLACK_VERIFICATION_TOKEN = getattr(settings, "SLACK_VERIFICATION_TOKEN", None)
-SLACK_BOT_USER_TOKEN = getattr(settings, "SLACK_BOT_USER_TOKEN", None)
-
-
-Client = WebClient(SLACK_BOT_USER_TOKEN)
 
 
 class SlackEventAPI(APIView):
@@ -62,9 +58,7 @@ class SlackEventAPI(APIView):
             channel = event_message.get("channel")
             bot_text = "Hi <@{}> :wave:".format(user)
             if False and text and "hi" in text.lower():
-                Client.api_call(
-                    method="chat.postMessage", channel=channel, text=bot_text
-                )
+                webclient.chat_postMessage(channel=channel, text=bot_text)
                 return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_200_OK)
 
