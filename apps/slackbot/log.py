@@ -20,4 +20,8 @@ def formatter():
 
 def enabled():
     """Used by apps.csua_backend.settings.LOGGING"""
-    return lambda x: SLACK_BOT_USER_TOKEN is None
+
+    def f(record):
+        return SLACK_BOT_USER_TOKEN is not None
+
+    return f
