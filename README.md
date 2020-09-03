@@ -3,10 +3,6 @@ csua-backend
 
 A backend for the CSUA interblags.
 
-Current Webmaster: Robert Quitt <robertq@csua.berkeley.edu>
-
-**AUG 2020: SEEKING NEW WEBMASTER** (I graduated -robertq)
-
 ## User Workflow
 
 1. (Optional) Create a fork of this repo
