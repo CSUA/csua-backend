@@ -5,7 +5,7 @@ pillow
 sorl-thumbnail
 python-decouple
 django-python3-ldap
-ldap3
+ldap3==2.8
 
 # apps.slackbot
 requests
