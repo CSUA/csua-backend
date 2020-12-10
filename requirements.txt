@@ -10,7 +10,7 @@ ldap3==2.8
 # apps.slackbot
 requests
 djangorestframework
-slackclient>=2.1.0
+slack_bolt
 
 # apps.discordbot
 discord.py
