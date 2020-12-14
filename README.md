@@ -3,6 +3,8 @@ csua-backend
 
 A backend for the CSUA interblags.
 
+[![](https://travis-ci.org/CSUA/csua-backend.svg?branch=master)](https://travis-ci.org/github/CSUA/csua-backend)
+
 ## User Workflow
 
 1. (Optional) Create a fork of this repo

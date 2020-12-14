@@ -3,6 +3,7 @@ import logging
 import time
 import threading
 import asyncio
+import socket
 import unicodedata
 
 from decouple import config
@@ -18,7 +19,9 @@ TOKEN = config("DISCORD_TOKEN", default="")
 
 TIMEOUT_SECS = 10
 
+# You may have to modify these
 CSUA_GUILD_ID = 368282532757897217      #Old CSUA Discord
+CSUA_PHILBOT_CLIENT_ID = 737930184837300274
 HOSER_ROLE_ID = 368285558167830529
 NEW_CSUA_GUILD_ID = 784902200102354985  #New CSUA Discord
 HOSER_2_ROLE_ID = 785418569412116513
@@ -32,10 +35,12 @@ logger = logging.getLogger(__name__)
 class CSUAClient(discord.Client):
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
-        self.csua_guild = get(self.guilds, id=NEW_CSUA_GUILD_ID)
-        self.test_guild = get(self.guilds, id=TEST_GUILD_ID)
-        self.test_channel = get(self.test_guild.channels, id=TEST_CHANNEL_ID)
-        self.hoser_role = get(self.csua_guild.roles, id=HOSER_2_ROLE_ID)
+        self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
+        if self.is_phillip:
+            self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
+            self.test_guild = get(self.guilds, id=TEST_GUILD_ID)
+            self.test_channel = get(self.test_guild.channels, id=TEST_CHANNEL_ID)
+            self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
 
     async def verify_member_email(self, user): 
         channel = user.dm_channel
@@ -84,10 +89,10 @@ class CSUAClient(discord.Client):
 
         url = "https://www.csua.berkeley.edu" + reverse("discord_register")
         await member.send(url)
-        await self.test_channel.send(f"{member} was sent registration invite message")
-
-    async def on_member_remove(self, member):
-        pass
+        if self.is_phillip:
+            await self.test_channel.send(
+                f"{member} was sent registration invite message"
+            )
 
 
 class CSUABot:

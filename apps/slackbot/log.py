@@ -1,5 +1,5 @@
 from logging import StreamHandler, Formatter
-from .client import webclient, SLACK_BOT_USER_TOKEN
+from .client import app, SLACK_BOT_USER_TOKEN
 
 CSUA_PHILBOT_TESTING_CHANNEL_ID = "CCU09PNGL"
 CSUA_WEBSITE_UPDATES_CHANNEL_ID = "CG49A3UF8"
@@ -11,7 +11,7 @@ class SlackMessageHandler(StreamHandler):
 
     def emit(self, record):
         text = self.format(record)
-        webclient.chat_postMessage(channel=CSUA_WEBSITE_UPDATES_CHANNEL_ID, text=text)
+        app.client.chat_postMessage(channel=CSUA_WEBSITE_UPDATES_CHANNEL_ID, text=text)
 
 
 def formatter():
