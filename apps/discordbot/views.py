@@ -18,7 +18,8 @@ from .forms import DiscordRegisterForm
 from .tokens import discord_token_generator
 from .models import DiscordRegisteredUser
 
-from utils import send_verify_mail
+from .utils import send_verify_mail
+
 
 def register(request):
     if request.method == "POST":
