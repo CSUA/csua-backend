@@ -1,13 +1,9 @@
 from .tokens import discord_token_generator
-from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-from django.utils.http import (
-    urlsafe_base64_encode as b64_encode,
-    urlsafe_base64_decode as b64_decode,
-)
+from django.utils.http import urlsafe_base64_encode as b64_encode
 
 
 def send_verify_mail(email, discord_tag, host="csua.berkeley.edu"):
