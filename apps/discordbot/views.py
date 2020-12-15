@@ -18,6 +18,8 @@ from .forms import DiscordRegisterForm
 from .tokens import discord_token_generator
 from .models import DiscordRegisteredUser
 
+from .utils import send_verify_mail
+
 
 def register(request):
     if request.method == "POST":
@@ -25,28 +27,9 @@ def register(request):
         if form.is_valid():
             email = form.cleaned_data.get("email")
             discord_tag = form.cleaned_data.get("discord_tag")
+            host = request.get_host()
             emailb64 = b64_encode(email.encode("utf8"))
-            discord_tagb64 = b64_encode(discord_tag.encode("utf8"))
-
-            token = discord_token_generator.make_token((email, discord_tag))
-            html_message = render_to_string(
-                "discord_register_email.html",
-                {
-                    "host": request.get_host(),
-                    "token": token,
-                    "email": email,
-                    "discord_tag": discord_tag,
-                    "emailb64": emailb64,
-                    "discord_tagb64": discord_tagb64,
-                },
-            )
-            send_mail(
-                subject="CSUA Discord Email Verification",
-                message=strip_tags(html_message),
-                from_email="noreply@csua.berkeley.edu",
-                recipient_list=[email],
-                html_message=html_message,
-            )
+            send_verify_mail(email, discord_tag, host)
             return redirect(
                 reverse("discord_register_email_sent", kwargs={"emailb64": emailb64})
             )
