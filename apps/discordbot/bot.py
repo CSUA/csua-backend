@@ -136,4 +136,4 @@ class CSUABot:
 if TOKEN:
     csua_bot = CSUABot()
 else:
-    raise RuntimeError("Token missing")
+    csua_bot = None
