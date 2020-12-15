@@ -34,6 +34,8 @@ class CSUAClient(discord.Client):
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
+            if self.hoser_role is None:
+                raise Exception("Hoser Role is None")
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -135,4 +137,4 @@ class CSUABot:
 if TOKEN:
     csua_bot = CSUABot()
 else:
-    csua_bot = None
+    raise RuntimeError("Token missing")
