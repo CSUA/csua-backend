@@ -15,7 +15,7 @@ intents = discord.Intents.all()
 intents.presences = False
 
 TOKEN = config("DISCORD_TOKEN", default="")
-CSUA_GUILD_ID = config("TEST_GUILD", default=368282532757897217, cast=int)
+CSUA_GUILD_ID = config("TEST_GUILD", default=784902200102354985, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
