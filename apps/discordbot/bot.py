@@ -18,8 +18,7 @@ TOKEN = config("DISCORD_TOKEN", default="")
 CSUA_GUILD_ID = config("TEST_GUILD", default=368282532757897217, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
-DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=787853294474100756, cast=int)
-
+DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 TIMEOUT_SECS = 10
 
 logger = logging.getLogger(__name__)
@@ -33,7 +32,14 @@ class CSUAClient(discord.Client):
             print("Phillip is in the Office")
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
+            if self.test_channel is not None:
+                await self.test_channel.send("booting up successfully into phillip_debug channel")
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
+            if self.hoser_role is None:
+                await self.test_channel.send(f"Hoser role not found. Searched using id {HOSER_ROLE_ID}.")
+                self.hoser_role = get(self.csua_guild.roles, name="verified")
+                if self.hoser_role is None:
+                    await self.test_channel.send(f"Hoser role not found. Searched using name verified")
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
