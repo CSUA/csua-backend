@@ -2,7 +2,6 @@ import logging
 import threading
 import asyncio
 import unicodedata
-
 from decouple import config
 import discord
 from discord.utils import get
@@ -32,14 +31,9 @@ class CSUAClient(discord.Client):
             print("Phillip is in the Office")
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
-            if self.test_channel is not None:
-                await self.test_channel.send("booting up successfully into phillip_debug channel")
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
-            if self.hoser_role is None:
-                await self.test_channel.send(f"Hoser role not found. Searched using id {HOSER_ROLE_ID}.")
-                self.hoser_role = get(self.csua_guild.roles, name="verified")
-                if self.hoser_role is None:
-                    await self.test_channel.send(f"Hoser role not found. Searched using name verified")
+            if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
+                await self.test_channel.send("booting up successfully into phillip_debug channel")
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -116,6 +110,7 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
+        self.running=True
         self.thread.start()
 
     def _start(self):
@@ -129,9 +124,11 @@ class CSUABot:
             self.loop.close()
 
     def promote_user_to_hoser(self, tag):
+        if not hasattr(self.client, "csua_guild"):
+            client = self.client
+            print(client)
         member = self.client.csua_guild.get_member_named(tag)
         if member:
-            assert self.client.hoser_role is not None, "Hoser Role is None"
             asyncio.run_coroutine_threadsafe(
                 member.add_roles(self.client.hoser_role), self.loop
             ).result(TIMEOUT_SECS)
