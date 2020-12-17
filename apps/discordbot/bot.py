@@ -32,8 +32,8 @@ class CSUAClient(discord.Client):
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
-            if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
-                await self.test_channel.send("booting up successfully into phillip_debug channel")
+            # if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
+            #     await self.test_channel.send("booting up successfully into phillip_debug channel")
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -131,6 +131,9 @@ class CSUABot:
         if member:
             asyncio.run_coroutine_threadsafe(
                 member.add_roles(self.client.hoser_role), self.loop
+            ).result(TIMEOUT_SECS)
+            asyncio.run_coroutine_threadsafe(
+                self.client.test_channel.send(f"verified {tag}"), self.loop
             ).result(TIMEOUT_SECS)
             return True
         return False
