@@ -1,3 +1,11 @@
+"""
+Utilities for doing LDAP operations.
+
+Most of these functions create a new connection when called, they should really
+be refactored to be methods on a custom Connection object but I am lazy.
+
+--robertquitt
+"""
 import hashlib
 import string
 from base64 import b64encode

@@ -6,10 +6,6 @@ from ldap3.utils.conv import escape_filter_chars
 from .utils import get_root, get_group_members, get_user_gecos, get_user_groups
 
 
-def index(request):
-    return render(request, "group_admin.html", {"groupname": "root"})
-
-
 def group(request, groupname=None):
     groupname = escape_filter_chars(groupname)
     resp = "\n".join(get_group_members(groupname))
