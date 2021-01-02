@@ -124,4 +124,5 @@ def _update_or_create_officer(
 
 @staff_member_required
 def update_semester(request):
-    return render(request, "update_semester.html", {})
+    semesters = Semester.objects.all()
+    return render(request, "update_semester.html", {"semesters": semesters})

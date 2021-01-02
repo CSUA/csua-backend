@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -10,9 +10,18 @@ from .utils import (
     remove_group_members,
     get_all_groups,
     get_group_members,
+    get_officers,
     get_user_gecos,
     get_user_creation_time,
     user_exists,
+)
+
+from apps.db_data.models import (
+    Semester,
+    PolitburoMembership,
+    Politburo,
+    Officer,
+    Officership,
 )
 
 
@@ -149,3 +158,42 @@ def admin_user(request, username=None):
             "creation_time": creation_time,
         },
     )
+
+
+@staff_member_required
+def admin_validate(request):
+    semester = Semester.objects.get(current=True)
+    roles_ldap = {}
+    roles_sql = {}
+    for ldap_group, position in [
+        ["president"] * 2,
+        ["vpindrel", "indrel"],
+        ["vptech", "vp"],
+        ["secretary", "treasurer"],
+        ["internalevents"] * 2,
+        ["externalevents"] * 2,
+        ["outreach"] * 2,
+    ]:
+        roles_ldap[position] = get_group_members(ldap_group)
+        roles_sql[position] = list(
+            pbm.person.username
+            for pbm in PolitburoMembership.objects.filter(
+                politburo__position=position, semester=semester
+            )
+        )
+    roles_ldap["officers"] = get_officers()
+    roles_sql["officers"] = [
+        o.officer.username for o in Officership.objects.filter(semester=semester)
+    ]
+    roles = {}
+    for role in roles_ldap.keys():
+        ldap = roles_ldap[role]
+        sql = roles_sql[role]
+        common = set(ldap) & set(sql)
+        sql_only = set(sql) - set(ldap)
+        ldap_only = set(ldap) - set(sql)
+        roles[role] = [
+            sorted(list(username_set)) for username_set in [common, sql_only, ldap_only]
+        ]
+
+    return render(request, "ldap_admin_validate.html", {"roles": roles})

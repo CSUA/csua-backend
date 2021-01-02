@@ -66,6 +66,10 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.user!s} ({self.user.first_name} {self.user.last_name})"
 
+    @property
+    def username(self):
+        return self.user.username
+
 
 # Create your models here.
 class Officer(models.Model):
@@ -85,6 +89,10 @@ class Officer(models.Model):
             self.officer_since.month == today.month
             and self.officer_since.day == today.day
         )
+
+    @property
+    def username(self):
+        return self.person.username
 
 
 class Officership(models.Model):

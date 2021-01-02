@@ -1,0 +1,59 @@
+{% extends "ldap_admin.html" %}
+{% block page_content %}
+<section class="section has-background-light">
+  <div class="container content">
+    <h2>LDAP + SQL Validation</h2>
+    <table>
+      <tr>
+        <th>
+          Role
+        </th>
+        <th>
+          Common
+        </th>
+        <th>
+          SQL Only
+        </th>
+        <th>
+          LDAP Only
+        </th>
+      </tr>
+      {% for role, values in roles.items %}
+      <tr>
+        <td>{{ role }}</td>
+      {% with common=values.0 %}
+        <td>
+          <ul>
+            {% for username in common %}
+            <li>{{ username }}</li>
+            {% empty %}
+            WARNING!
+            {% endfor %}
+          </ul>
+        </td>
+      {% endwith %}
+      {% with sql_only=values.1 %}
+        <td>
+          <ul>
+            {% for username in sql_only %}
+            <li>{{ username }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      {% endwith %}
+      {% with ldap_only=values.2 %}
+        <td>
+          <ul>
+            {% for username in ldap_only %}
+            <li>{{ username }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      {% endwith %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</section>
+{% endblock %}
+{# vim: set et sw=2: #}
