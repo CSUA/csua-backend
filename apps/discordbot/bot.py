@@ -67,10 +67,14 @@ class CSUAClient(discord.Client):
             return
         # Reading rules and verification
         msg = message.content.lower()
-        if "hkn" in msg.lower() and "ieee" in msg.lower():
+        if "hkn" in msg and "ieee" in msg:
             await message.channel.send("Do I need to retrieve the stick?")
         if "is typing" in msg:
             await message.channel.send("unoriginal")
+        if msg.count("cpma") >= 2:
+            for c in "wtfiscpma":
+                emoji = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
+                await message.add_reaction(emoji)
         elif "based" in msg:
             for c in "based":
                 emoji = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
@@ -81,19 +85,22 @@ class CSUAClient(discord.Client):
         msg = await member.send(
             "Welcome to the CSUA discord server! First, read the rules in #landing-zone. Thumbs up this message if you agree"
         )
+        await self.test_channel.send(f"Sent initial discord message to {member}")
 
         def check_thumb(react, _):
             return react.message == msg and str(react.emoji) == "👍"  # thumbs
 
         await self.wait_for("reaction_add", check=check_thumb)
+        await self.test_channel.send(f"{member} read rules")
         await member.send(
             "Verify your berkeley.edu email to gain access. First, pleast type your email. Please contact a moderator if you have any issues."
         )
 
+        await self.test_channel.send(f"{member} was prompted for email")
         await self.verify_member_email(member)
         if self.is_phillip:
             await self.test_channel.send(
-                f"{member} was sent registration invite message"
+                f"{member} was sent registration email"
             )
 
 
