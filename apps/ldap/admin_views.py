@@ -165,6 +165,11 @@ def admin_validate(request):
     semester = Semester.objects.get(current=True)
     roles_ldap = {}
     roles_sql = {}
+    roles_ldap["excomm"] = get_group_members("excomm")
+    roles_sql["excomm"] = [
+        pbm.person.username
+        for pbm in PolitburoMembership.objects.filter(semester=semester)
+    ]
     for ldap_group, position in [
         ["president"] * 2,
         ["vpindrel", "indrel"],
