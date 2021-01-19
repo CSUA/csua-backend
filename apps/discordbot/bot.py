@@ -19,6 +19,7 @@ CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 TIMEOUT_SECS = 10
+ANI_NRUSIMHA_ID = 800951549546594334
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +81,15 @@ class CSUAClient(discord.Client):
                 emoji = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
                 await message.add_reaction(emoji)
             await message.add_reaction("😎")
+        if message.author.id == ANI_NRUSIMHA_ID:
+            emoji = get(self.emojis, name="AniChamp")
+            if emoji:
+                await message.add_reaction(emoji)
+            else:
+                for c in 'ANI':
+                    emoji_letter = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
+                    await message.add_reaction(emoji_letter)
+
 
     async def on_member_join(self, member):
         msg = await member.send(
