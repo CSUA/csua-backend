@@ -3,7 +3,25 @@ csua-backend
 
 A backend for the CSUA interblags.
 
-[![](https://travis-ci.org/CSUA/csua-backend.svg?branch=master)](https://travis-ci.org/github/CSUA/csua-backend)
+A Django web app that:
+
+* Hosts our website at https://www.csua.berkeley.edu
+  * Displays [information about our club](apps/main_page)
+  * Manages and displays [current officers, politburo, sponsors, and events](apps/db_data)
+  * Provides [new CSUA account creation](apps/newuser)
+  * Provides CSUA account [password resets](apps/password_reset)
+  * Provides interface for [managing LDAP groups](apps/ldap)
+* Runs a [slack bot](apps/slackbot) on https://csua.slack.com
+* Runs a [discord bot](apps/discordbot) on https://www.csua.berkeley.edu/discord
+* Tracks [Soda 311 office computer usage](apps/tracker)
+
+Continuous integration/deployment via [Travis CI][travis]:
+
+[![](https://travis-ci.org/CSUA/csua-backend.svg?branch=master)][travis]
+
+[travis]: https://travis-ci.org/github/CSUA/csua-backend
+
+See [issues](https://github.com/CSUA/csua-backend/issues) for a list of TODOs.
 
 ## User Workflow
 
@@ -17,19 +35,20 @@ A backend for the CSUA interblags.
 6. Push commits to your fork/branch
 7. Make a pull request
 
-## Installation (virtualenv)
+## Installation (venv, manual)
 
 1. Install Python 3.6+
-2. Create virtualenv `python3 -m venv venv`
+2. Create venv `python3 -m venv venv`
 2. Install Django and dependencies with `venv/bin/pip3 install -r requirements.txt`
 3. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
-4. Set up local db with `venv/bin/python3 manage.py migrate`
+4. Set up local sqlite database with `venv/bin/python3 manage.py migrate`
 5. Run server with `venv/bin/python3 manage.py runserver`
+  * If on soda, you will have to run `venv/bin/python3 manage.py runserver 0.0.0.0:$PORT` where `$PORT` is between 8000 and 8999, and connect by going to `http://soda.berkeley.edu:$PORT`
 6. Navigate web browser to http://127.0.0.1:8000/
 7. Create admin user with `venv/bin/python3 manage.py createsuperuser`
     - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
 
-### Installation (virtualenv, alternative)
+### Installation (venv, automatic)
 
 If you're using GNU/Linux or OSX, use `bootstrap.sh`.
 
@@ -93,7 +112,7 @@ See builds here: https://travis-ci.org/github/CSUA/csua-backend
 
 ## Deployment Details
 
-- This Django app runs as on a `gunicorn` server on `tap`.
+- This Django app runs as a wsgi app on a `gunicorn` server on `tap`.
 - The `gunicorn` process is managed by `systemd` and the service file is located at `/etc/systemd/system/csua-backend-gunicorn.service`
   - This service can be manipulated with `systemctl`
     - To reload the wsgi app, run `sudo systemctl reload csua-backend-gunicorn`
@@ -106,7 +125,7 @@ See builds here: https://travis-ci.org/github/CSUA/csua-backend
 
 ### /etc/sudoers
 These changes are here so that the newuser script and deployment script run properly.
-If either change, `/etc/sudoers` may also need to be changed
+If the change, `/etc/sudoers` _may_ also need to be changed.
 ```
 www-data ALL = (root) NOPASSWD: /webserver/csua-backend/apps/newuser/config_newuser
 www-data ALL = NOPASSWD: /bin/systemctl restart csua-backend-gunicorn
