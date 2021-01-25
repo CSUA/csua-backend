@@ -73,12 +73,10 @@ class CSUAClient(discord.Client):
         if "is typing" in msg:
             await message.channel.send("unoriginal")
         if msg.count("cpma") >= 2:
-            for c in "wtfiscpma":
-                emoji = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
+            for emoji in emoji_letters("wtfiscpma"):
                 await message.add_reaction(emoji)
         elif "based" in msg:
-            for c in "based":
-                emoji = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
+            for emoji in emoji_letters("based"):
                 await message.add_reaction(emoji)
             await message.add_reaction("😎")
         elif "tree" in msg or "stanford" in msg or "stanfurd" in msg:
@@ -91,11 +89,8 @@ class CSUAClient(discord.Client):
             if emoji:
                 await message.add_reaction(emoji)
             else:
-                for c in "ANI":
-                    emoji_letter = unicodedata.lookup(
-                        f"REGIONAL INDICATOR SYMBOL LETTER {c}"
-                    )
-                    await message.add_reaction(emoji_letter)
+                for emoji in emoji_letters("ANI"):
+                    await message.add_reaction(emoji)
 
     async def on_member_join(self, member):
         msg = await member.send(
@@ -116,6 +111,10 @@ class CSUAClient(discord.Client):
         await self.verify_member_email(member)
         if self.is_phillip:
             await self.test_channel.send(f"{member} was sent registration email")
+
+
+def emoji_letters(chars):
+    return [unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}") for c in chars]
 
 
 class CSUABot:
