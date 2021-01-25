@@ -78,7 +78,7 @@ class PasswordResetView(View):
 
 def get_html_email(username, email, token):
     return render_to_string(
-        "password_reset_email.html", {"uid": username, "email": email, "token": token,}
+        "password_reset_email.html", {"uid": username, "email": email, "token": token}
     )
 
 

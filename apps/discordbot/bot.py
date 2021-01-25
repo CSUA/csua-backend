@@ -82,17 +82,20 @@ class CSUAClient(discord.Client):
                 await message.add_reaction(emoji)
             await message.add_reaction("😎")
         elif "tree" in msg or "stanford" in msg or "stanfurd" in msg:
-            emoji = unicodedata.lookup("evergreen_tree") # todo: add official <:tree:744335009002815609>
+            emoji = unicodedata.lookup(
+                "evergreen_tree"
+            )  # todo: add official <:tree:744335009002815609>
             await message.add_reaction(emoji)
         if message.author.id == ANI_NRUSIMHA_ID:
             emoji = get(self.emojis, name="AniChamp")
             if emoji:
                 await message.add_reaction(emoji)
             else:
-                for c in 'ANI':
-                    emoji_letter = unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}")
+                for c in "ANI":
+                    emoji_letter = unicodedata.lookup(
+                        f"REGIONAL INDICATOR SYMBOL LETTER {c}"
+                    )
                     await message.add_reaction(emoji_letter)
-
 
     async def on_member_join(self, member):
         msg = await member.send(
@@ -112,9 +115,7 @@ class CSUAClient(discord.Client):
         await self.test_channel.send(f"{member} was prompted for email")
         await self.verify_member_email(member)
         if self.is_phillip:
-            await self.test_channel.send(
-                f"{member} was sent registration email"
-            )
+            await self.test_channel.send(f"{member} was sent registration email")
 
 
 class CSUABot:
@@ -130,7 +131,7 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
-        self.running=True
+        self.running = True
         self.thread.start()
 
     def _start(self):
