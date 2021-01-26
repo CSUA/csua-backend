@@ -81,8 +81,9 @@ class CSUAClient(discord.Client):
             await message.add_reaction("😎")
         elif "tree" in msg or "stanford" in msg or "stanfurd" in msg:
             emoji = unicodedata.lookup(
-                "evergreen_tree"
+                "EVERGREEN TREE"
             )  # todo: add official <:tree:744335009002815609>
+  
             await message.add_reaction(emoji)
         if message.author.id == ANI_NRUSIMHA_ID:
             emoji = get(self.emojis, name="AniChamp")
