@@ -85,7 +85,7 @@ class CSUAClient(discord.Client):
             )  # todo: add official <:tree:744335009002815609>
   
             await message.add_reaction(emoji)
-        elif "drip" or "👟" in msg:
+        elif "drip" or "👟" or "🥵" in msg:
             for emoji in emoji_letters("drip"):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
