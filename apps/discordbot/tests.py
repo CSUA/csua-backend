@@ -17,6 +17,7 @@ class TestCSUAClient(TestCase):
             "wtf based and breadpilled???", reactions=emoji_letters("based") + ["😎"]
         )
         self.check_message(cpmacpma, reactions=emoji_letters("wtfiscpma"))
+        self.check_message("we drippin", reactions=emoji_letters("drip") + ["👟"])
         # TODO the rest of them
 
     def test_replies(self):
