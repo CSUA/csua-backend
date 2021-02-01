@@ -85,6 +85,10 @@ class CSUAClient(discord.Client):
             )  # todo: add official <:tree:744335009002815609>
   
             await message.add_reaction(emoji)
+        elif "drip" in msg or "👟" in msg or "🥵" in msg:
+            for emoji in emoji_letters("drip"):
+                await message.add_reaction(emoji)
+            await message.add_reaction("👟")
         if message.author.id == ANI_NRUSIMHA_ID:
             emoji = get(self.emojis, name="AniChamp")
             if emoji:
