@@ -98,7 +98,7 @@ class CSUAClient(discord.Client):
             else:
                 for emoji in emoji_letters("ANI"):
                     await message.add_reaction(emoji)
-        if "xkcd" in msg:
+        if "!xkcd" in msg:
             rand_comic = get_random_xkcd()
             if rand_comic is not None:
                 await message.channel.send("Title: " + str(rand_comic["title"]))
