@@ -14,3 +14,4 @@ slack_bolt
 
 # apps.discordbot
 discord.py
+bs4
