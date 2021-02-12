@@ -11,6 +11,7 @@ import string
 from base64 import b64encode
 from random import choice
 from contextlib import contextmanager
+from datetime import datetime, timedelta
 
 from django.http import Http404
 from decouple import config
@@ -34,6 +35,9 @@ PEOPLE_OU = "ou=People," + CSUA_DC
 GROUP_OU = "ou=Group," + CSUA_DC
 NEWUSER_DN = "uid=newuser," + PEOPLE_OU
 NEWUSER_PW = config("NEWUSER_PW")
+
+BERK_LDAP_SERVER_URL = "ldaps://ldap.berkeley.edu"
+BERK_LDAP_SERVER = Server(BERK_LDAP_SERVER_URL, connect_timeout=1)
 
 
 @contextmanager
@@ -316,3 +320,45 @@ def is_root(username):
 
 def validate_officer(username, password):
     return is_officer(username) and authenticate(username, password)
+
+
+def datetime_to_ldap(dt):
+    """
+    Convert datetime object to LDAP generalized time format
+    """
+    return dt.strftime("%Y%m%d%H%M%S") + "Z"
+
+
+def get_new_members(days=180):
+    time_threshold = datetime_to_ldap(datetime.now() - timedelta(days=days))
+    with ldap_connection() as c:
+        c.search(
+            PEOPLE_OU,
+            "(createTimestamp>={})".format(time_threshold),
+            attributes="cn"
+        )
+        return [str(entry.cn) for entry in c.entries]
+
+
+@contextmanager
+def berk_ldap_connection(**kwargs):
+    if "client_strategy" not in kwargs:
+        kwargs["client_strategy"] = LDAP_CLIENT_STRATEGY
+    else:
+        raise RuntimeError(
+            "Don't change the client strategy unless you know what you're doing!"
+        )
+    with Connection(BERK_LDAP_SERVER, **kwargs) as c:
+        yield c
+
+
+def check_alumni(email):
+    # complete guesswork
+    # might be better to batch query, if that's possible?
+    with berk_ldap_connection() as c:
+        c.search(
+            "ou=people,dc=berkeley,dc=edu",
+            "(berkeleyEduOfficialEmail={})".format(email),
+            attributes="berkeleyEduAffiliations"
+        )
+        return [str(entry.berkeleyEduAffiliations) for entry in c.entries]
