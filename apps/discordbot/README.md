@@ -18,8 +18,12 @@ For your developer machine, you will need to create a new discord app. Go to htt
 DISCORD_TOKEN=Nzg2MTkyMDg4MjkwMDMzNjg0.X9C0cA.KYc0aow44Mkjel4nlscoFDKmoC4
 ```
 
+Next, go to the "Bot" tab. Under "Privledged Gateway Intents", make sure to authorize
+both "Presence Intent" and "Server Members Intent". These permissions are required
+for Phillip to work.
+
 Now, go to the "OAuth2" tab. Under the OAuth2 URL generator, select the "bot" scope.
-Then, select the bot permissions. Phillip needs these permissions to work.
+Then, select the bot permissions. Phillip also needs these permissions to work.
 
 * Send Messages
 * Manage Roles
