@@ -25,10 +25,6 @@ class TestCSUAClient(TestCase):
         self.check_message(hknieee, replies=["Do I need to retrieve the stick?"])
         # TODO the rest of them ResidentSleeper
 
-    def test_ani(self):
-        # TODO
-        pass
-
     def check_message(self, message, replies=None, reactions=None):
         replies = replies or []
         reactions = reactions or []
