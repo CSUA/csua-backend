@@ -329,12 +329,25 @@ def datetime_to_ldap(dt):
     return dt.strftime("%Y%m%d%H%M%S") + "Z"
 
 
-def get_new_members(days=180):
+def get_members_older(days=1460):
     time_threshold = datetime_to_ldap(datetime.now() - timedelta(days=days))
     with ldap_connection() as c:
         c.search(
             PEOPLE_OU,
-            "(createTimestamp>={})".format(time_threshold),
+            "(createTimestamp<={})".format(time_threshold),
+            attributes="cn"
+        )
+        return [str(entry.cn) for entry in c.entries]
+
+
+def get_members_age_range(older_than=0, younger_than=180):
+    assert younger_than >= older_than and older_than >= 0, "invalid range"
+    young_threshold = datetime_to_ldap(datetime.now() - timedelta(days=older_than))
+    old_threshold = datetime_to_ldap(datetime.now() - timedelta(days=younger_than))
+    with ldap_connection() as c:
+        c.search(
+            PEOPLE_OU,
+            "(&(createTimestamp<={})(createTimestamp>={}))".format(young_threshold, old_threshold),
             attributes="cn"
         )
         return [str(entry.cn) for entry in c.entries]
