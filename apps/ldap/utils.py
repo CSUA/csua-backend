@@ -340,25 +340,26 @@ def get_new_members(days=180):
         return [str(entry.cn) for entry in c.entries]
 
 
-@contextmanager
-def berk_ldap_connection(**kwargs):
-    if "client_strategy" not in kwargs:
-        kwargs["client_strategy"] = LDAP_CLIENT_STRATEGY
-    else:
-        raise RuntimeError(
-            "Don't change the client strategy unless you know what you're doing!"
-        )
-    with Connection(BERK_LDAP_SERVER, **kwargs) as c:
-        yield c
+# TODO: request privilege bindings
+# @contextmanager
+# def berk_ldap_connection(**kwargs):
+#     if "client_strategy" not in kwargs:
+#         kwargs["client_strategy"] = LDAP_CLIENT_STRATEGY
+#     else:
+#         raise RuntimeError(
+#             "Don't change the client strategy unless you know what you're doing!"
+#         )
+#     with Connection(BERK_LDAP_SERVER, **kwargs) as c:
+#         yield c
 
 
-def check_alumni(email):
-    # complete guesswork
-    # might be better to batch query, if that's possible?
-    with berk_ldap_connection() as c:
-        c.search(
-            "ou=people,dc=berkeley,dc=edu",
-            "(berkeleyEduOfficialEmail={})".format(email),
-            attributes="berkeleyEduAffiliations"
-        )
-        return [str(entry.berkeleyEduAffiliations) for entry in c.entries]
+# def check_alumni(email):
+#     # complete guesswork
+#     # might be better to batch query, if that's possible?
+#     with berk_ldap_connection() as c:
+#         c.search(
+#             "ou=people,dc=berkeley,dc=edu",
+#             "(berkeleyEduOfficialEmail={})".format(email),
+#             attributes="berkeleyEduAffiliations"
+#         )
+#         return [str(entry.berkeleyEduAffiliations) for entry in c.entries]
