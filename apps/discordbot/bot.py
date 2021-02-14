@@ -22,7 +22,6 @@ CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 TIMEOUT_SECS = 10
-ANI_NRUSIMHA_ID = 168539105704017920
 
 logger = logging.getLogger(__name__)
 
@@ -91,13 +90,6 @@ class CSUAClient(discord.Client):
             for emoji in emoji_letters("drip"):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
-        if message.author.id == ANI_NRUSIMHA_ID:
-            emoji = get(self.emojis, name="AniChamp")
-            if emoji:
-                await message.add_reaction(emoji)
-            else:
-                for emoji in emoji_letters("ANI"):
-                    await message.add_reaction(emoji)
         if "!xkcd" in msg:
             rand_comic = get_random_xkcd()
             if rand_comic is not None:
