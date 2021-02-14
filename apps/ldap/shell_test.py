@@ -1,6 +1,6 @@
 """
 Run at project root:
-python manage.py shell < apps/ldap/test_shell.py
+python manage.py shell < apps/ldap/shell_test.py
 """
 from apps.ldap import utils
 from datetime import datetime
