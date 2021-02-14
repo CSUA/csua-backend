@@ -191,8 +191,7 @@ async def display_xkcd(message, comic):
 
 
 def get_xkcd_from_soup(soup):
-    """ Returns a dictionary containing the XKCD info. None if data cannot be parsed.
-    """
+    """ Returns a dictionary containing the XKCD info. None if data cannot be parsed. """
     info = {}
     try:
         # TODO: Fix TypeError issue where "comic_soup.find("meta", property = "og:url")" returns None.
@@ -209,7 +208,6 @@ def get_xkcd_from_soup(soup):
 def get_url_soup(url):
     """ Returns the soup content of the requested url. None if url cannot be reached."""
     try:
-        # Soupify web content
         page = requests.get(url)
         soup = BeautifulSoup(page.content, "html.parser")
         return soup
