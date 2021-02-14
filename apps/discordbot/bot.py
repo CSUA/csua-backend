@@ -22,6 +22,11 @@ CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 TIMEOUT_SECS = 10
+VALID_XKCD_COMMANDS = ["-random", "-r", "-help", "-h", "-issue", "-i"]
+XKCD_RANDOM_URL = "https://c.xkcd.com/random/comic/"
+XKCD_HELP_MSG = "```!xkcd help\n" + ("-" * 50) + "\n-help (-h)  /  Displays help for the '!xkcd' command.\n" \
+                "-random (-r)  /  Displays a random XKCD issue.\n-issue (-i) #  /  Displays a specific XKCD issue.```"
+XKCD_HOME_URL = "https://xkcd.com/"
 
 logger = logging.getLogger(__name__)
 
@@ -91,14 +96,13 @@ class CSUAClient(discord.Client):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
         if "!xkcd" in msg:
-            rand_comic = get_random_xkcd()
-            if rand_comic is not None:
-                await message.channel.send("Title: " + str(rand_comic["title"]))
-                await message.channel.send("Issue: " + str(rand_comic["issue"]))
-                await message.channel.send("Description: *" + str(rand_comic["image_text"]) + "*")
-                await message.channel.send(str(rand_comic["image_url"]))
+            # Validate "!xkcd" command
+            if is_valid_xkcd_command(msg):
+                await get_xkcd(message)
             else:
-                await message.channel.send("Sorry! I couldn't find a comic right now. Try again later.")
+                await message.channel.send("Please ensure that your command is properly formatted. "
+                                           "Type `!xkcd -help` for more information.")
+
 
 
     async def on_member_join(self, member):
@@ -125,30 +129,93 @@ class CSUAClient(discord.Client):
 def emoji_letters(chars):
     return [unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}") for c in chars]
 
-def get_xkcd_soup_info(comic_soup):
+
+def is_valid_xkcd_command(msg):
+    """ Returns whether msg contains an valid request. """
+
+    arguments = msg.split()
+    if len(arguments) > 3 or len(arguments) < 2:
+        return False
+    elif arguments[1] in VALID_XKCD_COMMANDS:
+        if arguments[1] == VALID_XKCD_COMMANDS[4] or arguments[1] == VALID_XKCD_COMMANDS[5]:
+            return len(arguments) == 3 and arguments[2].isdigit()
+        else:
+            return len(arguments) == 2
+    else:
+        return False
+
+
+async def get_xkcd(message):
+    """
+    Displays either a random XKCD comic, a specific issue, or the '!xkcd' help panel.
+    Assumes that a valid command is contained within msg (checked by is_valid_xkcd_command(String)).
+    """
+    msg = message.content.lower().split();
+    cmd = msg[1]
+    if cmd == VALID_XKCD_COMMANDS[0] or cmd == VALID_XKCD_COMMANDS[1]:
+        await get_random_xkcd(message)
+    elif cmd == VALID_XKCD_COMMANDS[2] or cmd == VALID_XKCD_COMMANDS[3]:
+        await message.channel.send(XKCD_HELP_MSG)
+    elif cmd == VALID_XKCD_COMMANDS[4] or cmd == VALID_XKCD_COMMANDS[5]:
+        await get_xkcd_issue(message, msg[2])
+
+
+async def get_xkcd_issue(message, issue):
+    """ Displays the specific XKCD issue requested. """
+    soup = get_url_soup(XKCD_HOME_URL + str(issue) + "/")
+    if soup:
+        comic_info = get_xkcd_from_soup(soup)
+        if comic_info:
+            await display_xkcd(message, comic_info)
+            return
+    await message.channel.send("Sorry, I couldn't find that issue right now. Please try again later.")
+
+
+async def get_random_xkcd(message):
+    """ Displays a random xkcd comic. """
+    soup = get_url_soup(XKCD_RANDOM_URL)
+    if soup:
+        comic_info = get_xkcd_from_soup(soup)
+        if comic_info:
+            await display_xkcd(message, comic_info)
+            return
+    await message.channel.send("Sorry, I couldn't find anything right now. Please try again later.")
+
+
+async def display_xkcd(message, comic):
+    """ Displays the contents of the xkcd comic. """
+    await message.channel.send("Title: " + str(comic["title"]))
+    await message.channel.send("Issue: " + "#" + str(comic["issue"]))
+    await message.channel.send("Description: *" + str(comic["image_text"]) + "*")
+    await message.channel.send(str(comic["image_url"]))
+
+
+def get_xkcd_from_soup(soup):
+    """ Returns a dictionary containing the XKCD info. None if data cannot be parsed.
+    """
     info = {}
     try:
         # TODO: Fix TypeError issue where "comic_soup.find("meta", property = "og:url")" returns None.
-        info["url"] = comic_soup.find("meta", property = "og:url")["content"]
+        info["url"] = soup.find("meta", property = "og:url")["content"]
         info["issue"] = [int(element) for element in findall(r'\d+', info["url"])][0]
-        info["title"] = comic_soup.find("meta", property = "og:title")["content"]
-        info["image_url"] = "https:" + comic_soup.find(id="comic").img["src"]
-        info["image_text"] = comic_soup.find(id="comic").img["title"]
+        info["title"] = soup.find("meta", property = "og:title")["content"]
+        info["image_url"] = "https:" + soup.find(id="comic").img["src"]
+        info["image_text"] = soup.find(id="comic").img["title"]
         return info
     except TypeError:
         return None
 
-def get_random_xkcd():
-    XKCD_RANDOM_URL = "https://c.xkcd.com/random/comic/"
+
+def get_url_soup(url):
+    """ Returns the soup content of the requested url. None if url cannot be reached."""
     try:
         # Soupify web content
-        random_xkcd = requests.get(XKCD_RANDOM_URL)
-        soup = BeautifulSoup(random_xkcd.content, "html.parser")
-
-        # Get random comic info
-        return get_xkcd_soup_info(soup)
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, "html.parser")
+        return soup
     except requests.exceptions.ConnectionError:
         return None
+
 
 class CSUABot:
     """
