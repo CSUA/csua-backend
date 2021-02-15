@@ -55,7 +55,7 @@ class LdapBindingsTest(LDAPTestCase):
         self.assertTrue(success)
         self.assertFalse(utils.user_exists("pnunez1"))
 
-    def test_get_members_by_age(self):
+    def test_datetime_to_ldap(self):
         dt = datetime(2021, 2, 13, 15, 8, 37)
         lt = utils.datetime_to_ldap(dt)
         self.assertEquals(lt, "20210213150837Z")
