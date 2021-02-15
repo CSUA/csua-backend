@@ -326,6 +326,13 @@ def datetime_to_ldap(dt):
     return dt.strftime("%Y%m%d%H%M%S") + "Z"
 
 
+def str_to_datetime(s):
+    """
+    Convert standard date format string to datetime object
+    """
+    s = s[:-3] + s[-2:] # remove colon in time zone
+    return datetime.strptime(s, "%Y-%m-%d %H:%M:%S%z")
+
 def get_members_older_than(days=1460):
     time_threshold = datetime_to_ldap(datetime.now() - timedelta(days=days))
     with ldap_connection() as c:

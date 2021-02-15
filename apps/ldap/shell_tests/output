@@ -1,6 +1,47 @@
-lt matches: True
+Current time: 2021-02-15 22:26:19.187398+00:00
+Current time LDAP: 20210215222619Z
+date_time_to_ldap is correct? True
+
 4658 members older than 1460 days
 308 members younger than 180 days
+
 ['rgoldman', 'kreehal', 'ericche', 'dachung']
+3 days, 11:13:49.187398
+2 days, 20:52:33.187398
+2 days, 13:28:44.187398
+1 day, 18:34:19.187398
+
 ['smunukutla', 'weipang', 'kching77', 'canjo', 'nayaslee', 'rgoldman', 'kreehal', 'ericche', 'dachung']
-['ww123w', 'Andrei_Tan', 'catherinezhxng', 'Heezy', 'khoidng', 'Kl12', 'matthewrowland', 'khushiv3', 'klaire', 'sanjeevt', 'mvora', 'anuravohra', 'AryanJain', 'gautamanand', 'sebitommy123', 'jjaison13', 'agoyal', 'smunukutla', 'weipang', 'kching77', 'canjo', 'nayaslee']
+6 days, 20:08:01.187398
+6 days, 16:32:55.187398
+6 days, 15:13:55.187398
+6 days, 0:06:43.187398
+5 days, 22:35:01.187398
+3 days, 11:13:49.187398
+2 days, 20:52:33.187398
+2 days, 13:28:44.187398
+1 day, 18:34:19.187398
+
+['Andrei_Tan', 'catherinezhxng', 'Heezy', 'khoidng', 'Kl12', 'matthewrowland', 'khushiv3', 'klaire', 'sanjeevt', 'mvora', 'anuravohra', 'AryanJain', 'gautamanand', 'sebitommy123', 'jjaison13', 'agoyal', 'smunukutla', 'weipang', 'kching77', 'canjo', 'nayaslee']
+14 days, 20:30:10.187398
+14 days, 17:03:28.187398
+14 days, 15:37:45.187398
+14 days, 15:28:41.187398
+13 days, 23:32:19.187398
+13 days, 20:35:52.187398
+13 days, 18:43:42.187398
+13 days, 13:57:43.187398
+13 days, 13:41:18.187398
+12 days, 21:08:46.187398
+12 days, 20:47:58.187398
+12 days, 15:13:26.187398
+12 days, 12:41:54.187398
+12 days, 2:04:45.187398
+11 days, 20:41:10.187398
+10 days, 14:14:55.187398
+6 days, 20:08:01.187398
+6 days, 16:32:55.187398
+6 days, 15:13:55.187398
+6 days, 0:06:43.187398
+5 days, 22:35:01.187398
+
