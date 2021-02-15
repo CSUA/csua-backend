@@ -36,9 +36,6 @@ GROUP_OU = "ou=Group," + CSUA_DC
 NEWUSER_DN = "uid=newuser," + PEOPLE_OU
 NEWUSER_PW = config("NEWUSER_PW")
 
-BERK_LDAP_SERVER_URL = "ldaps://ldap.berkeley.edu"
-BERK_LDAP_SERVER = Server(BERK_LDAP_SERVER_URL, connect_timeout=1)
-
 
 @contextmanager
 def ldap_connection(**kwargs):
@@ -329,50 +326,25 @@ def datetime_to_ldap(dt):
     return dt.strftime("%Y%m%d%H%M%S") + "Z"
 
 
-def get_members_older(days=1460):
+def get_members_older_than(days=1460):
     time_threshold = datetime_to_ldap(datetime.now() - timedelta(days=days))
     with ldap_connection() as c:
         c.search(
             PEOPLE_OU,
-            "(createTimestamp<={})".format(time_threshold),
+            f"(createTimestamp<={time_threshold})",
             attributes="cn"
         )
         return [str(entry.cn) for entry in c.entries]
 
 
-def get_members_age_range(older_than=0, younger_than=180):
-    assert younger_than >= older_than and older_than >= 0, "invalid range"
-    young_threshold = datetime_to_ldap(datetime.now() - timedelta(days=older_than))
-    old_threshold = datetime_to_ldap(datetime.now() - timedelta(days=younger_than))
+def get_members_in_age_range(min_age_days=0, max_age_days=180):
+    assert max_age_days >= min_age_days and min_age_days >= 0, "invalid range"
+    min_threshold = datetime_to_ldap(datetime.now() - timedelta(days=min_age_days))
+    max_threshold = datetime_to_ldap(datetime.now() - timedelta(days=max_age_days))
     with ldap_connection() as c:
         c.search(
             PEOPLE_OU,
-            "(&(createTimestamp<={})(createTimestamp>={}))".format(young_threshold, old_threshold),
+            f"(&(createTimestamp<={min_threshold})(createTimestamp>={max_threshold}))",
             attributes="cn"
         )
         return [str(entry.cn) for entry in c.entries]
-
-
-# TODO: request privilege bindings
-# @contextmanager
-# def berk_ldap_connection(**kwargs):
-#     if "client_strategy" not in kwargs:
-#         kwargs["client_strategy"] = LDAP_CLIENT_STRATEGY
-#     else:
-#         raise RuntimeError(
-#             "Don't change the client strategy unless you know what you're doing!"
-#         )
-#     with Connection(BERK_LDAP_SERVER, **kwargs) as c:
-#         yield c
-
-
-# def check_alumni(email):
-#     # complete guesswork
-#     # might be better to batch query, if that's possible?
-#     with berk_ldap_connection() as c:
-#         c.search(
-#             "ou=people,dc=berkeley,dc=edu",
-#             "(berkeleyEduOfficialEmail={})".format(email),
-#             attributes="berkeleyEduAffiliations"
-#         )
-#         return [str(entry.berkeleyEduAffiliations) for entry in c.entries]
