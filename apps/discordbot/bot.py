@@ -2,15 +2,12 @@ import logging
 import threading
 import asyncio
 import unicodedata
-import requests
-from re import findall
-from bs4 import BeautifulSoup
 from decouple import config
 import discord
+from . import xkcd
 from discord.utils import get
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-
 from .utils import send_verify_mail
 
 intents = discord.Intents.all()
@@ -24,7 +21,6 @@ DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 TIMEOUT_SECS = 10
 
 logger = logging.getLogger(__name__)
-
 
 class CSUAClient(discord.Client):
     async def on_ready(self):
@@ -91,14 +87,12 @@ class CSUAClient(discord.Client):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
         if "!xkcd" in msg:
-            rand_comic = get_random_xkcd()
-            if rand_comic is not None:
-                await message.channel.send("Title: " + str(rand_comic["title"]))
-                await message.channel.send("Issue: " + str(rand_comic["issue"]))
-                await message.channel.send("Description: *" + str(rand_comic["image_text"]) + "*")
-                await message.channel.send(str(rand_comic["image_url"]))
+            # Validate "!xkcd" command
+            if xkcd.is_valid_xkcd_command(msg):
+                await xkcd.get_xkcd(message)
             else:
-                await message.channel.send("Sorry! I couldn't find a comic right now. Try again later.")
+                await message.channel.send("Please ensure that your command is properly formatted. Type `!xkcd -help` for more information.")
+
 
 
     async def on_member_join(self, member):
@@ -125,30 +119,9 @@ class CSUAClient(discord.Client):
 def emoji_letters(chars):
     return [unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}") for c in chars]
 
-def get_xkcd_soup_info(comic_soup):
-    info = {}
-    try:
-        # TODO: Fix TypeError issue where "comic_soup.find("meta", property = "og:url")" returns None.
-        info["url"] = comic_soup.find("meta", property = "og:url")["content"]
-        info["issue"] = [int(element) for element in findall(r'\d+', info["url"])][0]
-        info["title"] = comic_soup.find("meta", property = "og:title")["content"]
-        info["image_url"] = "https:" + comic_soup.find(id="comic").img["src"]
-        info["image_text"] = comic_soup.find(id="comic").img["title"]
-        return info
-    except TypeError:
-        return None
 
-def get_random_xkcd():
-    XKCD_RANDOM_URL = "https://c.xkcd.com/random/comic/"
-    try:
-        # Soupify web content
-        random_xkcd = requests.get(XKCD_RANDOM_URL)
-        soup = BeautifulSoup(random_xkcd.content, "html.parser")
 
-        # Get random comic info
-        return get_xkcd_soup_info(soup)
-    except requests.exceptions.ConnectionError:
-        return None
+
 
 class CSUABot:
     """
