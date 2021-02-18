@@ -3,12 +3,6 @@ import discord
 import random
 
 HOST = "http://xkcd.com/"
-XKCD_HELP_MSG = f"""
-```--help (-h)  /  Displays help for the '!xkcd' command.
---random (-r)  /  Displays a random XKCD issue.
---issue (-i) #  /  Displays a specific XKCD issue.
---current (-c)  /  Displays the current XKCD issue.```
-"""
 VALID_XKCD_COMMANDS = ["--random", "-r", "--help", "-h", "--issue", "-i", "--current", "-c"]
 MAX_ARGUMENT_LENGTH = 3
 MIN_ARGUMENT_LENGTH = 2
