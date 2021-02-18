@@ -91,7 +91,7 @@ class CSUAClient(discord.Client):
             if xkcd.is_valid_xkcd_command(msg):
                 await xkcd.get_xkcd(message)
             else:
-                await xkcd.display_invalid_command(message)
+                await message.channel.send("Please ensure that your command is properly formatted. Type `!xkcd -help` for more information.")
 
 
 

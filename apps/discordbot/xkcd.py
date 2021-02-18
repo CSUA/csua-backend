@@ -1,24 +1,24 @@
 import requests
-from bs4 import BeautifulSoup
-from re import findall
+import discord
+import random
 
-XKCD_HOME_URL = "https://xkcd.com/"
-XKCD_RANDOM_URL = "https://c.xkcd.com/random/comic/"
+HOST = "http://xkcd.com/"
 XKCD_HELP_MSG = f"""
-```!xkcd command help
-{"-" * 50}
--help (-h)  /  Displays help for the '!xkcd' command.
--random (-r)  /  Displays a random XKCD issue.
--issue (-i) #  /  Displays a specific XKCD issue.```
+```--help (-h)  /  Displays help for the '!xkcd' command.
+--random (-r)  /  Displays a random XKCD issue.
+--issue (-i) #  /  Displays a specific XKCD issue.
+--current (-c)  /  Displays the current XKCD issue.```
 """
-VALID_XKCD_COMMANDS = ["-random", "-r", "-help", "-h", "-issue", "-i"]
+VALID_XKCD_COMMANDS = ["--random", "-r", "--help", "-h", "--issue", "-i", "--current", "-c"]
+MAX_ARGUMENT_LENGTH = 3
+MIN_ARGUMENT_LENGTH = 2
 
 
 def is_valid_xkcd_command(msg):
     """ Returns whether msg contains an valid request. """
 
     arguments = msg.split()
-    if len(arguments) > 3 or len(arguments) < 2:
+    if len(arguments) > MAX_ARGUMENT_LENGTH or len(arguments) < MIN_ARGUMENT_LENGTH:
         return False
     elif arguments[1] in VALID_XKCD_COMMANDS:
         if arguments[1] == "-issue" or arguments[1] == "-i":
@@ -29,76 +29,70 @@ def is_valid_xkcd_command(msg):
         return False
 
 
-async def display_invalid_command(message):
-    """ Displays the prompt for an invalid entry. """
-    await message.channel.send("Please ensure that your command is properly formatted. Type `!xkcd -help` for more information.")
-
-
 async def get_xkcd(message):
     """
     Displays either a random XKCD comic, a specific issue, or the '!xkcd' help panel.
     Assumes that a valid command is contained within msg (checked by is_valid_xkcd_command(String)).
     """
-    msg = message.content.lower().split();
+    msg = message.content.lower().split()
     cmd = msg[1]
-    if cmd == "-random" or cmd == "-r":
-        await get_random_xkcd(message)
-    elif cmd == "-help" or cmd == "-h":
-        await message.channel.send(XKCD_HELP_MSG)
-    elif cmd == "-issue" or cmd == "-i":
-        await get_xkcd_issue(message, msg[2])
+    comic = None
+    
+    if cmd == "-help" or cmd == "-h":
+        await display_help(message)
+        return
+
+    if cmd == "--random" or cmd == "-r":
+        comic = get_random()
+    elif cmd == "--issue" or cmd == "-i":
+        comic = get_issue(msg[2])
+    elif cmd == "--curent" or cmd == "-c":
+        comic = get_current()
+
+    if comic:
+        await display(comic, message)
+    else:
+        await message.channel.send("Sorry, I can't find a comic right now. Please try again later.")
 
 
-async def get_xkcd_issue(message, issue):
-    """ Displays the specific XKCD issue requested. """
-    soup = get_url_soup(XKCD_HOME_URL + str(issue) + "/")
-    if soup:
-        comic_info = get_xkcd_from_soup(soup)
-        if comic_info:
-            await display_xkcd(message, comic_info)
-            return
-    await message.channel.send("Sorry, I couldn't find that issue right now. Please try again later.")
+async def display(metadata, msg):
+    if metadata:
+        embed = discord.Embed(
+            title = "#" + str(metadata["num"]) + " - " + metadata["title"],
+            description = metadata["alt"],
+        )
+        embed.set_image(url = metadata["img"])
+        await msg.channel.send(embed = embed)
+
+async def display_help(msg):
+    embed = discord.Embed(
+        title = "'!xkcd' Command Help"
+    )
+    embed.add_field(name = "--help (-h)", value = "Displays help for the '!xkcd' command.", inline = False)
+    embed.add_field(name = "--random (-r)", value = "Displays a random XKCD issue.", inline = False)
+    embed.add_field(name = "--issue (-i) #", value = "Displays a specific XKCD issue #.", inline = False)
+    embed.add_field(name = "--current (-c)", value = "Displays the current XKCD issue.", inline = False)
+    await msg.channel.send(embed = embed)
+
+def get_issue(num):
+    url = HOST + str(num) + "/"
+    return get_json(url)
 
 
-async def get_random_xkcd(message):
-    """ Displays a random xkcd comic. """
-    soup = get_url_soup(XKCD_RANDOM_URL)
-    if soup:
-        comic_info = get_xkcd_from_soup(soup)
-        if comic_info:
-            await display_xkcd(message, comic_info)
-            return
-    await message.channel.send("Sorry, I couldn't find anything right now. Please try again later.")
+def get_current():
+    return get_json(HOST)
 
 
-async def display_xkcd(message, comic):
-    """ Displays the contents of the xkcd comic. """
-    await message.channel.send("Title: " + str(comic["title"]))
-    await message.channel.send("Issue: " + "#" + str(comic["issue"]))
-    await message.channel.send("Description: *" + str(comic["image_text"]) + "*")
-    await message.channel.send(str(comic["image_url"]))
-
-
-def get_xkcd_from_soup(soup):
-    """ Returns a dictionary containing the XKCD info. None if data cannot be parsed. """
-    info = {}
+def get_json(url):
     try:
-        # TODO: Fix TypeError issue where "comic_soup.find("meta", property = "og:url")" returns None.
-        info["url"] = soup.find("meta", property = "og:url")["content"]
-        info["issue"] = [int(element) for element in findall(r'\d+', info["url"])][0]
-        info["title"] = soup.find("meta", property = "og:title")["content"]
-        info["image_url"] = "https:" + soup.find(id="comic").img["src"]
-        info["image_text"] = soup.find(id="comic").img["title"]
-        return info
-    except TypeError:
+        return requests.get(url + "info.0.json").json()
+    except json.JSONDecodeError:
         return None
 
 
-def get_url_soup(url):
-    """ Returns the soup content of the requested url. None if url cannot be reached."""
-    try:
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, "html.parser")
-        return soup
-    except requests.exceptions.ConnectionError:
-        return None
+def get_random():
+    """
+    Retrieves the current issue of XKCD, chooses an issue 1 - current issue #, and returns a json object.
+    Returns null if an requests error occurs.
+    """
+    return get_issue(random.randint(1, int(get_current()["num"])))
