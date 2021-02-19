@@ -50,7 +50,7 @@ class CSUAClient(discord.Client):
                     await channel.send(
                         f"Sending a an email to verify {user.name} to {msg.content}"
                     )
-                    send_verify_mail(msg.content, user.name)
+                    send_verify_mail(msg.content, user.name + "#" + user.discriminator)
                 else:
                     await channel.send(
                         f"{msg.content} is not a berkeley email. Please fix this"
@@ -107,7 +107,7 @@ class CSUAClient(discord.Client):
         await self.wait_for("reaction_add", check=check_thumb)
         await self.test_channel.send(f"{member} read rules")
         await member.send(
-            "Verify your berkeley.edu email to gain access. First, pleast type your email. Please contact a moderator if you have any issues."
+            "Verify your berkeley.edu email to gain access. First, please type your email. Please contact a moderator if you have any issues."
         )
 
         await self.test_channel.send(f"{member} was prompted for email")
