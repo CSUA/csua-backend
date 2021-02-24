@@ -57,8 +57,7 @@ class CSUAClient(discord.Client):
                     )
             except ValidationError as e:
                 await channel.send(
-                    f"{msg.content} is not a valid email. Please try again. Details: ",
-                    e,
+                    f"{msg.content} is not a valid email. Please try again. Details: {e}"
                 )
 
     async def on_message(self, message):
