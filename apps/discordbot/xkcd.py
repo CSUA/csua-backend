@@ -32,7 +32,7 @@ async def get_xkcd(message):
     cmd = msg[1]
     comic = None
     
-    if cmd == "-help" or cmd == "-h":
+    if cmd == "--help" or cmd == "-h":
         await display_help(message)
         return
 
