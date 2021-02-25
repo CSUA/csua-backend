@@ -4,6 +4,8 @@ import json
 from django.test import TestCase
 from unittest.mock import Mock, MagicMock, call
 
+from pyfiglet import figlet_format
+
 
 from .bot import CSUAClient, emoji_letters
 
@@ -24,6 +26,13 @@ class TestCSUAClient(TestCase):
     def test_replies(self):
         self.check_message(hknieee, replies=["Do I need to retrieve the stick?"])
         # TODO the rest of them ResidentSleeper
+
+    def test_figlet(self):
+        self.check_message("!figlet test", replies=[f"```{figlet_format('test')}```"])
+        self.check_message(
+            f"!figlet {'A'*20000}", replies=["!figlet: Message too long"]
+        )
+        self.check_message(f"!figlet {'A'*199}", replies=["!figlet: Message too long"])
 
     def check_message(self, message, replies=None, reactions=None):
         replies = replies or []
