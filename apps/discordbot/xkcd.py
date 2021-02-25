@@ -3,7 +3,16 @@ import discord
 import random
 
 HOST = "http://xkcd.com/"
-VALID_XKCD_COMMANDS = ["--random", "-r", "--help", "-h", "--issue", "-i", "--current", "-c"]
+VALID_XKCD_COMMANDS = [
+    "--random",
+    "-r",
+    "--help",
+    "-h",
+    "--issue",
+    "-i",
+    "--current",
+    "-c",
+]
 MAX_ARGUMENT_LENGTH = 3
 MIN_ARGUMENT_LENGTH = 2
 
@@ -31,7 +40,7 @@ async def get_xkcd(message):
     msg = message.content.lower().split()
     cmd = msg[1]
     comic = None
-    
+
     if cmd == "-help" or cmd == "-h":
         await display_help(message)
         return
@@ -46,27 +55,37 @@ async def get_xkcd(message):
     if comic:
         await display(comic, message)
     else:
-        await message.channel.send("Sorry, I can't find a comic right now. Please try again later.")
+        await message.channel.send(
+            "Sorry, I can't find a comic right now. Please try again later."
+        )
 
 
 async def display(metadata, msg):
     if metadata:
         embed = discord.Embed(
-            title = "#" + str(metadata["num"]) + " - " + metadata["title"],
-            description = metadata["alt"],
+            title="#" + str(metadata["num"]) + " - " + metadata["title"],
+            description=metadata["alt"],
         )
-        embed.set_image(url = metadata["img"])
-        await msg.channel.send(embed = embed)
+        embed.set_image(url=metadata["img"])
+        await msg.channel.send(embed=embed)
+
 
 async def display_help(msg):
-    embed = discord.Embed(
-        title = "'!xkcd' Command Help"
+    embed = discord.Embed(title="'!xkcd' Command Help")
+    embed.add_field(
+        name="--help (-h)", value="Displays help for the '!xkcd' command.", inline=False
     )
-    embed.add_field(name = "--help (-h)", value = "Displays help for the '!xkcd' command.", inline = False)
-    embed.add_field(name = "--random (-r)", value = "Displays a random XKCD issue.", inline = False)
-    embed.add_field(name = "--issue (-i) #", value = "Displays a specific XKCD issue #.", inline = False)
-    embed.add_field(name = "--current (-c)", value = "Displays the current XKCD issue.", inline = False)
-    await msg.channel.send(embed = embed)
+    embed.add_field(
+        name="--random (-r)", value="Displays a random XKCD issue.", inline=False
+    )
+    embed.add_field(
+        name="--issue (-i) #", value="Displays a specific XKCD issue #.", inline=False
+    )
+    embed.add_field(
+        name="--current (-c)", value="Displays the current XKCD issue.", inline=False
+    )
+    await msg.channel.send(embed=embed)
+
 
 def get_issue(num):
     url = HOST + str(num) + "/"

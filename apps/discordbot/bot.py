@@ -1,14 +1,16 @@
+import asyncio
 import logging
 import threading
-import asyncio
 import unicodedata
-from decouple import config
+
 import discord
-from . import xkcd
+from decouple import config
 from discord.utils import get
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+
 from .utils import send_verify_mail
+from . import xkcd
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -22,17 +24,15 @@ TIMEOUT_SECS = 10
 
 logger = logging.getLogger(__name__)
 
+
 class CSUAClient(discord.Client):
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
         self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
         if self.is_phillip:
-            print("Phillip is in the Office")
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
-            # if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
-            #     await self.test_channel.send("booting up successfully into phillip_debug channel")
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -63,7 +63,6 @@ class CSUAClient(discord.Client):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        # Reading rules and verification
         msg = message.content.lower()
         if "hkn" in msg and "ieee" in msg:
             await message.channel.send("Do I need to retrieve the stick?")
@@ -90,9 +89,9 @@ class CSUAClient(discord.Client):
             if xkcd.is_valid_xkcd_command(msg):
                 await xkcd.get_xkcd(message)
             else:
-                await message.channel.send("Please ensure that your command is properly formatted. Type `!xkcd -help` for more information.")
-
-
+                await message.channel.send(
+                    "Please ensure that your command is properly formatted. Type `!xkcd -help` for more information."
+                )
 
     async def on_member_join(self, member):
         msg = await member.send(
@@ -117,9 +116,6 @@ class CSUAClient(discord.Client):
 
 def emoji_letters(chars):
     return [unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}") for c in chars]
-
-
-
 
 
 class CSUABot:
