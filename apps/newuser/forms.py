@@ -20,7 +20,7 @@ def validate_username_not_in_use(value):
 
 
 class RemoteEmailRequestForm(forms.Form):
-    email = forms.CharField(label="Email")
+    email = forms.EmailField(label="Email")
 
 
 class NewUserForm(forms.Form):
