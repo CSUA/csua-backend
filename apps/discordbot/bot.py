@@ -86,6 +86,11 @@ class CSUAClient(discord.Client):
             for emoji in emoji_letters("drip"):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
+        elif "oski" in msg:
+            for emoji in emoji_letters("oski"):
+                await message.add_reaction(emoji)
+            await message.add_reaction("😃")
+            await message.add_reaction("🐻")
         if "!xkcd" in msg:
             # Validate "!xkcd" command
             if xkcd.is_valid_xkcd_command(msg):
