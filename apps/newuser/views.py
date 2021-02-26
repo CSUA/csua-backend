@@ -153,7 +153,7 @@ def request_remote_newuser(request):
                 else:
                     messages.error(
                         request,
-                        "Email must be @berkeley.edu. If please contact us if this is an issue.",
+                        "Email must be @berkeley.edu. Please contact us if this is an issue.",
                     )
             else:
                 messages.error(request, "Email exists in system!")
