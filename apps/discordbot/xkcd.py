@@ -19,12 +19,11 @@ MIN_ARGUMENT_LENGTH = 2
 
 def is_valid_xkcd_command(msg):
     """ Returns whether msg contains an valid request. """
-
     arguments = msg.split()
     if len(arguments) > MAX_ARGUMENT_LENGTH or len(arguments) < MIN_ARGUMENT_LENGTH:
         return False
     elif arguments[1] in VALID_XKCD_COMMANDS:
-        if arguments[1] == "-issue" or arguments[1] == "-i":
+        if arguments[1] == "--issue" or arguments[1] == "-i":
             return len(arguments) == 3 and arguments[2].isdigit()
         else:
             return len(arguments) == 2
@@ -41,7 +40,8 @@ async def get_xkcd(message):
     cmd = msg[1]
     comic = None
 
-    if cmd == "-help" or cmd == "-h":
+    if cmd == "--help" or cmd == "-h":
+
         await display_help(message)
         return
 
@@ -70,6 +70,7 @@ async def display(metadata, msg):
         await msg.channel.send(embed=embed)
 
 
+
 async def display_help(msg):
     embed = discord.Embed(title="'!xkcd' Command Help")
     embed.add_field(
@@ -85,6 +86,7 @@ async def display_help(msg):
         name="--current (-c)", value="Displays the current XKCD issue.", inline=False
     )
     await msg.channel.send(embed=embed)
+
 
 
 def get_issue(num):
