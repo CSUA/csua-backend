@@ -70,7 +70,6 @@ async def display(metadata, msg):
         await msg.channel.send(embed=embed)
 
 
-
 async def display_help(msg):
     embed = discord.Embed(title="'!xkcd' Command Help")
     embed.add_field(
@@ -86,7 +85,6 @@ async def display_help(msg):
         name="--current (-c)", value="Displays the current XKCD issue.", inline=False
     )
     await msg.channel.send(embed=embed)
-
 
 
 def get_issue(num):
