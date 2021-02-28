@@ -2,13 +2,18 @@ import logging
 import threading
 import asyncio
 import unicodedata
+import time
 from decouple import config
 import discord
+from discord import channel
+from discord.embeds import Embed
 from discord.utils import get
+from discord.ext import tasks, commands
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from .utils import send_verify_mail
+from .annoucements import event_checker
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -35,6 +40,7 @@ class CSUAClient(discord.Client):
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
             # if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
             #     await self.test_channel.send("booting up successfully into phillip_debug channel")
+        event_checker()
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -117,6 +123,8 @@ class CSUAClient(discord.Client):
         if self.is_phillip:
             await self.test_channel.send(f"{member} was sent registration email")
 
+    
+
 
 def emoji_letters(chars):
     return [unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}") for c in chars]
@@ -135,13 +143,14 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
+        self.announcements_thread = threading.Thread(target=self.event_announcement, daemon=True)
         self.running = True
         self.thread.start()
 
     def _start(self):
         asyncio.set_event_loop(self.loop)
         self.client = CSUAClient(intents=intents)
-
+        self.announcements_thread.start()
         try:
             self.loop.run_until_complete(self.client.start(TOKEN))
         finally:
@@ -163,6 +172,28 @@ class CSUABot:
             return True
         return False
 
+    def event_announcement(self):
+        # for debugging
+        msg_channel = self.client.get_channel(805590450136154125)
+        print('hey hey hey time to check')
+
+        while True:
+            time.sleep(10)
+            print('it worked?!?!')
+            events = event_checker()
+            for event in events:
+                embed = discord.Embed(
+                    title=event.name,
+                    description=event.description,
+                    colour=discord.Colour.red()
+                )
+                embed.add_field(name='Date', value=event.date, inline=True)
+                embed.add_field(name='Time', value=event.time)
+                embed.add_field(name='Link', value=event.link)
+                asyncio.run_coroutine_threadsafe(
+                    self.client.get_channel(805590450136154125).send(embed=embed), self.loop
+                ).result(TIMEOUT_SECS)
+                
 
 if TOKEN:
     csua_bot = CSUABot()
