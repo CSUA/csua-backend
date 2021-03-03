@@ -141,7 +141,7 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
-        self.running = True
+        self.running  = True
         self.thread.start()
 
     def _start(self):
