@@ -20,6 +20,7 @@ class TestCSUAClient(TestCase):
         )
         self.check_message(cpmacpma, reactions=emoji_letters("wtfiscpma"))
         self.check_message("we drippin", reactions=emoji_letters("drip") + ["👟"])
+        self.check_message("oski", reactions = emoji_letters("oski") + ["😃"] + ["🐻"])
         self.check_message("plain ol msg")
         # TODO the rest of them
 
