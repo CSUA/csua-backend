@@ -5,6 +5,7 @@ from django.test import TestCase
 from unittest.mock import Mock, MagicMock, call
 
 from pyfiglet import figlet_format
+import cowpy
 
 
 from .bot import CSUAClient, emoji_letters
@@ -20,7 +21,7 @@ class TestCSUAClient(TestCase):
         )
         self.check_message(cpmacpma, reactions=emoji_letters("wtfiscpma"))
         self.check_message("we drippin", reactions=emoji_letters("drip") + ["👟"])
-        self.check_message("oski", reactions = emoji_letters("oski") + ["😃"] + ["🐻"])
+        self.check_message("oski", reactions=emoji_letters("oski") + ["😃"] + ["🐻"])
         self.check_message("plain ol msg")
         # TODO the rest of them
 
@@ -34,6 +35,10 @@ class TestCSUAClient(TestCase):
             f"!figlet {'A'*20000}", replies=["!figlet: Message too long"]
         )
         self.check_message(f"!figlet {'A'*199}", replies=["!figlet: Message too long"])
+
+    def test_cowsay(self):
+        response = cowpy.cow.Cowacter().milk("test")
+        self.check_message("!cowsay test", replies=[f"```{response}```"])
 
     def check_message(self, message, replies=None, reactions=None):
         replies = replies or []

@@ -11,7 +11,7 @@ from django.core.exceptions import ValidationError
 from pyfiglet import figlet_format
 
 from .utils import send_verify_mail
-from . import xkcd
+from . import xkcd, cowsay
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -109,6 +109,9 @@ class CSUAClient(discord.Client):
                 await message.channel.send("!figlet: Message too long")
                 return
             await message.channel.send(f"```{formatted}```")
+
+        if message.content.startswith("!cowsay "):
+            await cowsay.handle(message)
 
     async def on_member_join(self, member):
         msg = await member.send(
