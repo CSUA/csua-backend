@@ -2,13 +2,11 @@ import logging
 import threading
 import asyncio
 import unicodedata
-import time
+import datetime, schedule, time
 from decouple import config
 import discord
-from discord import channel
 from discord.embeds import Embed
 from discord.utils import get
-from discord.ext import tasks, commands
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
@@ -40,7 +38,6 @@ class CSUAClient(discord.Client):
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
             # if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
             #     await self.test_channel.send("booting up successfully into phillip_debug channel")
-        event_checker()
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -175,24 +172,47 @@ class CSUABot:
     def event_announcement(self):
         # for debugging
         msg_channel = self.client.get_channel(805590450136154125)
-        print('hey hey hey time to check')
+        
+        times_msg = {
+            "week": "NEXT WEEK",
+            "today": "TODAY",
+            "hour": "IN 1 HOUR",
+            "now": "NOW"
+        }
+        
+        def announcer(time_before):
+            msg = f"**What's happening {times_msg[time_before]}**"
+            asyncio.run_coroutine_threadsafe(
+                    self.client.get_channel(805590450136154125).send(msg), self.loop
+                ).result(TIMEOUT_SECS)
+            print('hey hey hey time to check')
 
-        while True:
-            time.sleep(10)
-            print('it worked?!?!')
-            events = event_checker()
+            events = event_checker(time_before)
+            send_embed(events)
+        
+        def send_embed(events):
             for event in events:
                 embed = discord.Embed(
-                    title=event.name,
+                    title=f"[{event.name}]({event.link})",
                     description=event.description,
                     colour=discord.Colour.red()
                 )
                 embed.add_field(name='Date', value=event.date, inline=True)
                 embed.add_field(name='Time', value=event.time)
-                embed.add_field(name='Link', value=event.link)
+                # embed.add_field(name='Link', value=event.link)
                 asyncio.run_coroutine_threadsafe(
                     self.client.get_channel(805590450136154125).send(embed=embed), self.loop
                 ).result(TIMEOUT_SECS)
+
+        schedule.every(2).seconds.do(announcer("today"))
+
+        # schedule.every().day.at("8:00").do(daily_announce)
+
+        while True:
+            schedule.run_pending()
+            print('it worked?!?!')
+            time.sleep(5)
+            
                 
 
 if TOKEN:

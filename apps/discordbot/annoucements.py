@@ -114,10 +114,24 @@ class USTimeZone(datetime.tzinfo):
             # Daylight savings time
             return dst_time
 
-def event_checker():
+def event_checker(requested_tdelta):
     """
     Checks events in db to see if any match the day
     """
     today = datetime.date.today()
-    events = Event.objects.filter(date=today).order_by("time")
+    days = {
+            "week": None,
+            "tomorrow": today + datetime.timedelta(days=1),
+            "today": today,
+            "hour": today,
+            "now": today
+        }
+    times = {
+            "week": None,
+            "tomorrow": today + datetime.timedelta(days=1),
+            "today": today,
+            "hour": today,
+            "now": today
+        }
+    events = Event.objects.filter(date=times[requested_tdelta]).order_by("time")
     return events

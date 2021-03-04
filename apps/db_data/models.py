@@ -169,7 +169,7 @@ class Event(models.Model):
     name = models.CharField(max_length=70)
     location = models.CharField(max_length=70)
     date = models.DateField(null=True)
-    time = models.CharField(max_length=70)
+    time = models.TimeField(null=True)
     description = models.TextField()
     link = models.URLField(blank=True)
     category = models.ForeignKey(
@@ -186,6 +186,9 @@ class Event(models.Model):
     @property
     def is_passed(self):
         return self.date < datetime.date.today()
+
+    def get_time_string(self):
+        print(datetime.time.strftime(self.time))
 
 
 class EventCategory(models.Model):
