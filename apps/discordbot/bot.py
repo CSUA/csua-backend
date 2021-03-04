@@ -6,8 +6,8 @@ import unicodedata
 import discord
 from decouple import config
 from discord.utils import get
-from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from pyfiglet import figlet_format
 
 from . import connect4, cowsay, xkcd

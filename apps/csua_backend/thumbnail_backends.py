@@ -1,9 +1,11 @@
 # from http://blog.yawd.eu/2012/seo-friendly-image-names-sorl-thumbnail-and-django/
-import os, re
+import os
+import re
 from urllib.parse import urlparse
-from sorl.thumbnail.base import ThumbnailBackend
-from django.template.defaultfilters import slugify
+
 from django.conf import settings
+from django.template.defaultfilters import slugify
+from sorl.thumbnail.base import ThumbnailBackend
 
 
 class SEOThumbnailBackend(ThumbnailBackend):

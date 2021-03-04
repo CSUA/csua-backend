@@ -1,8 +1,7 @@
-from django.core.files.storage import FileSystemStorage
-from django.conf import settings
 from django import template
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode
-
 
 register = template.Library()
 

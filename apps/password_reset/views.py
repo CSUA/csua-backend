@@ -1,23 +1,22 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.decorators.http import require_POST
+from django import forms
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import Context
+from django.template.loader import render_to_string
 
 # this is for testing purposes
 from django.test import override_settings
-from django import forms
-from django.core.mail import send_mail
-from django.shortcuts import render, redirect
-from django.views import View
 from django.urls import reverse
 from django.utils.html import strip_tags
-from django.template import Context
-from django.template.loader import render_to_string
-from django.contrib import messages
+from django.views import View
+from django.views.decorators.http import require_POST
 
-from .tokens import account_activation_token
 from apps.ldap.utils import change_password, get_user_email, user_exists
 from apps.newuser.utils import valid_password
+
+from .tokens import account_activation_token
 
 REDIRECT = "/"
 

@@ -1,8 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .utils import valid_password
 from apps.ldap.utils import user_exists
+
+from .utils import valid_password
 
 usernameWhitelist = set(".-_")
 

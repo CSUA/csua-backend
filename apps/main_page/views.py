@@ -1,8 +1,7 @@
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
-from django.views.generic.base import TemplateView
-from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
-
+from django.views.generic.base import TemplateView
 from ldap3 import Connection
 from ldap3.utils.conv import escape_filter_chars
 

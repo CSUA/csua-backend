@@ -1,8 +1,8 @@
-from django.http import HttpResponseRedirect
-from django.contrib.redirects.middleware import RedirectFallbackMiddleware
 from django.conf import settings
+from django.contrib.redirects.middleware import RedirectFallbackMiddleware
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponseRedirect
 
 
 class TemporaryRedirectFallbackMiddleware(RedirectFallbackMiddleware):

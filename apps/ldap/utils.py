@@ -9,13 +9,12 @@ be refactored to be methods on a custom Connection object but I am lazy.
 import hashlib
 import string
 from base64 import b64encode
-from random import choice
 from contextlib import contextmanager
 from datetime import datetime, timedelta
+from random import choice
 
-from django.http import Http404
 from decouple import config
-
+from django.http import Http404
 from ldap3 import (
     ALL_ATTRIBUTES,
     MODIFY_ADD,
@@ -25,7 +24,6 @@ from ldap3 import (
     Connection,
     Server,
 )
-
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
 LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=1)

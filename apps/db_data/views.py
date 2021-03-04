@@ -1,31 +1,33 @@
-import datetime
 import codecs
+import datetime
 from collections import defaultdict
 
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.views.generic.base import TemplateView
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_safe
-from django.urls import reverse
-from django.contrib.admin.views.decorators import staff_member_required
+from django.views.generic.base import TemplateView
 
-from .models import (
-    Notice,
-    Event,
-    Officer,
-    Politburo,
-    Person,
-    Sponsor,
-    Sponsorship,
-    Semester,
-    Officership,
-    PolitburoMembership,
-    UcbClass,
-)
+from apps.ldap.utils import add_officer, is_officer, is_root, user_exists
+
 from .constants import DAYS_OF_WEEK, OH_TIMES
 from .forms import OfficerCreationForm
-from apps.ldap.utils import user_exists, is_root, add_officer, is_officer
+from .models import (
+    Event,
+    Notice,
+    Officer,
+    Officership,
+    Person,
+    Politburo,
+    PolitburoMembership,
+    Semester,
+    Sponsor,
+    Sponsorship,
+    UcbClass,
+)
+
 
 # @cache_page(3 * 60)
 def officers(request, semester_id=None):
