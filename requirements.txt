@@ -15,3 +15,6 @@ slack_bolt
 # apps.discordbot
 discord.py
 pyfiglet
+
+# Developer tools
+pre-commit
