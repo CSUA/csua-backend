@@ -1,6 +1,7 @@
-import requests
-import discord
+import json
 import random
+
+import discord
 
 HOST = "http://xkcd.com/"
 VALID_XKCD_COMMANDS = [

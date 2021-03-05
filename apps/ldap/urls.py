@@ -1,6 +1,5 @@
 from django.urls import include, path
 from django.conf.urls.static import static
-from django.contrib import admin
 
 from . import views
 from .admin_views import admin, admin_group, admin_user, admin_validate

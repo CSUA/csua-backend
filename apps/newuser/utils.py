@@ -7,7 +7,7 @@ def valid_password(password):
   -numerical
   -punctuation/other
   """
-    punctuation = set("""!@#$%^&*()_+|~-=\`{}[]:";'<>?,./""")
+    punctuation = set("""!@#$%^&*()_+|~-=\\`{}[]:";'<>?,./""")
     alpha = False
     num = False
     punct = False
