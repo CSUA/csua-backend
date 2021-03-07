@@ -154,13 +154,14 @@ class CSUABot:
     `asyncio.run_coroutine_threadsafe` because the client is running inside an
     event loop in a separate thread. Event loops are one per-thread, and Django
     can't handle async code, so a separate thread is used instead.
+
+    CSUABot.thread is started in apps/csua_backend/wsgi.py, so that it doesn't
+    run during other django commands such as migrate, test etc.
     """
 
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
-        self.running = True
-        self.thread.start()
 
     def _start(self):
         asyncio.set_event_loop(self.loop)
