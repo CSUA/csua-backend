@@ -10,8 +10,8 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from pyfiglet import figlet_format
 
+from . import connect4, cowsay, xkcd
 from .utils import send_verify_mail
-from . import xkcd, cowsay
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -112,6 +112,14 @@ class CSUAClient(discord.Client):
 
         if message.content.startswith("!cowsay "):
             await cowsay.handle(message)
+
+        if message.content.startswith("!c4") or message.content.startswith(
+            "!connectfour"
+        ):
+            await connect4.on_message(self, message)
+
+    async def on_raw_reaction_add(self, event):
+        await connect4.on_raw_reaction_add(self, event)
 
     async def on_member_join(self, member):
         msg = await member.send(
