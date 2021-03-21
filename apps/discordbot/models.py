@@ -15,4 +15,4 @@ class ConnectFourGame(models.Model):
     player2 = models.IntegerField()
     is_player1_turn = models.BooleanField(default=True)
     winner = models.IntegerField(null=True, blank=True)
-    state = models.CharField(max_length=255)
+    state = models.TextField()

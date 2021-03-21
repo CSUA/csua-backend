@@ -98,9 +98,9 @@ class ConnectFourTest(TestCase):
             }[msg_id]
         )
         self.mock_emoji_zero = Mock()
-        self.mock_emoji_zero.name = connect4.NUMBERS[0]
+        self.mock_emoji_zero.name = connect4.NUMBERS_EMOJI[0]
         self.mock_emoji_one = Mock()
-        self.mock_emoji_one.name = connect4.NUMBERS[1]
+        self.mock_emoji_one.name = connect4.NUMBERS_EMOJI[1]
         self.mock_fetch_channel = patch.object(
             CSUAClient, "fetch_channel", new_callable=AsyncMock
         ).start()
@@ -115,7 +115,7 @@ class ConnectFourTest(TestCase):
         self.mock_bot_user = patch.object(CSUAClient, "user", Mock(id=101010)).start()
 
     def test_e2e_simple(self):
-        """Start a game, play it, and ensure that the game in the database is update"""
+        """Start a game, play it, and ensure that the game in the database is updated"""
         self.loop.run_until_complete(
             self.discord_client.on_message(self.mock_initial_message)
         )
@@ -138,6 +138,12 @@ class ConnectFourTest(TestCase):
         game = ConnectFourGame.objects.get(message_id=self.mock_game_message_id)
         self.assertEqual(game.winner, 1)
         self.assertEqual(self.mock_game_message.remove_reaction.call_count, 7)
+
+        # Make sure we don't store any emoji in the SQL database, because MySQL can't handle it
+        try:
+            game.state.encode("ascii")
+        except UnicodeDecodeError:
+            self.fail("Game state contains non-ascii characters")
 
 
 cpmacpma = """

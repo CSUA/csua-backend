@@ -6,12 +6,17 @@ import discord
 
 from .models import ConnectFourGame
 
+# Some emoji aren't in unicodedata, so the literal emoji are here
 BLUE_SQUARE = "🟦"
-RED_CIRCLE = unicodedata.lookup("large red circle")
-NUMBERS = [f"{i}\N{COMBINING ENCLOSING KEYCAP}" for i in range(7)]
+NUMBERS_PLAINTEXT = [f"[{i}]" for i in range(7)]
+NUMBERS_EMOJI = [f"{i}\N{COMBINING ENCLOSING KEYCAP}" for i in range(7)]
+RED_CIRCLE = unicodedata.lookup("LARGE RED CIRCLE")
 YELLOW_CIRCLE = "🟡"
-BELL = unicodedata.lookup("bell")
-DOWN_ARROW = unicodedata.lookup("downwards black arrow")
+RED = "R"
+YELLOW = "Y"
+BLUE = "_"
+BELL = unicodedata.lookup("BELL")
+DOWN_ARROW = unicodedata.lookup("DOWNWARDS BLACK ARROW")
 DOWN_ARROW_2 = "⬇️"
 
 
@@ -21,24 +26,19 @@ async def on_message(client, message):
         await message.channel.send("Usage: !connectfour @opponent")
         return
     opponent_id = message.mentions[0].id
-    new_game = "\n".join(
-        [
-            f"Connect Four game between {message.author.mention}({RED_CIRCLE}) "
-            f"and {message.mentions[0].mention}({YELLOW_CIRCLE})",
-            "\n".join([BLUE_SQUARE * 7 for i in range(6)]),
-            "".join(NUMBERS),
-            f"{RED_CIRCLE} {message.author.mention} to move",
-        ]
-    )
-    m = await message.channel.send(new_game)
+    new_board = Board.new(player1=message.author, player2=message.mentions[0])
+    m = await message.channel.send(new_board.get_message())
     await add_reaccs(m)
     game = ConnectFourGame.objects.create(
-        message_id=m.id, player1=message.author.id, player2=opponent_id, state=new_game
+        message_id=m.id,
+        player1=message.author.id,
+        player2=opponent_id,
+        state=new_board.get_state(),
     )
 
 
 async def add_reaccs(message):
-    for num in NUMBERS:
+    for num in NUMBERS_EMOJI:
         await message.add_reaction(num)
     await message.add_reaction(DOWN_ARROW)
     await message.add_reaction(BELL)
@@ -65,10 +65,10 @@ async def handle_event(client, game, event, message):
             dm_channel = await user.create_dm()
         await dm_channel.send(f"It's your turn in connect 4!: {message.jump_url}")
         return
-    if event.emoji.name in NUMBERS:
-        column = NUMBERS.index(event.emoji.name)
-        board = Board(game.state)
-        color = RED_CIRCLE if game.is_player1_turn else YELLOW_CIRCLE
+    if event.emoji.name in NUMBERS_EMOJI:
+        column = NUMBERS_EMOJI.index(event.emoji.name)
+        board = Board.from_state(game.state)
+        color = RED if game.is_player1_turn else YELLOW
         if board.try_move(column, color):
             game.winner = board.get_winner()
             game.is_player1_turn = not game.is_player1_turn
@@ -79,20 +79,20 @@ async def handle_event(client, game, event, message):
                 winner_user = await client.fetch_user(
                     game.player1 if game.winner == 1 else game.player2
                 )
-                color = RED_CIRCLE if game.winner == 1 else YELLOW_CIRCLE
-                board.footer = f"{color} {winner_user.mention} won!"
+                color = RED if game.winner == 1 else YELLOW
+                board.set_win_footer(winner_user, color)
             else:
-                color = RED_CIRCLE if game.is_player1_turn else YELLOW_CIRCLE
-                board.footer = f"{color} {user.mention} to move"
+                color = RED if game.is_player1_turn else YELLOW
+                board.set_footer(user, color)
             game.state = board.get_state()
             game.save()
-            await message.edit(content=game.state)
+            await message.edit(content=board.get_message())
 
 
 async def on_raw_reaction_add(client, event):
     try:
         if event.user_id != client.user.id and (
-            event.emoji.name in NUMBERS
+            event.emoji.name in NUMBERS_EMOJI
             or event.emoji.name in [DOWN_ARROW, DOWN_ARROW_2, BELL]
         ):
             channel = await client.fetch_channel(event.channel_id)
@@ -108,20 +108,54 @@ async def on_raw_reaction_add(client, event):
 
 
 class Board:
-    def __init__(self, state):
+    @staticmethod
+    def new(player1, player2):
+        b = Board()
+        b.header = (
+            f"Connect Four game between {player1.mention}({RED}) "
+            f"and {player2.mention}({YELLOW})"
+        )
+        b.rows = [BLUE * 7 for _ in range(6)]
+        b.number_line = "".join(NUMBERS_PLAINTEXT)
+        b.set_footer(player1, RED)
+        return b
+
+    @staticmethod
+    def from_state(state):
+        b = Board()
         lines = state.split("\n")
-        self.header = lines[0]
-        self.rows = lines[1:7]
-        self.number_line = lines[7]
-        self.footer = lines[8]
+        b.header = lines[0]
+        b.rows = lines[1:7]
+        b.number_line = lines[7]
+        b.footer = lines[8]
+        return b
+
+    def set_footer(self, user: discord.User, color):
+        self.footer = f"{color} {user.mention} to move"
+
+    def set_win_footer(self, user: discord.User, color):
+        self.footer = f"{color} {user.mention} won!"
 
     def get_state(self):
+        """Serialize this Board object a string to store in the Game.state field"""
         return "\n".join([self.header] + self.rows + [self.number_line, self.footer])
+
+    def get_message(self):
+        """Get a string to display this Board to the user via Discord message"""
+        message = (
+            self.get_state()
+            .replace(BLUE, BLUE_SQUARE)
+            .replace(RED, RED_CIRCLE)
+            .replace(YELLOW, YELLOW_CIRCLE)
+        )
+        for plaintext, emoji in zip(NUMBERS_PLAINTEXT, NUMBERS_EMOJI):
+            message = message.replace(plaintext, emoji)
+        return message
 
     def try_move(self, column, color):
         valid_move = False
         for i in range(5, -1, -1):
-            if self.rows[i][column] == BLUE_SQUARE:
+            if self.rows[i][column] == BLUE:
                 row = list(self.rows[i])
                 row[column] = color
                 self.rows[i] = "".join(row)
@@ -141,8 +175,8 @@ class Board:
                     rows[5 - i][offset + i] for i in range(6) if 0 <= offset + i < 7
                 )
             )
-        red_win = RED_CIRCLE * 4
-        yellow_win = YELLOW_CIRCLE * 4
+        red_win = RED * 4
+        yellow_win = YELLOW * 4
         if any(red_win in check for check in rows + columns + diagonals):
             return 1
         if any(yellow_win in check for check in rows + columns + diagonals):
