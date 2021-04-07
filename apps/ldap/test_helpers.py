@@ -2,9 +2,9 @@ import os
 import unittest
 from unittest.mock import patch
 
+import ldap3
 from django.conf import settings
 from django.test import TestCase
-import ldap3
 
 from .utils import NEWUSER_DN
 

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import admin
 
+from .constants import DAYS_OF_WEEK, OH_CHOICES, OH_TIMES
 from .models import (
     Event,
     EventCategory,
@@ -10,12 +11,11 @@ from .models import (
     Person,
     Politburo,
     PolitburoMembership,
+    Semester,
     Sponsor,
     Sponsorship,
-    Semester,
     UcbClass,
 )
-from .constants import DAYS_OF_WEEK, OH_TIMES, OH_CHOICES
 
 admin.site.site_header = "CSUA Django Administration"
 admin.site.site_title = "CSUA Administration"

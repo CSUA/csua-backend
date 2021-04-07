@@ -1,4 +1,5 @@
 import textwrap
+
 import discord
 from cowpy import cow
 

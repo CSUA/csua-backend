@@ -4,17 +4,18 @@ https://github.com/StackFocus/PostMaster/blob/master/tests/ad/test_ad_class.py
 Which I based some of this code off of
 --robertquitt
 """
-import unittest
 import os
+import unittest
 from datetime import datetime
 
-from django.test import TestCase
-from django.conf import settings
 import ldap3
+from django.conf import settings
+from django.test import TestCase
 
-from .utils import NEWUSER_DN
 import apps.ldap.utils as utils
 from apps.ldap.test_helpers import LDAPTestCase
+
+from .utils import NEWUSER_DN
 
 
 class LdapBindingsTest(LDAPTestCase):

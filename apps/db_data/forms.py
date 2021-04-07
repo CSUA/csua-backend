@@ -1,7 +1,8 @@
 from django import forms
 
-from .constants import OH_CHOICES
 from apps.ldap.utils import user_exists
+
+from .constants import OH_CHOICES
 
 
 class OfficerCreationForm(forms.Form):

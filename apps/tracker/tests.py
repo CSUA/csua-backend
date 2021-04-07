@@ -1,9 +1,10 @@
-from django.test import TestCase, Client
-from django.http import HttpRequest
-
-import apps.tracker.views as views
 import time
+
+from django.http import HttpRequest
+from django.test import Client, TestCase
+
 import apps.tracker.client as client
+import apps.tracker.views as views
 
 
 class ViewsSanityTest(TestCase):

@@ -1,5 +1,6 @@
-from logging import StreamHandler, Formatter
-from .client import app, SLACK_BOT_USER_TOKEN
+from logging import Formatter, StreamHandler
+
+from .client import SLACK_BOT_USER_TOKEN, app
 
 CSUA_PHILBOT_TESTING_CHANNEL_ID = "CCU09PNGL"
 CSUA_WEBSITE_UPDATES_CHANNEL_ID = "CG49A3UF8"

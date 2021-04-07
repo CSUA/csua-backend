@@ -2,11 +2,9 @@ import asyncio
 import json
 from unittest.mock import MagicMock, Mock, call, patch
 
-from django.test import TestCase
-
-from pyfiglet import figlet_format
 import cowpy
-
+from django.test import TestCase
+from pyfiglet import figlet_format
 
 from . import connect4
 from .bot import CSUAClient, emoji_letters

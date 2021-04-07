@@ -2,9 +2,10 @@
 Run at project root:
 python manage.py shell < apps/ldap/shell_tests/input.py > apps/ldap/shell_tests/output
 """
-from apps.ldap.utils import get_user_creation_time
-from apps.ldap import utils
 from datetime import datetime, timezone
+
+from apps.ldap import utils
+from apps.ldap.utils import get_user_creation_time
 
 dt_now = datetime.now(timezone.utc)
 print("Current time:", dt_now)
