@@ -22,6 +22,9 @@ def event_checker(requested_tdelta):
                     .filter(date=today, time__lte=times[requested_tdelta]) \
                     .filter(time__gte=now) \
                     .order_by("time")
+    elif requested_tdelta == "week":
+        events = Event.objects.filter(
+            date__lte=days[requested_tdelta]).filter(date__gte=today).order_by("time")
     else:
         events = Event.objects.filter(date=days[requested_tdelta]).order_by("time")
     return events

@@ -210,10 +210,18 @@ class CSUABot:
                 ).result(TIMEOUT_SECS)
 
         
+        schedule.every().sunday.at("17:00").do(partial(announcer, "week"))
         schedule.every().day.at("08:00").do(partial(announcer, "tomorrow"))
         schedule.every().day.at("08:00").do(partial(announcer, "today"))
         schedule.every().hour.do(partial(announcer, "hour"))
         schedule.every(30).minutes.do(partial(announcer, "now"))
+
+        # For debugging
+        # schedule.every(10).seconds.do(partial(announcer, "week"))
+        # schedule.every(10).seconds.do(partial(announcer, "tomorrow"))
+        # schedule.every(10).seconds.do(partial(announcer, "today"))
+        # schedule.every(10).seconds.do(partial(announcer, "hour"))
+        # schedule.every(10).seconds.do(partial(announcer, "now"))
 
         while True:
             schedule.run_pending()
