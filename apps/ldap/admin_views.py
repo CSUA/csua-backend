@@ -1,27 +1,27 @@
 from django import forms
-from django.shortcuts import render
-from django.urls import reverse
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+
+from apps.db_data.models import (
+    Officer,
+    Officership,
+    Politburo,
+    PolitburoMembership,
+    Semester,
+)
 
 from .utils import (
     add_group_member,
-    remove_group_members,
     get_all_groups,
     get_group_members,
     get_officers,
-    get_user_gecos,
     get_user_creation_time,
+    get_user_gecos,
+    remove_group_members,
     user_exists,
-)
-
-from apps.db_data.models import (
-    Semester,
-    PolitburoMembership,
-    Politburo,
-    Officer,
-    Officership,
 )
 
 

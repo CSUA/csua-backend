@@ -1,6 +1,6 @@
+import asyncio
 import logging
 import threading
-import asyncio
 import unicodedata
 from functools import partial
 import datetime, schedule, time
@@ -8,9 +8,11 @@ from decouple import config
 import discord
 from discord.embeds import Embed
 from discord.utils import get
-from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from pyfiglet import figlet_format
 
+from . import connect4, cowsay, xkcd
 from .utils import send_verify_mail
 from .annoucements import event_checker
 
@@ -24,7 +26,6 @@ HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Ver
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 ANNOUNCEMENTS_CHANNEL_ID = config("ANNOUNCEMENTS_CHANNEL", default=784902200102354989, cast=int) # set to chatter for testing
 TIMEOUT_SECS = 10
-ANI_NRUSIMHA_ID = 168539105704017920
 
 logger = logging.getLogger(__name__)
 
@@ -36,12 +37,9 @@ class CSUAClient(discord.Client):
         csua_bot.announcements_thread = threading.Thread(target=csua_bot.event_announcement, daemon=True)
         csua_bot.announcements_thread.start()
         if self.is_phillip:
-            print("Phillip is in the Office")
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
-            # if self.csua_guild is not None and self.test_channel is not None and self.hoser_role is not None:
-            #     await self.test_channel.send("booting up successfully into phillip_debug channel")
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
@@ -59,21 +57,19 @@ class CSUAClient(discord.Client):
                     await channel.send(
                         f"Sending a an email to verify {user.name} to {msg.content}"
                     )
-                    send_verify_mail(msg.content, user.name)
+                    send_verify_mail(msg.content, user.name + "#" + user.discriminator)
                 else:
                     await channel.send(
                         f"{msg.content} is not a berkeley email. Please fix this"
                     )
             except ValidationError as e:
                 await channel.send(
-                    f"{msg.content} is not a valid email. Please try again. Details: ",
-                    e,
+                    f"{msg.content} is not a valid email. Please try again. Details: {e}"
                 )
 
     async def on_message(self, message):
         if message.author == self.user:
             return
-        # Reading rules and verification
         msg = message.content.lower()
         if "hkn" in msg and "ieee" in msg:
             await message.channel.send("Do I need to retrieve the stick?")
@@ -90,19 +86,46 @@ class CSUAClient(discord.Client):
             emoji = unicodedata.lookup(
                 "EVERGREEN TREE"
             )  # todo: add official <:tree:744335009002815609>
-  
             await message.add_reaction(emoji)
         elif "drip" in msg or "👟" in msg or "🥵" in msg:
             for emoji in emoji_letters("drip"):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
-        if message.author.id == ANI_NRUSIMHA_ID:
-            emoji = get(self.emojis, name="AniChamp")
-            if emoji:
+        elif "oski" in msg:
+            for emoji in emoji_letters("oski"):
                 await message.add_reaction(emoji)
+            await message.add_reaction("😃")
+            await message.add_reaction("🐻")
+        if "!xkcd" in msg:
+            # Validate "!xkcd" command
+            if xkcd.is_valid_xkcd_command(msg):
+                await xkcd.get_xkcd(message)
             else:
-                for emoji in emoji_letters("ANI"):
-                    await message.add_reaction(emoji)
+                await message.channel.send(
+                    "Please ensure that your command is properly formatted. Type `!xkcd -help` for more information."
+                )
+        if message.content.startswith("!figlet "):
+            text = message.content.split(" ", 1)[1]
+            if len(text) > 200:
+                await message.channel.send("!figlet: Message too long")
+                return
+            formatted = figlet_format(text)
+            # Discord has a 2000 character limit
+            if len(formatted) > 1994:
+                await message.channel.send("!figlet: Message too long")
+                return
+            await message.channel.send(f"```{formatted}```")
+
+        if message.content.startswith("!cowsay "):
+            await cowsay.handle(message)
+
+        if message.content.startswith("!c4") or message.content.startswith(
+            "!connectfour"
+        ):
+            await connect4.on_message(self, message)
+
+    async def on_raw_reaction_add(self, event):
+        await connect4.on_raw_reaction_add(self, event)
 
     async def on_member_join(self, member):
         msg = await member.send(
@@ -116,7 +139,7 @@ class CSUAClient(discord.Client):
         await self.wait_for("reaction_add", check=check_thumb)
         await self.test_channel.send(f"{member} read rules")
         await member.send(
-            "Verify your berkeley.edu email to gain access. First, pleast type your email. Please contact a moderator if you have any issues."
+            "Verify your berkeley.edu email to gain access. First, please type your email. Please contact a moderator if you have any issues."
         )
 
         await self.test_channel.send(f"{member} was prompted for email")
@@ -139,12 +162,14 @@ class CSUABot:
     `asyncio.run_coroutine_threadsafe` because the client is running inside an
     event loop in a separate thread. Event loops are one per-thread, and Django
     can't handle async code, so a separate thread is used instead.
+
+    CSUABot.thread is started in apps/csua_backend/wsgi.py, so that it doesn't
+    run during other django commands such as migrate, test etc.
     """
 
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
-        
         self.running = True
         self.thread.start()
 

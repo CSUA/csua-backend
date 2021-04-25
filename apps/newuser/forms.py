@@ -1,8 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .utils import valid_password
 from apps.ldap.utils import user_exists
+
+from .utils import valid_password
 
 usernameWhitelist = set(".-_")
 
@@ -20,7 +21,7 @@ def validate_username_not_in_use(value):
 
 
 class RemoteEmailRequestForm(forms.Form):
-    email = forms.CharField(label="Email")
+    email = forms.EmailField(label="Email")
 
 
 class NewUserForm(forms.Form):

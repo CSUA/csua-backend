@@ -1,9 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
 from ldap3.utils.conv import escape_filter_chars
 
-from .utils import get_root, get_group_members, get_user_gecos, get_user_groups
+from .utils import get_group_members, get_root, get_user_gecos, get_user_groups
 
 
 def group(request, groupname=None):

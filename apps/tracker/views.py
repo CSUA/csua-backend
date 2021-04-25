@@ -1,15 +1,15 @@
 # Create your views here.
 import base64
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 from hashlib import sha512
 from json import loads
 from time import time
 
+from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.core import serializers
 
-from .models import User, Computer
+from .models import Computer, User
 
 n = 24758167959654528007156374531915464081839760935532218683689708649238085888673119
 e = 1792365660034190580552551249494619970913188709474773556763388672115404129751573

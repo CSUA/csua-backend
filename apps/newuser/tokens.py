@@ -1,6 +1,6 @@
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.crypto import salted_hmac
 from django.utils.http import int_to_base36
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 from apps.ldap.utils import email_exists
 

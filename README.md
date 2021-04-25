@@ -40,17 +40,30 @@ See [issues](https://github.com/CSUA/csua-backend/issues) for a list of TODOs.
 1. Install Python 3.6+
 2. Create venv `python3 -m venv venv`
 2. Install Django and dependencies with `venv/bin/pip3 install -r requirements.txt`
-3. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
-4. Set up local sqlite database with `venv/bin/python3 manage.py migrate`
-5. Run server with `venv/bin/python3 manage.py runserver`
+3. Install pre-commit with `venv/bin/pre-commit install`
+4. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
+5. Set up local sqlite database with `venv/bin/python3 manage.py migrate`
+6. Run server with `venv/bin/python3 manage.py runserver`
   * If on soda, you will have to run `venv/bin/python3 manage.py runserver 0.0.0.0:$PORT` where `$PORT` is between 8000 and 8999, and connect by going to `http://soda.berkeley.edu:$PORT`
-6. Navigate web browser to http://127.0.0.1:8000/
-7. Create admin user with `venv/bin/python3 manage.py createsuperuser`
+7. Navigate web browser to http://127.0.0.1:8000/
+8. Create admin user with `venv/bin/python3 manage.py createsuperuser`
     - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
 
 ### Installation (venv, automatic)
 
 If you're using GNU/Linux or OSX, use `bootstrap.sh`.
+
+### pre-commit and black
+
+[pre-commit][pre-commit] is a tool that picks up formatting and other issues before making a commit. It will automatically format your python code with [black][black]. This is so that the code is clean and consistent, making it easier to review.
+
+Additionally, I recommend you set up autoformatting with black on-save. If you use vim, you can add this to your .vimrc:
+```vimscript
+autocmd BufWritePost *.py silent exec "!black <afile>" | exec "redraw!"
+```
+
+[pre-commit]: https://pre-commit.com/
+[black]: https://black.readthedocs.io/en/stable/
 
 ## Making changes to database models
 
