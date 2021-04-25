@@ -188,7 +188,7 @@ class Event(models.Model):
         return self.date < datetime.date.today()
 
     def get_time_string(self):
-        print(datetime.time.strftime(self.time))
+        return self.time.strftime("%I:%M %p PST")
 
 
 class EventCategory(models.Model):

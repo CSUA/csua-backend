@@ -2,6 +2,7 @@ import logging
 import threading
 import asyncio
 import unicodedata
+from functools import partial
 import datetime, schedule, time
 from decouple import config
 import discord
@@ -31,6 +32,8 @@ class CSUAClient(discord.Client):
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
         self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
+        csua_bot.announcements_thread = threading.Thread(target=csua_bot.event_announcement, daemon=True)
+        csua_bot.announcements_thread.start()
         if self.is_phillip:
             print("Phillip is in the Office")
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
@@ -140,14 +143,13 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
-        self.announcements_thread = threading.Thread(target=self.event_announcement, daemon=True)
+        
         self.running = True
         self.thread.start()
 
     def _start(self):
         asyncio.set_event_loop(self.loop)
         self.client = CSUAClient(intents=intents)
-        self.announcements_thread.start()
         try:
             self.loop.run_until_complete(self.client.start(TOKEN))
         finally:
@@ -170,47 +172,51 @@ class CSUABot:
         return False
 
     def event_announcement(self):
-        # for debugging
-        msg_channel = self.client.get_channel(805590450136154125)
+        print('Announcements Thread started...')
         
         times_msg = {
             "week": "NEXT WEEK",
             "today": "TODAY",
+            "tomorrow": "TOMORROW",
             "hour": "IN 1 HOUR",
-            "now": "NOW"
+            "now": "NOW",
         }
         
         def announcer(time_before):
-            msg = f"**What's happening {times_msg[time_before]}**"
-            asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(805590450136154125).send(msg), self.loop
-                ).result(TIMEOUT_SECS)
-            print('hey hey hey time to check')
 
             events = event_checker(time_before)
-            send_embed(events)
+
+            if events:
+                msg = f"**What's happening {times_msg[time_before]}**"
+                asyncio.run_coroutine_threadsafe(
+                        self.client.get_channel(805590450136154125).send(msg), self.loop
+                    ).result(TIMEOUT_SECS)
+                print('hey hey hey time to check') # debugging
+
+                send_embed(events)
         
         def send_embed(events):
             for event in events:
                 embed = discord.Embed(
-                    title=f"[{event.name}]({event.link})",
+                    title=event.name,
                     description=event.description,
                     colour=discord.Colour.red()
                 )
                 embed.add_field(name='Date', value=event.date, inline=True)
-                embed.add_field(name='Time', value=event.time)
-                # embed.add_field(name='Link', value=event.link)
+                embed.add_field(name='Time', value=event.get_time_string())
+                embed.add_field(name='Link', value=event.link)
                 asyncio.run_coroutine_threadsafe(
                     self.client.get_channel(805590450136154125).send(embed=embed), self.loop
                 ).result(TIMEOUT_SECS)
 
-        schedule.every(2).seconds.do(announcer("today"))
-
-        # schedule.every().day.at("8:00").do(daily_announce)
+        
+        schedule.every().day.at("08:00").do(partial(announcer, "tomorrow"))
+        schedule.every().day.at("08:00").do(partial(announcer, "today"))
+        schedule.every().hour.do(partial(announcer, "hour"))
+        schedule.every(30).minutes.do(partial(announcer, "now"))
 
         while True:
             schedule.run_pending()
-            print('it worked?!?!')
             time.sleep(5)
             
                 
