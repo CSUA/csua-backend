@@ -22,6 +22,7 @@ CSUA_GUILD_ID = config("TEST_GUILD", default=784902200102354985, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
+ANNOUNCEMENTS_CHANNEL_ID = config("ANNOUNCEMENTS_CHANNEL", default=784902200102354989, cast=int) # set to chatter for testing
 TIMEOUT_SECS = 10
 ANI_NRUSIMHA_ID = 168539105704017920
 
@@ -189,7 +190,7 @@ class CSUABot:
             if events:
                 msg = f"**What's happening {times_msg[time_before]}**"
                 asyncio.run_coroutine_threadsafe(
-                        self.client.get_channel(805590450136154125).send(msg), self.loop
+                        self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(msg), self.loop
                     ).result(TIMEOUT_SECS)
                 print('hey hey hey time to check') # debugging
 
@@ -206,7 +207,7 @@ class CSUABot:
                 embed.add_field(name='Time', value=event.get_time_string())
                 embed.add_field(name='Link', value=event.link)
                 asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(805590450136154125).send(embed=embed), self.loop
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(embed=embed), self.loop
                 ).result(TIMEOUT_SECS)
 
         
