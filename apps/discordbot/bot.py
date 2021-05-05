@@ -118,7 +118,9 @@ class CSUAClient(discord.Client):
         ):
             await connect4.on_message(self, message)
         if "!cope" in msg:
-            await message.channel.send("https://cdn.discordapp.com/attachments/785419328131563530/836033002500522024/michael_cope.mp4")
+            await message.channel.send(
+                "https://cdn.discordapp.com/attachments/785419328131563530/836033002500522024/michael_cope.mp4"
+            )
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
