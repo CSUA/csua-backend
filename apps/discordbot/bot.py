@@ -2,9 +2,11 @@ import asyncio
 import logging
 import threading
 import unicodedata
-
-import discord
+from functools import partial
+import datetime, schedule, time
 from decouple import config
+import discord
+from discord.embeds import Embed
 from discord.utils import get
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
@@ -12,6 +14,7 @@ from pyfiglet import figlet_format
 
 from . import connect4, cowsay, xkcd
 from .utils import send_verify_mail
+from .annoucements import event_checker
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -21,6 +24,7 @@ CSUA_GUILD_ID = config("TEST_GUILD", default=784902200102354985, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
+ANNOUNCEMENTS_CHANNEL_ID = config("ANNOUNCEMENTS_CHANNEL", default=784902200102354989, cast=int) # set to chatter for testing
 TIMEOUT_SECS = 10
 
 logger = logging.getLogger(__name__)
@@ -30,6 +34,8 @@ class CSUAClient(discord.Client):
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
         self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
+        csua_bot.announcements_thread = threading.Thread(target=csua_bot.event_announcement, daemon=True)
+        csua_bot.announcements_thread.start()
         if self.is_phillip:
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
@@ -145,6 +151,8 @@ class CSUAClient(discord.Client):
         if self.is_phillip:
             await self.test_channel.send(f"{member} was sent registration email")
 
+    
+
 
 def emoji_letters(chars):
     return [unicodedata.lookup(f"REGIONAL INDICATOR SYMBOL LETTER {c}") for c in chars]
@@ -166,11 +174,12 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
+        self.running = True
+        self.thread.start()
 
     def _start(self):
         asyncio.set_event_loop(self.loop)
         self.client = CSUAClient(intents=intents)
-
         try:
             self.loop.run_until_complete(self.client.start(TOKEN))
         finally:
@@ -192,6 +201,63 @@ class CSUABot:
             return True
         return False
 
+    def event_announcement(self):
+        print('Announcements Thread started...')
+        
+        times_msg = {
+            "week": "NEXT WEEK",
+            "today": "TODAY",
+            "tomorrow": "TOMORROW",
+            "hour": "IN 1 HOUR",
+            "now": "NOW",
+        }
+        
+        def announcer(time_before):
+
+            events = event_checker(time_before)
+
+            if events:
+                msg = f"**What's happening {times_msg[time_before]}**"
+                asyncio.run_coroutine_threadsafe(
+                        self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(msg), self.loop
+                    ).result(TIMEOUT_SECS)
+                print('hey hey hey time to check') # debugging
+
+                send_embed(events)
+        
+        def send_embed(events):
+            for event in events:
+                embed = discord.Embed(
+                    title=event.name,
+                    description=event.description,
+                    colour=discord.Colour.red()
+                )
+                embed.add_field(name='Date', value=event.date, inline=True)
+                embed.add_field(name='Time', value=event.get_time_string())
+                embed.add_field(name='Link', value=event.link)
+                asyncio.run_coroutine_threadsafe(
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(embed=embed), self.loop
+                ).result(TIMEOUT_SECS)
+
+        
+        schedule.every().sunday.at("17:00").do(partial(announcer, "week"))
+        schedule.every().day.at("08:00").do(partial(announcer, "tomorrow"))
+        schedule.every().day.at("08:00").do(partial(announcer, "today"))
+        schedule.every().hour.do(partial(announcer, "hour"))
+        schedule.every(30).minutes.do(partial(announcer, "now"))
+
+        # For debugging
+        # schedule.every(10).seconds.do(partial(announcer, "week"))
+        # schedule.every(10).seconds.do(partial(announcer, "tomorrow"))
+        # schedule.every(10).seconds.do(partial(announcer, "today"))
+        # schedule.every(10).seconds.do(partial(announcer, "hour"))
+        # schedule.every(10).seconds.do(partial(announcer, "now"))
+
+        while True:
+            schedule.run_pending()
+            time.sleep(5)
+            
+                
 
 if TOKEN:
     csua_bot = CSUABot()
