@@ -129,7 +129,7 @@ See builds here: https://travis-ci.org/github/CSUA/csua-backend
 - The `gunicorn` process is managed by `systemd` and the service file is located at `/etc/systemd/system/csua-backend-gunicorn.service`
   - This service can be manipulated with `systemctl`
     - To reload the wsgi app, run `sudo systemctl reload csua-backend-gunicorn`
-- `tap` runs debian 9.8 (stretch), we are using Python 3.6.
+- `tap` runs debian 9.8 (stretch), we are using Python 3.9.
 - The app is behind an Nginx proxy.
   - Nginx serves the static and media files, homedirs, and forwards all other requests to the app.
   - <https://github.com/CSUA/services-nginx/blob/master/sites-available/www.csua.berkeley.edu>
