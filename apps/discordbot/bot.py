@@ -3,7 +3,7 @@ import threading
 import asyncio
 import unicodedata
 from functools import partial
-import datetime, schedule, time
+import schedule, time
 from decouple import config
 import discord
 from discord.embeds import Embed
@@ -12,7 +12,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from .utils import send_verify_mail
-from .annoucements import event_checker
+from .annoucements import get_events_in_date_or_time_delta
 
 intents = discord.Intents.all()
 intents.presences = False
@@ -23,6 +23,7 @@ CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
 ANNOUNCEMENTS_CHANNEL_ID = config("ANNOUNCEMENTS_CHANNEL", default=784902200102354989, cast=int) # set to chatter for testing
+ROY_TEST_SERVER_CHANNEL_ID = 805590450136154125
 TIMEOUT_SECS = 10
 ANI_NRUSIMHA_ID = 168539105704017920
 
@@ -144,9 +145,6 @@ class CSUABot:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         self.thread = threading.Thread(target=self._start, daemon=True)
-        
-        self.running = True
-        self.thread.start()
 
     def _start(self):
         asyncio.set_event_loop(self.loop)
@@ -174,7 +172,13 @@ class CSUABot:
 
     def event_announcement(self):
         print('Announcements Thread started...')
-        
+
+        WEEK = "week"
+        TOMORROW = "tomorrow"
+        TODAY = "today"
+        HOUR = "hour"
+        NOW = "now"
+
         times_msg = {
             "week": "NEXT WEEK",
             "today": "TODAY",
@@ -185,7 +189,7 @@ class CSUABot:
         
         def announcer(time_before):
 
-            events = event_checker(time_before)
+            events = get_events_in_date_or_time_delta(time_before)
 
             if events:
                 msg = f"**What's happening {times_msg[time_before]}**"
@@ -203,19 +207,20 @@ class CSUABot:
                     description=event.description,
                     colour=discord.Colour.red()
                 )
-                embed.add_field(name='Date', value=event.date, inline=True)
+                embed.add_field(name='Date', value=event.get_date_string(), inline=True)
                 embed.add_field(name='Time', value=event.get_time_string())
                 embed.add_field(name='Link', value=event.link)
                 asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(embed=embed), self.loop
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(
+                        embed=embed), self.loop
                 ).result(TIMEOUT_SECS)
 
         
-        schedule.every().sunday.at("17:00").do(partial(announcer, "week"))
-        schedule.every().day.at("08:00").do(partial(announcer, "tomorrow"))
-        schedule.every().day.at("08:00").do(partial(announcer, "today"))
-        schedule.every().hour.do(partial(announcer, "hour"))
-        schedule.every(30).minutes.do(partial(announcer, "now"))
+        schedule.every().sunday.at("17:00").do(partial(announcer, WEEK))
+        schedule.every().day.at("08:00").do(partial(announcer, TOMORROW))
+        schedule.every().day.at("08:00").do(partial(announcer, TODAY))
+        schedule.every().hour.do(partial(announcer, HOUR))
+        schedule.every(30).minutes.do(partial(announcer, NOW))
 
         # For debugging
         # schedule.every(10).seconds.do(partial(announcer, "week"))

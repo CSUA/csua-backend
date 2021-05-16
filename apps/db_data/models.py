@@ -1,5 +1,6 @@
 import os
 import datetime
+import pytz
 
 from django.db import models
 from django.contrib.auth.models import User as DjangoUser
@@ -168,8 +169,7 @@ class Sponsorship(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=70)
     location = models.CharField(max_length=70)
-    date = models.DateField(null=True)
-    time = models.TimeField(null=True)
+    date_time = models.DateTimeField(null=False)
     description = models.TextField()
     link = models.URLField(blank=True)
     category = models.ForeignKey(
@@ -179,16 +179,22 @@ class Event(models.Model):
         on_delete=models.PROTECT,
         help_text="Currently unused.",
     )
-
-    def __str__(self):
-        return f"{self.name} ({self.date})"
+    ordering = ['date_time']
 
     @property
     def is_passed(self):
-        return self.date < datetime.date.today()
+        return self.date_time < pytz.timezone.now()
 
     def get_time_string(self):
-        return self.time.strftime("%I:%M %p PST")
+        return self.date_time.astimezone(pytz.timezone('US/Pacific')).strftime("%I:%M %p %Z")
+
+    def get_date_string(self):
+        return self.date_time.astimezone(pytz.timezone('US/Pacific')).strftime("%x")
+
+    def __str__(self):
+        if not self.date_time:
+            return f"{self.name}"
+        return f"{self.name} ({self.get_date_string()})"
 
 
 class EventCategory(models.Model):

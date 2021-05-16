@@ -13,6 +13,7 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
+from apps.discordbot.bot import csua_bot
 import os
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
@@ -31,3 +32,9 @@ application = get_wsgi_application()
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+# We start discordbot thread here so that it doesn't interfere with other django
+# commands such as test and migrate
+
+if csua_bot:
+    csua_bot.thread.start()
