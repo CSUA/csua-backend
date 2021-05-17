@@ -1,16 +1,17 @@
+import logging
 import os
 import unittest
-import logging
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
-from django.test import TestCase
 from django.core import mail
+from django.test import TestCase
 from django.urls import reverse
 
 from apps.ldap.test_helpers import LDAPTestCase
 from apps.ldap.utils import email_exists
-from .tokens import newuser_token_generator
 from apps.newuser.views import newuser_script
+
+from .tokens import newuser_token_generator
 
 
 class NewUserTest(LDAPTestCase):

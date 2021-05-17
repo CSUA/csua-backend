@@ -15,3 +15,8 @@ slack_bolt
 # apps.discordbot
 discord.py
 schedule
+pyfiglet
+cowpy
+
+# Developer tools
+pre-commit

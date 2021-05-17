@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
 
-from . import views, staff_views
+from . import staff_views, views
 
 urlpatterns = [
     path("politburo/", views.politburo, name="politburo"),

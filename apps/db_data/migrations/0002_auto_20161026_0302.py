@@ -3,6 +3,7 @@
 
 
 from django.db import migrations, models
+
 from apps import db_data
 
 

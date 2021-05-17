@@ -18,5 +18,6 @@ deploy:
   - provider: script
     script: bash scripts/deploy.sh
     on:
+      repo: CSUA/csua-backend
       branch: master
 # vi: sw=2 ts=2

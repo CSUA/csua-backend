@@ -1,13 +1,11 @@
 import re
-import subprocess
-import socket
 import shlex
-
-from django.conf import settings
+import socket
+import subprocess
 
 from decouple import config
+from django.conf import settings
 from slack_bolt import App
-
 
 username_regexp = re.compile(r"[A-Za-z0-9.\-_]+")
 

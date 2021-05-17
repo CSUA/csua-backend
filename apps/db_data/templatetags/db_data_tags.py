@@ -1,4 +1,5 @@
 import datetime
+
 from django import template
 
 from apps.db_data.models import Event, Notice

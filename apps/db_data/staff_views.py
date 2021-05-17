@@ -1,21 +1,21 @@
+from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.models import User
+from apps.ldap.utils import add_officer, is_officer, is_root
 
+from .forms import OfficerCreationForm
 from .models import (
     Officer,
     Officership,
     Person,
-    Semester,
     Politburo,
     PolitburoMembership,
+    Semester,
 )
-from .forms import OfficerCreationForm
-from apps.ldap.utils import is_root, is_officer, add_officer
 
 
 @staff_member_required
@@ -74,14 +74,14 @@ def _update_or_create_officer(
     elif photo_url:
         ...
         # TODO: download photo
-        messages.warning(request, f"Using photo_url is not yet supported")
+        messages.warning(request, "Using photo_url is not yet supported")
     if photo2:
         messages.info(request, f"Updated photo2 for {username}")
         defaults.update(photo2=photo)
     elif photo2_url:
         ...
         # TODO: download photo
-        messages.warning(request, f"Using photo2_url is not yet supported")
+        messages.warning(request, "Using photo2_url is not yet supported")
     person, created = Person.objects.update_or_create(user=user, defaults=defaults)
     person.save()
     if created:

@@ -1,5 +1,5 @@
-from django.urls import path
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.urls import path
 
 from . import views
 

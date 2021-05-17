@@ -8,7 +8,8 @@ Move the outputs of the script to the fixtures directory to run them with the ld
 https://ldap3.readthedocs.io/mocking.html#a-complete-example
 """
 import json
-from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES, MOCK_SYNC
+
+from ldap3 import ALL, ALL_ATTRIBUTES, MOCK_SYNC, Connection, Server
 
 INFO_OUTPUT = "csua_ldap_info.json"
 SCHEMA_OUTPUT = "csua_ldap_schema.json"

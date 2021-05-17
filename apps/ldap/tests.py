@@ -4,16 +4,18 @@ https://github.com/StackFocus/PostMaster/blob/master/tests/ad/test_ad_class.py
 Which I based some of this code off of
 --robertquitt
 """
-import unittest
 import os
+import unittest
+from datetime import datetime
 
-from django.test import TestCase
-from django.conf import settings
 import ldap3
+from django.conf import settings
+from django.test import TestCase
 
-from .utils import NEWUSER_DN
 import apps.ldap.utils as utils
 from apps.ldap.test_helpers import LDAPTestCase
+
+from .utils import NEWUSER_DN
 
 
 class LdapBindingsTest(LDAPTestCase):
@@ -53,6 +55,11 @@ class LdapBindingsTest(LDAPTestCase):
         success = utils.delete_user("pnunez1")
         self.assertTrue(success)
         self.assertFalse(utils.user_exists("pnunez1"))
+
+    def test_datetime_to_ldap(self):
+        dt = datetime(2021, 2, 13, 15, 8, 37)
+        lt = utils.datetime_to_ldap(dt)
+        self.assertEquals(lt, "20210213150837Z")
 
     # TODO: finish this
     # def test_password(self):

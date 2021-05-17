@@ -9,12 +9,12 @@ be refactored to be methods on a custom Connection object but I am lazy.
 import hashlib
 import string
 from base64 import b64encode
-from random import choice
 from contextlib import contextmanager
+from datetime import datetime, timedelta
+from random import choice
 
-from django.http import Http404
 from decouple import config
-
+from django.http import Http404
 from ldap3 import (
     ALL_ATTRIBUTES,
     MODIFY_ADD,
@@ -24,7 +24,6 @@ from ldap3 import (
     Connection,
     Server,
 )
-
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
 LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=1)
@@ -316,3 +315,38 @@ def is_root(username):
 
 def validate_officer(username, password):
     return is_officer(username) and authenticate(username, password)
+
+
+def datetime_to_ldap(dt):
+    """
+    Convert datetime object to LDAP generalized time format
+    """
+    return dt.strftime("%Y%m%d%H%M%S") + "Z"
+
+
+def str_to_datetime(s):
+    """
+    Convert standard date format string to datetime object
+    """
+    s = s[:-3] + s[-2:]  # remove colon in time zone
+    return datetime.strptime(s, "%Y-%m-%d %H:%M:%S%z")
+
+
+def get_members_older_than(days=1460):
+    time_threshold = datetime_to_ldap(datetime.now() - timedelta(days=days))
+    with ldap_connection() as c:
+        c.search(PEOPLE_OU, f"(createTimestamp<={time_threshold})", attributes="cn")
+        return [str(entry.cn) for entry in c.entries]
+
+
+def get_members_in_age_range(min_age_days=0, max_age_days=180):
+    assert max_age_days >= min_age_days and min_age_days >= 0, "invalid range"
+    min_threshold = datetime_to_ldap(datetime.now() - timedelta(days=min_age_days))
+    max_threshold = datetime_to_ldap(datetime.now() - timedelta(days=max_age_days))
+    with ldap_connection() as c:
+        c.search(
+            PEOPLE_OU,
+            f"(&(createTimestamp<={min_threshold})(createTimestamp>={max_threshold}))",
+            attributes="cn",
+        )
+        return [str(entry.cn) for entry in c.entries]

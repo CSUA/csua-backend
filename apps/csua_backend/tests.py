@@ -1,6 +1,6 @@
-from django.test import TestCase, Client
 from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
+from django.test import Client, TestCase
 
 
 class TestRedirectMiddleware(TestCase):

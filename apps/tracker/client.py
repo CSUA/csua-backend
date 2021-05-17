@@ -1,13 +1,12 @@
-from urllib.request import urlopen, URLError
-from sys import argv
-from platform import node
-from os import environ
-from time import sleep
-from json import dumps
-from random import randint
-from hashlib import sha512
-from time import time
 import base64
+from hashlib import sha512
+from json import dumps
+from os import environ
+from platform import node
+from random import randint
+from sys import argv
+from time import sleep, time
+from urllib.request import URLError, urlopen
 
 try:
     from ctypes import windll

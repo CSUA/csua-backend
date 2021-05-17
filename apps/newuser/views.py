@@ -1,19 +1,19 @@
-import shlex
-import pathlib
 import logging
+import pathlib
+import shlex
 import subprocess
 
-from django.shortcuts import render
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.utils.html import strip_tags
+from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.views.decorators.debug import sensitive_variables, sensitive_post_parameters
+from django.utils.html import strip_tags
+from django.views.decorators.debug import sensitive_post_parameters, sensitive_variables
 
-from .forms import NewUserForm, RemoteEmailRequestForm, NewUserFormOfficerVerified
+from apps.ldap.utils import create_new_user, delete_user, email_exists, validate_officer
+
+from .forms import NewUserForm, NewUserFormOfficerVerified, RemoteEmailRequestForm
 from .tokens import newuser_token_generator
-
-from apps.ldap.utils import create_new_user, delete_user, validate_officer, email_exists
 
 usernameWhitelist = set(".-_")
 emailWhitelist = set("@+").union(usernameWhitelist)
@@ -153,7 +153,7 @@ def request_remote_newuser(request):
                 else:
                     messages.error(
                         request,
-                        "Email must be @berkeley.edu. If please contact us if this is an issue.",
+                        "Email must be @berkeley.edu. Please contact us if this is an issue.",
                     )
             else:
                 messages.error(request, "Email exists in system!")
