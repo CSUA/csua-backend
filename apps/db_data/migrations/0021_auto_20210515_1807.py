@@ -5,22 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('db_data', '0020_auto_20200728_2346'),
-    ]
+    dependencies = [("db_data", "0020_auto_20200728_2346")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='event',
-            name='date',
-        ),
-        migrations.RemoveField(
-            model_name='event',
-            name='time',
-        ),
+        migrations.RemoveField(model_name="event", name="date"),
+        migrations.RemoveField(model_name="event", name="time"),
         migrations.AddField(
-            model_name='event',
-            name='date_time',
-            field=models.DateTimeField(null=True),
+            model_name="event", name="date_time", field=models.DateTimeField(null=True)
         ),
     ]

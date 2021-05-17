@@ -1,7 +1,7 @@
 import datetime
-import pytz
 import os
 
+import pytz
 from django.contrib.auth.models import User as DjangoUser
 from django.db import models
 
@@ -179,17 +179,19 @@ class Event(models.Model):
         on_delete=models.PROTECT,
         help_text="Currently unused.",
     )
-    ordering = ['date_time']
+    ordering = ["date_time"]
 
     @property
     def is_passed(self):
         return self.date_time < pytz.timezone.now()
 
     def get_time_string(self):
-        return self.date_time.astimezone(pytz.timezone('US/Pacific')).strftime("%I:%M %p %Z")
+        return self.date_time.astimezone(pytz.timezone("US/Pacific")).strftime(
+            "%I:%M %p %Z"
+        )
 
     def get_date_string(self):
-        return self.date_time.astimezone(pytz.timezone('US/Pacific')).strftime("%x")
+        return self.date_time.astimezone(pytz.timezone("US/Pacific")).strftime("%x")
 
     def __str__(self):
         if not self.date_time:
