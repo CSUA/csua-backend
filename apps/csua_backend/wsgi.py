@@ -36,7 +36,6 @@ application = get_wsgi_application()
 
 # We start discordbot thread here so that it doesn't interfere with other django
 # commands such as test and migrate
-from apps.discordbot.bot import csua_bot
 
 if csua_bot:
     csua_bot.thread.start()

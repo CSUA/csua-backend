@@ -6,7 +6,7 @@
         {% for event in events %}
         <li>
                 <strong>{{ event.name }}</strong><br>
-                {{ event.get_date_string}} {{ event.get_time_string }}
+                {{ event.get_start_date_and_time_string }}
                 <span class="icon is-small">
                         <a href="{{ event.link }}">
                                 <i class="fas fa-link"></i>

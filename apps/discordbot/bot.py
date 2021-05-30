@@ -15,7 +15,7 @@ from django.core.validators import validate_email
 from pyfiglet import figlet_format
 
 from . import connect4, cowsay, xkcd
-from .annoucements import get_events_in_date_or_time_delta
+from .annoucements import get_events_in_time_delta
 from .utils import send_verify_mail
 
 intents = discord.Intents.all()
@@ -207,7 +207,7 @@ class CSUABot:
         TOMORROW = "tomorrow"
         TODAY = "today"
         HOUR = "hour"
-        NOW = "now"
+        B_TIME = "now"  # Berkeley Time
 
         times_msg = {
             "week": "NEXT WEEK",
@@ -219,12 +219,12 @@ class CSUABot:
 
         def announcer(time_before):
 
-            events = get_events_in_date_or_time_delta(time_before)
+            events = get_events_in_time_delta(time_before)
 
             if events:
                 msg = f"**What's happening {times_msg[time_before]}**"
                 asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(msg),
+                    self.client.get_channel(ROY_TEST_SERVER_CHANNEL_ID).send(msg),
                     self.loop,
                 ).result(TIMEOUT_SECS)
                 print("hey hey hey time to check")  # debugging
@@ -238,26 +238,30 @@ class CSUABot:
                     description=event.description,
                     colour=discord.Colour.red(),
                 )
-                embed.add_field(name="Date", value=event.get_date_string(), inline=True)
-                embed.add_field(name="Time", value=event.get_time_string())
-                embed.add_field(name="Link", value=event.link)
+                embed.add_field(
+                    name="Starts", value=event.get_start_date_and_time_string()
+                )
+                embed.add_field(name="Ends", value=event.get_end_date_and_time_string())
+                embed.add_field(name="Link", value=event.link, inline=False)
                 asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(embed=embed),
+                    self.client.get_channel(ROY_TEST_SERVER_CHANNEL_ID).send(
+                        embed=embed
+                    ),
                     self.loop,
                 ).result(TIMEOUT_SECS)
 
-        schedule.every().sunday.at("17:00").do(partial(announcer, WEEK))
-        schedule.every().day.at("08:00").do(partial(announcer, TOMORROW))
-        schedule.every().day.at("08:00").do(partial(announcer, TODAY))
-        schedule.every().hour.do(partial(announcer, HOUR))
-        schedule.every(30).minutes.do(partial(announcer, NOW))
+        # schedule.every().sunday.at("17:00").do(partial(announcer, WEEK))
+        # schedule.every().day.at("08:00").do(partial(announcer, TOMORROW))
+        # schedule.every().day.at("08:00").do(partial(announcer, TODAY))
+        # schedule.every().hour.do(partial(announcer, HOUR))
+        # schedule.every(10).minutes.do(partial(announcer, NOW))
 
         # For debugging
         # schedule.every(10).seconds.do(partial(announcer, "week"))
-        # schedule.every(10).seconds.do(partial(announcer, "tomorrow"))
-        # schedule.every(10).seconds.do(partial(announcer, "today"))
-        # schedule.every(10).seconds.do(partial(announcer, "hour"))
-        # schedule.every(10).seconds.do(partial(announcer, "now"))
+        schedule.every(10).seconds.do(partial(announcer, TOMORROW))
+        schedule.every(10).seconds.do(partial(announcer, "today"))
+        schedule.every(10).seconds.do(partial(announcer, "hour"))
+        schedule.every(10).seconds.do(partial(announcer, "now"))
 
         while True:
             schedule.run_pending()
