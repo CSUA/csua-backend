@@ -3,6 +3,7 @@ import os
 
 from django.contrib.auth.models import User as DjangoUser
 from django.db import models
+from django.utils import timezone
 
 
 class Semester(models.Model):
@@ -168,8 +169,8 @@ class Sponsorship(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=70)
     location = models.CharField(max_length=70)
-    date = models.DateField(null=True)
-    time = models.CharField(max_length=70)
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
     description = models.TextField()
     link = models.URLField(blank=True)
     category = models.ForeignKey(
@@ -179,13 +180,26 @@ class Event(models.Model):
         on_delete=models.PROTECT,
         help_text="Currently unused.",
     )
-
-    def __str__(self):
-        return f"{self.name} ({self.date})"
+    ordering = ["start_time"]
 
     @property
     def is_passed(self):
-        return self.date < datetime.date.today()
+        return self.start_time < timezone.now()
+
+    def get_start_date_and_time_string(self):
+        return self.start_time.astimezone(timezone.get_current_timezone()).strftime(
+            "%x %I:%M %p %Z"
+        )
+
+    def get_end_date_and_time_string(self):
+        return self.end_time.astimezone(timezone.get_current_timezone()).strftime(
+            "%x %I:%M %p %Z"
+        )
+
+    def __str__(self):
+        if not self.start_time:
+            return f"{self.name}"
+        return f"{self.name} ({self.get_start_date_and_time_string()})"
 
 
 class EventCategory(models.Model):

@@ -1,16 +1,22 @@
 import asyncio
 import logging
 import threading
+import time
 import unicodedata
+from functools import partial
 
 import discord
+import schedule
 from decouple import config
+from discord.embeds import Embed
 from discord.utils import get
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from pyfiglet import figlet_format
 
 from . import connect4, cowsay, xkcd
+from .annoucements import AnnouncementType, get_events_in_time_delta
 from .utils import send_verify_mail
 
 intents = discord.Intents.all()
@@ -21,6 +27,10 @@ CSUA_GUILD_ID = config("TEST_GUILD", default=784902200102354985, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
 DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=788989977794707456, cast=int)
+ANNOUNCEMENTS_CHANNEL_ID = config(
+    "ANNOUNCEMENTS_CHANNEL", default=784902200102354989, cast=int
+)  # set to chatter for testing
+ROY_TEST_SERVER_CHANNEL_ID = 805590450136154125
 TIMEOUT_SECS = 10
 
 logger = logging.getLogger(__name__)
@@ -30,6 +40,10 @@ class CSUAClient(discord.Client):
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
         self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
+        csua_bot.announcements_thread = threading.Thread(
+            target=csua_bot.event_announcement, daemon=True
+        )
+        csua_bot.announcements_thread.start()
         if self.is_phillip:
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
@@ -166,7 +180,6 @@ class CSUABot:
     def _start(self):
         asyncio.set_event_loop(self.loop)
         self.client = CSUAClient(intents=intents)
-
         try:
             self.loop.run_until_complete(self.client.start(TOKEN))
         finally:
@@ -187,6 +200,72 @@ class CSUABot:
             ).result(TIMEOUT_SECS)
             return True
         return False
+
+    def event_announcement(self):
+        print("Announcements Thread started...")
+
+        times_msg = {
+            AnnouncementType.WEEK: "NEXT WEEK",
+            AnnouncementType.TODAY: "TODAY",
+            AnnouncementType.TOMORROW: "TOMORROW",
+            AnnouncementType.HOUR: "IN 1 HOUR",
+            AnnouncementType.B_TIME: "NOW",
+        }
+
+        def announcer(time_delta):
+
+            events = get_events_in_time_delta(time_delta)
+
+            if events:
+                msg = f"**What's happening {times_msg[time_delta]}**"
+                asyncio.run_coroutine_threadsafe(
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(msg),
+                    self.loop,
+                ).result(TIMEOUT_SECS)
+                print("Sending: ", time_delta)  # debugging
+
+                send_embed(events)
+
+        def send_embed(events):
+            for event in events:
+                embed = discord.Embed(
+                    title=event.name,
+                    description=event.description,
+                    colour=discord.Colour.red(),
+                )
+                embed.add_field(
+                    name="Starts", value=event.get_start_date_and_time_string()
+                )
+                embed.add_field(name="Ends", value=event.get_end_date_and_time_string())
+                if event.link:
+                    embed.add_field(name="Link", value=event.link, inline=False)
+                asyncio.run_coroutine_threadsafe(
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(embed=embed),
+                    self.loop,
+                ).result(TIMEOUT_SECS)
+
+        if settings.DEBUG:
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.WEEK))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TOMORROW))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TODAY))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.HOUR))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.B_TIME))
+        else:
+            schedule.every().sunday.at("17:00").do(
+                partial(announcer, AnnouncementType.WEEK)
+            )
+            schedule.every().day.at("08:00").do(
+                partial(announcer, AnnouncementType.TOMORROW)
+            )
+            schedule.every().day.at("08:00").do(
+                partial(announcer, AnnouncementType.TODAY)
+            )
+            schedule.every().hour.do(partial(announcer, AnnouncementType.HOUR))
+            schedule.every(10).minutes.do(partial(announcer, AnnouncementType.B_TIME))
+
+        while True:
+            schedule.run_pending()
+            time.sleep(5)
 
 
 if TOKEN:
