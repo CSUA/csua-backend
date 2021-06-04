@@ -219,7 +219,7 @@ class CSUABot:
             if events:
                 msg = f"**What's happening {times_msg[time_delta]}**"
                 asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(ROY_TEST_SERVER_CHANNEL_ID).send(msg),
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(msg),
                     self.loop,
                 ).result(TIMEOUT_SECS)
                 print("Sending: ", time_delta)  # debugging
@@ -240,9 +240,7 @@ class CSUABot:
                 if event.link:
                     embed.add_field(name="Link", value=event.link, inline=False)
                 asyncio.run_coroutine_threadsafe(
-                    self.client.get_channel(ROY_TEST_SERVER_CHANNEL_ID).send(
-                        embed=embed
-                    ),
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(embed=embed),
                     self.loop,
                 ).result(TIMEOUT_SECS)
 
