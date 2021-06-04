@@ -10,12 +10,13 @@ import schedule
 from decouple import config
 from discord.embeds import Embed
 from discord.utils import get
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from pyfiglet import figlet_format
 
 from . import connect4, cowsay, xkcd
-from .annoucements import get_events_in_time_delta
+from .annoucements import AnnouncementType, get_events_in_time_delta
 from .utils import send_verify_mail
 
 intents = discord.Intents.all()
@@ -203,31 +204,25 @@ class CSUABot:
     def event_announcement(self):
         print("Announcements Thread started...")
 
-        WEEK = "week"
-        TOMORROW = "tomorrow"
-        TODAY = "today"
-        HOUR = "hour"
-        B_TIME = "now"  # Berkeley Time
-
         times_msg = {
-            "week": "NEXT WEEK",
-            "today": "TODAY",
-            "tomorrow": "TOMORROW",
-            "hour": "IN 1 HOUR",
-            "now": "NOW",
+            AnnouncementType.WEEK: "NEXT WEEK",
+            AnnouncementType.TODAY: "TODAY",
+            AnnouncementType.TOMORROW: "TOMORROW",
+            AnnouncementType.HOUR: "IN 1 HOUR",
+            AnnouncementType.B_TIME: "NOW",
         }
 
-        def announcer(time_before):
+        def announcer(time_delta):
 
-            events = get_events_in_time_delta(time_before)
+            events = get_events_in_time_delta(time_delta)
 
             if events:
-                msg = f"**What's happening {times_msg[time_before]}**"
+                msg = f"**What's happening {times_msg[time_delta]}**"
                 asyncio.run_coroutine_threadsafe(
                     self.client.get_channel(ROY_TEST_SERVER_CHANNEL_ID).send(msg),
                     self.loop,
                 ).result(TIMEOUT_SECS)
-                print("hey hey hey time to check")  # debugging
+                print("Sending: ", time_delta)  # debugging
 
                 send_embed(events)
 
@@ -242,7 +237,8 @@ class CSUABot:
                     name="Starts", value=event.get_start_date_and_time_string()
                 )
                 embed.add_field(name="Ends", value=event.get_end_date_and_time_string())
-                embed.add_field(name="Link", value=event.link, inline=False)
+                if event.link:
+                    embed.add_field(name="Link", value=event.link, inline=False)
                 asyncio.run_coroutine_threadsafe(
                     self.client.get_channel(ROY_TEST_SERVER_CHANNEL_ID).send(
                         embed=embed
@@ -250,18 +246,24 @@ class CSUABot:
                     self.loop,
                 ).result(TIMEOUT_SECS)
 
-        # schedule.every().sunday.at("17:00").do(partial(announcer, WEEK))
-        # schedule.every().day.at("08:00").do(partial(announcer, TOMORROW))
-        # schedule.every().day.at("08:00").do(partial(announcer, TODAY))
-        # schedule.every().hour.do(partial(announcer, HOUR))
-        # schedule.every(10).minutes.do(partial(announcer, NOW))
-
-        # For debugging
-        # schedule.every(10).seconds.do(partial(announcer, "week"))
-        schedule.every(10).seconds.do(partial(announcer, TOMORROW))
-        schedule.every(10).seconds.do(partial(announcer, "today"))
-        schedule.every(10).seconds.do(partial(announcer, "hour"))
-        schedule.every(10).seconds.do(partial(announcer, "now"))
+        if settings.DEBUG:
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.WEEK))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TOMORROW))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TODAY))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.HOUR))
+            schedule.every(10).seconds.do(partial(announcer, AnnouncementType.B_TIME))
+        else:
+            schedule.every().sunday.at("17:00").do(
+                partial(announcer, AnnouncementType.WEEK)
+            )
+            schedule.every().day.at("08:00").do(
+                partial(announcer, AnnouncementType.TOMORROW)
+            )
+            schedule.every().day.at("08:00").do(
+                partial(announcer, AnnouncementType.TODAY)
+            )
+            schedule.every().hour.do(partial(announcer, AnnouncementType.HOUR))
+            schedule.every(10).minutes.do(partial(announcer, AnnouncementType.B_TIME))
 
         while True:
             schedule.run_pending()
