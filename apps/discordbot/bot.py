@@ -10,7 +10,6 @@ import schedule
 from decouple import config
 from discord.embeds import Embed
 from discord.utils import get
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from pyfiglet import figlet_format
@@ -22,6 +21,7 @@ from .utils import send_verify_mail
 intents = discord.Intents.all()
 intents.presences = False
 
+DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 TOKEN = config("DISCORD_TOKEN", default="")
 CSUA_GUILD_ID = config("TEST_GUILD", default=784902200102354985, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
@@ -244,7 +244,7 @@ class CSUABot:
                     self.loop,
                 ).result(TIMEOUT_SECS)
 
-        if settings.DEBUG:
+        if DEBUG:
             schedule.every(10).seconds.do(partial(announcer, AnnouncementType.WEEK))
             schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TOMORROW))
             schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TODAY))
