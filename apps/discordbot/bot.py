@@ -55,9 +55,10 @@ class CSUAClient(discord.Client):
 
     async def verify_member_email(self, user):
         channel = user.dm_channel
+        philbot = self.user
 
         def check_msg(msg):
-            return msg.channel == channel
+            return msg.channel == channel and msg.author != philbot
 
         got_email = False
         while not got_email:
