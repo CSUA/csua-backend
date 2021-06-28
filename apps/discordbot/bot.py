@@ -96,7 +96,8 @@ class CSUAClient(discord.Client):
                 await xkcd.get_xkcd(message)
             else:
                 await message.channel.send(
-                    "Please ensure that your command is properly formatted. Type `!xkcd -help` for more information."
+                    "Please ensure that your command is properly formatted. Type `!xkcd -help` for "\
+                    "more information."
                 )
         if message.content.startswith("!figlet "):
             text = message.content.split(" ", 1)[1]
@@ -123,7 +124,8 @@ class CSUAClient(discord.Client):
 
     async def on_member_join(self, member):
         msg = await member.send(
-            "Welcome to the CSUA discord server! First, read the rules in #landing-zone. Thumbs up this message if you agree"
+            "Welcome to the CSUA discord server! First, read the rules in #landing-zone. Thumbs up "\
+            "this message if you agree"
         )
         await self.test_channel.send(f"Sent initial discord message to {member}")
 
@@ -132,14 +134,19 @@ class CSUAClient(discord.Client):
 
         await self.wait_for("reaction_add", check=check_thumb)
         await self.test_channel.send(f"{member} read rules")
-        await member.send(
-            "Verify your berkeley.edu email to gain access. First, please type your email. Please contact a moderator if you have any issues."
-        )
 
-        await self.test_channel.send(f"{member} was prompted for email")
-        await self.verify_member_email(member)
-        if self.is_phillip:
-            await self.test_channel.send(f"{member} was sent registration email")
+        await member.send(
+            "Our mail servers are down right now, so unfortunately we can't verify you yet. Stay "\
+            "tuned for updates in the #announcements channel!")
+        # await member.send(
+        #     "Verify your berkeley.edu email to gain access. First, please type your email. "\
+        #     "Please contact a moderator if you have any issues."
+        # )
+
+        # await self.test_channel.send(f"{member} was prompted for email")
+        # await self.verify_member_email(member)
+        # if self.is_phillip:
+        #     await self.test_channel.send(f"{member} was sent registration email")
 
 
 def emoji_letters(chars):
