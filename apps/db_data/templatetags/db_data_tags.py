@@ -9,7 +9,7 @@ register = template.Library()
 
 @register.simple_tag
 def get_upcoming_events():
-    return Event.objects.filter(date__gte=datetime.date.today())
+    return Event.objects.filter(start_time__gte=datetime.datetime.now())
 
 
 @register.simple_tag

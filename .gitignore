@@ -74,3 +74,4 @@ data/
 
 # Virtual environment
 /venv
+.vscode/settings.json
