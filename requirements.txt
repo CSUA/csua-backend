@@ -20,3 +20,4 @@ cowpy
 
 # Developer tools
 pre-commit
+black
