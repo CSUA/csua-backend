@@ -26,7 +26,7 @@ from ldap3 import (
 )
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
-LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=1)
+LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=2)
 LDAP_CLIENT_STRATEGY = SYNC
 CSUA_DC = "dc=csua,dc=berkeley,dc=edu"
 PEOPLE_OU = "ou=People," + CSUA_DC
