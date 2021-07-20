@@ -245,7 +245,7 @@ DEFAULT_FROM_EMAIL = "django@csua.berkeley.edu"
 
 SERVER_EMAIL = "django-errors@csua.berkeley.edu"
 
-EMAIL_HOST = "mail-out.csua.berkeley.edu"
+EMAIL_HOST = "localhost"
 
 EMAIL_PORT = 10025
 
