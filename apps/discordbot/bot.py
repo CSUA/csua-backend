@@ -86,24 +86,20 @@ class CSUAClient(discord.Client):
             return
         msg = message.content.lower()
         channel = message.channel
-        if channel == self.test_channel:
+        if channel.id == DEBUG_CHANNEL_ID:
             if msg.startswith("!testmail "):
                 arg = msg.split()[1]
                 try:
                     validate_email(arg)
                     if arg.endswith("berkeley.edu"):
-                        await channel.send(
-                            f"Sending a test email to {arg}"
+                        await channel.send(f"Sending a test email to {arg}")
+                        send_verify_mail(
+                            msg.content, author.name + "#" + author.discriminator
                         )
-                        send_verify_mail(msg.content, author.name + "#" + author.discriminator)
                     else:
-                        await channel.send(
-                            f"{arg} is not a berkeley email"
-                        )
+                        await channel.send(f"{arg} is not a berkeley email")
                 except ValidationError as e:
-                    await channel.send(
-                        f"{arg} is not a valid email. Details: {e}"
-                    )
+                    await channel.send(f"{arg} is not a valid email. Details: {e}")
             return
 
         if "hkn" in msg and "ieee" in msg:

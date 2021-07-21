@@ -1,12 +1,12 @@
 def valid_password(password):
     """
-  The password must be at least nine characters long. Also, it must include
-  characters from two of:
+    The password must be at least nine characters long. Also, it must include
+    characters from two of:
 
-  -alphabetical
-  -numerical
-  -punctuation/other
-  """
+    -alphabetical
+    -numerical
+    -punctuation/other
+    """
     punctuation = set("""!@#$%^&*()_+|~-=\\`{}[]:";'<>?,./""")
     alpha = False
     num = False

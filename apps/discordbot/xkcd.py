@@ -20,7 +20,7 @@ MIN_ARGUMENT_LENGTH = 2
 
 
 def is_valid_xkcd_command(msg):
-    """ Returns whether msg contains an valid request. """
+    """Returns whether msg contains an valid request."""
     arguments = msg.split()
     if len(arguments) > MAX_ARGUMENT_LENGTH or len(arguments) < MIN_ARGUMENT_LENGTH:
         return False
