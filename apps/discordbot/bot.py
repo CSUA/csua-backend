@@ -81,13 +81,35 @@ class CSUAClient(discord.Client):
                 )
 
     async def on_message(self, message):
-        if message.author == self.user:
+        author = message.author
+        if author == self.user:
             return
         msg = message.content.lower()
+        channel = message.channel
+        if channel == self.test_channel:
+            if msg.startswith("!testmail "):
+                arg = msg.split()[1]
+                try:
+                    validate_email(arg)
+                    if arg.endswith("berkeley.edu"):
+                        await channel.send(
+                            f"Sending a test email to {arg}"
+                        )
+                        send_verify_mail(msg.content, author.name + "#" + author.discriminator)
+                    else:
+                        await channel.send(
+                            f"{arg} is not a berkeley email"
+                        )
+                except ValidationError as e:
+                    await channel.send(
+                        f"{arg} is not a valid email. Details: {e}"
+                    )
+            return
+
         if "hkn" in msg and "ieee" in msg:
-            await message.channel.send("Do I need to retrieve the stick?")
+            await channel.send("Do I need to retrieve the stick?")
         if "is typing" in msg:
-            await message.channel.send("unoriginal")
+            await channel.send("unoriginal")
         if msg.count("cpma") >= 2:
             for emoji in emoji_letters("wtfiscpma"):
                 await message.add_reaction(emoji)
@@ -114,21 +136,21 @@ class CSUAClient(discord.Client):
             if xkcd.is_valid_xkcd_command(msg):
                 await xkcd.get_xkcd(message)
             else:
-                await message.channel.send(
+                await channel.send(
                     "Please ensure that your command is properly formatted. Type `!xkcd -help` for "
                     "more information."
                 )
         if message.content.startswith("!figlet "):
             text = message.content.split(" ", 1)[1]
             if len(text) > 200:
-                await message.channel.send("!figlet: Message too long")
+                await channel.send("!figlet: Message too long")
                 return
             formatted = figlet_format(text)
             # Discord has a 2000 character limit
             if len(formatted) > 1994:
-                await message.channel.send("!figlet: Message too long")
+                await channel.send("!figlet: Message too long")
                 return
-            await message.channel.send(f"```{formatted}```")
+            await channel.send(f"```{formatted}```")
 
         if message.content.startswith("!cowsay "):
             await cowsay.handle(message)
