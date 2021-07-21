@@ -94,7 +94,7 @@ class CSUAClient(discord.Client):
                     if arg.endswith("berkeley.edu"):
                         await channel.send(f"Sending a test email to {arg}")
                         send_verify_mail(
-                            msg.content, author.name + "#" + author.discriminator
+                            arg, author.name + "#" + author.discriminator
                         )
                     else:
                         await channel.send(f"{arg} is not a berkeley email")
