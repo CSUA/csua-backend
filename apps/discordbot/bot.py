@@ -93,9 +93,7 @@ class CSUAClient(discord.Client):
                     validate_email(arg)
                     if arg.endswith("berkeley.edu"):
                         await channel.send(f"Sending a test email to {arg}")
-                        send_verify_mail(
-                            arg, author.name + "#" + author.discriminator
-                        )
+                        send_verify_mail(arg, author.name + "#" + author.discriminator)
                     else:
                         await channel.send(f"{arg} is not a berkeley email")
                 except ValidationError as e:
