@@ -24,7 +24,7 @@ def send_verify_mail(email, discord_tag, host="csua.berkeley.edu"):
             "discord_tagb64": discord_tagb64,
         },
     )
-    print("sending email from noreplay@csua.berkeley.edu to ", email)
+    print("sending email from noreply@csua.berkeley.edu to ", email)
     send_mail(
         subject="CSUA Discord Email Verification",
         message=strip_tags(html_message),
