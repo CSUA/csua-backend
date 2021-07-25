@@ -182,8 +182,8 @@ class CSUAClient(discord.Client):
         await self.test_channel.send(f"{member} read rules")
 
         await member.send(
-            "Please verify your berkeley.edu email to gain access to the server! "
-            "For example: `!verify oski@berkeley.edu`. "
+            "Verify your berkeley.edu email to gain access to the server! "
+            "Type `!verify` in this DM plus your email, like so: `!verify oski@berkeley.edu`. "
             "Please contact a moderator if you encounter any issues."
         )
 
