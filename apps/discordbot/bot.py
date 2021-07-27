@@ -26,14 +26,15 @@ TOKEN = config("DISCORD_TOKEN", default="")
 CSUA_GUILD_ID = config("TEST_GUILD", default=784902200102354985, cast=int)
 CSUA_PHILBOT_CLIENT_ID = config("BOT_ID", default=737930184837300274, cast=int)
 HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Verified
-PHIL_AND_CARL_CHANNEL_ID = 788989977794707456
-DEBUG_CHANNEL_ID = config("DEBUG_CHANNEL", default=PHIL_AND_CARL_CHANNEL_ID, cast=int)
-ROY_TEST_SERVER_CHANNEL_ID = 805590450136154125
+DEBUG_CHANNEL_ID = config(
+    "DEBUG_CHANNEL", default=788989977794707456, cast=int
+)  # phil-n-carl
 CSUA_CHATTER_CHANNEL_ID = 784902200102354989
 CSUA_ROOT_CHANNEL_ID = 839433106868142092
 ANNOUNCEMENTS_CHANNEL_ID = config(
     "ANNOUNCEMENTS_CHANNEL", default=CSUA_ROOT_CHANNEL_ID, cast=int
 )
+# TEST_SERVER_CHANNEL_ID = 805590450136154125  # CSUA-Test
 
 TIMEOUT_SECS = 10
 
@@ -53,6 +54,7 @@ class CSUAClient(discord.Client):
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
 
+    # DEPRECATED
     async def verify_member_email(self, user):
         channel = user.dm_channel
         philbot = self.user
@@ -84,58 +86,45 @@ class CSUAClient(discord.Client):
         author = message.author
         if author == self.user:
             return
-        msg = message.content.lower()
+        content = message.content.lower()
         channel = message.channel
-        if channel.id == DEBUG_CHANNEL_ID:
-            if msg.startswith("!testmail "):
-                arg = msg.split()[1]
-                try:
-                    validate_email(arg)
-                    if arg.endswith("berkeley.edu"):
-                        await channel.send(f"Sending a test email to {arg}")
-                        send_verify_mail(arg, author.name + "#" + author.discriminator)
-                    else:
-                        await channel.send(f"{arg} is not a berkeley email")
-                except ValidationError as e:
-                    await channel.send(f"{arg} is not a valid email. Details: {e}")
-            return
 
-        if "hkn" in msg and "ieee" in msg:
+        if "hkn" in content and "ieee" in content:
             await channel.send("Do I need to retrieve the stick?")
-        if "is typing" in msg:
+        if "is typing" in content:
             await channel.send("unoriginal")
-        if msg.count("cpma") >= 2:
+        if content.count("cpma") >= 2:
             for emoji in emoji_letters("wtfiscpma"):
                 await message.add_reaction(emoji)
-        elif "based" in msg:
+        elif "based" in content:
             for emoji in emoji_letters("based"):
                 await message.add_reaction(emoji)
             await message.add_reaction("😎")
-        elif "tree" in msg or "stanford" in msg or "stanfurd" in msg:
+        elif "tree" in content or "stanford" in content or "stanfurd" in content:
             emoji = unicodedata.lookup(
                 "EVERGREEN TREE"
             )  # todo: add official <:tree:744335009002815609>
             await message.add_reaction(emoji)
-        elif "drip" in msg or "👟" in msg or "🥵" in msg:
+        elif "drip" in content or "👟" in content or "🥵" in content:
             for emoji in emoji_letters("drip"):
                 await message.add_reaction(emoji)
             await message.add_reaction("👟")
-        elif "oski" in msg:
+        elif "oski" in content:
             for emoji in emoji_letters("oski"):
                 await message.add_reaction(emoji)
             await message.add_reaction("😃")
             await message.add_reaction("🐻")
-        if "!xkcd" in msg:
+        if content.startswith("!xkcd"):
             # Validate "!xkcd" command
-            if xkcd.is_valid_xkcd_command(msg):
+            if xkcd.is_valid_xkcd_command(content):
                 await xkcd.get_xkcd(message)
             else:
                 await channel.send(
-                    "Please ensure that your command is properly formatted. Type `!xkcd -help` for "
-                    "more information."
+                    "Please ensure that your command is properly formatted. "
+                    "Type `!xkcd --help` for more information."
                 )
-        if message.content.startswith("!figlet "):
-            text = message.content.split(" ", 1)[1]
+        if content.startswith("!figlet "):
+            text = content.split(" ", 1)[1]
             if len(text) > 200:
                 await channel.send("!figlet: Message too long")
                 return
@@ -146,21 +135,44 @@ class CSUAClient(discord.Client):
                 return
             await channel.send(f"```{formatted}```")
 
-        if message.content.startswith("!cowsay "):
+        if content.startswith("!cowsay "):
             await cowsay.handle(message)
 
-        if message.content.startswith("!c4") or message.content.startswith(
-            "!connectfour"
-        ):
+        if content.startswith("!c4") or content.startswith("!connectfour"):
             await connect4.on_message(self, message)
+
+        if channel == author.dm_channel:
+            if content.startswith("!verify"):
+                if len(content.split()) > 1:
+                    arg = content.split()[1]
+                    try:
+                        validate_email(arg)
+                        if arg.endswith("berkeley.edu"):
+                            await author.send(
+                                f"A verification email has been sent to {arg}"
+                            )
+                            await self.test_channel.send(
+                                f"{author.name}#{author.discriminator} was sent verification email"
+                            )
+                            send_verify_mail(
+                                arg, author.name + "#" + author.discriminator
+                            )
+                        else:
+                            await channel.send(f"{arg} is not a berkeley email.")
+                    except ValidationError as e:
+                        await channel.send(f"{arg} is not a valid email. Details: {e}")
+                else:
+                    await channel.send(
+                        "No email entered. Example: `!verify oski@berkeley.edu`"
+                    )
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
 
     async def on_member_join(self, member):
         msg = await member.send(
-            "Welcome to the CSUA discord server! First, read the rules in #landing-zone. Thumbs up "
-            "this message if you agree"
+            "Welcome to the CSUA Discord server! First, read the rules in #landing-zone. "
+            "Thumbs up this message if you agree."
         )
         await self.test_channel.send(f"Sent initial discord message to {member}")
 
@@ -171,18 +183,10 @@ class CSUAClient(discord.Client):
         await self.test_channel.send(f"{member} read rules")
 
         await member.send(
-            "Our mail servers are down right now, so unfortunately we can't verify you yet. Stay "
-            "tuned for updates in the #announcements channel!"
+            "Verify your berkeley.edu email to gain access to the server! "
+            "Type `!verify` in this DM plus your email, like so: `!verify oski@berkeley.edu`. "
+            "Please contact a moderator if you encounter any issues."
         )
-        # await member.send(
-        #     "Verify your berkeley.edu email to gain access. First, please type your email. "\
-        #     "Please contact a moderator if you have any issues."
-        # )
-
-        # await self.test_channel.send(f"{member} was prompted for email")
-        # await self.verify_member_email(member)
-        # if self.is_phillip:
-        #     await self.test_channel.send(f"{member} was sent registration email")
 
 
 def emoji_letters(chars):
@@ -225,7 +229,7 @@ class CSUABot:
                 member.add_roles(self.client.hoser_role), self.loop
             ).result(TIMEOUT_SECS)
             asyncio.run_coroutine_threadsafe(
-                self.client.test_channel.send(f"verified {tag}"), self.loop
+                self.client.test_channel.send(f"{tag} verified"), self.loop
             ).result(TIMEOUT_SECS)
             return True
         return False
