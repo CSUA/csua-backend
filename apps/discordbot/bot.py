@@ -45,42 +45,14 @@ class CSUAClient(discord.Client):
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
         self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
-        csua_bot.announcements_thread = threading.Thread(
-            target=csua_bot.event_announcement, daemon=True
-        )
-        csua_bot.announcements_thread.start()
+        # csua_bot.announcements_thread = threading.Thread(
+        #     target=csua_bot.event_announcement, daemon=True
+        # )
+        # csua_bot.announcements_thread.start()
         if self.is_phillip:
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
-
-    # DEPRECATED
-    async def verify_member_email(self, user):
-        channel = user.dm_channel
-        philbot = self.user
-
-        def check_msg(msg):
-            return msg.channel == channel and msg.author != philbot
-
-        got_email = False
-        while not got_email:
-            msg = await self.wait_for("message", check=check_msg)
-            try:
-                validate_email(msg.content)
-                if "@berkeley.edu" in msg.content:
-                    got_email = True
-                    await channel.send(
-                        f"Sending a an email to verify {user.name} to {msg.content}"
-                    )
-                    send_verify_mail(msg.content, user.name + "#" + user.discriminator)
-                else:
-                    await channel.send(
-                        f"{msg.content} is not a berkeley email. Please fix this"
-                    )
-            except ValidationError as e:
-                await channel.send(
-                    f"{msg.content} is not a valid email. Please try again. Details: {e}"
-                )
 
     async def on_message(self, message):
         author = message.author
