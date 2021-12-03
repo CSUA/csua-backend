@@ -75,3 +75,4 @@ data/
 # Virtual environment
 /venv
 .vscode/settings.json
+node_modules
