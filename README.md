@@ -158,3 +158,5 @@ Usually this is done by adding this line to `/etc/ldap/ldap.conf`:
 ```shell
 python3 manage.py dumpdata db_data > fixtures/$(date +db_data-%m%d%y.json)
 ```
+
+![](https://c.tenor.com/lnoSi0RlMhAAAAAd/smelly-monkey-faint.gif)
