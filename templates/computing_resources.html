@@ -2,5 +2,49 @@
 {% block title %}Computing Resources{% endblock %}
 {% block pagetitle %}Computing Resources{% endblock %}
 {% block page_content %}
-Page under construction. Direct any questions to vp@
+<link rel="stylesheet" href="{% static 'css/Computing_resources.css' %}">
+<div class="content">
+    <p>
+        CSUA provides computing resources to our members.
+        A CSUA account is required to log in and use the machines. 
+        Any officer can help you set up an account. 
+        Come visit our office at 311 Soda to make an account, or come to one of our General Meetings. 
+        Questions about computing resources should be directed to root@csua.berkeley.edu
+    </p>
+
+    <p>
+        <h3 class="title">SSH access</h3>
+        Log in with your CSUA account to <code> soda.berkeley.edu</code>. There, you will find a fairly standard, secure install of Debian. You can use soda to help host your projects, or as a development server. If you would like some package installed, or need help with using <code>soda</code>, don't hesistate to contact root@csua.berkeley.edu.
+    </p>
+
+    <p>
+        <h3 class="title">Web hosting</h3>
+        Place your .html files in your <code>~/public_html</code> directory and they will be publicly available at <code>soda.berkeley.edu/~$USER</code>
+    </p>
+
+    <p>
+        <h3 class="title">Destop Machine</h3>
+        <p>
+        We have high-quality desktop machines for you to use in 311 Soda. Please note one of our office rules: please respect the office and office equipment. Please do not eat or drink over the computing equipment.
+        </p>
+        Our machines have been named after drinks since CSUA first christened <code>soda.berkeley.edu</code>. Here are the names of the current desktop machines:
+        <ul>
+            <li>Beer (connected to TV)</li>
+            <li>Boba</li>
+            <li>Mead</li>
+            <li>Sake</li>
+            <li>Scotch</li>
+            <li>Soju</li>
+            <li>Vodka</li>
+        </ul>
+    </p>
+    <p>
+        <h3 class="title">GPU Computing on Latte</h3>
+        Thanks to donations from NVIDIA, CSUA has a GPU server available for public use. It features <u><a href="http://www.nvidia.com/object/tesla-p100.html">8 NVIDIA Tesla P100 datacenter-class GPUs.</a></u>
+    </p>
+        <p>
+            <u><a href="https://github.com/CSUA/slurm-docker-cluster/blob/master/README.md">Read more about how to access Latte.</a></u>
+        </p>
+    
+</div>
 {% endblock %}
