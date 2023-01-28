@@ -4,6 +4,7 @@ import unicodedata
 
 import discord
 
+from django.db import close_old_connections
 from .models import ConnectFourGame
 
 # Some emoji aren't in unicodedata, so the literal emoji are here
@@ -29,6 +30,7 @@ async def on_message(client, message):
     new_board = Board.new(player1=message.author, player2=message.mentions[0])
     m = await message.channel.send(new_board.get_message())
     await add_reaccs(m)
+    close_old_connections()
     game = ConnectFourGame.objects.create(
         message_id=m.id,
         player1=message.author.id,
@@ -97,6 +99,7 @@ async def on_raw_reaction_add(client, event):
         ):
             channel = await client.fetch_channel(event.channel_id)
             message = await channel.fetch_message(event.message_id)
+            close_old_connections()
             game = ConnectFourGame.objects.get(message_id=event.message_id)
             await handle_event(client, game, event, message)
             try:
