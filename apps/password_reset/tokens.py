@@ -7,7 +7,6 @@ from apps.ldap.utils import get_user_hashed_password
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
-
         # This uses the old hashed password and timestamp as a hash value
         # so that 1. you manage the time and 2. when you change the password
         # it becomes invalidated

@@ -3,6 +3,7 @@ import json
 from unittest.mock import MagicMock, Mock, call, patch
 
 import cowpy
+import discord
 from django.test import TestCase
 from pyfiglet import figlet_format
 
@@ -21,7 +22,7 @@ class AsyncMock(MagicMock):
 
 class TestCSUAClient(TestCase):
     def setUp(self):
-        self.discord_client = CSUAClient()
+        self.discord_client = CSUAClient(intents=discord.Intents.all())
 
     def test_reactions(self):
         self.check_message(
@@ -62,7 +63,7 @@ class TestCSUAClient(TestCase):
 
 class ConnectFourTest(TestCase):
     def setUp(self):
-        self.discord_client = CSUAClient()
+        self.discord_client = CSUAClient(intents=discord.Intents.all())
         self.loop = asyncio.get_event_loop()
         self.mock_opponent_id = 1234
         self.mock_author_id = 1122
