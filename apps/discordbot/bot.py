@@ -218,7 +218,6 @@ class CSUABot:
         }
 
         def announcer(time_delta):
-
             events = get_events_in_time_delta(time_delta)
 
             if events:
