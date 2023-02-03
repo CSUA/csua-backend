@@ -8,7 +8,6 @@ import apps.db_data.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("auth", "0011_update_proxy_permissions"),
         ("db_data", "0013_officer_officer_since"),
