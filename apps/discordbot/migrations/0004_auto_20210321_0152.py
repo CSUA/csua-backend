@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("discordbot", "0003_auto_20210320_0343")]
 
     operations = [

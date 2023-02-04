@@ -13,7 +13,6 @@ def date_to_datetime(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("db_data", "0020_auto_20200728_2346")]
 
     operations = [

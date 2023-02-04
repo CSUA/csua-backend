@@ -8,7 +8,6 @@ from apps import db_data
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("db_data", "0004_auto_20161105_0813")]
 
     operations = [

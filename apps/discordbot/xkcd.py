@@ -43,7 +43,6 @@ async def get_xkcd(message):
     comic = None
 
     if cmd == "--help" or cmd == "-h":
-
         await display_help(message)
         return
 

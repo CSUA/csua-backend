@@ -3,8 +3,8 @@ import threading
 import unicodedata
 
 import discord
-
 from django.db import close_old_connections
+
 from .models import ConnectFourGame
 
 # Some emoji aren't in unicodedata, so the literal emoji are here
