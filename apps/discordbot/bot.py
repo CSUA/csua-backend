@@ -35,6 +35,7 @@ ANNOUNCEMENTS_CHANNEL_ID = config(
     "ANNOUNCEMENTS_CHANNEL", default=CSUA_ROOT_CHANNEL_ID, cast=int
 )
 # TEST_SERVER_CHANNEL_ID = 805590450136154125  # CSUA-Test
+CSUA_PB_ROLE_ID = 784907966532288542
 
 TIMEOUT_SECS = 10
 
@@ -53,6 +54,7 @@ class CSUAClient(discord.Client):
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
+            self.pb_role = get(self.csua_guild.roles, id=CSUA_PB_ROLE_ID)
 
     async def on_message(self, message):
         author = message.author
@@ -137,6 +139,31 @@ class CSUAClient(discord.Client):
                     await channel.send(
                         "No email entered. Example: `!verify oski@berkeley.edu`"
                     )
+
+            elif content.startswith("!dm"):
+                ## SPAGHETTTTI
+                """
+                !dm <user_id> <message>
+                TODO: refactor multiple exception groups
+                TODO: refactor to use discord.py's built-in error handling (thanks copilot)
+                """
+                args = content.split(maxsplit=2)
+                if len(args) < 3:
+                    await channel.send("!dm: Invalid arguments")
+                    return
+
+                try:
+                    from_member = await self.csua_guild.fetch_member(message.author.id)
+                    to_member = await self.csua_guild.fetch_member(int(args[1]))
+
+                    if from_member.get_role(CSUA_PB_ROLE_ID):
+                        await to_member.send(args[2])
+                    else:
+                        await channel.send("!dm: Not PB, action forbidden.")
+                        return
+                except:
+                    await channel.send("!dm: Invalid arguments")
+                    return
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
