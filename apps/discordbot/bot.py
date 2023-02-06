@@ -8,6 +8,7 @@ from functools import partial
 import discord
 import schedule
 from decouple import config
+from discord import Forbidden, HTTPException, NotFound
 from discord.embeds import Embed
 from discord.utils import get
 from django.core.exceptions import ValidationError
@@ -149,7 +150,7 @@ class CSUAClient(discord.Client):
                 """
                 args = content.split(maxsplit=2)
                 if len(args) < 3:
-                    await channel.send("!dm: Invalid arguments")
+                    await channel.send("!dm: Too few arguments")
                     return
 
                 try:
@@ -161,9 +162,14 @@ class CSUAClient(discord.Client):
                     else:
                         await channel.send("!dm: Not PB, action forbidden.")
                         return
-                except:
-                    await channel.send("!dm: Invalid arguments")
-                    return
+                except NotFound as e:
+                    await channel.send("!dm: {e} user not found!")
+                except Forbidden as e:
+                    await channel.send("!dm: {e} forbidden request returned!")
+                except HTTPException as e:
+                    await channel.send("!dm: {e} fetching user failed")
+                except Exception as e:
+                    await channel.send("!dm: {e} generic_exception")
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
