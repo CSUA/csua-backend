@@ -157,7 +157,7 @@ class CSUAClient(discord.Client):
                     from_member = await self.csua_guild.fetch_member(message.author.id)
                     to_member = await self.csua_guild.fetch_member(int(args[1]))
 
-                    if from_member.get_role(CSUA_PB_ROLE_ID):
+                    if self.pb_role in from_member.roles:
                         await to_member.send(args[2])
                     else:
                         await channel.send("!dm: Not PB, action forbidden.")
