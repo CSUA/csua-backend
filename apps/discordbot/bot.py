@@ -163,13 +163,13 @@ class CSUAClient(discord.Client):
                         await channel.send("!dm: Not PB, action forbidden.")
                         return
                 except NotFound as e:
-                    await channel.send("!dm: {e} user not found!")
+                    await channel.send("!dm: user not found!")
                 except Forbidden as e:
-                    await channel.send("!dm: {e} forbidden request returned!")
+                    await channel.send("!dm: forbidden request returned!")
                 except HTTPException as e:
-                    await channel.send("!dm: {e} fetching user failed")
+                    await channel.send("!dm: fetching user failed")
                 except Exception as e:
-                    await channel.send("!dm: {e} generic_exception")
+                    await channel.send(f"!dm: {e} generic_exception")
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
