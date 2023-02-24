@@ -15,7 +15,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from pyfiglet import figlet_format
 
-from . import connect4, cowsay, xkcd
+from . import ani_shuffle, connect4, cowsay, xkcd
 from .annoucements import AnnouncementType, get_events_in_time_delta
 from .utils import send_verify_mail
 
@@ -116,6 +116,9 @@ class CSUAClient(discord.Client):
         if content.startswith("!c4") or content.startswith("!connectfour"):
             await connect4.on_message(self, message)
 
+        if content == "!ani":
+            await ani_shuffle.init(self, channel, author)
+
         if channel == author.dm_channel:
             if content.startswith("!verify"):
                 if len(content.split()) > 1:
@@ -173,6 +176,7 @@ class CSUAClient(discord.Client):
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
+        await ani_shuffle.on_raw_reaction_add(self, event)
 
     async def on_member_join(self, member):
         msg = await member.send(

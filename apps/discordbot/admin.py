@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ConnectFourGame, DiscordRegisteredUser
+from .models import AniShuffleGame, ConnectFourGame, DiscordRegisteredUser
 
 
 # Register your models here.
@@ -11,4 +11,9 @@ class DiscordRegisteredUserAdmin(admin.ModelAdmin):
 
 @admin.register(ConnectFourGame)
 class ConnectFourGameAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(AniShuffleGame)
+class AniShuffleGameAdmin(admin.ModelAdmin):
     pass
