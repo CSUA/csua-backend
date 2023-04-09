@@ -68,6 +68,12 @@ class CSUAClient(discord.Client):
             await channel.send("Do I need to retrieve the stick?")
         if "is typing" in content:
             await channel.send("unoriginal")
+        if "Hilfinger" in content or "hilfinger" in content:
+            await channel.send("The waves of lethargy from you are overwhelming.")
+        if "Sahai" in content or "sahai" in content:
+            await channel.send("You lack mathematical maturity.")
+        if "Good Phil" in content or "good phil" in content:
+            await channel.send("Dank you m8")
         if content.count("cpma") >= 2:
             for emoji in emoji_letters("wtfiscpma"):
                 await message.add_reaction(emoji)
