@@ -235,10 +235,20 @@ class CSUABot:
             self.loop.close()
 
     def promote_user_to_hoser(self, tag):
+        # Precondition: tag is of the form username#discriminator
+
         if not hasattr(self.client, "csua_guild"):
             client = self.client
             print(client)
-        member = self.client.csua_guild.get_member_named(tag)
+
+        # Discord pomelo case catcher.
+        # May need discord.py to be version bumped.
+        parsed_username, parsed_tag = tag.rsplit("#", maxsplit=1)
+        if parsed_tag == "0":
+            member = self.client.csua_guild.get_member_named(parsed_username)
+        else:
+            member = self.client.csua_guild.get_member_named(tag)
+
         if member:
             asyncio.run_coroutine_threadsafe(
                 member.add_roles(self.client.hoser_role), self.loop
