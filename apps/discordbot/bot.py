@@ -42,6 +42,16 @@ TIMEOUT_SECS = 10
 
 logger = logging.getLogger(__name__)
 
+CHANNEL_INTROS_URL = (
+    "https://discord.com/channels/784902200102354985/799033657276629064"
+)
+CHANNEL_ANNOUNCEMENTS_URL = (
+    "https://discord.com/channels/784902200102354985/794033872845013003"
+)
+CHANNEL_OPPORTUNITIES_URL = (
+    "https://discord.com/channels/784902200102354985/925328934923546664"
+)
+
 
 class CSUAClient(discord.Client):
     async def on_ready(self):
@@ -200,6 +210,8 @@ class CSUAClient(discord.Client):
         await member.send(
             "Verify your berkeley.edu email to gain access to the server! "
             "Type `!verify` in this DM plus your email, like so: `!verify oski@berkeley.edu`. "
+            f"Once you have done so, feel free to introduce yourself in {CHANNEL_INTROS_URL}. "
+            f"And be sure to check out {CHANNEL_ANNOUNCEMENTS_URL} and {CHANNEL_OPPORTUNITIES_URL} for fun events and opportunities :)\n\n"
             "Please contact a moderator if you encounter any issues."
         )
 
