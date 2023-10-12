@@ -32,4 +32,5 @@ urlpatterns = [
     path("profile/", views.profile, name="my_profile"),
     path("profile/<username>/", views.profile, name="profile"),
     path("404/", TemplateView.as_view(template_name="404.html")),
+    path("minutes/", TemplateView.as_view(template_name="meeting_minutes.html")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
