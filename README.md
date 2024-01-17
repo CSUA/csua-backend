@@ -15,12 +15,6 @@ A Django web app that:
 * Runs a [discord bot](apps/discordbot) on https://www.csua.berkeley.edu/discord
 * Tracks [Soda 311 office computer usage](apps/tracker)
 
-Continuous integration/deployment via [Travis CI][travis]:
-
-[![](https://travis-ci.org/CSUA/csua-backend.svg?branch=master)][travis]
-
-[travis]: https://travis-ci.org/github/CSUA/csua-backend
-
 See [issues](https://github.com/CSUA/csua-backend/issues) for a list of TODOs.
 
 ## User Workflow
@@ -104,14 +98,7 @@ Django's online documentation has more detail on a project's structure
 
 ## Deploying
 
-
-### (Automatic) Travis CI
-
-Commits to `master` get automatically tested and deployed by Travis CI.
-`scripts/id_rsa.enc` is an encrypted ssh key that lets the deploy script log in as `www-data`.
-It needs to be decrypted with a secret key which is specified as an environment variable in Travis.
-
-See builds here: https://travis-ci.org/github/CSUA/csua-backend
+As of 2024 we no longer use Travis CI (our repo was formerly located [here](https://travis-ci.org/github/CSUA/csua-backend)). Please manually deploy from Tap instead:
 
 ### Manual Deploy
 
