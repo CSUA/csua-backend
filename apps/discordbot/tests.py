@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, Mock, call, patch
 
 import cowpy
 import discord
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from pyfiglet import figlet_format
 
 from . import connect4
@@ -62,7 +62,7 @@ class TestCSUAClient(TestCase):
         message.add_reaction.assert_has_calls(call(reaction) for reaction in reactions)
 
 
-class ConnectFourTest(TestCase):
+class ConnectFourTest(TransactionTestCase):
     def setUp(self):
         self.discord_client = CSUAClient(intents=discord.Intents.all())
         self.discord_client.oh_check_channel = Mock(return_value=123)

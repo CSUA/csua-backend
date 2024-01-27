@@ -1,3 +1,5 @@
+BRANCH=master
+
 cd /webserver/csua-backend \
 	&& git pull origin $BRANCH \
 	&& venv/bin/pip install -r requirements.txt --upgrade \
