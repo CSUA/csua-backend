@@ -1,8 +1,10 @@
 import asyncio
+import io
 import logging
 import threading
 import time
 import unicodedata
+from datetime import datetime
 from functools import partial
 
 import discord
@@ -13,6 +15,7 @@ from discord.embeds import Embed
 from discord.utils import get
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from PIL import Image
 from pyfiglet import figlet_format
 
 from . import ani_shuffle, connect4, cowsay, xkcd
@@ -30,6 +33,12 @@ HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Ver
 DEBUG_CHANNEL_ID = config(
     "DEBUG_CHANNEL", default=788989977794707456, cast=int
 )  # phil-n-carl
+OH_CHECK_CHANNEL_ID = config(
+    "OH_CHECK_CHANNEL_ID", default=1200591936218730507, cast=int
+)
+OH_CHECK_DEST_CHANNEL_ID = config(
+    "OH_CHECK_DEST_CHANNEL_ID", default=1200600057305632859, cast=int
+)
 CSUA_CHATTER_CHANNEL_ID = 784902200102354989
 CSUA_ROOT_CHANNEL_ID = 839433106868142092
 ANNOUNCEMENTS_CHANNEL_ID = config(
@@ -64,6 +73,12 @@ class CSUAClient(discord.Client):
         if self.is_phillip:
             self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
             self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
+            self.oh_check_channel = get(
+                self.csua_guild.channels, id=OH_CHECK_CHANNEL_ID
+            )
+            self.oh_check_dest_channel = get(
+                self.csua_guild.channels, id=OH_CHECK_DEST_CHANNEL_ID
+            )
             self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
             self.pb_role = get(self.csua_guild.roles, id=CSUA_PB_ROLE_ID)
 
@@ -74,6 +89,44 @@ class CSUAClient(discord.Client):
         content = message.content.lower()
         channel = message.channel
 
+        if channel == self.oh_check_channel:
+            if not message.attachments or not message.attachments[
+                0
+            ].content_type.startswith("image/"):
+                await channel.send("Please send an image of the fridge contents :)")
+            else:
+                attachment_contents = await message.attachments[0].read()
+                image = Image.open(io.BytesIO(attachment_contents))
+
+                i_width, i_height = image.size
+                n_width = 1000
+                i_ratio = i_width / n_width
+                n_height = int(i_height / i_ratio)
+                out_bytes = io.BytesIO()
+
+                i_out = image.resize((n_width, n_height), Image.ADAPTIVE)
+
+                if i_out.mode in ("RGBA", "P"):
+                    i_out = i_out.convert("RGB")
+                i_out.save(out_bytes, format="JPEG", quality=90, optimize=True)
+
+                out_bytes.seek(0)
+
+                datetime_now = datetime.now()
+                timestr_now = datetime_now.strftime("%m_%d_%Y-%I%p-%Mm-%Ss")
+                readable_time_now = datetime_now.strftime("%m/%d/%Y %I:%M:%S%p")
+
+                await self.oh_check_dest_channel.send(
+                    "[{}] Recorded check in from: {}".format(
+                        readable_time_now, author.name
+                    ),
+                    file=discord.File(
+                        out_bytes, filename="check-in-{}.jpg".format(timestr_now)
+                    ),
+                )
+                await channel.send("Recorded check in from: {}".format(author.name))
+            await message.delete()
+            return
         if "hkn" in content and "ieee" in content:
             await channel.send("Do I need to retrieve the stick?")
         if "is typing" in content:
