@@ -47,9 +47,5 @@ jobs:
           username: ${{ secrets.DEPLOY_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
-          proxy_host: ${{ secrets.DEPLOY_PROXY_HOST }}
-          proxy_username: ${{ secrets.DEPLOY_PROXY_USERNAME }}
-          proxy_key: ${{ secrets.DEPLOY_PROXY_KEY }}
-          proxy_port: ${{ secrets.DEPLOY_PROXY_PORT }}
           script: ${{ steps.deploy_script.outputs.contents }}
 
