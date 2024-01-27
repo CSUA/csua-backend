@@ -23,6 +23,7 @@ class AsyncMock(MagicMock):
 class TestCSUAClient(TestCase):
     def setUp(self):
         self.discord_client = CSUAClient(intents=discord.Intents.all())
+        self.discord_client.oh_check_channel = Mock(return_value=123)
 
     def test_reactions(self):
         self.check_message(
@@ -64,6 +65,7 @@ class TestCSUAClient(TestCase):
 class ConnectFourTest(TestCase):
     def setUp(self):
         self.discord_client = CSUAClient(intents=discord.Intents.all())
+        self.discord_client.oh_check_channel = Mock(return_value=123)
         self.loop = asyncio.get_event_loop()
         self.mock_opponent_id = 1234
         self.mock_author_id = 1122
