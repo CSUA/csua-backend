@@ -3,6 +3,7 @@ import io
 import logging
 import threading
 import time
+import typing
 import unicodedata
 from datetime import datetime
 from functools import partial
@@ -10,7 +11,15 @@ from functools import partial
 import discord
 import schedule
 from decouple import config
-from discord import Forbidden, HTTPException, NotFound
+from discord import (
+    Forbidden,
+    Guild,
+    HTTPException,
+    NotFound,
+    Role,
+    TextChannel,
+    app_commands,
+)
 from discord.embeds import Embed
 from discord.utils import get
 from django.core.exceptions import ValidationError
@@ -33,9 +42,6 @@ HOSER_ROLE_ID = config("TEST_ROLE", default=785418569412116513, cast=int)  # Ver
 DEBUG_CHANNEL_ID = config(
     "DEBUG_CHANNEL", default=788989977794707456, cast=int
 )  # phil-n-carl
-OH_CHECK_CHANNEL_ID = config(
-    "OH_CHECK_CHANNEL_ID", default=1200591936218730507, cast=int
-)
 OH_CHECK_DEST_CHANNEL_ID = config(
     "OH_CHECK_DEST_CHANNEL_ID", default=1200600057305632859, cast=int
 )
@@ -46,6 +52,7 @@ ANNOUNCEMENTS_CHANNEL_ID = config(
 )
 # TEST_SERVER_CHANNEL_ID = 805590450136154125  # CSUA-Test
 CSUA_PB_ROLE_ID = 784907966532288542
+CSUA_PROSP_ROLE_ID = config("CSUA_PROSP_ROLE_ID", default=805635820353617920, cast=int)
 
 TIMEOUT_SECS = 10
 
@@ -63,6 +70,11 @@ CHANNEL_OPPORTUNITIES_URL = (
 
 
 class CSUAClient(discord.Client):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.slash_command_tree = app_commands.CommandTree(self)
+        self.add_commands()
+
     async def on_ready(self):
         print(f"{self.user} has connected to Discord")
         self.is_phillip = self.user.id == CSUA_PHILBOT_CLIENT_ID
@@ -71,16 +83,24 @@ class CSUAClient(discord.Client):
         # )
         # csua_bot.announcements_thread.start()
         if self.is_phillip:
-            self.csua_guild = get(self.guilds, id=CSUA_GUILD_ID)
-            self.test_channel = get(self.csua_guild.channels, id=DEBUG_CHANNEL_ID)
-            self.oh_check_channel = get(
-                self.csua_guild.channels, id=OH_CHECK_CHANNEL_ID
+            await self.slash_command_tree.sync(guild=discord.Object(id=CSUA_GUILD_ID))
+
+            self.csua_guild: typing.Optional[Guild] = get(self.guilds, id=CSUA_GUILD_ID)
+            self.test_channel: typing.Optional[TextChannel] = get(
+                self.csua_guild.channels, id=DEBUG_CHANNEL_ID
             )
-            self.oh_check_dest_channel = get(
+            self.oh_check_dest_channel: typing.Optional[TextChannel] = get(
                 self.csua_guild.channels, id=OH_CHECK_DEST_CHANNEL_ID
             )
-            self.hoser_role = get(self.csua_guild.roles, id=HOSER_ROLE_ID)
-            self.pb_role = get(self.csua_guild.roles, id=CSUA_PB_ROLE_ID)
+            self.hoser_role: typing.Optional[Role] = get(
+                self.csua_guild.roles, id=HOSER_ROLE_ID
+            )
+            self.pb_role: typing.Optional[Role] = get(
+                self.csua_guild.roles, id=CSUA_PB_ROLE_ID
+            )
+            self.prosps_role: typing.Optional[Role] = get(
+                self.csua_guild.roles, id=CSUA_PROSP_ROLE_ID
+            )
 
     async def on_message(self, message):
         author = message.author
@@ -89,44 +109,6 @@ class CSUAClient(discord.Client):
         content = message.content.lower()
         channel = message.channel
 
-        if channel == self.oh_check_channel:
-            if not message.attachments or not message.attachments[
-                0
-            ].content_type.startswith("image/"):
-                await channel.send("Please send an image of the fridge contents :)")
-            else:
-                attachment_contents = await message.attachments[0].read()
-                image = Image.open(io.BytesIO(attachment_contents))
-
-                i_width, i_height = image.size
-                n_width = 1000
-                i_ratio = i_width / n_width
-                n_height = int(i_height / i_ratio)
-                out_bytes = io.BytesIO()
-
-                i_out = image.resize((n_width, n_height), Image.ADAPTIVE)
-
-                if i_out.mode in ("RGBA", "P"):
-                    i_out = i_out.convert("RGB")
-                i_out.save(out_bytes, format="JPEG", quality=90, optimize=True)
-
-                out_bytes.seek(0)
-
-                datetime_now = datetime.now()
-                timestr_now = datetime_now.strftime("%m_%d_%Y-%I%p-%Mm-%Ss")
-                readable_time_now = datetime_now.strftime("%m/%d/%Y %I:%M:%S%p")
-
-                await self.oh_check_dest_channel.send(
-                    "[{}] Recorded check in from: {}".format(
-                        readable_time_now, author.name
-                    ),
-                    file=discord.File(
-                        out_bytes, filename="check-in-{}.jpg".format(timestr_now)
-                    ),
-                )
-                await channel.send("Recorded check in from: {}".format(author.name))
-            await message.delete()
-            return
         if "hkn" in content and "ieee" in content:
             await channel.send("Do I need to retrieve the stick?")
         if "is typing" in content:
@@ -242,6 +224,74 @@ class CSUAClient(discord.Client):
                     await channel.send("!dm: fetching user failed")
                 except Exception as e:
                     await channel.send(f"!dm: {e} generic_exception")
+
+    def add_commands(self):
+        @self.slash_command_tree.command(
+            name="oh-check-in",
+            description="Hi officers! Please use this command to check in for your office hour.",
+            guild=discord.Object(id=CSUA_GUILD_ID),
+        )
+        @app_commands.describe(
+            office_picture="Optional while testing, submit a picture of a part of the office."
+        )
+        async def oh_check_in(
+            interaction, office_picture: typing.Optional[discord.Attachment] = None
+        ):
+            try:
+                if interaction.user.top_role >= self.prosps_role:
+                    datetime_now = datetime.now()
+                    additional_args = {}
+                    if office_picture:
+                        if not office_picture.content_type.startswith("image/"):
+                            await interaction.response.send_message(
+                                "Please upload only images", ephemeral=True
+                            )
+                        else:
+                            attachment_contents = await office_picture.read()
+                            image = Image.open(io.BytesIO(attachment_contents))
+
+                            i_width, i_height = image.size
+                            n_width = 1000
+                            i_ratio = i_width / n_width
+                            n_height = int(i_height / i_ratio)
+                            out_bytes = io.BytesIO()
+
+                            i_out = image.resize((n_width, n_height), Image.ADAPTIVE)
+
+                            if i_out.mode in ("RGBA", "P"):
+                                i_out = i_out.convert("RGB")
+                            i_out.save(
+                                out_bytes, format="JPEG", quality=90, optimize=True
+                            )
+
+                            timestr_now = datetime_now.strftime("%m_%d_%Y-%I%p-%Mm-%Ss")
+
+                            out_bytes.seek(0)
+                            additional_args = {
+                                "file": discord.File(
+                                    out_bytes,
+                                    filename="check-in-{}.jpg".format(timestr_now),
+                                )
+                            }
+
+                    readable_time_now = datetime_now.strftime("%m/%d/%Y %I:%M:%S%p")
+
+                    await self.oh_check_dest_channel.send(
+                        "[{}] Recorded check in from: {}".format(
+                            readable_time_now, interaction.user.name
+                        ),
+                        **additional_args,
+                    )
+                    await interaction.response.send_message(
+                        "Successfully recorded check in.", ephemeral=True
+                    )
+                else:
+                    await interaction.response.send_message(
+                        "Only officers are allowed to use this command :)",
+                        ephemeral=True,
+                    )
+            except Exception as e:
+                print(e)
 
     async def on_raw_reaction_add(self, event):
         await connect4.on_raw_reaction_add(self, event)
