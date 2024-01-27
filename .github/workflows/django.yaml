@@ -30,6 +30,11 @@ jobs:
     needs: build
     if: success() && github.ref == 'refs/heads/master'
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            scripts/deploy.sh
+          sparse-checkout-cone-mode: false
       - name: Read deploy script contents
         uses: andstor/file-reader-action@v1.0.0
         id: deploy_script
