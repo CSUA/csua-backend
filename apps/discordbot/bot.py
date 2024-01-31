@@ -170,7 +170,7 @@ class CSUAClient(discord.Client):
         if content == "!ani":
             await ani_shuffle.init(self, channel, author)
 
-        if channel == author.dm_channel:
+        if channel.type == discord.ChannelType.private:
             if content.startswith("!verify"):
                 if len(content.split()) > 1:
                     arg = content.split()[1]
