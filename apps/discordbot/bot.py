@@ -227,6 +227,79 @@ class CSUAClient(discord.Client):
 
     def add_commands(self):
         @self.slash_command_tree.command(
+            name="oh-cover",
+            description="Hi officers! Please use this command to cover someone else's office hour.",
+            guild=discord.Object(id=CSUA_GUILD_ID),
+        )
+        @app_commands.describe(
+            covering_for="The officer you are covering. If you aren't covering, make sure to use /oh-check-in instead!",
+            office_picture="Optional while testing, submit a picture of a part of the office.",
+        )
+        async def oh_check_in(
+            interaction,
+            covering_for: str,
+            office_picture: typing.Optional[discord.Attachment] = None,
+        ):
+            try:
+                if interaction.user.top_role >= self.prosps_role:
+                    datetime_now = datetime.now()
+                    additional_args = {}
+                    if office_picture:
+                        if not office_picture.content_type.startswith("image/"):
+                            await interaction.response.send_message(
+                                "Please upload only images", ephemeral=True
+                            )
+                        else:
+                            attachment_contents = await office_picture.read()
+                            image = Image.open(io.BytesIO(attachment_contents))
+
+                            i_width, i_height = image.size
+                            n_width = 1000
+                            i_ratio = i_width / n_width
+                            n_height = int(i_height / i_ratio)
+                            out_bytes = io.BytesIO()
+
+                            i_out = image.resize((n_width, n_height), Image.ADAPTIVE)
+
+                            if i_out.mode in ("RGBA", "P"):
+                                i_out = i_out.convert("RGB")
+                            i_out.save(
+                                out_bytes, format="JPEG", quality=90, optimize=True
+                            )
+
+                            timestr_now = datetime_now.strftime("%m_%d_%Y-%I%p-%Mm-%Ss")
+
+                            out_bytes.seek(0)
+                            additional_args = {
+                                "file": discord.File(
+                                    out_bytes,
+                                    filename="check-in-{}.jpg".format(timestr_now),
+                                )
+                            }
+
+                    readable_time_now = datetime_now.strftime("%m/%d/%Y %I:%M:%S%p")
+
+                    await self.oh_check_dest_channel.send(
+                        "[{}] [Covering for {}] Recorded check in from: {}".format(
+                            readable_time_now, covering_for, interaction.user.name
+                        ),
+                        **additional_args,
+                    )
+                    await interaction.response.send_message(
+                        "Successfully recorded check in (covering for {}).".format(
+                            covering_for
+                        ),
+                        ephemeral=True,
+                    )
+                else:
+                    await interaction.response.send_message(
+                        "Only officers are allowed to use this command :)",
+                        ephemeral=True,
+                    )
+            except Exception as e:
+                print(e)
+
+        @self.slash_command_tree.command(
             name="oh-check-in",
             description="Hi officers! Please use this command to check in for your office hour.",
             guild=discord.Object(id=CSUA_GUILD_ID),
