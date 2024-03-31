@@ -2,6 +2,7 @@ from itertools import product
 
 DAYS_OF_WEEK = ["Mon", "Tues", "Wed", "Thu", "Fri"]
 OH_TIMES = [
+    "9-10 AM",
     "10-11 AM",
     "11-12 PM",
     "12-1 PM",
