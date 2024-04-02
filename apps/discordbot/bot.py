@@ -53,6 +53,7 @@ ANNOUNCEMENTS_CHANNEL_ID = config(
 # TEST_SERVER_CHANNEL_ID = 805590450136154125  # CSUA-Test
 CSUA_PB_ROLE_ID = 784907966532288542
 CSUA_PROSP_ROLE_ID = config("CSUA_PROSP_ROLE_ID", default=805635820353617920, cast=int)
+CSUA_VERIFIED_ROLE_ID = 785418569412116513
 
 TIMEOUT_SECS = 10
 
@@ -100,6 +101,9 @@ class CSUAClient(discord.Client):
             )
             self.prosps_role: typing.Optional[Role] = get(
                 self.csua_guild.roles, id=CSUA_PROSP_ROLE_ID
+            )
+            self.verified_role: typing.Optional[Role] = get(
+                self.csua_guild.roles, id=CSUA_VERIFIED_ROLE_ID
             )
 
     async def on_message(self, message):
@@ -226,6 +230,49 @@ class CSUAClient(discord.Client):
                     await channel.send(f"!dm: {e} generic_exception")
 
     def add_commands(self):
+        @self.slash_command_tree.command(
+            name="verify",
+            description="Welcome to the CSUA! You may use this command to get verified.",
+            guild=discord.Object(id=CSUA_GUILD_ID),
+        )
+        @app_commands.describe(
+            email_address="Your @berkeley.edu email address. New admits are still welcome to chat in unverified channels!"
+        )
+        async def oh_check_in(interaction, email_address: str):
+            try:
+                if self.verified_role not in interaction.user.roles:
+                    try:
+                        author = interaction.user
+                        validate_email(email_address)
+                        if email_address.endswith("berkeley.edu"):
+                            send_verify_mail(
+                                email_address, author.name + "#" + author.discriminator
+                            )
+                            await interaction.response.send_message(
+                                f"A verification email has been sent to {email_address}",
+                                ephemeral=True,
+                            )
+                            await self.test_channel.send(
+                                f"{author.name}(id: {author.id}) was sent verification email"
+                            )
+                        else:
+                            await interaction.response.send_message(
+                                f"{email_address} is not a berkeley email.",
+                                ephemeral=True,
+                            )
+                    except ValidationError as e:
+                        await interaction.response.send_message(
+                            f"{email_address} is not a valid email. Details: {e}",
+                            ephemeral=True,
+                        )
+                else:
+                    await interaction.response.send_message(
+                        "You are verified already!",
+                        ephemeral=True,
+                    )
+            except Exception as e:
+                print(e)
+
         @self.slash_command_tree.command(
             name="oh-cover",
             description="Hi officers! Please use this command to cover someone else's office hour.",
