@@ -34,7 +34,7 @@ class NewUserForm(forms.Form):
         validators=[validate_username_chars, validate_username_not_in_use]
     )
     password = forms.CharField(widget=forms.PasswordInput())
-    enroll_jobs = forms.BooleanField(required=False, label="Jobs@ List Opt-in")
+    #enroll_jobs = forms.BooleanField(required=False, label="Jobs@ List Opt-in")
     agree_rules = forms.BooleanField(required=True)
 
     def clean(self):
