@@ -7,3 +7,8 @@ echo $2 > /nfs/homes/$1/.forward
 chown -R $3:1000 /nfs/homes/$1
 echo $2 | add_members -r - Csua-newmembers
 if ($4); then echo $2 | add_members -r - Jobs; fi
+
+#this is for creating the public_html folder and link
+mkdir -m 755 /nfs/public_html/$1
+chown -R $3:1000 /nfs/public_html/$1
+ln -s /csua/public_html/$1 /nfs/homes/$1/public_html

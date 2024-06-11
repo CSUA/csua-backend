@@ -81,8 +81,8 @@ def _make_newuser(request, form, context):
     """Creates a new user in LDAP and runs config_newuser
     if config_newuser fails, the user account is deleted to prevent the user
     account from being in limbo."""
-    #enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
-    #disabling temporarily before the mailman3 migration
+    # enroll_jobs = "true" if form.cleaned_data["enroll_jobs"] else "false"
+    # disabling temporarily before the mailman3 migration
     enroll_jobs = "false"
     success, uid = create_new_user(
         form.cleaned_data["username"],
