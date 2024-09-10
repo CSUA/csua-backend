@@ -76,3 +76,5 @@ data/
 /venv
 .vscode/settings.json
 node_modules
+
+/.idea
