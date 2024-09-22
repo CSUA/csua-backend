@@ -26,7 +26,8 @@ from ldap3 import (
 )
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
-LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=2)
+# TODO: make things faster because connect_timeout=2 was too slow (caused socket closure)
+LDAP_SERVER = Server(LDAP_SERVER_URL, connect_timeout=10)
 LDAP_CLIENT_STRATEGY = SYNC
 CSUA_DC = "dc=csua,dc=berkeley,dc=edu"
 PEOPLE_OU = "ou=People," + CSUA_DC
