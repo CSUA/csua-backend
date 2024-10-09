@@ -8,7 +8,7 @@
     <p>
     Hello World!  Welcome to the CSUA.  By creating an account with us, you will be granted access to our computers and use of our servers.  Enter your Berkeley email in order to get sent a link where you can create a new CSUA account.
     </p>
-    <p>Note: There is a known issue with our sign up system right now, we are working hard to fix it. In the meantime, please join our discord at <a href="https://csua.org/discord" target="_blank">https://csua.org/discord</a> and fill out this form <a href="https://csua.org/signup" target="_blank">https://csua.org/signup</a> letting us know you intend to join! We will notify you once our sign up system is back up :)</p>
+    <p>Note: We've recently completed system upgrades and fixes that have been affecting our sign up system recently. Please join our discord at <a href="https://csua.org/discord" target="_blank">https://csua.org/discord</a> if you are still running into issues.</p>
     {% if messages %}
     <div class="notification is-danger">
       <ul>
@@ -18,8 +18,7 @@
       </ul>
     </div>
     {% endif %}
-{#  TODO: unset "disabled" and remove styling when sign up system is fixed #}
-    <div class="box" disabled="true" style="opacity: 25%; pointer-events: none">
+    <div class="box">
       <form action="{% url "newuser-remote-request" %}" method="post">
         {% csrf_token %}
         <table>
