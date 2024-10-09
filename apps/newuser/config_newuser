@@ -5,8 +5,9 @@ if [ $# -ne 4 ]; then echo "usage: $0 username email uid enroll_jobs"; exit 1; f
 mkdir -m 700 /nfs/homes/$1
 echo $2 > /nfs/homes/$1/.forward
 chown -R $3:1000 /nfs/homes/$1
-echo $2 | add_members -r - Csua-newmembers
-if ($4); then echo $2 | add_members -r - Jobs; fi
+# TODO: add back mailman enrollment
+#echo $2 | add_members -r - Csua-newmembers
+#if ($4); then echo $2 | add_members -r - Jobs; fi
 
 #this is for creating the public_html folder and link
 mkdir -m 755 /nfs/public_html/$1
