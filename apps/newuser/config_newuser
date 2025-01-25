@@ -9,9 +9,6 @@ chown -R $3:1000 /nfs/homes/$1
 #echo $2 | add_members -r - Csua-newmembers
 #if ($4); then echo $2 | add_members -r - Jobs; fi
 
-# Enroll user in csua-members google group (temp solution until mailman)
-/root/root-work/auto-list-update/addMember.py $2
-
 #this is for creating the public_html folder and link
 mkdir -m 755 /nfs/public_html/$1
 chown -R $3:1000 /nfs/public_html/$1
