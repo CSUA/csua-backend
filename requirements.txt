@@ -2,7 +2,7 @@
 django~=2.2
 django-markdown-deux
 pillow
-sorl-thumbnail
+sorl-thumbnail==12.10.0
 python-decouple
 django-python3-ldap
 ldap3==2.8
