@@ -108,12 +108,14 @@
           <source src="{{ officer.person.video2.url }}" type="video/mp4"></source>
         </video>
         {% elif officer.person.photo2 %}
+        {% thumbnail officer.person.photo2 "500x500" crop="center" as photo2 %}
         <figure class="image photoone has-text-centered">
           <img class="is-rounded photoone is-inline-block" src="{{ photo1.url }}">
         </figure>
-        <figure class="phototwo has-text-centered">
-          <img class="phototwo is-inline-block" src="{{ officer.person.photo2.url }}">
+        <figure class="image phototwo has-text-centered">
+          <img class="is-rounded phototwo is-inline-block" src="{{ photo2.url }}">
         </figure>
+        {% endthumbnail %}
         {% else %}
         <figure class="image single has-text-centered">
           <img class="is-rounded single is-inline-block" src="{{ photo1.url }}">
