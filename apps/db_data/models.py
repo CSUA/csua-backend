@@ -100,7 +100,7 @@ class Officership(models.Model):
     officer = models.ForeignKey(Officer, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     tutor_subjects = models.ManyToManyField("UcbClass", blank=True)
-    blurb = models.CharField(max_length=255)
+    blurb = models.CharField(max_length=255, blank=True)
     office_hours = models.CharField(max_length=70)
 
     def __str__(self):

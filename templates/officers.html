@@ -131,9 +131,11 @@
         </span>
         {% endif %}
         <br>
+        {% if officership.office_hours != "N/A" %}
         <a href="#office-hours">
           OH: {{ officership.office_hours }}
         </a>
+        {% endif %}
         <br>
         {% if officership.tutor_subjects.all|length > 0 %}
         <span class="tutor-badge">
@@ -147,9 +149,11 @@
           <tt>root</tt></span>
         <br>
         {% endif %}
+        {% if officership.blurb %}
         <span class="blurb">
           "{{ officership.blurb }}"
         </span>
+        {% endif %}
       </div>
     </div>
   </article>
