@@ -10,7 +10,7 @@ chown -R $3:1000 /nfs/homes/$1
 #if ($4); then echo $2 | add_members -r - Jobs; fi
 
 # Enroll user in csua-members google group (temp solution until mailman)
-echo $2 | /webserver/csua-backend/apps/newuser/addMember.py - | systemd-cat -t googleGroupUpdater
+/webserver/csua-backend/apps/newuser/addMember.py $2
 
 #this is for creating the public_html folder and link
 mkdir -m 755 /nfs/public_html/$1
