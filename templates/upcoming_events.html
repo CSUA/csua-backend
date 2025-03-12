@@ -1,25 +1,5 @@
 {# vim placeholder #}
-{% load db_data_tags %}
-{% get_upcoming_events as events %}
-{% if events %}
-<ol start=0>
-        {% for event in events %}
-        <li>
-                <strong>{{ event.name }}</strong><br>
-                {{ event.get_start_date_and_time_string }}
-                <span class="icon is-small">
-                        <a href="{{ event.link }}">
-                                <i class="fas fa-link"></i>
-                        </a>
-                </span><br>
-                {{ event.location }}
-        </li>
-        {% endfor %}
-</ol>
-{% else %}
-No upcoming events found.
-<p>
-Stay up to date with our upcoming events&mdash;join our mailing list by making
-a CSUA account and follow us on <a href="https://www.facebook.com/csua/">Facebook.</a>
-</p>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/events.css' %}">
+<div id="upcoming-events-gc-container" class="container has-text-centered">
+<iframe src="https://calendar.google.com/calendar/embed?height=800&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTz=0&mode=AGENDA&showCalendars=0&showTabs=0&showNav=0&showTitle=0&src=YmVya2VsZXkuZWR1X3J2NjQxcG10OW8xM3FuaDFzczR1aWI3OGJzQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F6BF26"></iframe></div>
