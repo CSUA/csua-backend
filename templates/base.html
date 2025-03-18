@@ -2,177 +2,86 @@
 {% load db_data_tags %}
 {% load markdown_deux_tags %}
 <!DOCTYPE html>
-<html>
+<html data-theme="light" class="theme-light"> {# TODO: remove forced light mode #}
   <head>
     <title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static "css/common.css" %}">
     <link rel="stylesheet" href="{% static "css/thirdparty/bulma.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/common.css" %}">
     <script defer src="{% static "icons.js" %}"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // to get mobile navbar to work
+        // Get all "navbar-burger" elements
         const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        if ($navbarBurgers.length > 0) {
-          $navbarBurgers.forEach( el => {
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
             el.addEventListener('click', () => {
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
             });
+        });
+        // code for notice dismissal
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+          const $notification = $delete.parentNode;
+
+          $delete.addEventListener('click', () => {
+              $notification.parentNode.removeChild($notification);
           });
-        }
+        });
       });
     </script>
     {% block head_content %}{% endblock %}
   </head>
   <body>
     <div id="body-container">
-      <nav id="navbar" class="navbar" role="navigation", aria-label="main navigation">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="{% url 'index' %}">
-              <img src="{% static 'images/pic.png' %}" width="36" height="28">
+    <nav id=navbar" class="navbar theme-light" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+          <a class="navbar-item" href="{% url 'index' %}">
+              <img src="{% static 'images/navbarIcon.png' %}" alt="">
             </a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-          <div id="navMenu" class="navbar-menu">
-            <div class="navbar-start">
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link" href="/events/">
-                  <span class="icon">
-                    <i class="fas fa-calendar-alt"></i>
-                  </span>
-                  <span>
-                    Events
-                  </span>
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{% url 'workshops' %}">
-                    Workshops
-                  </a>
-                </div>
-              </div>
-
-              <div class="navbar-item has-dropdown is-hoverable">
-                <span class="navbar-link">
-                  <span class="icon">
-                    <i class="fa fa-users"></i>
-                  </span>
-                  <span>
-                    About Us
-                  </span>
-                </span>
-
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{% url 'politburo' %}">
-                    Politburo
-                  </a>
-
-                  <a class="navbar-item" href="{% url 'officers' %}">
-                    Officers
-                  </a>
-
-                  <a class="navbar-item" href="{% url 'constitution' %}">
-                    Constitution
-                  </a>
-                </div>
-              </div>
-
-              <div class="navbar-item has-dropdown is-hoverable">
-                <span class="navbar-link">
-                  <span>
-                    Links
-                  </span>
-                </span>
-
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="https://github.com/CSUA/csua-utils/wiki">
-                    Root Staff Wiki
-                  </a>
-                  <a class="navbar-item" href="https://csua.github.io/documentaries/">
-                    CSUA documentation
-                  </a>
-                </div>
-              </div>
-
-              <a class="navbar-item" href="{% url 'join' %}">
-                Join
-              </a>
-
-              <a class="navbar-item" href="{% url 'tutoring' %}">
-                Tutoring
-              </a>
-
-              <a class="navbar-item" href="{% url 'sponsors' %}">
-                Sponsors
-              </a>
-
-              <a class="navbar-item" href="{% url 'contact' %}">
-                Contact Us
-              </a>
-            </div>
-
-            <div class="navbar-end">
-              {% if request.user.is_authenticated %}
-              <a class="navbar-item" href="{% url 'my_profile' %}">
-                Welcome {{ request.user.first_name }}!
-              </a>
-              <a class="navbar-item" href="{% url 'logout' %}">
-                Logout
-              </a>
-              {% if request.user.is_staff %}
-              <div class="navbar-item has-dropdown is-hoverable">
-                <span class="navbar-link">
-                  <span>
-                    KGB Links
-                  </span>
-                </span>
-
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{% url 'add-officer' %}">
-                    Update or Create Officers
-                  </a>
-                  <a class="navbar-item" href="{% url 'admin:index' %}">
-                    Django Admin
-                  </a>
-                  <a class="navbar-item" href="{% url 'ldap_admin' %}">
-                    CSUA LDAP Admin
-                  </a>
-                </div>
-              </div>
-              {% endif %}
-              {% else %}
-              <a class="navbar-item" href="{% url 'password_reset:request-reset-password' %}">
-                Reset Password
-              </a>
-              <a class="navbar-item" href="{% url 'login' %}">
-                Login
-              </a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {% get_current_notices as notices %}
-      {% if notices %}
-      <div id="notices" class="hero">
-        {% for notice in notices %}
-        <div class="container">
-          <div class="content has-text-centered">
-            {{ notice.text|markdown }}
-          </div>
-        </div>
-        {% endfor %}
+          <a role="button" class="navbar-burger burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
       </div>
-      {% endif %}
+
+      <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+          <a class="navbar-item" href="{% url 'officers' %}">
+              Officers
+          </a>
+
+          <a class="navbar-item" href="{% url 'services' %}">
+              Services
+          </a>
+
+          <a class="navbar-item" href="{% url 'contact' %}">
+              Contact
+          </a>
+
+          <div class="navbar-item">
+              <div class="buttons">
+                  <a class="button is-link" href="{% url 'join' %}">
+                      <strong>Join</strong>
+                  </a>
+              </div>
+          </div>
+      </div>
+
+      <div class="navbar-end">
+
+      </div>
+        </div>
+    </nav>
 
       <div id="content">
         {% block content %}{% endblock %}
@@ -183,14 +92,14 @@
           <div class="columns">
             <div class="column">
               <div class="content">
-                <a href="https://www.instagram.com/ucbcsua/">
+                <a href="https://www.instagram.com/csua.berkeley/">
                   <i class="fab fa-instagram"></i>
-                  Instagram @ucbcsua
+                  Instagram @csua.berkeley
                 </a>
                 <br>
-                <a href="https://www.facebook.com/csua/">
-                  <i class="fab fa-facebook-square"></i>
-                  Like us on Facebook!
+                <a href="https://csua.org/discord">
+                  <i class="fab fa-discord"></i>
+                  Join our Discord!
                 </a>
               </div>
             </div>

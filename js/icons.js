@@ -9,7 +9,8 @@ import {
   faFacebookSquare,
   faInstagram,
   faTwitter,
-  faGithub
+  faGithub,
+  faDiscord
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -20,7 +21,8 @@ library.add(
   faCalendarAlt,
   faUsers,
   faGraduationCap,
-  faHashtag
+  faHashtag,
+  faDiscord
 );
 
 dom.i2svg();
