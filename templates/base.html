@@ -41,6 +41,17 @@
   </head>
   <body>
     <div id="body-container">
+    {% get_current_notices as notices %}
+    {% if notices %}
+    <div>
+      {% for notice in notices %}
+      <div id="notice" class="notification is-warning is-light">
+        <button class="delete"></button>
+        {{ notice.text|markdown }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
     <nav id=navbar" class="navbar theme-light" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
           <a class="navbar-item" href="{% url 'index' %}">
@@ -80,57 +91,57 @@
       <div class="navbar-end">
 
       </div>
-        </div>
+      </div>
     </nav>
 
-      <div id="content">
-        {% block content %}{% endblock %}
-      </div>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
 
-      <footer id="footer" class="footer has-text-left">
-        <div class="container">
-          <div class="columns">
-            <div class="column">
-              <div class="content">
-                <a href="https://www.instagram.com/csua.berkeley/">
-                  <i class="fab fa-instagram"></i>
-                  Instagram @csua.berkeley
-                </a>
-                <br>
-                <a href="https://csua.org/discord">
-                  <i class="fab fa-discord"></i>
-                  Join our Discord!
-                </a>
-              </div>
-            </div>
-            <div class="column">
-              <p>
-              &copy; CSUA {% now "Y" %}
-              </p>
-              <p>
-              <a href="{% url 'contact' %}">
-                Contact Us
+    <footer id="footer" class="footer has-text-left">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="content">
+              <a href="https://www.instagram.com/csua.berkeley/">
+                <i class="fab fa-instagram"></i>
+                Instagram @csua.berkeley
               </a>
-              </p>
-            </div>
-            <div class="column">
-              <p>
-              Made by CSUA root staff with special help from Phillip "Edward" Nunez.
-              <a href="https://github.com/CSUA/csua-backend/graphs/contributors">
-                Contributors
+              <br>
+              <a href="https://csua.org/discord">
+                <i class="fab fa-discord"></i>
+                Join our Discord!
               </a>
-              </p>
-              <p>
-              Website feedback? Make an issue or pull request on
-              <a href="https://github.com/CSUA/csua-backend">
-                <i class="fab fa-github"></i>
-                GitHub.
-              </a>
-              </p>
             </div>
           </div>
+          <div class="column">
+            <p>
+            &copy; CSUA {% now "Y" %}
+            </p>
+            <p>
+            <a href="{% url 'contact' %}">
+              Contact Us
+            </a>
+            </p>
+          </div>
+          <div class="column">
+            <p>
+            Made by CSUA root staff with special help from Phillip "Edward" Nunez.
+            <a href="https://github.com/CSUA/csua-backend/graphs/contributors">
+              Contributors
+            </a>
+            </p>
+            <p>
+            Website feedback? Make an issue or pull request on
+            <a href="https://github.com/CSUA/csua-backend">
+              <i class="fab fa-github"></i>
+              GitHub.
+            </a>
+            </p>
+          </div>
         </div>
-      </footer>
+      </div>
+    </footer>
     </div>
   </body>
 </html>

@@ -1,14 +1,24 @@
 :root {
 	--accent: #3f64a5;
+	--light-accent: #8BB8D7;
 	--bulma-link-text: var(--accent);
 	--bulma-content-heading-color: var(--accent);
+	--bulma-light-base: var(--light-accent);
+}
+
+a {
+	font-weight: bold;
 }
 
 .button {
 	background-color: var(--accent);
 }
 
-#notices {
+.navbar a {
+	font-weight: 500;
+}
+
+#notice {
 	margin: 10px;
 }
 #content { /* TODO is this needed? */

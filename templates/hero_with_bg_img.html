@@ -3,7 +3,7 @@
 {% if img_url %}
 {% with request.scheme|add:"://"|add:request.get_host|add:img_url as orig_img %}
 {% thumbnail orig_img geom|default:"1000x1000" crop=crop|default:"noop" as im %}
-background: url('{{ im.url }}') lightgray;
+background: url('{{ im.url }}') #e8e8e8;
 background-size: cover;
 background-repeat: no-repeat;
 background-blend-mode: overlay;

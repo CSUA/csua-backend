@@ -6,41 +6,24 @@
 {% endblock %}
 {% block content %}
 
-<section id="top" class="hero is-fullheight-with-navbar has-text-centered">
+<section id="top" class="hero is-halfheight has-text-centered">
   <div class="hero-body">
     <div class="container">
       <h1 id="title" class="title">
         Welcome to the CSUA
       </h1>
       <h2 class="subtitle">
-        UC Berkeley Computer Science Association
+        UC Berkeley Computer Science Undergraduate Association
       </h2>
-      <a class="smooth" href="#hello-world">Start!</a>
     </div>
   </div>
 </section>
 
-
-<section id="hello-world" class="section has-background-light">
-  <div class="container">
-    <div class="content">
-      <h1>Hello World!</h1>
-      <p>
-      The CSUA supports the undergraduate computer science student body at
-      UC Berkeley and acts as an entry point to
-      <a href="{% url 'sponsors' %}">industry</a>.
-      We host tech talks, hackathons, info sessions,
-      <a href="{% url 'workshops' %}">workshops</a>,
-      LAN parties, and the biannual
-      <a href="http://ucbstartupfair.com/">Startup Fair</a>.
-      </p>
-      <p>
-      Looking for a place to learn more about computer science and meet
-      other students? Come visit us at our office (311 Soda) or come to our
-      <a href="/events/">events.</a>
-      </p>
-    </div>
-  </div>
+<section id="founded" class="section has-background-light">
+  <h2 id="headline">
+    Founded in 1972, CSUA is the largest and oldest computer science club on
+    campus.
+  </h2>
 </section>
 
 <section id="services" class="section">
@@ -129,11 +112,28 @@
   </div>
 </section>
 
-<section id="founded" class="section has-background-blue">
-  <h2 id="headline">
-    Founded in 1972, CSUA is the largest and oldest computer science club on
-    campus.
-  </h2>
+
+
+  <section id="hello-world" class="section has-background-light">
+  <div class="container">
+    <div class="content">
+      <h1>Hello World!</h1>
+      <p>
+      The CSUA supports the undergraduate computer science student body at
+      UC Berkeley and acts as an entry point to
+      <a href="{% url 'sponsors' %}">industry</a>.
+      We host tech talks, hackathons, info sessions,
+      <a href="{% url 'workshops' %}">workshops</a>,
+      LAN parties, and the biannual
+      <a href="http://ucbstartupfair.com/">Startup Fair</a>.
+      </p>
+      <p>
+      Looking for a place to learn more about computer science and meet
+      other students? Come visit us at our office (311 Soda) or come to our
+      <a href="/events/">events.</a>
+      </p>
+    </div>
+  </div>
 </section>
 
 <section id="people" class="section has-background-light">
