@@ -8,18 +8,3 @@
 .photo-frame:hover .phototwo, .photo-frame:hover .videotwo {
 	display: block;
 }
-.root-staff-banner {
-	background: #366d97;
-	color: #decb4b;
-	font-family: Courier New, monospace;
-	font-weight: bold;
-	padding: 5px 0;
-	position: relative;
-	text-align: center;
-        z-index: 1;
-	bottom: 30%;
-	left: 50%;
-	width: 120px;
-	box-shadow: 0 0 3px rgba(0,0,0,0.3);
-	transform: rotate(-45deg);
-}

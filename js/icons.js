@@ -3,7 +3,8 @@ import {
   faCalendarAlt,
   faUsers,
   faGraduationCap,
-  faHashtag
+  faHashtag,
+  faBirthdayCake
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
@@ -22,7 +23,8 @@ library.add(
   faUsers,
   faGraduationCap,
   faHashtag,
-  faDiscord
+  faDiscord,
+  faBirthdayCake
 );
 
 dom.i2svg();

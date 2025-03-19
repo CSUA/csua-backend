@@ -1,6 +1,6 @@
 import codecs
-import datetime
 from collections import defaultdict
+from datetime import datetime
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -12,7 +12,7 @@ from django.views.generic.base import TemplateView
 
 from apps.ldap.utils import add_officer, is_officer, is_root, user_exists
 
-from .constants import DAYS_OF_WEEK, OH_TIMES
+from .constants import DAYS_OF_WEEK, OH_TIME_MAP, OH_TIMES
 from .forms import OfficerCreationForm
 from .models import (
     Event,
@@ -52,7 +52,12 @@ def officers(request, semester_id=None):
         "days": DAYS_OF_WEEK,
         "hours": OH_TIMES,
         "contents": office_hours_calendar,
+        "ohTimeMap": OH_TIME_MAP,
     }
+
+    current_hour = datetime.now().strftime("%H")
+    current_timeslot = OH_TIME_MAP.get(int(current_hour))
+
     return render(
         request,
         "officers.html",
@@ -61,6 +66,7 @@ def officers(request, semester_id=None):
             "calendar": calendar,
             "semester": semester,
             "semesters": semesters,
+            "current_timeslot": current_timeslot,
         },
     )
 
