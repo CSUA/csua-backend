@@ -185,15 +185,10 @@
   {% endwith %}
   {% endfor %}
 </div>
-{% if semesters %}
+<br>
 <div class="content">
-  <h2>Previous Semesters</h2>
-  <ul>
-    {% for semester in semesters %}
-    <li><a href="{% url 'officers_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <h2>Past Officers</h2>
+  <p>For records of past officers please see the <a href="{% url 'archives' %}">archives</a>.</p>
 </div>
-{% endif %}
 {% endblock %}
 {# vim: set et sw=2 ts=2 tw=0: #}

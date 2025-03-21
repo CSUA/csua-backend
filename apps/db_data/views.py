@@ -131,3 +131,15 @@ def tutoring(request, semester_id=None):
             if subject in officership.tutor_subjects.all()
         ]
     return render(request, "tutoring.html", {"tutors_by_subject": tutors_by_subject})
+
+
+def archives(request):
+    semester = Semester.objects.filter(current=True).get()
+    semesters = Semester.objects.exclude(id=semester.id)
+    return render(
+        request,
+        "archives.html",
+        context={
+            "semesters": semesters,
+        },
+    )

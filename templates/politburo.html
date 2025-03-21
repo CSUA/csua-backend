@@ -36,7 +36,7 @@
     <div class="column is-6">
       <article class="content">
         <h2 class="pb-name">{{ user.first_name }} {{ user.last_name }}</h2>
-        <h4 class="pb-title" id="{{ politburo.position }}">{{ politburo.title }}</h1>
+        <h4 class="pb-title" id="{{ politburo.position }}">{{ politburo.title }}</h4>
         <p><i class="pb-email">{{ politburo.position }}@csua.berkeley.edu</i></p>
         <p>
         {{ politburo.description }}
@@ -50,16 +50,11 @@
   {% endwith %}
   {% endwith %}
   {% endfor %}
-  {% if semesters %}
+  <br>
   <div class="content">
-    <h2>Previous Semesters</h2>
-    <ul>
-      {% for semester in semesters %}
-      <li><a href="{% url 'politburo_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
-      {% endfor %}
-    </ul>
+    <h2>Politburo Archive</h2>
+    <p>For records of past politburo members please see the <a href="{% url 'archives' %}">archives</a>.</p>
   </div>
-  {% endif %}
 </div>
 {% endblock %}
 {# vim: set et ts=2 sw=2 tw=0: #}
