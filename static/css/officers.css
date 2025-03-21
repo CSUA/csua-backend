@@ -8,3 +8,39 @@
 .photo-frame:hover .phototwo, .photo-frame:hover .videotwo {
 	display: block;
 }
+
+.time-indicator {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background-color: red;
+	display: flex;
+	align-items: center;
+}
+
+.time-indicator-dot {
+	width: 8px;
+	height: 8px;
+	background-color: red;
+	border-radius: 50%;
+	position: absolute;
+	left: -4px;
+}
+
+.time-cell {
+	position: relative;
+}
+
+.table {
+	position: relative;
+}
+
+.officer-button {
+	background-color: inherit;
+}
+
+.current-oh a {
+	background-color: var(--accent);
+	color: white;
+}

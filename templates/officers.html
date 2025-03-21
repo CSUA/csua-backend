@@ -36,8 +36,11 @@
         {% with forloop.counter|add:"-2" as cell_day_index %}
         {% if cell_day_index >= 0 %}
         {% with calendar.days|index:cell_day_index|slice:":3" as cell_day_val %}
-          {% if cell_day_val == current_day and current_timeslot == hour_each_day %}
-            <td class="is-warning">
+          {% if cell_day_val == current_day and current_timeslot == hour_each_day|first %}
+            <td class="time-cell current-oh">
+            <div class="time-indicator" style="top: {{ current_hour_pct }}%">
+            <div class="time-indicator-dot"></div>
+            </div>
           {% else %}
             <td>
           {% endif %}
@@ -56,7 +59,7 @@
 
           {% for officership in timeslot %}
           {% with officership.officer.person.user as user %}
-          <a class="button is-link" href="#{{ user }}" style="margin: 2px">
+          <a class="button officer-button" href="#{{ user }}" style="margin: 2px">
             {% if officership.is_tutor %}
             <span class="icon">
               <i class="fas fa-graduation-cap"></i>

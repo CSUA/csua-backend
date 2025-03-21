@@ -58,6 +58,9 @@ def officers(request, semester_id=None):
     current_hour = datetime.now().strftime("%H")
     current_timeslot = OH_TIME_MAP.get(int(current_hour))
 
+    current_minute = datetime.now().minute
+    current_hour_pct = (current_minute / 60) * 100
+
     return render(
         request,
         "officers.html",
@@ -67,6 +70,7 @@ def officers(request, semester_id=None):
             "semester": semester,
             "semesters": semesters,
             "current_timeslot": current_timeslot,
+            "current_hour_pct": current_hour_pct,
         },
     )
 
