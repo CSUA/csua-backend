@@ -149,11 +149,6 @@
         <strong>
           {{ user.first_name }} {{ user.last_name }}
         </strong>
-        {% if officer.is_anniversary %}
-        <span class="icon">
-          <i class="fas fa-birthday-cake"></i>
-        </span>
-        {% endif %}
         <br>
         {% if officership.office_hours != "N/A" %}
         <a href="#office-hours">
