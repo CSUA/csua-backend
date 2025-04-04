@@ -12,12 +12,12 @@
   <p>CSUA History Book digital scan - Coming Soon!</p>
 </div>
 <div class="columns">
-  {% if semesters %}
+  {% if sorted_semesters %}
     <div class="column">
     <div class="box content">
       <h1>Officer Archive</h1>
       <ul>
-        {% for semester in semesters %}
+        {% for semester in sorted_semesters %}
         <li><a href="{% url 'officers_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
         {% endfor %}
       </ul>
@@ -27,7 +27,7 @@
     <div class="box content">
       <h1>Politburo Archive</h1>
       <ul>
-        {% for semester in semesters %}
+        {% for semester in sorted_semesters %}
         <li><a href="{% url 'politburo_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
         {% endfor %}
       </ul>

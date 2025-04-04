@@ -133,13 +133,25 @@ def tutoring(request, semester_id=None):
     return render(request, "tutoring.html", {"tutors_by_subject": tutors_by_subject})
 
 
+# acts as a sort key for semesters(terms) so they're in the correct chronological order (sp21 < fa22)
+def term_sort_key(term):
+    term_id = term.id
+    semester = term_id[:2]
+    year = int(term_id[2:])
+
+    semester_order = 0 if semester == "sp" else 1
+
+    return year, semester_order
+
+
 def archives(request):
-    semester = Semester.objects.filter(current=True).get()
-    semesters = Semester.objects.exclude(id=semester.id)
+    semesters = Semester.objects.all()
+    sorted_semesters = sorted(semesters, key=term_sort_key)
+
     return render(
         request,
         "archives.html",
         context={
-            "semesters": semesters,
+            "sorted_semesters": sorted_semesters,
         },
     )
