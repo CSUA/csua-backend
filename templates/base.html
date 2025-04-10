@@ -80,6 +80,21 @@
               Contact
           </a>
 
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="{% url 'sponsors' %}">
+                Sponsors
+              </a>
+              <a class="navbar-item" href="{% url 'archives' %}">
+                Archives
+              </a>
+            </div>
+          </div>
+
           <div class="navbar-item">
               <div class="buttons">
                   <a class="button is-link" href="{% url 'join' %}">
