@@ -96,6 +96,13 @@ Django's online documentation has more detail on a project's structure
 - `templates/` holds the html templates that are populated and served by views
 - `manage.py` is a command-line script for performing actions on the project
 
+## Setting up the Google Calendar integration
+
+1. Add an API key with the Google Calendar API enabled to the `GOOGLE_CALENDAR_API_KEY` environment variable in your `.env` file.
+2. Set up the django cache table by running `python3 manage.py createcachetable`
+3. Run `python3 manage.py fetch_calendar` to fetch the calendar data, this cache lasts for 1 hour so you will need to add a cronjob to run this command each hour.
+
+
 ## Deploying
 
 As of 2024 we no longer use Travis CI (our repo was formerly located [here](https://travis-ci.org/github/CSUA/csua-backend)). Please manually deploy from Tap instead:

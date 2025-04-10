@@ -4,7 +4,9 @@ import {
   faUsers,
   faGraduationCap,
   faHashtag,
-  faBirthdayCake
+  faBirthdayCake,
+  faMapMarkerAlt,
+  faClock
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
@@ -24,7 +26,9 @@ library.add(
   faGraduationCap,
   faHashtag,
   faDiscord,
-  faBirthdayCake
+  faBirthdayCake,
+  faMapMarkerAlt,
+  faClock
 );
 
 dom.i2svg();

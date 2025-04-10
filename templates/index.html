@@ -103,11 +103,13 @@
   </div>
 </section>
 
+{% load calendar_tags %}
 <section id="upcoming-events" class="section has-background-light">
   <div class="container">
     <div class="content">
-      <a href="{% url 'events' %}"><h1>Upcoming Events</h1></a>
-      {% include "upcoming_events.html" %}
+      <a href="{% url 'events' %}"><p class="title">Upcoming Events</p></a>
+      <p class="subtitle is-6 mt-2">Use <a href="https://calendar.google.com/calendar/r?cid=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com" target="_blank">this link</a> to subscribe to the calendar.</p>
+      {% calendar %}
     </div>
   </div>
 </section>

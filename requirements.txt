@@ -21,3 +21,6 @@ cowpy
 # Developer tools
 pre-commit
 black
+
+# apps.db_data - google calendar integration
+google-api-python-client>=2.0.0

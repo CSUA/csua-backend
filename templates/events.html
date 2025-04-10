@@ -2,11 +2,12 @@
 {% block title %}Events{% endblock %}
 {% block content %}
 {% include "hero_with_bg_img.html" with title="Events" subtitle="The CSUA hosts a large variety of social events, tech talks, networking events, workshops, and hackathons for the CS community." size="is-small" %}
-<section class="section has-background-light">
+{% load calendar_tags %}
+<section class="section">
     <div class="content">
         <div class="columns is-centered">
             <div class="column is-full">
-                {% include "upcoming_events.html" %}
+              {% calendar %}
             </div>
         </div>
     </div>
