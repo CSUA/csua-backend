@@ -6,14 +6,13 @@
 {% include "hero_with_bg_img.html" with title="The Politburo" subtitle="Executive Committee of the CSUA" size="is-small" %}
 {% endblock %}
 {% block page_content %}
-<div class="box">
+<div>
   <div class="columns is-centered">
-    <div class="column is-6">
+    <div class="column is-12">
       <div class="content">
         <p>
         The Politburo consists of the seven elected officers of the CSUA.
-        They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br>
-
+        They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.
         You can contact the Politburo at politburo@csua.berkeley.edu.
         </p>
       </div>
@@ -33,7 +32,7 @@
         {% endthumbnail %}
       </div>
     </div>
-    <div class="column is-6">
+    <div class="column is-8">
       <article class="content">
         <h2 class="pb-name">{{ user.first_name }} {{ user.last_name }}</h2>
         <h4 class="pb-title" id="{{ politburo.position }}">{{ politburo.title }}</h4>
