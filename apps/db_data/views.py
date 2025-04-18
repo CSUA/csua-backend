@@ -146,7 +146,7 @@ def term_sort_key(term):
 
 def archives(request):
     semesters = Semester.objects.all()
-    sorted_semesters = sorted(semesters, key=term_sort_key)
+    sorted_semesters = sorted(semesters, key=term_sort_key, reverse=True)
 
     return render(
         request,
