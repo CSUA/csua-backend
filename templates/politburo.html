@@ -36,7 +36,7 @@
       <article class="content">
         <h2 class="pb-name">{{ user.first_name }} {{ user.last_name }}</h2>
         <h4 class="pb-title" id="{{ politburo.position }}">{{ politburo.title }}</h4>
-        <p><i class="pb-email">{{ politburo.position }}@csua.berkeley.edu</i></p>
+        <p><i class="pb-email"><a href="mailto:{{ politburo.position }}@csua.berkeley.edu">{{ politburo.position }}@csua.berkeley.edu</a></i></p>
         <p>
         {{ politburo.description }}
         </p>
