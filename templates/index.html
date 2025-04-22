@@ -19,21 +19,43 @@
   </div>
 </section>
 
-<section id="founded" class="section columns has-background-light has-text-centered is-vcentered is-centered">
+<section id="hello-world" class="section has-background-light">
+  <div class="container">
+    <div class="content">
+      <h1>Hello World!</h1>
+      <p>
+      The CSUA supports the undergraduate computer science student body at
+      UC Berkeley and acts as an entry point to
+      <a href="{% url 'sponsors' %}">industry</a>.
+      We host tech talks, hackathons, info sessions,
+      <a href="{% url 'workshops' %}">workshops</a>,
+      LAN parties, and the biannual
+      <a href="http://ucbstartupfair.com/">Startup Fair</a>.
+      </p>
+      <p>
+      Looking for a place to learn more about computer science and meet
+      other students? Come visit us at our office (311 Soda) or come to our
+      <a href="/events/">events.</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="founded" class="section columns has-text-centered is-vcentered is-centered mb-0">
   <div class="column is-8">
     <h2 id="headline">
       Founded in 1972, CSUA is the largest and oldest computer science club on
       campus.
     </h2>
   </div>
-<div class="column is-2 ml-4 mr-4 is-hidden-mobile">
+<div class="column is-2-desktop is-3-tablet ml-4 mr-4 is-hidden-mobile">
   <figure class="image is-256x256">
     <img src="{% static "images/navbaricon.png" %}" alt="Capybara">
   </figure>
 </div>
 </section>
 
-<section id="services" class="section">
+<section id="services" class="section has-background-light">
   <div class="container">
     <div class="columns">
       <div class="column">
@@ -111,36 +133,12 @@
 </section>
 
 {% load calendar_tags %}
-<section id="upcoming-events" class="section has-background-light">
+<section id="upcoming-events" class="section">
   <div class="container">
     <div class="content">
       <a href="{% url 'events' %}"><p class="title">Upcoming Events</p></a>
       <p class="subtitle is-6 mt-2">Use <a href="https://calendar.google.com/calendar/r?cid=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com" target="_blank">this link</a> to subscribe to the calendar.</p>
       {% calendar %}
-    </div>
-  </div>
-</section>
-
-
-
-  <section id="hello-world" class="section has-background-light">
-  <div class="container">
-    <div class="content">
-      <h1>Hello World!</h1>
-      <p>
-      The CSUA supports the undergraduate computer science student body at
-      UC Berkeley and acts as an entry point to
-      <a href="{% url 'sponsors' %}">industry</a>.
-      We host tech talks, hackathons, info sessions,
-      <a href="{% url 'workshops' %}">workshops</a>,
-      LAN parties, and the biannual
-      <a href="http://ucbstartupfair.com/">Startup Fair</a>.
-      </p>
-      <p>
-      Looking for a place to learn more about computer science and meet
-      other students? Come visit us at our office (311 Soda) or come to our
-      <a href="/events/">events.</a>
-      </p>
     </div>
   </div>
 </section>
