@@ -33,14 +33,18 @@ See [issues](https://github.com/CSUA/csua-backend/issues) for a list of TODOs.
 
 1. Install Python 3.9+
 2. Create venv `python3 -m venv venv`
-2. Install Django and dependencies with `venv/bin/pip3 install -r requirements.txt`
-3. Install pre-commit with `venv/bin/pre-commit install`
-4. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
-5. Set up local sqlite database with `venv/bin/python3 manage.py migrate`
-6. Run server with `venv/bin/python3 manage.py runserver`
-  * If on soda, you will have to run `venv/bin/python3 manage.py runserver 0.0.0.0:$PORT` where `$PORT` is between 8000 and 8999, and connect by going to `http://soda.berkeley.edu:$PORT`
-7. Navigate web browser to http://127.0.0.1:8000/
-8. Create admin user with `venv/bin/python3 manage.py createsuperuser`
+3. Activate venv `source venv/bin/activate` or prepend `/venv/bin/` to these commands
+4. Install pre-commit with `pre-commit install`
+5. Install poetry
+    * `pip install pipx`
+    * `pipx install poetry`
+6. Install dependencies with `poetry install`
+7. Create your `.env` file by copying `.env.dev`, e.g. `cp .env.dev .env`
+8. Set up local sqlite database with `python3 manage.py migrate`
+9. Run server with `python3 manage.py runserver`
+  * If on soda, you will have to run `python3 manage.py runserver 0.0.0.0:$PORT` where `$PORT` is between 8000 and 8999, and connect by going to `http://soda.berkeley.edu:$PORT`
+10. Navigate web browser to http://127.0.0.1:8000/
+11. Create admin user with `python3 manage.py createsuperuser`
     - Visit the admin page at http://127.0.0.1:8000/admin/ to add a semester object
 
 ### Installation (venv, automatic)
