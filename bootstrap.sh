@@ -13,4 +13,4 @@ if [ ! -e "${repo_dir}/.env" ]; then
     cp "${repo_dir}/.env.dev" "${repo_dir}/.env"
 fi
 python3 manage.py migrate
-pre_commit install
+./venv/bin/pre-commit install
