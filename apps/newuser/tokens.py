@@ -9,11 +9,14 @@ class NewUserTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, email, timestamp):
         return str(email) + str(email_exists(email)) + str(timestamp)
 
-    def _make_token_with_timestamp(self, email, timestamp):
+    def _make_token_with_timestamp(self, email, timestamp, secret):
         ts_b36 = int_to_base36(timestamp)
 
         hash = salted_hmac(
-            self.key_salt, self._make_hash_value(email, timestamp)
+            self.key_salt,
+            self._make_hash_value(email, timestamp),
+            secret=self.secret,
+            algorithm=self.algorithm,
         ).hexdigest()[::2]
         return "%s-%s" % (ts_b36, hash)
 

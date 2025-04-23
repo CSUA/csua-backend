@@ -88,7 +88,9 @@ class TestPages(LDAPTestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         response = self.client.post(url, data={"username": "pnunez"}, follow=True)
-        self.assertFormError(response, "form", None, ["User pnunez is not in LDAP"])
+        self.assertFormError(
+            response.context["form"], None, ["User pnunez is not in LDAP"]
+        )
         response = self.client.post(url, data={"username": "cnunez"}, follow=True)
         self.assertContains(response, "User cnunez created")
         self.assertContains(response, "Person cnunez created")
