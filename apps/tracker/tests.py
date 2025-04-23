@@ -28,7 +28,7 @@ class ViewsSanityTest(TestCase):
         c = Client()
 
         response = c.get("/computers/json", follow=True)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test_3_multiple_logins(self):
         env = {

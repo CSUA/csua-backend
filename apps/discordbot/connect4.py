@@ -3,6 +3,7 @@ import threading
 import unicodedata
 
 import discord
+from asgiref.sync import sync_to_async
 from django.db import close_old_connections
 
 from .models import ConnectFourGame
@@ -31,7 +32,7 @@ async def on_message(client, message):
     m = await message.channel.send(new_board.get_message())
     await add_reaccs(m)
     close_old_connections()
-    game = ConnectFourGame.objects.create(
+    game = await sync_to_async(ConnectFourGame.objects.create)(
         message_id=m.id,
         player1=message.author.id,
         player2=opponent_id,
@@ -56,7 +57,7 @@ async def handle_event(client, game, event, message):
         await message.delete()
         await add_reaccs(new_message)
         game.message_id = new_message.id
-        game.save()
+        await sync_to_async(game.save)()
         return
     if event.emoji.name == BELL:
         user = await client.fetch_user(
@@ -87,7 +88,7 @@ async def handle_event(client, game, event, message):
                 color = RED if game.is_player1_turn else YELLOW
                 board.set_footer(user, color)
             game.state = board.get_state()
-            game.save()
+            await sync_to_async(game.save)()
             await message.edit(content=board.get_message())
 
 
@@ -100,7 +101,9 @@ async def on_raw_reaction_add(client, event):
             channel = await client.fetch_channel(event.channel_id)
             message = await channel.fetch_message(event.message_id)
             close_old_connections()
-            game = ConnectFourGame.objects.get(message_id=event.message_id)
+            game = await sync_to_async(ConnectFourGame.objects.get)(
+                message_id=event.message_id
+            )
             await handle_event(client, game, event, message)
             try:
                 await message.remove_reaction(event.emoji.name, event.member)

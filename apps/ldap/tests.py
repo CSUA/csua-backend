@@ -39,7 +39,7 @@ class LdapBindingsTest(LDAPTestCase):
 
     def test_create_new_user_and_delete(self):
         max_uid = utils.get_max_uid()
-        self.assertEquals(max_uid, 31337)
+        self.assertEqual(max_uid, 31337)
 
         success, uid_num = utils.create_new_user(
             "pnunez1",
@@ -49,7 +49,7 @@ class LdapBindingsTest(LDAPTestCase):
             "il0vedangengdg!",
         )
         self.assertTrue(success)
-        self.assertEquals(uid_num, 31338)
+        self.assertEqual(uid_num, 31338)
 
         self.assertTrue(utils.user_exists("pnunez1"))
         success = utils.delete_user("pnunez1")
@@ -59,7 +59,7 @@ class LdapBindingsTest(LDAPTestCase):
     def test_datetime_to_ldap(self):
         dt = datetime(2021, 2, 13, 15, 8, 37)
         lt = utils.datetime_to_ldap(dt)
-        self.assertEquals(lt, "20210213150837Z")
+        self.assertEqual(lt, "20210213150837Z")
 
     # TODO: finish this
     # def test_password(self):
