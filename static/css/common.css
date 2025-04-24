@@ -25,6 +25,3 @@ a {
 #notice {
 	margin: 10px;
 }
-#content { /* TODO is this needed? */
-	flex: 1 0 auto;
-}
