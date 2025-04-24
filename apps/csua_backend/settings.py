@@ -242,6 +242,7 @@ INSTALLED_APPS = [
     "markdown_deux",
     "sorl.thumbnail",
     "django_python3_ldap",
+    "widget_tweaks",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"

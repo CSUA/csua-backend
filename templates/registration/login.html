@@ -8,11 +8,7 @@
         <div class="content box">
           <h1>Log in</h1>
           <form method="post" {% if next %} action="?next={{next}}" {% endif %}>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="button is-link">
-                <strong>Login</strong>
-            </button>
+          {% include "form.html" %}
           </form>
           <br>
           <p>

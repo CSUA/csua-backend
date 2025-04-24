@@ -10,7 +10,7 @@
     </p>
     <p>Note: We've recently completed system upgrades and fixes that have been affecting our sign up system recently. Please join our discord at <a href="https://csua.org/discord" target="_blank">https://csua.org/discord</a> if you are still running into issues.</p>
     {% if messages %}
-    <div class="notification is-danger">
+    <div class="notification is-warning">
       <ul>
         {% for message in messages %}
         <li>{{ message }}</li>
@@ -18,15 +18,9 @@
       </ul>
     </div>
     {% endif %}
-    <div class="box">
-      <form action="{% url "newuser-remote-request" %}" method="post">
-        {% csrf_token %}
-        <table>
-          {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <form action="{% url "newuser-remote-request" %}" method="post">
+      {% include "form.html" %}
+    </form>
   </div>
 </section>
 {% endblock %}

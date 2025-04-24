@@ -1,0 +1,28 @@
+{# make forms with bulma styling #}
+{% load widget_tweaks %}
+{% load custom_filters %}
+{% csrf_token %}
+{% for field in form %}
+  <div class="field">
+    {{ field|label_with_classes:"label" }}
+    <div class="control">
+      {# check that it's not a checkbox before labeling with input #}
+      {% if field.field.widget.input_type != "checkbox" %}
+        {{ field|add_class:"input" }}
+      {% else %}
+        {{ field|add_class:"checkbox" }}
+      {% endif %}
+    </div>
+    {% if field.help_text %}
+      <p class="help">{{ field.help_text }}</p>
+    {% endif %}
+    {% for err in field.errors %}
+      <p class="help is-danger">{{ err }}</p>
+    {% endfor %}
+  </div>
+{% endfor %}
+<div class="field">
+  <div class="control">
+    <button type="submit" class="button is-link">Submit</button>
+  </div>
+</div>
