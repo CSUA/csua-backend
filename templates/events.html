@@ -3,14 +3,6 @@
 {% block content %}
 {% include "hero_with_bg_img.html" with title="Events" subtitle="The CSUA hosts a large variety of social events, tech talks, networking events, workshops, and hackathons for the CS community." size="is-small" %}
 {% load calendar_tags %}
-<section class="section">
-    <div class="content">
-        <div class="columns is-centered">
-            <div class="column is-full">
-              {% calendar %}
-            </div>
-        </div>
-    </div>
-</section>
+{% calendar %}
 {% endblock %}
 {# vim:set et sw=4: #}
