@@ -13,6 +13,8 @@ OH_TIMES = [
     "5-6 PM",
     "6-7 PM",
 ]
+
+# there must be 10 time slots for the below map to work, modify if adding or removing time slots
 OH_TIME_MAP = (
     {hour: None for hour in range(0, 9)}
     | {hour: OH_TIMES[hour - 9] for hour in range(9, 19)}

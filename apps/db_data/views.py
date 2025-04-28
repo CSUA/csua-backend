@@ -134,6 +134,7 @@ def tutoring(request, semester_id=None):
 
 
 # acts as a sort key for semesters(terms) so they're in the correct chronological order (sp21 < fa22)
+# term follows pattern <semester><year>, e.g. sp21, fa22
 def term_sort_key(term):
     term_id = term.id
     semester = term_id[:2]
