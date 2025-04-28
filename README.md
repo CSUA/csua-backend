@@ -49,7 +49,7 @@ See [issues](https://github.com/CSUA/csua-backend/issues) for a list of TODOs.
 
 ### Installation (venv, automatic)
 
-If you're using GNU/Linux or OSX, use `bootstrap.sh`.
+If you're using GNU/Linux or OSX, use `bash ./bootstrap.sh`.
 
 ### pre-commit and black
 
