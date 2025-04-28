@@ -163,7 +163,7 @@ class Sponsor(models.Model):
 class Sponsorship(models.Model):
     sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True)
 
 
 class Event(models.Model):

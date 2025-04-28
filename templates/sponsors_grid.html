@@ -17,7 +17,7 @@
   </figure>
   {% endthumbnail %}
   <div style="margin-bottom: 1em;" class="content has-text-centered">
-    <p>{{ sponsorship.description }}</p>
+    <p>{{ sponsorship.description|default_if_none:"" }}</p>
   </div>
 </div>
 {% endwith %}
