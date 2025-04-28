@@ -8,7 +8,7 @@
         <div class="content box">
           <h1>Log in</h1>
           <form method="post" {% if next %} action="?next={{next}}" {% endif %}>
-          {% include "form.html" %}
+          {% include "form.html" with submit_button_title="Login" %}
           </form>
           <br>
           <p>

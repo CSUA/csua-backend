@@ -17,9 +17,7 @@
           <h1>Create or Update Officer</h1>
           <p>Current semester: {{ semester }}</p>
           <form enctype="multipart/form-data" method="post" action="{% url 'add-officer' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update or Create</button>
+            {% include "form.html" with submit_button_title="Update or Create" %}
           </form>
           <br>
         </div>
