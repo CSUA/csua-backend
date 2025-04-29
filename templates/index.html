@@ -2,7 +2,10 @@
 {% load static from staticfiles %}
 {% block title %}Home{% endblock %}
 {% block head_content %}
+{% load compress %}
+{% compress css %}
 <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% endcompress %}
 {% endblock %}
 {% block content %}
 

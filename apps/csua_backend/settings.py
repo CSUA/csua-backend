@@ -131,6 +131,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    "compressor.finders.CompressorFinder",
 ]
 
 # Security
@@ -243,6 +244,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "django_python3_ldap",
     "widget_tweaks",
+    "compressor",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"

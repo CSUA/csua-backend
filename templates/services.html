@@ -4,7 +4,10 @@
 {% block pagetitle %}Tech{% endblock %}
 {% block page_content %}
 {% load staticfiles %}
+{% load compress %}
+{% compress css %}
 <link rel="stylesheet" href="{% static 'css/computing_resources.css' %}">
+{% endcompress %}
 <div class="content">
     <p>
         CSUA provides computing resources to our members.

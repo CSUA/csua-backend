@@ -7,9 +7,14 @@
     <title>{% block title %}DEFAULT{% endblock %} | CSUA</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load compress %}
+    {% compress css %}
     <link rel="stylesheet" href="{% static "css/thirdparty/bulma.min.css" %}">
     <link rel="stylesheet" href="{% static "css/common.css" %}">
+    {% endcompress %}
+    {% compress js %}
     <script defer src="{% static "icons.js" %}"></script>
+    {% endcompress %}
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         // Get all "navbar-burger" elements
