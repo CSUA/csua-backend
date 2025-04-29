@@ -8,13 +8,12 @@
         <div class="content box">
           <h1>Log in</h1>
           <form method="post" {% if next %} action="?next={{next}}" {% endif %}>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
+          {% include "form.html" with submit_button_title="Login" %}
           </form>
           <br>
           <p>
-          Need an account? Create one <a href="https://www.csua.berkeley.edu/newuser/remote/">here!</a> 
+          Need an account? Create one <a href="https://www.csua.berkeley.edu/newuser/remote/">here!</a><br>
+          <a href="{% url 'password_reset:request-reset-password' %}">Forgot your password?</a><br>
           If you need help, please talk to an <a href="{% url 'officers' %}">officer!</a>
           </p>
         </div>

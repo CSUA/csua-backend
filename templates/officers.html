@@ -1,4 +1,5 @@
 {% extends "base_with_hero.html" %}
+{% load custom_filters %}
 {% load thumbnail %}
 {% load static %}
 {% block title %}Officers{% endblock %}
@@ -29,15 +30,36 @@
       {% for hour_each_day in calendar.contents %}
       <tr>
         {% for timeslot in hour_each_day %}
-        <td>
+
+        {% now "D" as current_day %}
+        {% now "G" as current_hour %}
+        {% with forloop.counter|add:"-2" as cell_day_index %}
+        {% if cell_day_index >= 0 %}
+        {% with calendar.days|index:cell_day_index|slice:":3" as cell_day_val %}
+          {% if cell_day_val == current_day and current_timeslot == hour_each_day|first %}
+            <td class="time-cell current-oh">
+            <div class="time-indicator" style="top: {{ current_hour_pct }}%">
+            <div class="time-indicator-dot"></div>
+            </div>
+          {% else %}
+            <td>
+          {% endif %}
+        {% endwith %}
+        {% else %}
+            <td>
+        {% endif %}
+        {% endwith %}
+
+
           {% if forloop.counter == 1 %}
           <span style="white-space: nowrap;">
             {{ timeslot }}
           </span>
           {% else %}
+
           {% for officership in timeslot %}
           {% with officership.officer.person.user as user %}
-          <a class="button has-text-link" href="#{{ user }}">
+          <a class="button officer-button" href="#{{ user }}" style="margin: 2px">
             {% if officership.is_tutor %}
             <span class="icon">
               <i class="fas fa-graduation-cap"></i>
@@ -94,11 +116,11 @@
 
 <br><br>
 
-<div class="roster columns is-multiline roster">
+<div class="roster columns is-multiline is-mobile">
   {% for officership in officer_list %}
   {% with officership.officer as officer %}
   {% with officer.person.user as user %}
-  <article class="column is-2" id="{{ user }}">
+  <article class="column is-2-widescreen is-3-tablet is-half-mobile" id="{{ user }}">
     <div {% if officer.officer_since %}data-balloon="Officer since {{officer.officer_since}}" data-balloon-pos="up"{% endif %}>
       <div class="photo-frame">
         {% thumbnail officer.person.photo1 "500x500" crop="center" as photo1 %}
@@ -127,11 +149,6 @@
         <strong>
           {{ user.first_name }} {{ user.last_name }}
         </strong>
-        {% if officer.is_anniversary %}
-        <span class="icon">
-          <i class="fas fa-birthday-cake"></i>
-        </span>
-        {% endif %}
         <br>
         {% if officership.office_hours != "N/A" %}
         <a href="#office-hours">
@@ -163,15 +180,10 @@
   {% endwith %}
   {% endfor %}
 </div>
-{% if semesters %}
+<br>
 <div class="content">
-  <h2>Previous Semesters</h2>
-  <ul>
-    {% for semester in semesters %}
-    <li><a href="{% url 'officers_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <h2>Past Officers</h2>
+  <p>For records of past officers please see the <a href="{% url 'archives' %}">archives</a>.</p>
 </div>
-{% endif %}
 {% endblock %}
 {# vim: set et sw=2 ts=2 tw=0: #}

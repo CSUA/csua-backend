@@ -49,6 +49,15 @@ else:
     }
 
 
+# store caches in the DB (for google calendar events cache)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "django_cache",
+    }
+}
+
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
@@ -233,6 +242,7 @@ INSTALLED_APPS = [
     "markdown_deux",
     "sorl.thumbnail",
     "django_python3_ldap",
+    "widget_tweaks",
 ]
 
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"

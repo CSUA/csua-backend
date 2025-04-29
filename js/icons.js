@@ -3,13 +3,17 @@ import {
   faCalendarAlt,
   faUsers,
   faGraduationCap,
-  faHashtag
+  faHashtag,
+  faBirthdayCake,
+  faMapMarkerAlt,
+  faClock
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookSquare,
   faInstagram,
   faTwitter,
-  faGithub
+  faGithub,
+  faDiscord
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -20,7 +24,11 @@ library.add(
   faCalendarAlt,
   faUsers,
   faGraduationCap,
-  faHashtag
+  faHashtag,
+  faDiscord,
+  faBirthdayCake,
+  faMapMarkerAlt,
+  faClock
 );
 
 dom.i2svg();

@@ -31,22 +31,14 @@
   <div class="box">
     {% if remote %}
       <form action="{% url 'newuser-remote' email=email token=token %}" method="post">
-        {% csrf_token %}
-        <table>
-          {% if form %}
-          {{ form.as_table }}
-          {% endif %}
-        </table>
-        <input type="submit" value="Submit" />
+        {% if form %}
+        {% include "form.html" %}
+        {% endif %}
       </form>
     {% else %}
     <form action="{% url 'newuser' %}" method="post">
-        {% csrf_token %}
-        <table>
-          {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit" />
-      </form>
+      {% include "form.html" %}
+    </form>
     {% endif %}
   </div>
   {% endif %}

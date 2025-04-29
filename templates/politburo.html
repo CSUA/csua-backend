@@ -6,14 +6,13 @@
 {% include "hero_with_bg_img.html" with title="The Politburo" subtitle="Executive Committee of the CSUA" size="is-small" %}
 {% endblock %}
 {% block page_content %}
-<div class="box">
+<div>
   <div class="columns is-centered">
-    <div class="column is-6">
+    <div class="column is-12">
       <div class="content">
         <p>
         The Politburo consists of the seven elected officers of the CSUA.
-        They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.<br>
-
+        They are the governing body of the CSUA and a unique group of people who are eager to talk to you about the CSUA.
         You can contact the Politburo at politburo@csua.berkeley.edu.
         </p>
       </div>
@@ -33,11 +32,11 @@
         {% endthumbnail %}
       </div>
     </div>
-    <div class="column is-6">
+    <div class="column is-8">
       <article class="content">
         <h2 class="pb-name">{{ user.first_name }} {{ user.last_name }}</h2>
-        <h4 class="pb-title" id="{{ politburo.position }}">{{ politburo.title }}</h1>
-        <p><i class="pb-email">{{ politburo.position }}@csua.berkeley.edu</i></p>
+        <h4 class="pb-title" id="{{ politburo.position }}">{{ politburo.title }}</h4>
+        <p><i class="pb-email"><a href="mailto:{{ politburo.position }}@csua.berkeley.edu">{{ politburo.position }}@csua.berkeley.edu</a></i></p>
         <p>
         {{ politburo.description }}
         </p>
@@ -50,16 +49,11 @@
   {% endwith %}
   {% endwith %}
   {% endfor %}
-  {% if semesters %}
+  <br>
   <div class="content">
-    <h2>Previous Semesters</h2>
-    <ul>
-      {% for semester in semesters %}
-      <li><a href="{% url 'politburo_semester' semester_id=semester.id %}">{{ semester.name }}</a></li>
-      {% endfor %}
-    </ul>
+    <h2>Politburo Archive</h2>
+    <p>For records of past politburo members please see the <a href="{% url 'archives' %}">archives</a>.</p>
   </div>
-  {% endif %}
 </div>
 {% endblock %}
 {# vim: set et ts=2 sw=2 tw=0: #}

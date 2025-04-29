@@ -1,6 +1,6 @@
 import codecs
-import datetime
 from collections import defaultdict
+from datetime import datetime
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -12,7 +12,7 @@ from django.views.generic.base import TemplateView
 
 from apps.ldap.utils import add_officer, is_officer, is_root, user_exists
 
-from .constants import DAYS_OF_WEEK, OH_TIMES
+from .constants import DAYS_OF_WEEK, OH_TIME_MAP, OH_TIMES
 from .forms import OfficerCreationForm
 from .models import (
     Event,
@@ -52,7 +52,15 @@ def officers(request, semester_id=None):
         "days": DAYS_OF_WEEK,
         "hours": OH_TIMES,
         "contents": office_hours_calendar,
+        "ohTimeMap": OH_TIME_MAP,
     }
+
+    current_hour = datetime.now().strftime("%H")
+    current_timeslot = OH_TIME_MAP.get(int(current_hour))
+
+    current_minute = datetime.now().minute
+    current_hour_pct = (current_minute / 60) * 100
+
     return render(
         request,
         "officers.html",
@@ -61,6 +69,8 @@ def officers(request, semester_id=None):
             "calendar": calendar,
             "semester": semester,
             "semesters": semesters,
+            "current_timeslot": current_timeslot,
+            "current_hour_pct": current_hour_pct,
         },
     )
 
@@ -121,3 +131,28 @@ def tutoring(request, semester_id=None):
             if subject in officership.tutor_subjects.all()
         ]
     return render(request, "tutoring.html", {"tutors_by_subject": tutors_by_subject})
+
+
+# acts as a sort key for semesters(terms) so they're in the correct chronological order (sp21 < fa22)
+# term follows pattern <semester><year>, e.g. sp21, fa22
+def term_sort_key(term):
+    term_id = term.id
+    semester = term_id[:2]
+    year = int(term_id[2:])
+
+    semester_order = 0 if semester == "sp" else 1
+
+    return year, semester_order
+
+
+def archives(request):
+    semesters = Semester.objects.all()
+    sorted_semesters = sorted(semesters, key=term_sort_key, reverse=True)
+
+    return render(
+        request,
+        "archives.html",
+        context={
+            "sorted_semesters": sorted_semesters,
+        },
+    )

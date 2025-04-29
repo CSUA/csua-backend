@@ -6,20 +6,18 @@
 {% endblock %}
 {% block content %}
 
-<section id="top" class="hero is-fullheight-with-navbar has-text-centered">
+<section id="top" class="hero is-halfheight has-text-centered">
   <div class="hero-body">
     <div class="container">
       <h1 id="title" class="title">
         Welcome to the CSUA
       </h1>
       <h2 class="subtitle">
-        UC Berkeley Computer Science Association
+        UC Berkeley Computer Science Undergraduate Association
       </h2>
-      <a class="smooth" href="#hello-world">Start!</a>
     </div>
   </div>
 </section>
-
 
 <section id="hello-world" class="section has-background-light">
   <div class="container">
@@ -43,7 +41,21 @@
   </div>
 </section>
 
-<section id="services" class="section">
+<section id="founded" class="section columns has-text-centered is-vcentered is-centered mb-0 mr-0 ml-0">
+  <div class="column is-8">
+    <h2 id="headline">
+      Founded in 1972, CSUA is the largest and oldest computer science club on
+      campus.
+    </h2>
+  </div>
+<div class="column is-2-desktop is-3-tablet ml-4 mr-4 is-hidden-mobile">
+  <figure class="image is-256x256">
+    <img src="{% static "images/capy_and_laptop.png" %}" alt="Capybara">
+  </figure>
+</div>
+</section>
+
+<section id="services" class="section has-background-light">
   <div class="container">
     <div class="columns">
       <div class="column">
@@ -54,7 +66,6 @@
           The CSUA Office is located in 311 Soda Hall&mdash;in front of the 3rd floor
           entrance to Soda Hall.
           Inside are computers, study space, a TV, a fridge, a microwave, board games, and a library.
-          Business hours are 10am-7pm, at this time no gaming is allowed in the office.
           </p>
 
           <p>
@@ -64,13 +75,6 @@
           Come say hi!
           <a href="{% url 'officers' %}">Learn more about officers here</a>
           </p>
-
-          <b>Address</b><br />
-
-          Computer Science Undergraduate Association<br />
-          University of California, Berkeley<br />
-          311 Soda Hall<br />
-          Berkeley, CA 94720-1776<br />
         </div>
       </div>
       <div class="column">
@@ -120,21 +124,8 @@
   </div>
 </section>
 
-<section id="upcoming-events" class="section has-background-light">
-  <div class="container">
-    <div class="content">
-      <a href="{% url 'events' %}"><h1>Upcoming Events</h1></a>
-      {% include "upcoming_events.html" %}
-    </div>
-  </div>
-</section>
-
-<section id="founded" class="section has-background-blue">
-  <h2 id="headline">
-    Founded in 1972, CSUA is the largest and oldest computer science club on
-    campus.
-  </h2>
-</section>
+{% load calendar_tags %}
+{% calendar %}
 
 <section id="people" class="section has-background-light">
   <div class="container">
@@ -165,7 +156,7 @@
         <a href="join">sign up for an account</a>,
         and you're done!
         An account gives you access to all of our technical resources, as well as
-        membership to our mailing list and slack communities.
+        membership to our mailing list.
         </p>
       </div>
       <div class="column content">
@@ -219,7 +210,7 @@
     <div class="columns">
       <div class="column content">
         <h3 id="open-computing-facility">
-          <a href="https://www.ocf.berkeley.edu/">Open Computing Facility</a>
+          <a href="https://www.ocf.berkeley.edu/">Open Computing Facility (OCF)</a>
         </h3>
         <p>
         The Open Computing Facility provides free computing services to students, faculty, and staff.
@@ -228,7 +219,7 @@
       <div class="column content">
         <h3 id="association-of-women-in-eecs">
           <a href="https://awe.berkeley.edu/">
-            Association of Women In EE &amp; CS
+            Association of Women In EE &amp; CS (AWE)
           </a>
         </h3>
         <p>
@@ -260,7 +251,7 @@
       <div class="column content">
         <h3 id="society-of-women-engineers">
           <a href="https://swe.berkeley.edu/">
-            Society of Women Engineers
+            Society of Women Engineers (SWE)
           </a>
         </h3>
         <p>
@@ -270,7 +261,7 @@
       <div class="column content">
         <h3 id="csm">
           <a href="https://csmentors.berkeley.edu/#/">
-            Computer Science Mentors
+            Computer Science Mentors (CSM)
           </a>
         </h3>
         <p>
@@ -278,12 +269,6 @@
         </p>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section has-background-light">
-  <div class="container">
-    <a href="#navbar">Back to top</a>
   </div>
 </section>
 

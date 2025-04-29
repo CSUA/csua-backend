@@ -18,4 +18,5 @@ urlpatterns = [
         name="workshops",
     ),
     path("tutoring/", views.tutoring, name="tutoring"),
+    path("archives/", views.archives, name="archives"),
 ]

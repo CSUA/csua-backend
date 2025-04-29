@@ -1,0 +1,39 @@
+{% extends "base_with_hero.html" %}
+{% block title %}Archives{% endblock %}
+{% block hero %}
+<div class="container">
+{% include "hero_with_bg_img.html" with title="Archives" size="is-small" %}
+</div>
+{% endblock %}
+{% block page_content %}
+<div class="content">
+<h1>History</h1>
+  <p><a href="{% url "constitution" %}">Current Constitution</a></p>
+  <p><a href="https://csua.github.io/documentaries/">CSUA Documentation</a> written by @ethanhu</p>
+  <p>CSUA History Book digital scan - Coming Soon!</p>
+<h1>Past Semesters</h1>
+<div class="content">
+  {% if sorted_semesters %}
+  <div class="columns is-mobile"> 
+    <div class="column is-narrow">
+    {% for semester in sorted_semesters %}
+      <p>{{semester.name}}</p>
+    {% endfor %}
+    </div>
+    <div class="column is-narrow">
+    {% for semester in sorted_semesters %}
+        <p><a href="{% url 'officers_semester' semester_id=semester.id %}">Officers</a></p>
+    {% endfor %}
+    </div>
+    <div class="column is-narrow">
+    {% for semester in sorted_semesters %}
+        <p><a href="{% url 'politburo_semester' semester_id=semester.id %}">Politburo</a></p>
+    {% endfor %}
+    </div>
+  </div>
+  {% else %}
+    <p>No archives available.</p>
+  {% endif %}
+</div>
+</div>
+{% endblock %}

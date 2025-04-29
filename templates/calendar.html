@@ -1,0 +1,75 @@
+{% load static %}
+<section id="upcoming-events" class="section">
+  <div class="container">
+    <div class="content">
+      <a href="{% url 'events' %}"><p class="title">Upcoming Events</p></a>
+      <p class="subtitle is-6 mt-2">Use <a href="https://calendar.google.com/calendar/r?cid=berkeley.edu_rv641pmt9o13qnh1ss4uib78bs%40group.calendar.google.com" target="_blank">this link</a> to subscribe to the calendar.</p>
+      <div class="container">
+      {% load custom_filters %}
+      {% if events %}
+        <div class="columns is-multiline is-variable is-4">
+          {% for event in events %}
+            <div class="column is-12-mobile is-12-tablet is-6-desktop">
+              <div class="box" style="padding: 1.5rem;">
+                <div class="mb-4">
+                <!-- Event Title -->
+                <h2 class="title is-5 mb-2">{{ event.summary }}</h2>
+                <!-- Date/Time Subtitle -->
+                <div class="is-flex" style="align-items: center;">
+                <span class="icon has-text-grey" style="flex: 0 0 auto;">
+                  <i class="fas fa-fw fa-clock"></i>
+                </span>
+                {% if event.start.dateTime %}
+                  {% with event.start.dateTime|parse_iso as start_dt %}
+                    {% if event.end.dateTime %}
+                      {% with event.end.dateTime|parse_iso as end_dt %}
+                        <span class="has-text-weight-semibold" style="flex: 1;  margin-left: 0.5rem;">
+                          {{ start_dt|date:"l, F jS" }}, {{ start_dt|date:"g:i A" }} – {{ end_dt|date:"g:i A" }}
+                        </span>
+                      {% endwith %}
+                    {% else %}
+                      <span class="has-text-weight-semibold" style="flex: 1;  margin-left: 0.5rem;">
+                        {{ start_dt|date:"l, F jS" }}, {{ start_dt|date:"g:i A" }}
+                      </span>
+                    {% endif %}
+                  {% endwith %}
+                {% elif event.start.date %}
+                  {% with event.start.date|parse_iso as start_date %}
+                    <span class="has-text-weight-semibold" style="flex: 1;  margin-left: 0.5rem;">
+                      {{ start_date|date:"l, F jS" }}, All Day
+                    </span>
+                  {% endwith %}
+                {% endif %}
+                </div>
+                <!-- Event Location (if available) -->
+                {% if event.location %}
+                <div class="is-flex" style="align-items: center;">
+                  <span class="icon has-text-grey" style="flex: 0 0 auto;">
+                    <i class="fas fa-fw fa-map-marker-alt"></i>
+                  </span>
+                  <span class="has-text-weight-semibold"
+                        style="flex: 1;  margin-left: 0.5rem;">
+                    {{ event.location }}
+                  </span>
+                </div>
+                {% endif %}
+                </div>
+                <!-- Event Description -->
+                {% if event.description %}
+                  <div class="content">{{ event.description|safe|linebreaks }}</div>
+                {% else %}
+                  <div class="content"><em>No description available.</em></div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="notification is-info is-light">
+          No events currently scheduled.
+        </div>
+      {% endif %}
+    </div>
+    </div>
+  </div>
+</section>

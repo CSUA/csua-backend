@@ -1,4 +1,4 @@
 code{
-    background-color: inherit;
-    color: inherit;
+    /*background-color: inherit;*/
+    color: var(--accent);
 }
