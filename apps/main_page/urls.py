@@ -14,14 +14,9 @@ urlpatterns = [
         name="constitution",
     ),
     path(
-        "resources/",
-        TemplateView.as_view(template_name="computing_resources.html"),
-        name="computing_resources",
-    ),
-    path(
-        "services/",
-        TemplateView.as_view(template_name="services.html"),
-        name="services",
+        "tech/",
+        TemplateView.as_view(template_name="tech.html"),
+        name="tech",
     ),
     path("join/", TemplateView.as_view(template_name="join.html"), name="join"),
     path("alumni/", TemplateView.as_view(template_name="alumni.html"), name="alumni"),
