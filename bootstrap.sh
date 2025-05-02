@@ -11,4 +11,5 @@ if [ ! -e "${repo_dir}/.env" ]; then
     cp "${repo_dir}/.env.dev" "${repo_dir}/.env"
 fi
 python3 manage.py migrate
+python3 manage.py createcachetable
 pre-commit install
