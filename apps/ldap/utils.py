@@ -142,10 +142,11 @@ def add_officer(username):
 
 
 def add_group_member(group, username):
+    sanitized_group = escape_rdn(group)
     with newuser_connection() as c:
         if c.bind():
             success = c.modify(
-                "cn={0},{1}".format(group, GROUP_OU),
+                "cn={0},{1}".format(sanitized_group, GROUP_OU),
                 {"memberUid": [(MODIFY_ADD, [username])]},
             )
             if success:
@@ -160,10 +161,11 @@ def remove_group_members(group, usernames):
     if not usernames:
         # without this check, the memberUid attribute gets overridden with []
         return False, "No users specified"
+    sanitized_group = escape_rdn(group)
     with newuser_connection() as c:
         if c.bind():
             success = c.modify(
-                "cn={0},{1}".format(group, GROUP_OU),
+                "cn={0},{1}".format(sanitized_group, GROUP_OU),
                 {"memberUid": [(MODIFY_DELETE, usernames)]},
             )
             if success:
