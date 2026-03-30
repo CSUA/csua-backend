@@ -24,6 +24,8 @@ from ldap3 import (
     Connection,
     Server,
 )
+from ldap3.utils.conv import escape_filter_chars
+from ldap3.utils.dn import escape_rdn
 
 LDAP_SERVER_URL = "ldaps://ldap.csua.berkeley.edu"
 # TODO: make things faster because connect_timeout=2 was too slow (caused socket closure)
@@ -75,11 +77,12 @@ def make_password(password):
 
 
 def change_password(username, new_password):
+    sanitized_username = escape_rdn(username)
     # using newuser_connection for edit privileges
     with newuser_connection() as c:
         if c.bind():
             success = c.modify(
-                "uid={0},{1}".format(username, PEOPLE_OU),
+                "uid={0},{1}".format(sanitized_username, PEOPLE_OU),
                 {"userpassword": [MODIFY_REPLACE, make_password(new_password)]},
             )
             return success
@@ -95,9 +98,10 @@ def create_new_user(username, name, email, sid, password):
 
     If uid is -1, this means the bind failed.
     """
+    sanitized_username = escape_rdn(username)
     with newuser_connection() as c:
         if c.bind():
-            dn = "uid={0},{1}".format(username, PEOPLE_OU)
+            dn = "uid={0},{1}".format(sanitized_username, PEOPLE_OU)
             uid = get_max_uid() + 1
             attrs = {
                 "uid": username,
@@ -123,9 +127,10 @@ def delete_user(username):
     """Deletes a user. Returns True on successful deletion, False on failed
     deletion, and raises a RuntimeError if newuser fails to bind.
     """
+    sanitized_username = escape_rdn(username)
     with newuser_connection() as c:
         if c.bind():
-            dn = f"uid={username},{PEOPLE_OU}"
+            dn = f"uid={sanitized_username},{PEOPLE_OU}"
             success = c.delete(dn)
             return success
         else:
@@ -137,10 +142,11 @@ def add_officer(username):
 
 
 def add_group_member(group, username):
+    sanitized_group = escape_rdn(group)
     with newuser_connection() as c:
         if c.bind():
             success = c.modify(
-                "cn={0},{1}".format(group, GROUP_OU),
+                "cn={0},{1}".format(sanitized_group, GROUP_OU),
                 {"memberUid": [(MODIFY_ADD, [username])]},
             )
             if success:
@@ -155,10 +161,11 @@ def remove_group_members(group, usernames):
     if not usernames:
         # without this check, the memberUid attribute gets overridden with []
         return False, "No users specified"
+    sanitized_group = escape_rdn(group)
     with newuser_connection() as c:
         if c.bind():
             success = c.modify(
-                "cn={0},{1}".format(group, GROUP_OU),
+                "cn={0},{1}".format(sanitized_group, GROUP_OU),
                 {"memberUid": [(MODIFY_DELETE, usernames)]},
             )
             if success:
@@ -173,7 +180,8 @@ def authenticate(username, password):
     """
     verifies that the username and password are correct
     """
-    user_dn = "uid={0},{1}".format(username, PEOPLE_OU)
+    sanitized_username = escape_rdn(username)
+    user_dn = "uid={0},{1}".format(sanitized_username, PEOPLE_OU)
     with ldap_connection(user=user_dn, password=password) as c:
         if c.bind():
             return True
@@ -189,7 +197,8 @@ def get_all_groups():
 
 
 def get_group_members(group):
-    search_filter = "(cn={0})".format(group)
+    sanitized_group = escape_filter_chars(group)
+    search_filter = "(cn={0})".format(sanitized_group)
     with ldap_connection() as c:
         c.search(GROUP_OU, search_filter, attributes=ALL_ATTRIBUTES)
         if len(c.entries) == 0:
@@ -217,11 +226,12 @@ def get_politburo():
 
 
 def get_user_creation_time(username):
+    sanitized_username = escape_filter_chars(username)
     # WIP
     with ldap_connection() as c:
         c.search(
             PEOPLE_OU,
-            "(uid={0})".format(username),
+            "(uid={0})".format(sanitized_username),
             attributes=[
                 "createTimestamp",
                 "creatorsName",
@@ -241,8 +251,9 @@ def get_user_creation_time(username):
 
 
 def get_user_info(username):
+    sanitized_username = escape_filter_chars(username)
     with ldap_connection() as c:
-        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="*")
+        c.search(PEOPLE_OU, "(uid={0})".format(sanitized_username), attributes="*")
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
@@ -250,8 +261,9 @@ def get_user_info(username):
 
 
 def get_user_gecos(username):
+    sanitized_username = escape_filter_chars(username)
     with ldap_connection() as c:
-        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="gecos")
+        c.search(PEOPLE_OU, "(uid={0})".format(sanitized_username), attributes="gecos")
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
@@ -259,8 +271,9 @@ def get_user_gecos(username):
 
 
 def get_user_hashed_password(username):
+    sanitized_username = escape_filter_chars(username)
     with newuser_connection() as c:
-        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="userpassword")
+        c.search(PEOPLE_OU, "(uid={0})".format(sanitized_username), attributes="userpassword")
         if len(c.entries) == 0:
             raise Http404("No such user!")
 
@@ -268,8 +281,9 @@ def get_user_hashed_password(username):
 
 
 def user_exists(username):
+    sanitized_username = escape_filter_chars(username)
     with ldap_connection() as c:
-        c.search(PEOPLE_OU, "(uid={0})".format(username), attributes="")
+        c.search(PEOPLE_OU, "(uid={0})".format(sanitized_username), attributes="")
         return len(c.entries) == 1
 
 
@@ -289,8 +303,9 @@ def get_user_email(username):
 
 
 def email_exists(email):
+    sanitized_email = escape_filter_chars(email)
     with ldap_connection() as c:
-        search_filter = "(gecos=*{0})".format(email)
+        search_filter = "(gecos=*{0})".format(sanitized_email)
         c.search(PEOPLE_OU, search_filter, attributes="gecos")
         if len(c.entries) > 0:
             return True
@@ -298,8 +313,9 @@ def email_exists(email):
 
 
 def get_user_groups(username):
+    sanitized_username = escape_filter_chars(username)
     with ldap_connection() as c:
-        c.search(GROUP_OU, "(memberUid={})".format(username), attributes="cn")
+        c.search(GROUP_OU, "(memberUid={})".format(sanitized_username), attributes="cn")
         groups = [str(entry.cn) for entry in c.entries]
         return groups
 
