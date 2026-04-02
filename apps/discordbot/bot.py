@@ -3,6 +3,7 @@ import io
 import logging
 import threading
 import time
+import random
 import typing
 import unicodedata
 from datetime import datetime
@@ -536,6 +537,20 @@ class CSUABot:
                     self.loop,
                 ).result(TIMEOUT_SECS)
 
+        def wednesday():
+            month_day = datetime.now().day
+            if month_day <= 7:
+                msgs = [
+                    "WARNING: it is wednesday.",
+                    "⚠️ today is wednesday.",
+                    "⚠️📢 it is wednesday",
+                    "Be aware that it is currently Wednesday. Proceed with caution.",
+                ]
+                msg = random.choice(msgs)
+                asyncio.run_coroutine_threadsafe(
+                    self.client.get_channel(ANNOUNCEMENTS_CHANNEL_ID).send(msg),
+                    self.loop)
+
         if DEBUG:
             schedule.every(10).seconds.do(partial(announcer, AnnouncementType.WEEK))
             schedule.every(10).seconds.do(partial(announcer, AnnouncementType.TOMORROW))
@@ -554,6 +569,7 @@ class CSUABot:
             )
             schedule.every().hour.do(partial(announcer, AnnouncementType.HOUR))
             schedule.every(10).minutes.do(partial(announcer, AnnouncementType.B_TIME))
+            schedule.every().wednesday.at("12:00").do(wednesday)
 
         while True:
             schedule.run_pending()
